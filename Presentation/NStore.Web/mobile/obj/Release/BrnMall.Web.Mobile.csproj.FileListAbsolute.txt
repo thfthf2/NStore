@@ -1,0 +1,5 @@
+C:\Users\ZhangMeng\Desktop\工作\BrnMall\Presentation\BrnMall.Web\bin\BrnMall.Web.Mobile.dll
+C:\Users\ZhangMeng\Desktop\工作\BrnMall\Presentation\BrnMall.Web\bin\BrnMall.Web.Mobile.pdb
+C:\Users\ZhangMeng\Desktop\工作\BrnMall\Presentation\BrnMall.Web\mobile\obj\Release\BrnMall.Web.Mobile.csprojResolveAssemblyReference.cache
+C:\Users\ZhangMeng\Desktop\工作\BrnMall\Presentation\BrnMall.Web\mobile\obj\Release\BrnMall.Web.Mobile.dll
+C:\Users\ZhangMeng\Desktop\工作\BrnMall\Presentation\BrnMall.Web\mobile\obj\Release\BrnMall.Web.Mobile.pdb

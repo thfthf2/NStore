@@ -1,0 +1,13 @@
+Log Entry : 2014年11月30日 11:13:12
+方法:Void OnError(System.Data.SqlClient.SqlException, Boolean, System.Action`1[System.Action]),异常信息:为过程或函数 bma_getproductreviewcount 指定了过多的参数。
+------------------------------------
+Log Entry : 2014年11月30日 12:10:13
+方法:Void OnError(System.Data.SqlClient.SqlException, Boolean, System.Action`1[System.Action]),异常信息:在将 nvarchar 值 ' AND [state]=0 AND [replyuid]>0 AND [consulttypeid]=' 转换成数据类型 tinyint 时失败。
+------------------------------------
+Log Entry : 2014年11月30日 12:13:14
+方法:Void OnError(System.Data.SqlClient.SqlException, Boolean, System.Action`1[System.Action]),异常信息:在将 nvarchar 值 ' AND [state]=0 AND [replyuid]>0 AND [consulttypeid]=' 转换成数据类型 tinyint 时失败。
+------------------------------------
+Log Entry : 2014年11月30日 21:44:33
+方法:Void OnError(System.Data.SqlClient.SqlException, Boolean, System.Action`1[System.Action]),异常信息:不能将值 NULL 插入列 'extfield1'，表 'brnmall.dbo.bma_adverts'；列不允许有 Null 值。UPDATE 失败。
+语句已终止。
+------------------------------------

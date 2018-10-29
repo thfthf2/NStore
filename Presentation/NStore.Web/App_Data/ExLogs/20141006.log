@@ -1,0 +1,8 @@
+Log Entry : 2014年10月06日 11:17:58
+方法:Void OnError(System.Data.SqlClient.SqlException, Boolean, System.Action`1[System.Action]),异常信息:无法绑定由多个部分组成的标识符 "temp3.storeid"。
+无法绑定由多个部分组成的标识符 "temp3.name"。
+------------------------------------
+Log Entry : 2014年10月06日 11:21:43
+方法:Void OnError(System.Data.SqlClient.SqlException, Boolean, System.Action`1[System.Action]),异常信息:无法绑定由多个部分组成的标识符 "temp3.storeid"。
+无法绑定由多个部分组成的标识符 "temp3.name"。
+------------------------------------

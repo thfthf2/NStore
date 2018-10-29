@@ -1,0 +1,3 @@
+Log Entry : 2014年12月22日 16:00:59
+方法:Void SetModel(System.Object),异常信息:传入字典的模型项的类型为“BrnMall.Web.Mobile.Models.OrderListModel”，但此字典需要类型“BrnMall.Web.Models.OrderListModel”的模型项。
+------------------------------------

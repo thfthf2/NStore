@@ -1,0 +1,9 @@
+Log Entry : 2014年12月25日 16:20:05
+方法:System.CodeDom.Compiler.CompilerResults Compile(),异常信息:c:\Users\ZhangMeng\Desktop\工作\BrnMall\Presentation\BrnMall.Web\mobile\views\order\submitresult.cshtml(156): error CS1061: “BrnMall.Web.Framework.MobileWorkContext”不包含“FriendLinkList”的定义，并且找不到可接受类型为“BrnMall.Web.Framework.MobileWorkContext”的第一个参数的扩展方法“FriendLinkList”(是否缺少 using 指令或程序集引用?)
+------------------------------------
+Log Entry : 2014年12月25日 16:20:18
+方法:System.CodeDom.Compiler.CompilerResults Compile(),异常信息:c:\Users\ZhangMeng\Desktop\工作\BrnMall\Presentation\BrnMall.Web\mobile\views\shared\prompt.cshtml(148): error CS1061: “BrnMall.Web.Framework.MobileWorkContext”不包含“HelpList”的定义，并且找不到可接受类型为“BrnMall.Web.Framework.MobileWorkContext”的第一个参数的扩展方法“HelpList”(是否缺少 using 指令或程序集引用?)
+------------------------------------
+Log Entry : 2014年12月25日 16:23:43
+方法:System.CodeDom.Compiler.CompilerResults Compile(),异常信息:c:\Users\ZhangMeng\Desktop\工作\BrnMall\Presentation\BrnMall.Web\mobile\views\order\payshow.cshtml(153): error CS1061: “BrnMall.Web.Framework.MobileWorkContext”不包含“FriendLinkList”的定义，并且找不到可接受类型为“BrnMall.Web.Framework.MobileWorkContext”的第一个参数的扩展方法“FriendLinkList”(是否缺少 using 指令或程序集引用?)
+------------------------------------

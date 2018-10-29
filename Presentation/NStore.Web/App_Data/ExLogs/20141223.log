@@ -1,0 +1,27 @@
+Log Entry : 2014年12月23日 13:39:16
+方法:System.CodeDom.Compiler.CompilerResults Compile(),异常信息:c:\Users\ZhangMeng\Desktop\工作\BrnMall\Presentation\BrnMall.Web\mobile\views\shared\prompt.cshtml(148): error CS1061: “BrnMall.Web.Framework.MobileWorkContext”不包含“HelpList”的定义，并且找不到可接受类型为“BrnMall.Web.Framework.MobileWorkContext”的第一个参数的扩展方法“HelpList”(是否缺少 using 指令或程序集引用?)
+------------------------------------
+Log Entry : 2014年12月23日 18:01:20
+方法:System.CodeDom.Compiler.CompilerResults Compile(),异常信息:c:\Users\ZhangMeng\Desktop\工作\BrnMall\Presentation\BrnMall.Web\mobile\views\order\submitresult.cshtml(156): error CS1061: “BrnMall.Web.Framework.MobileWorkContext”不包含“FriendLinkList”的定义，并且找不到可接受类型为“BrnMall.Web.Framework.MobileWorkContext”的第一个参数的扩展方法“FriendLinkList”(是否缺少 using 指令或程序集引用?)
+------------------------------------
+Log Entry : 2014年12月23日 19:54:45
+方法:System.CodeDom.Compiler.CompilerResults Compile(),异常信息:c:\Users\ZhangMeng\Desktop\工作\BrnMall\Presentation\BrnMall.Web\mobile\views\ucenter\orderlist.cshtml(71): error CS1061: “BrnMall.Web.Mobile.Models.OrderListModel”不包含“CateId”的定义，并且找不到可接受类型为“BrnMall.Web.Mobile.Models.OrderListModel”的第一个参数的扩展方法“CateId”(是否缺少 using 指令或程序集引用?)
+------------------------------------
+Log Entry : 2014年12月23日 20:50:36
+方法:Void SerializeValueInternal(System.Object, System.Text.StringBuilder, Int32, System.Collections.Hashtable, SerializationFormat, System.Reflection.MemberInfo),异常信息:序列化类型为“System.Reflection.RuntimeModule”的对象时检测到循环引用。
+------------------------------------
+Log Entry : 2014年12月23日 20:52:23
+方法:Void SerializeValueInternal(System.Object, System.Text.StringBuilder, Int32, System.Collections.Hashtable, SerializationFormat, System.Reflection.MemberInfo),异常信息:序列化类型为“System.Reflection.RuntimeModule”的对象时检测到循环引用。
+------------------------------------
+Log Entry : 2014年12月23日 20:53:10
+方法:Void SerializeValueInternal(System.Object, System.Text.StringBuilder, Int32, System.Collections.Hashtable, SerializationFormat, System.Reflection.MemberInfo),异常信息:序列化类型为“System.Reflection.RuntimeModule”的对象时检测到循环引用。
+------------------------------------
+Log Entry : 2014年12月23日 20:57:52
+方法:Void SerializeValueInternal(System.Object, System.Text.StringBuilder, Int32, System.Collections.Hashtable, SerializationFormat, System.Reflection.MemberInfo),异常信息:序列化类型为“System.Reflection.RuntimeModule”的对象时检测到循环引用。
+------------------------------------
+Log Entry : 2014年12月23日 22:22:05
+方法:Void OnError(System.Data.SqlClient.SqlException, Boolean, System.Action`1[System.Action]),异常信息:在将 varchar 值 ' AND [orderstate]=' 转换成数据类型 tinyint 时失败。
+------------------------------------
+Log Entry : 2014年12月23日 22:22:15
+方法:Void OnError(System.Data.SqlClient.SqlException, Boolean, System.Action`1[System.Action]),异常信息:在将 varchar 值 ' AND [orderstate]=' 转换成数据类型 tinyint 时失败。
+------------------------------------

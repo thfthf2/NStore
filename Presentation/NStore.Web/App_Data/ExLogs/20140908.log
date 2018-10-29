@@ -1,0 +1,3 @@
+Log Entry : 2014年09月08日 22:17:29
+方法:Void OnError(System.Data.SqlClient.SqlException, Boolean, System.Action`1[System.Action]),异常信息:找不到存储过程 'bma_getfullcutpromotionbypidandtime'。
+------------------------------------

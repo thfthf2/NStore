@@ -1,0 +1,22 @@
+Log Entry : 2014年12月01日 18:58:39
+方法:Void Execute(),异常信息:未将对象引用设置到对象的实例。
+------------------------------------
+Log Entry : 2014年12月01日 22:40:02
+方法:Void EnsureGeneratedCode(),异常信息:“@”字符后不应有“if”关键字。在代码内部，不需要在像“if”这样的构造前加上前缀“@”。
+
+------------------------------------
+Log Entry : 2014年12月01日 22:54:44
+方法:Void Execute(),异常信息:无法将类型为“BrnMall.Core.PartProductInfo”的对象强制转换为类型“BrnMall.Core.StoreProductInfo”。
+------------------------------------
+Log Entry : 2014年12月01日 23:33:12
+方法:Void Insert(TKey, TValue, Boolean),异常信息:值不能为 null。
+参数名: key
+------------------------------------
+Log Entry : 2014年12月01日 23:34:12
+方法:Void Insert(TKey, TValue, Boolean),异常信息:值不能为 null。
+参数名: key
+------------------------------------
+Log Entry : 2014年12月01日 23:37:44
+方法:Void Insert(TKey, TValue, Boolean),异常信息:值不能为 null。
+参数名: key
+------------------------------------

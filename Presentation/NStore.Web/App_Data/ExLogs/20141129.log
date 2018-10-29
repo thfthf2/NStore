@@ -1,0 +1,9 @@
+Log Entry : 2014年11月29日 11:20:55
+方法:System.CodeDom.Compiler.CompilerResults Compile(),异常信息:c:\Users\ZhangMeng\Desktop\工作\BrnMall\Presentation\BrnMall.Web\views\catalog\category.cshtml(168): error CS1502: 与“BrnMall.Services.Categories.GetChildCategoryList(int, int, bool, System.Collections.Generic.List<BrnMall.Core.CategoryInfo>)”最匹配的重载方法具有一些无效参数
+------------------------------------
+Log Entry : 2014年11月29日 18:23:12
+方法:Void OnError(System.Data.SqlClient.SqlException, Boolean, System.Action`1[System.Action]),异常信息:'6' 附近有语法错误。
+------------------------------------
+Log Entry : 2014年11月29日 23:36:33
+方法:System.CodeDom.Compiler.CompilerResults Compile(),异常信息:c:\Users\ZhangMeng\Desktop\工作\BrnMall\Presentation\BrnMall.Web\views\home\index.cshtml(164): error CS0136: 不能在此范围内声明名为“i”的局部变量，因为这样会使“i”具有不同的含义，而它已在“父级或当前”范围中表示其他内容了
+------------------------------------

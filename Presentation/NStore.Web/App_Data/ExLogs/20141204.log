@@ -1,0 +1,9 @@
+Log Entry : 2014年12月04日 21:11:42
+方法:Void Execute(),异常信息:未将对象引用设置到对象的实例。
+------------------------------------
+Log Entry : 2014年12月04日 22:59:25
+方法:System.Object CoerceValue(System.Object, System.Data.SqlClient.MetaType, Boolean ByRef, Boolean ByRef, Boolean),异常信息:将参数值从 Int32 转换到 Byte 失败。
+------------------------------------
+Log Entry : 2014年12月04日 23:05:30
+方法:System.Object CoerceValue(System.Object, System.Data.SqlClient.MetaType, Boolean ByRef, Boolean ByRef, Boolean),异常信息:将参数值从 Int32 转换到 Byte 失败。
+------------------------------------

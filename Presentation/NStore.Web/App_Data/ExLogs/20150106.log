@@ -1,0 +1,9 @@
+Log Entry : 2015年01月06日 09:11:43
+方法:System.CodeDom.Compiler.CompilerResults Compile(),异常信息:c:\Users\ZhangMeng\Desktop\工作\BrnMall\Presentation\BrnMall.Web\views\cart\fullsendmainproductlist.cshtml(283): error CS1061: “BrnMall.Web.Models.FullSendMainProductListModel”不包含“PmId”的定义，并且找不到可接受类型为“BrnMall.Web.Models.FullSendMainProductListModel”的第一个参数的扩展方法“PmId”(是否缺少 using 指令或程序集引用?)
+------------------------------------
+Log Entry : 2015年01月06日 16:12:52
+方法:System.Web.Mvc.ActionResult ChangeSuitCount(),异常信息:尝试除以零。
+------------------------------------
+Log Entry : 2015年01月06日 16:15:05
+方法:System.Web.Mvc.ActionResult ChangeSuitCount(),异常信息:尝试除以零。
+------------------------------------

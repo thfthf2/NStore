@@ -1,0 +1,17 @@
+Log Entry : 2014年10月13日 09:51:32
+方法:Void OnError(System.Data.SqlClient.SqlException, Boolean, System.Action`1[System.Action]),异常信息:字符串 'lumia    ' 后的引号不完整。
+'lumia    ' 附近有语法错误。
+------------------------------------
+Log Entry : 2014年10月13日 09:53:16
+方法:Void OnError(System.Data.SqlClient.SqlException, Boolean, System.Action`1[System.Action]),异常信息:字符串 'lumia    ' 后的引号不完整。
+'lumia    ' 附近有语法错误。
+------------------------------------
+Log Entry : 2014年10月13日 09:54:50
+方法:Void OnError(System.Data.SqlClient.SqlException, Boolean, System.Action`1[System.Action]),异常信息:'lumia' 附近有语法错误。
+------------------------------------
+Log Entry : 2014年10月13日 09:55:53
+方法:Void OnError(System.Data.SqlClient.SqlException, Boolean, System.Action`1[System.Action]),异常信息:从数据类型 nvarchar 转换为 float 时出错。
+------------------------------------
+Log Entry : 2014年10月13日 09:59:28
+方法:Void OnError(System.Data.SqlClient.SqlException, Boolean, System.Action`1[System.Action]),异常信息:从数据类型 nvarchar 转换为 float 时出错。
+------------------------------------

@@ -1,0 +1,3 @@
+Log Entry : 2014年11月06日 11:52:18
+方法:Void OnError(System.Data.SqlClient.SqlException, Boolean, System.Action`1[System.Action]),异常信息:关键字 'AS' 附近有语法错误。
+------------------------------------

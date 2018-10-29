@@ -1,0 +1,6 @@
+Log Entry : 2014年12月24日 10:40:17
+方法:System.Object CallSite.Target(System.Runtime.CompilerServices.Closure, System.Runtime.CompilerServices.CallSite, System.Object),异常信息:无法对 null 引用执行运行时绑定
+------------------------------------
+Log Entry : 2014年12月24日 13:11:19
+方法:System.Object CallSite.Target(System.Runtime.CompilerServices.Closure, System.Runtime.CompilerServices.CallSite, System.Object),异常信息:无法对 null 引用执行运行时绑定
+------------------------------------

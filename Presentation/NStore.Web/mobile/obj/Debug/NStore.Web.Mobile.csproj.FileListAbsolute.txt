@@ -1,0 +1,5 @@
+E:\NStore\Presentation\BrnMall.Web\bin\NStore.Web.Mobile.dll
+E:\NStore\Presentation\BrnMall.Web\bin\NStore.Web.Mobile.pdb
+E:\NStore\Presentation\BrnMall.Web\mobile\obj\Debug\NStore.Web.Mobile.csprojResolveAssemblyReference.cache
+E:\NStore\Presentation\BrnMall.Web\mobile\obj\Debug\NStore.Web.Mobile.dll
+E:\NStore\Presentation\BrnMall.Web\mobile\obj\Debug\NStore.Web.Mobile.pdb

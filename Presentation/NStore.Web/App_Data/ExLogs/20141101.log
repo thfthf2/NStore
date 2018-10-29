@@ -1,0 +1,9 @@
+Log Entry : 2014年11月01日 08:33:32
+方法:Void OnError(System.Data.SqlClient.SqlException, Boolean, System.Action`1[System.Action]),异常信息:',' 附近有语法错误。
+------------------------------------
+Log Entry : 2014年11月01日 11:19:11
+方法:Void OnError(System.Data.SqlClient.SqlException, Boolean, System.Action`1[System.Action]),异常信息:为过程或函数 bma_filterproductbyattrvalue 指定了过多的参数。
+------------------------------------
+Log Entry : 2014年11月01日 11:19:51
+方法:Void OnError(System.Data.SqlClient.SqlException, Boolean, System.Action`1[System.Action]),异常信息:为过程或函数 bma_filterproductbyattrvalue 指定了过多的参数。
+------------------------------------
