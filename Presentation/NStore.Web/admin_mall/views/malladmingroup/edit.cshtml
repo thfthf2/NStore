@@ -54,9 +54,9 @@
     </tr>
 
  @{
-        List<MallAdminActionInfo> mallAdminActionTree = ViewData["mallAdminActionTree"] as List<MallAdminActionInfo>;
+        List<MallAdminActionInfo> MallAdminActionTree = ViewData["MallAdminActionTree"] as List<MallAdminActionInfo>;
         int temp = 0;
-        foreach (MallAdminActionInfo info in mallAdminActionTree)
+        foreach (MallAdminActionInfo info in MallAdminActionTree)
         {
             if (info.ParentId == 0)
             {
@@ -88,7 +88,7 @@
             
             temp++;
 
-            if (temp == mallAdminActionTree.Count)
+            if (temp == MallAdminActionTree.Count)
             {
                     @:</td>
                     @:</tr>

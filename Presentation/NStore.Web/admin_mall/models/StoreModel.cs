@@ -237,7 +237,7 @@ namespace NStore.Web.MallAdmin.Models
     /// <summary>
     /// 店铺管理员模型类
     /// </summary>
-    public class StoreAdminerModel
+    public class MallAdminerModel
     {
         /// <summary>
         /// 账号

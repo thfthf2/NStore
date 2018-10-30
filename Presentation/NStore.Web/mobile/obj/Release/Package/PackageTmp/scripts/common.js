@@ -1,6 +1,28 @@
 ﻿var uid = -1; //用户id
 var isGuestSC = 0; //是否允许游客使用购物车(0代表不可以，1代表可以)
-var scSubmitType = 0; //购物车的提交方式(0代表跳转到提示页面，1代表跳转到列表页面，2代表ajax提交)
+
+//返回
+function pageBack() {
+    var a = window.location.href;
+    if (/#top/.test(a)) {
+        window.history.go(-2);
+        window.location.load(window.location.href)
+    } else {
+        window.history.back();
+        window.location.load(window.location.href)
+    }
+}
+
+//导航栏显示和隐藏
+function navSH() {
+    var navObj = document.getElementById("nav");
+    if (navObj.style.display == "none") {
+        navObj.style.display = "block";
+    }
+    else {
+        navObj.style.display = "none";
+    }
+}
 
 //商城搜索
 function mallSearch(keyword) {
@@ -8,76 +30,21 @@ function mallSearch(keyword) {
         alert("请输入关键词");
     }
     else {
-        window.location.href = "/catalog/search?keyword=" + encodeURIComponent(keyword);
+        window.location.href = "/mob/catalog/search?keyword=" + encodeURIComponent(keyword);
     }
 }
 
 //店铺搜索
-function storeSearch(storeId, keyword, storeCid, startPrice, endPrice) {
+function storeSearch(storeId, keyword) {
     if (storeId < 1) {
         alert("请先选择店铺");
     }
-    else if ((keyword == undefined || keyword == null || keyword.length < 1) && storeCid < 1 && (startPrice == undefined || startPrice == null || startPrice.length < 1) && (endPrice == undefined || endPrice == null || endPrice.length < 1)) {
+    else if (keyword == undefined || keyword == null || keyword.length < 1) {
         alert("请输入搜索条件");
     }
     else {
-        window.location.href = "/store/search?storeId=" + storeId + "&keyword=" + encodeURIComponent(keyword) + "&storeCid=" + storeCid + "&startPrice=" + startPrice + "&endPrice=" + endPrice;
+        window.location.href = "/mob/store/search?storeId=" + storeId + "&keyword=" + encodeURIComponent(keyword);
     }
-}
-
-//获得购物车快照
-var isAlreadyLoadCartSnap = false;
-function getCartSnap() {
-    if (isGuestSC == 0 && uid < 1) {
-        return;
-    }
-    var cartSnap = document.getElementById("cartSnap");
-    cartSnap.style.display = "";
-    if (!isAlreadyLoadCartSnap) {
-        isAlreadyLoadCartSnap = true;
-        Ajax.get("/cart/snap", false, function (data) {
-            getCartSnapResponse(data);
-        })
-    }
-}
-
-//处理获得购物车快照的反馈信息
-function getCartSnapResponse(data) {
-    var cartSnap = document.getElementById("cartSnap");
-    try {
-        var result = eval("(" + data + ")");
-        alert(result.content);
-    }
-    catch (ex) {
-        cartSnap.innerHTML = data;
-        document.getElementById("cartSnapProudctCount").innerHTML = document.getElementById("csProudctCount").innerHTML;
-    }
-}
-
-//关闭购物车快照
-function closeCartSnap(event) {
-    if (Browser.isFirefox && document.getElementById('cartSnapBox').contains(event.relatedTarget)) return;
-    var cartSnap = document.getElementById("cartSnap");
-    cartSnap.style.display = "none";
-}
-
-//添加商品到收藏夹
-function addProductToFavorite(pid) {
-    if (pid < 1) {
-        alert("请选择商品");
-    }
-    else if (uid < 1) {
-        alert("请先登录");
-    }
-    else {
-        Ajax.get("/ucenter/addproducttofavorite?pid=" + pid, false, addProductToFavoriteResponse)
-    }
-}
-
-//处理添加商品到收藏夹的反馈信息
-function addProductToFavoriteResponse(data) {
-    var result = eval("(" + data + ")");
-    alert(result.content);
 }
 
 //添加店铺到收藏夹
@@ -89,7 +56,7 @@ function addStoreToFavorite(storeId) {
         alert("请先登录");
     }
     else {
-        Ajax.get("/ucenter/addstoretofavorite?storeId=" + storeId, false, addStoreToFavoriteResponse)
+        Ajax.get("/mob/ucenter/addstoretofavorite?storeId=" + storeId, false, addStoreToFavoriteResponse)
     }
 }
 
@@ -99,485 +66,110 @@ function addStoreToFavoriteResponse(data) {
     alert(result.content);
 }
 
-//添加商品到购物车
-function addProductToCart(pid, buyCount) {
-    if (pid < 1) {
-        alert("请选择商品");
-    }
-    else if (isGuestSC == 0 && uid < 1) {
-        alert("请先登录");
-    }
-    else if (buyCount < 1) {
-        alert("请填写购买数量");
-    }
-    else if (scSubmitType != 2) {
-        window.location.href = "/cart/addproduct?pid=" + pid + "&buyCount=" + buyCount;
-    }
-    else {
-        Ajax.get("/cart/addproduct?pid=" + pid + "&buyCount=" + buyCount, false, addProductToCartResponse)
-    }
-}
-
-//处理添加商品到购物车的反馈信息
-function addProductToCartResponse(data) {
-    var result = eval("(" + data + ")");
-    alert(result.content);
-}
-
-//直接购买商品
-function directBuyProduct(pid, buyCount) {
-    if (pid < 1) {
-        alert("请选择商品");
-    }
-    else if (isGuestSC == 0 && uid < 1) {
-        alert("请先登录");
-    }
-    else if (buyCount < 1) {
-        alert("请填写购买数量");
-    }
-    else {
-        Ajax.get("/cart/directbuyproduct?pid=" + pid + "&buyCount=" + buyCount, false, directBuyProductResponse)
-    }
-}
-
-//处理直接购买商品的反馈信息
-function directBuyProductResponse(data) {
-    var result = eval("(" + data + ")");
-    if (result.state == "success") {
-        window.location.href = result.content;
-    }
-    else {
-        alert(result.content);
-    }
-}
-
-//添加套装到购物车
-function addSuitToCart(pmId, buyCount) {
-    if (pmId < 1) {
-        alert("请选择套装");
-    }
-    else if (isGuestSC == 0 && uid < 1) {
-        alert("请先登录");
-    }
-    else if (buyCount < 1) {
-        alert("请填写购买数量");
-    }
-    else if (scSubmitType != 2) {
-        window.location.href = "/cart/addsuit?pmId=" + pmId + "&buyCount=" + buyCount;
-    }
-    else {
-        Ajax.get("/cart/addsuit?pmId=" + pmId + "&buyCount=" + buyCount, false, addSuitToCartResponse)
-    }
-}
-
-//处理添加套装到购物车的反馈信息
-function addSuitToCartResponse(data) {
-    var result = eval("(" + data + ")");
-    if (result.state != "stockout") {
-        alert(result.content);
-    }
-    else {
-        alert("商品库存不足");
-    }
-}
-
-//直接购买套装
-function directBuySuit(pmId, buyCount) {
-    if (pmId < 1) {
-        alert("请选择套装");
-    }
-    else if (isGuestSC == 0 && uid < 1) {
-        alert("请先登录");
-    }
-    else if (buyCount < 1) {
-        alert("请填写购买数量");
-    }
-    else {
-        Ajax.get("/cart/directbuysuit?pmId=" + pmId + "&buyCount=" + buyCount, false, directBuySuitResponse)
-    }
-}
-
-//处理直接购买套装的反馈信息
-function directBuySuitResponse(data) {
-    var result = eval("(" + data + ")");
-    if (result.state == "success") {
-        window.location.href = result.content;
-    }
-    else {
-        alert(result.content);
-    }
-}
-
-//获得选中的购物车项键列表
-function getSelectedCartItemKeyList() {
-    var inputList = document.getElementById("cartBody").getElementsByTagName("input");
-
-    var valueList = new Array();
-    for (var i = 0; i < inputList.length; i++) {
-        if (inputList[i].type == "checkbox" && inputList[i].name == "cartItemCheckbox" && inputList[i].checked) {
-            valueList.push(inputList[i].value);
-        }
-    }
-
-    if (valueList.length < 1) {
-        //当取消全部商品时,添加一个字符防止商品全部选中
-        return "_";
-    }
-    else {
-        return valueList.join(',');
-    }
-}
-
-//设置批量选择购物车项复选框
-function setBatchSelectCartItemCheckbox() {
-    var inputList = document.getElementById("cartBody").getElementsByTagName("input");
-
-    var flag = true;
-    for (var i = 0; i < inputList.length; i++) {
-        if (inputList[i].type == "checkbox" && inputList[i].name == "cartItemCheckbox" && !inputList[i].checked) {
-            document.getElementById("storeCartCheckbox" + inputList[i].getAttribute("storeId")).checked = false;
-            flag = false;
-        }
-    }
-
-    if (flag) {
-        document.getElementById("selectAllBut_top").checked = true;
-        document.getElementById("selectAllBut_bottom").checked = true;
-    }
-    else {
-        document.getElementById("selectAllBut_top").checked = false;
-        document.getElementById("selectAllBut_bottom").checked = false;
-    }
-}
-
-//删除购物车中商品
-function delCartProduct(pid, pos) {
-    if (isGuestSC == 0 && uid < 1) {
-        alert("请先登录");
-        return;
-    }
-    if (pos == 0) {
-        Ajax.get("/cart/delpruduct?pid=" + pid + "&pos=" + pos + "&selectedCartItemKeyList=" + getSelectedCartItemKeyList(), false, function (data) {
-            try {
-                alert(val("(" + data + ")").content);
-            }
-            catch (ex) {
-                document.getElementById("cartBody").innerHTML = data;
-                setBatchSelectCartItemCheckbox();
-            }
-        })
-    }
-    else {
-        Ajax.get("/cart/delpruduct?pid=" + pid + "&pos=" + pos, false, function (data) {
-            try {
-                alert(val("(" + data + ")").content);
-            }
-            catch (ex) {
-                document.getElementById("cartSnap").innerHTML = data;
-                document.getElementById("cartSnapProudctCount").innerHTML = document.getElementById("csProudctCount").innerHTML;
-            }
-        })
-    }
-}
-
-//删除购物车中套装
-function delCartSuit(pmId, pos) {
-    if (isGuestSC == 0 && uid < 1) {
-        alert("请先登录");
-        return;
-    }
-    if (pos == 0) {
-        Ajax.get("/cart/delsuit?pmId=" + pmId + "&pos=" + pos + "&selectedCartItemKeyList=" + getSelectedCartItemKeyList(), false, function (data) {
-            try {
-                alert(eval("(" + data + ")").content);
-            }
-            catch (ex) {
-                document.getElementById("cartBody").innerHTML = data;
-                setBatchSelectCartItemCheckbox();
-            }
-        })
-    }
-    else {
-        Ajax.get("/cart/delsuit?pmId=" + pmId + "&pos=" + pos, false, function (data) {
-            try {
-                alert(eval("(" + data + ")").content);
-            }
-            catch (ex) {
-                document.getElementById("cartSnap").innerHTML = data;
-                document.getElementById("cartSnapProudctCount").innerHTML = document.getElementById("csProudctCount").innerHTML;
-            }
-        })
-    }
-}
-
-//删除购物车中满赠
-function delCartFullSend(pmId, pos) {
-    if (isGuestSC == 0 && uid < 1) {
-        alert("请先登录");
-        return;
-    }
-    if (pos == 0) {
-        Ajax.get("/cart/delfullsend?pmId=" + pmId + "&pos=" + pos + "&selectedCartItemKeyList=" + getSelectedCartItemKeyList(), false, function (data) {
-            try {
-                alert(eval("(" + data + ")").content);
-            }
-            catch (ex) {
-                document.getElementById("cartBody").innerHTML = data;
-                setBatchSelectCartItemCheckbox();
-            }
-        })
-    }
-    else {
-        Ajax.get("/cart/delfullsend?pmId=" + pmId + "&pos=" + pos, false, function (data) {
-            try {
-                alert(eval("(" + data + ")").content);
-            }
-            catch (ex) {
-                document.getElementById("cartSnap").innerHTML = data;
-                document.getElementById("cartSnapProudctCount").innerHTML = document.getElementById("csProudctCount").innerHTML;
-            }
-        })
-    }
-}
-
-//清空购物车
-function clearCart(pos) {
-    if (isGuestSC == 0 && uid < 1) {
-        alert("请先登录");
-        return;
-    }
-    Ajax.get("/cart/clear?pos=" + pos, false, function (data) {
-        try {
-            alert(eval("(" + data + ")").content);
-        }
-        catch (ex) {
-            if (pos == 0) {
-                document.getElementById("cartBody").innerHTML = data;
-            }
-            else {
-                document.getElementById("cartSnap").innerHTML = data;
-                document.getElementById("cartSnapProudctCount").innerHTML = "0";
-            }
-        }
+//获得分类商品列表
+var cpListNextPageNumber = 2;
+function getCategoryProductList(cateId, brandId, filterPrice, filterAttr, onlyStock, sortColumn, sortDirection, page) {
+    document.getElementById("loadBut").style.display = "none";
+    document.getElementById("loadPrompt").style.display = "block";
+    Ajax.get("/mob/catalog/ajaxcategory?cateId=" + cateId + "&brandId=" + brandId + "&filterPrice=" + filterPrice + "&filterAttr=" + filterAttr + "&onlyStock=" + onlyStock + "&sortColumn=" + sortColumn + "&sortDirection=" + sortDirection + "&page=" + page, false, function (data) {
+        getCategoryProductListResponse(data);
     })
 }
 
-//改变商品数量
-function changePruductCount(pid, buyCount) {
-    if (!isInt(buyCount)) {
-        alert('请输入数字');
-    }
-    else if (isGuestSC == 0 && uid < 1) {
-        alert("请先登录");
-    }
-    else {
-        var key = "0_" + pid;
-        var inputList = document.getElementById("cartBody").getElementsByTagName("input");
-        for (var i = 0; i < inputList.length; i++) {
-            if (inputList[i].type == "checkbox" && inputList[i].value == key) {
-                inputList[i].checked = true;
-                break;
+//处理获得分类商品列表的反馈信息
+function getCategoryProductListResponse(data) {
+    try {
+        var result = eval("(" + data + ")");
+        var element = document.createElement("div");
+        element.className = "proItme";
+        var innerHTML = "";
+        for (var i = 0; i < result.ProductList.length; i++) {
+            var reviewLayer = 100;
+            var goodStars = result.ProductList[i].Star1 + result.ProductList[i].Star2 + result.ProductList[i].Star3;
+            var allStars = goodStars + result.ProductList[i].Star4 + result.ProductList[i].Star5;
+            if (allStars != 0) {
+                reviewLayer = goodStars * 100 / allStars;
             }
+
+            innerHTML += "<a href='/mob/" + result.ProductList[i].Pid + ".html'>";
+            innerHTML += "<img src='/upload/store/" + result.ProductList[i].StoreId + "/product/show/thumb100_100/" + result.ProductList[i].ShowImg + "' width='100' height='100' class='img' />";
+            innerHTML += "<span class='proDt'>";
+            innerHTML += "<strong class='proDD DD1'>" + result.ProductList[i].Name + "</strong>";
+            innerHTML += "<b class='proDD DD3'>￥" + result.ProductList[i].ShopPrice + "</b>";
+            innerHTML += "<p class='proDD DD4'>" + result.ProductList[i].ReviewCount + " 人评价，" + reviewLayer + "%好评</p>";
+            innerHTML += "</span></a>";
         }
-        Ajax.get("/cart/changepruductcount?pid=" + pid + "&buyCount=" + buyCount + "&selectedCartItemKeyList=" + getSelectedCartItemKeyList(), false, function (data) {
-            try {
-                alert(eval("(" + data + ")").content);
-            }
-            catch (ex) {
-                document.getElementById("cartBody").innerHTML = data;
-                setBatchSelectCartItemCheckbox();
-            }
-        })
+        element.innerHTML = innerHTML;
+        document.getElementById("categoryProductListBlock").appendChild(element);
+        if (result.PageModel.HasNextPage) {
+            document.getElementById("loadBut").style.display = "block";
+            document.getElementById("loadPrompt").style.display = "none";
+            cpListNextPageNumber += 1;
+        }
+        else {
+            document.getElementById("loadBut").style.display = "none";
+            document.getElementById("loadPrompt").style.display = "none";
+            document.getElementById("lastPagePrompt").style.display = "block";
+        }
+    }
+    catch (ex) {
+        alert("加载错误");
     }
 }
 
-//改变套装数量
-function changeSuitCount(pmId, buyCount) {
-    if (!isInt(buyCount)) {
-        alert('请输入数字');
-    }
-    else if (isGuestSC == 0 && uid < 1) {
-        alert("请先登录");
-    }
-    else {
-        var key = "1_" + pmId;
-        var inputList = document.getElementById("cartBody").getElementsByTagName("input");
-        for (var i = 0; i < inputList.length; i++) {
-            if (inputList[i].type == "checkbox" && inputList[i].value == key) {
-                inputList[i].checked = true;
-                break;
-            }
-        }
-        Ajax.get("/cart/changesuitcount?pmId=" + pmId + "&buyCount=" + buyCount + "&selectedCartItemKeyList=" + getSelectedCartItemKeyList(), false, function (data) {
-            try {
-                alert(eval("(" + data + ")").content);
-            }
-            catch (ex) {
-                document.getElementById("cartBody").innerHTML = data;
-                setBatchSelectCartItemCheckbox();
-            }
-        })
-    }
-}
-
-//获取满赠商品
-function getFullSend(pmId) {
-    if (isGuestSC == 0 && uid < 1) {
-        alert("请先登录");
-        return;
-    }
-    Ajax.get("/cart/getfullsend?pmId=" + pmId, false, function (data) {
-        getFullSendResponse(data, pmId);
+//获得商城搜索商品列表
+var mspListNextPageNumber = 2;
+function getMallSearchProductList(keyword, cateId, brandId, filterPrice, filterAttr, onlyStock, sortColumn, sortDirection, page) {
+    document.getElementById("loadBut").style.display = "none";
+    document.getElementById("loadPrompt").style.display = "block";
+    Ajax.get("/mob/catalog/ajaxsearch?keyword=" + encodeURIComponent(keyword) + "&cateId=" + cateId + "&brandId=" + brandId + "&filterPrice=" + filterPrice + "&filterAttr=" + filterAttr + "&onlyStock=" + onlyStock + "&sortColumn=" + sortColumn + "&sortDirection=" + sortDirection + "&page=" + page, false, function (data) {
+        getMallSearchProductListResponse(data);
     })
 }
 
-//处理获取满赠商品的反馈信息
-var selectedFullSendPid = 0;
-function getFullSendResponse(data, pmId) {
-    var result = eval("(" + data + ")");
-    if (result.state != "success") {
-        alert(result.content);
-    }
-    else {
-        if (result.content.length < 1) {
-            alert("满赠商品不存在");
-            return;
-        }
-        var html = "<table width='100%' border='0' cellpadding='0' cellspacing='0'>";
-        for (var i = 0; i < result.content.length; i++) {
-            html += "<tr><td width='30' align='center'><input type='radio' name='fullSendProduct' value='" + result.content[i].pid + "' onclick='selectedFullSendPid=this.value'/></td><td width='70'><img src='/upload/store/" + result.content[i].storeId + "/product/show/thumb60_60/" + result.content[i].showImg + "' width='50' height='50' /></td><td valign='top'><a href='" + result.content[i].url + "'>" + result.content[i].name + "</a><em>¥" + result.content[i].shopPrice + "</em></td></tr>";
-        }
-        html += "</table>";
-        selectedFullSendPid = 0;
-        document.getElementById("fullSendProductList" + pmId).innerHTML = html;
-        document.getElementById("fullSendBlock" + pmId).style.display = "block";
-    }
-}
-
-//关闭满赠层
-function closeFullSendBlock(pmId) {
-    selectedFullSendPid = 0;
-    document.getElementById("fullSendProductList" + pmId).innerHTML = "";
-    document.getElementById("fullSendBlock" + pmId).style.display = "none";
-}
-
-//添加满赠商品
-function addFullSend(pmId) {
-    if (isGuestSC == 0 && uid < 1) {
-        alert("请先登录");
-    }
-    else if (selectedFullSendPid < 1) {
-        alert("请先选择商品");
-    }
-    else {
-        Ajax.get("/cart/addfullsend?pmId=" + pmId + "&pid=" + selectedFullSendPid + "&selectedCartItemKeyList=" + getSelectedCartItemKeyList(), false, function (data) {
-            try {
-                alert(eval("(" + data + ")").content);
+//处理获得商城搜索商品列表的反馈信息
+function getMallSearchProductListResponse(data) {
+    try {
+        var result = eval("(" + data + ")");
+        var element = document.createElement("div");
+        element.className = "proItme";
+        var innerHTML = "";
+        for (var i = 0; i < result.ProductList.length; i++) {
+            var reviewLayer = 100;
+            var goodStars = result.ProductList[i].Star1 + result.ProductList[i].Star2 + result.ProductList[i].Star3;
+            var allStars = goodStars + result.ProductList[i].Star4 + result.ProductList[i].Star5;
+            if (allStars != 0) {
+                reviewLayer = goodStars * 100 / allStars;
             }
-            catch (ex) {
-                document.getElementById("cartBody").innerHTML = data;
-                setBatchSelectCartItemCheckbox();
-            }
-        })
-        closeFullSendBlock(pmId);
-    }
-}
 
-//取消或选中购物车项
-function cancelOrSelectCartItem() {
-    if (isGuestSC == 0 && uid < 1) {
-        alert("请先登录");
-        return;
-    }
-    Ajax.get("/cart/cancelorselectcartitem?selectedCartItemKeyList=" + getSelectedCartItemKeyList(), false, function (data) {
-        try {
-            alert(eval("(" + data + ")").content);
+            innerHTML += "<a href='/mob/" + result.ProductList[i].Pid + ".html'>";
+            innerHTML += "<img src='/upload/store/" + result.ProductList[i].StoreId + "/product/show/thumb100_100/" + result.ProductList[i].ShowImg + "' width='100' height='100' class='img' />";
+            innerHTML += "<span class='proDt'>";
+            innerHTML += "<strong class='proDD DD1'>" + result.ProductList[i].Name + "</strong>";
+            innerHTML += "<b class='proDD DD3'>￥" + result.ProductList[i].ShopPrice + "</b>";
+            innerHTML += "<p class='proDD DD4'>" + result.ProductList[i].ReviewCount + " 人评价，" + reviewLayer + "%好评</p>";
+            innerHTML += "</span></a>";
         }
-        catch (ex) {
-            document.getElementById("cartBody").innerHTML = data;
-            setBatchSelectCartItemCheckbox();
+        element.innerHTML = innerHTML;
+        document.getElementById("mallSearchProductListBlock").appendChild(element);
+        if (result.PageModel.HasNextPage) {
+            document.getElementById("loadBut").style.display = "block";
+            document.getElementById("loadPrompt").style.display = "none";
+            mspListNextPageNumber += 1;
         }
-    })
-}
-
-//取消或选中店铺购物车
-function cancelOrSelectStoreCart(obj) {
-    var checked = obj.checked;
-    var storeId = obj.getAttribute("storeId");
-    var inputList = document.getElementById("cartBody").getElementsByTagName("input");
-    for (var i = 0; i < inputList.length; i++) {
-        if (inputList[i].type == "checkbox" && inputList[i].name == "cartItemCheckbox" && inputList[i].getAttribute("storeId") == storeId) {
-            inputList[i].checked = checked;
+        else {
+            document.getElementById("loadBut").style.display = "none";
+            document.getElementById("loadPrompt").style.display = "none";
+            document.getElementById("lastPagePrompt").style.display = "block";
         }
     }
-    cancelOrSelectCartItem();
-}
-
-//取消或选中全部购物车项
-function cancelOrSelectAllCartItem(obj) {
-    if (isGuestSC == 0 && uid < 1) {
-        alert("请先登录");
-        return;
-    }
-    if (obj.checked) {
-        Ajax.get("/cart/selectallcartitem", false, function (data) {
-            try {
-                alert(eval("(" + data + ")").content);
-            }
-            catch (ex) {
-                document.getElementById("cartBody").innerHTML = data;
-            }
-        })
-    }
-    else {
-        var inputList = document.getElementById("cartBody").getElementsByTagName("input");
-        for (var i = 0; i < inputList.length; i++) {
-            if (inputList[i].type == "checkbox") {
-                inputList[i].checked = false;
-            }
-        }
-        document.getElementById("totalCount").innerHTML = "0";
-        document.getElementById("productAmount").innerHTML = "0.00";
-        document.getElementById("fullCut").innerHTML = "0";
-        document.getElementById("orderAmount").innerHTML = "0.00";
-    }
-}
-
-//前往确认订单
-function goConfirmOrder() {
-    if (isGuestSC == 0 && uid < 1) {
-        alert("请先登录");
-        return;
-    }
-    var inputList = document.getElementById("cartBody").getElementsByTagName("input");
-
-    var checkboxList = new Array();
-    for (var i = 0; i < inputList.length; i++) {
-        if (inputList[i].type == "checkbox") {
-            checkboxList.push(inputList[i]);
-        }
-    }
-
-    var valueList = new Array();
-    for (var i = 0; i < checkboxList.length; i++) {
-        if (checkboxList[i].checked) {
-            valueList.push(checkboxList[i].value);
-        }
-    }
-
-    if (valueList.length < 1) {
-        alert("请先选择购物车商品");
-    }
-    else {
-        if (valueList.length != checkboxList.length) {
-            document.getElementById("selectedCartItemKeyList").value = valueList.join(',');
-        }
-        document.forms[0].submit();
+    catch (ex) {
+        alert("加载错误");
     }
 }
 
 //获取优惠劵
-function getCoupon(uid, couponTypeId) {
+function getCoupon(couponTypeId) {
     if (uid < 1) {
         alert("请先登陆");
     }
@@ -585,7 +177,7 @@ function getCoupon(uid, couponTypeId) {
         alert("请选择优惠劵");
     }
     else {
-        Ajax.get("/coupon/getcoupon?couponTypeId=" + couponTypeId, false, getCouponResponse)
+        Ajax.get("/mob/coupon/getcoupon?couponTypeId=" + couponTypeId, false, getCouponResponse)
     }
 }
 

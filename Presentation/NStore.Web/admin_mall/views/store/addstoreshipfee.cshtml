@@ -12,7 +12,7 @@
 
         //绑定省列表
         function bindProvinceList(provinceSelectObj, selectProvinceId) {
-            $.get("/malladmin/tool/ProvinceList", function (data) {
+            $.get("/MallAdmin/tool/ProvinceList", function (data) {
                 var provinceList = eval("(" + data + ")");
                 if (provinceList.length > 0) {
                     var optionStr = "<option value='0'>全部</option>";
@@ -32,7 +32,7 @@
 
         //绑定市列表
         function bindCityList(provinceId, citySelectObj, selectCityId) {
-            $.get("/malladmin/tool/CityList?provinceId=" + provinceId, function (data) {
+            $.get("/MallAdmin/tool/CityList?provinceId=" + provinceId, function (data) {
                 var cityList = eval("(" + data + ")");
                 if (cityList.length > 0) {
                     var optionStr = "<option value='0'>全部</option>";

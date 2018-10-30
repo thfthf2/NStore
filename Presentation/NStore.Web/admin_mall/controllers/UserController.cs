@@ -45,13 +45,13 @@ namespace NStore.Web.MallAdmin.Controllers
             }
             ViewData["userRankList"] = userRankList;
 
-            List<SelectListItem> mallAdminGroupList = new List<SelectListItem>();
-            mallAdminGroupList.Add(new SelectListItem() { Text = "全部组", Value = "0" });
+            List<SelectListItem> MallAdminGroupList = new List<SelectListItem>();
+            MallAdminGroupList.Add(new SelectListItem() { Text = "全部组", Value = "0" });
             foreach (MallAdminGroupInfo info in MallAdminGroups.GetMallAdminGroupList())
             {
-                mallAdminGroupList.Add(new SelectListItem() { Text = info.Title, Value = info.MallAGid.ToString() });
+                MallAdminGroupList.Add(new SelectListItem() { Text = info.Title, Value = info.MallAGid.ToString() });
             }
-            ViewData["mallAdminGroupList"] = mallAdminGroupList;
+            ViewData["MallAdminGroupList"] = MallAdminGroupList;
 
             MallUtils.SetAdminRefererCookie(string.Format("{0}?pageNumber={1}&pageSize={2}&userName={3}&email={4}&mobile={5}&userRid={6}&mallAGid={7}",
                                                           Url.Action("list"), pageModel.PageNumber, pageModel.PageSize,
@@ -251,13 +251,13 @@ namespace NStore.Web.MallAdmin.Controllers
             ViewData["userRankList"] = userRankList;
 
 
-            List<SelectListItem> mallAdminGroupList = new List<SelectListItem>();
-            mallAdminGroupList.Add(new SelectListItem() { Text = "选择管理员组", Value = "0" });
+            List<SelectListItem> MallAdminGroupList = new List<SelectListItem>();
+            MallAdminGroupList.Add(new SelectListItem() { Text = "选择管理员组", Value = "0" });
             foreach (MallAdminGroupInfo info in MallAdminGroups.GetMallAdminGroupList())
             {
-                mallAdminGroupList.Add(new SelectListItem() { Text = info.Title, Value = info.MallAGid.ToString() });
+                MallAdminGroupList.Add(new SelectListItem() { Text = info.Title, Value = info.MallAGid.ToString() });
             }
-            ViewData["mallAdminGroupList"] = mallAdminGroupList;
+            ViewData["MallAdminGroupList"] = MallAdminGroupList;
 
             RegionInfo regionInfo = Regions.GetRegionById(regionId);
             if (regionInfo != null)

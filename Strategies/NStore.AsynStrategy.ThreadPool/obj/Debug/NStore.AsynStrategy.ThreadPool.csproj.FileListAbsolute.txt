@@ -1,0 +1,5 @@
+E:\NStore\Presentation\NStore.Web\bin\NStore.AsynStrategy.ThreadPool.dll
+E:\NStore\Presentation\NStore.Web\bin\NStore.AsynStrategy.ThreadPool.pdb
+E:\NStore\Strategies\NStore.AsynStrategy.ThreadPool\obj\Debug\NStore.AsynStrategy.ThreadPool.csprojResolveAssemblyReference.cache
+E:\NStore\Strategies\NStore.AsynStrategy.ThreadPool\obj\Debug\NStore.AsynStrategy.ThreadPool.dll
+E:\NStore\Strategies\NStore.AsynStrategy.ThreadPool\obj\Debug\NStore.AsynStrategy.ThreadPool.pdb

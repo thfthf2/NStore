@@ -24,7 +24,7 @@
             $("#uploadify").uploadify({
                 'formData': { 'uid': '@WorkContext.Uid', 'password': '@WorkContext.EncryptPwd' },
                 'swf': '/admin_mall/content/flashes/uploadify.swf',
-                'uploader': '@WorkContext.MallConfig.UploadServer/malladmin/tool/upload?operation=uploadstorelogo&storeId=@ViewData["storeId"]',
+                'uploader': '@WorkContext.MallConfig.UploadServer/MallAdmin/tool/upload?operation=uploadstorelogo&storeId=@ViewData["storeId"]',
                 'buttonText': '上传图片',
                 'height': 24,
                 'width': 80,
@@ -54,7 +54,7 @@
             $("#uploadify2").uploadify({
                             'formData': { 'uid': '@WorkContext.Uid', 'password': '@WorkContext.EncryptPwd', 'storeId': '@ViewData["storeId"]' },
                             'swf': '/admin_mall/content/flashes/uploadify.swf',
-                            'uploader': '@WorkContext.MallConfig.UploadServer/malladmin/tool/upload?operation=uploadstorebanner&storeId=@ViewData["storeId"]',
+                            'uploader': '@WorkContext.MallConfig.UploadServer/MallAdmin/tool/upload?operation=uploadstorebanner&storeId=@ViewData["storeId"]',
                             'buttonText': '上传图片',
                             'height': 24,
                             'width': 80,

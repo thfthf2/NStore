@@ -4,7 +4,7 @@ var countyId = -1; //县或区id
 
 //绑定省列表
 function bindProvinceList(provinceSelectObj, selectProvinceId) {
-    Ajax.get("/tool/provincelist", true, function (data) {
+    Ajax.get("/mob/tool/provincelist", true, function (data) {
         var provinceList = eval("(" + data + ")");
         if (provinceList.content.length > 0) {
             removeAllOptions(provinceSelectObj);
@@ -24,7 +24,7 @@ function bindProvinceList(provinceSelectObj, selectProvinceId) {
 
 //绑定市列表
 function bindCityList(provinceId, citySelectObj, selectCityId) {
-    Ajax.get("/tool/citylist?provinceId=" + provinceId, true, function (data) {
+    Ajax.get("/mob/tool/citylist?provinceId=" + provinceId, true, function (data) {
         var cityList = eval("(" + data + ")");
         if (cityList.content.length > 0) {
             removeAllOptions(citySelectObj);
@@ -44,7 +44,7 @@ function bindCityList(provinceId, citySelectObj, selectCityId) {
 
 //绑定县或区列表
 function bindCountyList(cityId, countySelectObj, selectCountyId) {
-    Ajax.get("/tool/countylist?cityId=" + cityId, true, function (data) {
+    Ajax.get("/mob/tool/countylist?cityId=" + cityId, true, function (data) {
         var countyList = eval("(" + data + ")");
         if (countyList.content.length > 0) {
             removeAllOptions(countySelectObj);

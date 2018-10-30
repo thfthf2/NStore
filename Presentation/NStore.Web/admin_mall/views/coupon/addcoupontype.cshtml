@@ -21,7 +21,7 @@
             $(openStoreSelectLayerBut).parent().find(".StoreName").val(getstoreName);
             $.jBox.close('StoreSelectLayer');
             $("#StoreCid").html("").attr("disabled", "disabled");
-            $.get("/malladmin/store/storeclassselectlist?storeId=" + selectedStoreId + "&time=" + new Date(), function (data) {
+            $.get("/MallAdmin/store/storeclassselectlist?storeId=" + selectedStoreId + "&time=" + new Date(), function (data) {
                 var result = eval("(" + data + ")");
                 var list = "";
                 list += "<option value='-1' slected='selected'>无限制</option>";
@@ -77,7 +77,7 @@
             //初始化店铺分类选择框
             if ($("#StoreId").val() > 0) {
                 $("#StoreCid").html("").attr("disabled", "disabled");
-                $.get("/malladmin/store/storeclassselectlist?storeId=" + $("#StoreId").val() + "&time=" + new Date(), function (data) {
+                $.get("/MallAdmin/store/storeclassselectlist?storeId=" + $("#StoreId").val() + "&time=" + new Date(), function (data) {
                     var result = eval("(" + data + ")");
                     var list = "";
                     list += "<option value='-1' slected='selected'>无限制</option>";

@@ -1,0 +1,5 @@
+E:\NStore\Presentation\NStore.Web\bin\NStore.CartStrategy.SqlServer.dll
+E:\NStore\Presentation\NStore.Web\bin\NStore.CartStrategy.SqlServer.pdb
+E:\NStore\Strategies\NStore.CartStrategy.SqlServer\obj\Debug\NStore.CartStrategy.SqlServer.csprojResolveAssemblyReference.cache
+E:\NStore\Strategies\NStore.CartStrategy.SqlServer\obj\Debug\NStore.CartStrategy.SqlServer.dll
+E:\NStore\Strategies\NStore.CartStrategy.SqlServer\obj\Debug\NStore.CartStrategy.SqlServer.pdb

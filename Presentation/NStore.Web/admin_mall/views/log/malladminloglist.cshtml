@@ -16,7 +16,7 @@
 </div>
 <div class="clear"></div>
 </h1>
-@using (Html.BeginForm("malladminloglist", "log"))
+@using (Html.BeginForm("MallAdminloglist", "log"))
 {
 <div class="dataListSearch">
 <table height="32">
@@ -78,7 +78,7 @@
     <td>@info.IP</td>
     <td>@info.OperateTime</td>
     <td>
-        @Html.ActionLink("[删除]", "delmalladminlog", new { logIdList = info.LogId }, new { @class = "deleteOperate" })
+        @Html.ActionLink("[删除]", "delMallAdminlog", new { logIdList = info.LogId }, new { @class = "deleteOperate" })
     </td>
     </tr>
   }
@@ -86,7 +86,7 @@
 </table>
 </div>
 <div class="dataListEdit">
-<a href="#" delUrl="@Url.Action("delmalladminlog")" class="batch batchDel">批量删除</a>
+<a href="#" delUrl="@Url.Action("delMallAdminlog")" class="batch batchDel">批量删除</a>
 <div class="page">
     @Html.MallAdminPager(Model.PageModel)
 </div>

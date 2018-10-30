@@ -47,9 +47,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NStore.PayPlugin.ChinaBank"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NStore.PayPlugin.Tenpay", "Plugins\NStore.PayPlugin.Tenpay\NStore.PayPlugin.Tenpay.csproj", "{765B07A4-AC8A-4E1B-B762-72C3343A8ABD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NStore.Web.StoreAdmin", "Presentation\NStore.Web\admin_mall\NStore.Web.StoreAdmin.csproj", "{6DF7F8C6-4D67-4281-9F91-599BFA9A8109}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NStore.Web.MallAdmin", "Presentation\NStore.Web\admin_mall\NStore.Web.MallAdmin.csproj", "{6DF7F8C6-4D67-4281-9F91-599BFA9A8109}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NStore.Web.NStoreAdmin", "Presentation\NStore.Web\admin_store\NStore.Web.NStoreAdmin.csproj", "{8CEAE6C5-9468-4FDB-981F-F515A1AA6C4C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NStore.Web.StoreAdmin", "Presentation\NStore.Web\admin_store\NStore.Web.StoreAdmin.csproj", "{8CEAE6C5-9468-4FDB-981F-F515A1AA6C4C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NStore.CartStrategy.SqlServer", "Strategies\NStore.CartStrategy.SqlServer\NStore.CartStrategy.SqlServer.csproj", "{9708BCE3-D3E6-4EE4-8D11-42CC35AE6461}"
 EndProject

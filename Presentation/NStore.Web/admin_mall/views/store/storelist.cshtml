@@ -90,7 +90,7 @@
         @Html.ActionLink("[店长信息]", "editstorekeeper", new { storeId = row["storeid"] }, new { @class = "editOperate" })
         @Html.ActionLink("[店铺分类]", "storeclasslist", new { storeId = row["storeid"] }, new { @class = "editOperate" })
         @Html.ActionLink("[配送模板]", "storeshiptemplatelist", new { storeId = row["storeid"] }, new { @class = "editOperate" })
-        @Html.ActionLink("[管理员]", "setstoreadminer", new { storeId = row["storeid"] }, new { @class = "editOperate" }) 
+        @Html.ActionLink("[管理员]", "setMallAdminer", new { storeId = row["storeid"] }, new { @class = "editOperate" }) 
         @Html.ActionLink("[编辑]", "editstore", new { storeId = row["storeid"] }, new { @class = "editOperate" }) 
         @Html.ActionLink("[删除]", "delstore", new { storeId = row["storeid"] }, new { @class = "deleteOperate" })
     </td>

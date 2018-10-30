@@ -185,7 +185,7 @@ namespace NStore.Web.MallAdmin.Controllers
             AddProductModel model = new AddProductModel();
 
             string backUrl = MallUtils.GetMallAdminRefererCookie();
-            if (backUrl.Length == 0 || backUrl == "/malladmin/home/mallruninfo")
+            if (backUrl.Length == 0 || backUrl == "/MallAdmin/home/mallruninfo")
             {
                 backUrl = Url.Action("onsaleproductlist");
                 MallUtils.SetAdminRefererCookie(backUrl);
@@ -383,7 +383,7 @@ namespace NStore.Web.MallAdmin.Controllers
             AddSKUModel model = new AddSKUModel();
 
             string backUrl = MallUtils.GetMallAdminRefererCookie();
-            if (backUrl.Length == 0 || backUrl == "/malladmin/home/mallruninfo")
+            if (backUrl.Length == 0 || backUrl == "/MallAdmin/home/mallruninfo")
             {
                 backUrl = Url.Action("onsaleproductlist");
                 MallUtils.SetAdminRefererCookie(backUrl);

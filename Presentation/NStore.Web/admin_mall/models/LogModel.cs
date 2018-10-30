@@ -50,7 +50,7 @@ namespace NStore.Web.MallAdmin.Models
         /// <summary>
         /// 日志列表
         /// </summary>
-        public List<StoreAdminLogInfo> StoreAdminLogList { get; set; }
+        public List<MallAdminLogInfo> MallAdminLogList { get; set; }
         /// <summary>
         /// 店铺id
         /// </summary>

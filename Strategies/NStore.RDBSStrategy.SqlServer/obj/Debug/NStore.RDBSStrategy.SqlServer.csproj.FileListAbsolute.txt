@@ -1,0 +1,5 @@
+E:\NStore\Presentation\NStore.Web\bin\NStore.RDBSStrategy.SqlServer.dll
+E:\NStore\Presentation\NStore.Web\bin\NStore.RDBSStrategy.SqlServer.pdb
+E:\NStore\Strategies\NStore.RDBSStrategy.SqlServer\obj\Debug\NStore.RDBSStrategy.SqlServer.csprojResolveAssemblyReference.cache
+E:\NStore\Strategies\NStore.RDBSStrategy.SqlServer\obj\Debug\NStore.RDBSStrategy.SqlServer.dll
+E:\NStore\Strategies\NStore.RDBSStrategy.SqlServer\obj\Debug\NStore.RDBSStrategy.SqlServer.pdb

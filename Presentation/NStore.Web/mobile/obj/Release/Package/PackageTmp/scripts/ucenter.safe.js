@@ -15,7 +15,7 @@ function verifyPassword() {
         return;
     }
 
-    Ajax.post("/ucenter/verifypassword?act=" + act, { 'password': password, 'verifyCode': verifyCode }, false, function (data) {
+    Ajax.post("/mob/ucenter/verifypassword?act=" + act, { 'password': password, 'verifyCode': verifyCode }, false, function (data) {
         var result = eval("(" + data + ")");
         if (result.state == "success") {
             window.location.href = result.content;
@@ -28,7 +28,7 @@ function verifyPassword() {
 
 //发送验证手机短信
 function sendVerifyMobile() {
-    Ajax.get("/ucenter/sendverifymobile", false, function (data) {
+    Ajax.get("/mob/ucenter/sendverifymobile", false, function (data) {
         var result = eval("(" + data + ")");
         alert(result.content)
     })
@@ -51,7 +51,7 @@ function verifyMobile() {
         return;
     }
 
-    Ajax.post("/ucenter/verifymobile?act=" + act, { 'moibleCode': moibleCode, 'verifyCode': verifyCode }, false, function (data) {
+    Ajax.post("/mob/ucenter/verifymobile?act=" + act, { 'moibleCode': moibleCode, 'verifyCode': verifyCode }, false, function (data) {
         var result = eval("(" + data + ")");
         if (result.state == "success") {
             window.location.href = result.content;
@@ -74,7 +74,7 @@ function sendVerifyEmail() {
         return;
     }
 
-    Ajax.post("/ucenter/sendverifyemail?act=" + act, { 'verifyCode': verifyCode }, false, function (data) {
+    Ajax.post("/mob/ucenter/sendverifyemail?act=" + act, { 'verifyCode': verifyCode }, false, function (data) {
         var result = eval("(" + data + ")");
         alert(result.content)
     })
@@ -102,7 +102,7 @@ function updatePassword() {
         return;
     }
 
-    Ajax.post("/ucenter/updatepassword?v=" + v, { 'password': password, 'confirmPwd': confirmPwd, 'verifyCode': verifyCode }, false, function (data) {
+    Ajax.post("/mob/ucenter/updatepassword?v=" + v, { 'password': password, 'confirmPwd': confirmPwd, 'verifyCode': verifyCode }, false, function (data) {
         var result = eval("(" + data + ")");
         if (result.state == "success") {
             window.location.href = result.content;
@@ -125,7 +125,7 @@ function sendUpdateMobile() {
         return;
     }
 
-    Ajax.post("/ucenter/sendupdatemobile?v=" + v, { 'mobile': mobile }, false, function (data) {
+    Ajax.post("/mob/ucenter/sendupdatemobile?v=" + v, { 'mobile': mobile }, false, function (data) {
         var result = eval("(" + data + ")");
         alert(result.content)
     })
@@ -153,7 +153,7 @@ function updateMobile() {
         return;
     }
 
-    Ajax.post("/ucenter/updatemobile?v=" + v, { 'mobile': mobile, 'moibleCode': moibleCode, 'verifyCode': verifyCode }, false, function (data) {
+    Ajax.post("/mob/ucenter/updatemobile?v=" + v, { 'mobile': mobile, 'moibleCode': moibleCode, 'verifyCode': verifyCode }, false, function (data) {
         var result = eval("(" + data + ")");
         if (result.state == "success") {
             window.location.href = result.content;
@@ -181,7 +181,7 @@ function sendUpdateEmail() {
         return;
     }
 
-    Ajax.post("/ucenter/sendupdateemail?v=" + v, { 'email': email, 'verifyCode': verifyCode }, false, function (data) {
+    Ajax.post("/mob/ucenter/sendupdateemail?v=" + v, { 'email': email, 'verifyCode': verifyCode }, false, function (data) {
         var result = eval("(" + data + ")");
         alert(result.content)
     })

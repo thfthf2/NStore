@@ -1,4 +1,4 @@
-﻿@model NStore.Web.MallAdmin.Models.StoreAdminLogListModel
+﻿@model NStore.Web.MallAdmin.Models.MallAdminLogListModel
 
 @section header{
 <title>店铺管理日志列表</title>
@@ -19,7 +19,7 @@
 </div>
 <div class="clear"></div>
 </h1>
-@using (Html.BeginForm("storeadminloglist", "log"))
+@using (Html.BeginForm("MallAdminloglist", "log"))
 {
 <div class="dataListSearch">
 <table height="32">
@@ -67,7 +67,7 @@
     </tr>
 </thead>
   <tbody>
-  @foreach (StoreAdminLogInfo info in Model.StoreAdminLogList)
+  @foreach (MallAdminLogInfo info in Model.MallAdminLogList)
   {
   <tr>
     <td align="center"><input type="checkbox" value="@info.LogId" selectItem="true" name="logIdList" /></td>
@@ -77,7 +77,7 @@
     <td>@info.IP</td>
     <td>@info.OperateTime</td>
     <td>
-        @Html.ActionLink("[删除]", "delstoreadminlog", new { logIdList = info.LogId }, new { @class = "deleteOperate" })
+        @Html.ActionLink("[删除]", "delMallAdminlog", new { logIdList = info.LogId }, new { @class = "deleteOperate" })
     </td>
     </tr>
   }
@@ -85,7 +85,7 @@
 </table>
 </div>
 <div class="dataListEdit">
-<a href="#" delUrl="@Url.Action("delstoreadminlog")" class="batch batchDel">批量删除</a>
+<a href="#" delUrl="@Url.Action("delMallAdminlog")" class="batch batchDel">批量删除</a>
 <div class="page">
     @Html.MallAdminPager(Model.PageModel)
 </div>

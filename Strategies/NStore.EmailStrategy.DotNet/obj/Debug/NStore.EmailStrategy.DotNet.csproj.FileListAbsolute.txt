@@ -1,0 +1,5 @@
+E:\NStore\Presentation\NStore.Web\bin\NStore.EmailStrategy.DotNet.dll
+E:\NStore\Presentation\NStore.Web\bin\NStore.EmailStrategy.DotNet.pdb
+E:\NStore\Strategies\NStore.EmailStrategy.DotNet\obj\Debug\NStore.EmailStrategy.DotNet.csprojResolveAssemblyReference.cache
+E:\NStore\Strategies\NStore.EmailStrategy.DotNet\obj\Debug\NStore.EmailStrategy.DotNet.dll
+E:\NStore\Strategies\NStore.EmailStrategy.DotNet\obj\Debug\NStore.EmailStrategy.DotNet.pdb

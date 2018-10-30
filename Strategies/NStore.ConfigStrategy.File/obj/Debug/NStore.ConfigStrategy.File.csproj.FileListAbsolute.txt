@@ -1,0 +1,5 @@
+E:\NStore\Presentation\NStore.Web\bin\NStore.ConfigStrategy.File.dll
+E:\NStore\Presentation\NStore.Web\bin\NStore.ConfigStrategy.File.pdb
+E:\NStore\Strategies\NStore.ConfigStrategy.File\obj\Debug\NStore.ConfigStrategy.File.csprojResolveAssemblyReference.cache
+E:\NStore\Strategies\NStore.ConfigStrategy.File\obj\Debug\NStore.ConfigStrategy.File.dll
+E:\NStore\Strategies\NStore.ConfigStrategy.File\obj\Debug\NStore.ConfigStrategy.File.pdb

@@ -23,79 +23,108 @@ function cutProductCount() {
     }
 }
 
-//咨询商品
-function consultProduct(uid, pid) {
-    var consultProductFrom = document.forms["consultProductFrom"];
-
-    var consultTypeId = 0;
-    var consultTypeIdObj = getSelectedRadio(consultProductFrom.elements["consultTypeId"]);
-    if (consultTypeIdObj != undefined && consultTypeIdObj != null) {
-        consultTypeId = consultTypeIdObj.value;
-    }
-    var consultMessage = consultProductFrom.elements["consultMessage"].value;
-    var verifyCode = consultProductFrom.elements["verifyCode"] ? consultProductFrom.elements["verifyCode"].value : undefined;
-
-    if (!verifyConsultProduct(uid, pid, consultTypeId, consultMessage, verifyCode)) {
-        return;
-    }
-    Ajax.post("/catalog/consultproduct", { 'pid': pid, 'consultTypeId': consultTypeId, 'consultMessage': consultMessage, 'verifyCode': verifyCode }, false, consultProductResponse)
-}
-
-//验证咨询商品
-function verifyConsultProduct(uid, pid, consultTypeId, consultMessage, verifyCode) {
-    if (uid < 1) {
-        alert("请登录");
-        return false;
-    }
+//添加商品到收藏夹
+function addProductToFavorite(pid) {
     if (pid < 1) {
         alert("请选择商品");
-        return false;
     }
-    if (consultTypeId < 1) {
-        alert("请选择咨询类型");
-        return false;
+    else if (uid < 1) {
+        alert("请先登录");
     }
-    if (consultMessage.lenth < 1) {
-        alert("请填写咨询内容");
-        return false;
+    else {
+        Ajax.get("/mob/ucenter/addproducttofavorite?pid=" + pid, false, addProductToFavoriteResponse)
     }
-    if (consultMessage.length > 100) {
-        alert("咨询内容内容太长");
-        return false;
-    }
-    if (verifyCode != undefined && verifyCode.length == 0) {
-        alert("请输入验证码");
-        return false;
-    }
-    return true;
 }
 
-//处理咨询商品的反馈信息
-function consultProductResponse(data) {
+//处理添加商品到收藏夹的反馈信息
+function addProductToFavoriteResponse(data) {
+    var result = eval("(" + data + ")");
+    alert(result.content);
+}
+
+//添加商品到购物车
+function addProductToCart(pid, buyCount, type) {
+    if (pid < 1) {
+        alert("请选择商品");
+    }
+    else if (isGuestSC == 0 && uid < 1) {
+        alert("请先登录");
+    }
+    else if (buyCount < 1) {
+        alert("请填写购买数量");
+    }
+    else {
+        Ajax.get("/mob/cart/addproduct?pid=" + pid + "&buyCount=" + buyCount, false, function (data) {
+            addProductToCartResponse(type, data);
+        });
+    }
+}
+
+//处理添加商品到购物车的反馈信息
+function addProductToCartResponse(type, data) {
     var result = eval("(" + data + ")");
     if (result.state == "success") {
-        alert("您的咨询我们已经收到，我们会尽快给您回复");
-        window.location.href = result.content;
+        if (type == 0) {
+            window.location.href = "/mob/cart/index";
+        }
+        else {
+            document.getElementById("addResult1").style.display = "block";
+            document.getElementById("addResult2").style.display = "block";
+        }
     }
     else {
         alert(result.content);
     }
 }
 
+//添加套装到购物车
+function addSuitToCart(pmId, buyCount, type) {
+    if (pmId < 1) {
+        alert("请选择套装");
+    }
+    else if (isGuestSC == 0 && uid < 1) {
+        alert("请先登录");
+    }
+    else if (buyCount < 1) {
+        alert("请填写购买数量");
+    }
+    else {
+        Ajax.get("/mob/cart/addsuit?pmId=" + pmId + "&buyCount=" + buyCount, false, function (data) {
+            addSuitToCartResponse(type, data);
+        });
+    }
+}
+
+//处理添加套装到购物车的反馈信息
+function addSuitToCartResponse(type, data) {
+    var result = eval("(" + data + ")");
+    if (result.state != "stockout") {
+        if (type == 0) {
+            window.location.href = "/mob/cart/index";
+        }
+        else {
+            document.getElementById("addResult1").style.display = "block";
+            document.getElementById("addResult2").style.display = "block";
+        }
+    }
+    else {
+        alert("商品库存不足");
+    }
+}
+
 //获得商品评价列表
 function getProductReviewList(pid, reviewType, page) {
-    Ajax.get("/catalog/ajaxproductreviewlist?pid=" + pid + "&reviewType=" + reviewType + "&page=" + page, false, getProductReviewListResponse)
+    Ajax.get("/mob/catalog/ajaxproductreviewlist?pid=" + pid + "&reviewType=" + reviewType + "&page=" + page, false, getProductReviewListResponse)
 }
 
 //处理获得商品评价的反馈信息
 function getProductReviewListResponse(data) {
     document.getElementById("productReviewList").innerHTML = data;
-    document.getElementById("prCount").innerHTML = document.getElementById("productReviewCount").innerHTML;
 }
 
 //获得商品咨询列表
 function getProductConsultList(pid, consultTypeId, consultMessage, page) {
-    Ajax.get("/catalog/ajaxproductconsultlist?pid=" + pid + "&consultTypeId=" + consultTypeId + "&consultMessage=" + encodeURIComponent(consultMessage) + "&page=" + page, false, getProductConsultListResponse)
+    Ajax.get("/mob/catalog/ajaxproductconsultlist?pid=" + pid + "&consultTypeId=" + consultTypeId + "&consultMessage=" + encodeURIComponent(consultMessage) + "&page=" + page, false, getProductConsultListResponse)
 }
 
 //处理获得商品咨询的反馈信息

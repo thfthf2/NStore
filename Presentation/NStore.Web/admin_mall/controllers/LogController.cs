@@ -44,7 +44,7 @@ namespace NStore.Web.MallAdmin.Controllers
                 EndTime = endTime
             };
             MallUtils.SetAdminRefererCookie(string.Format("{0}?pageNumber={1}&pageSize={2}&accountName={3}&operation={4}&startTime={5}&endTime={6}",
-                                                          Url.Action("malladminloglist"),
+                                                          Url.Action("MallAdminloglist"),
                                                           pageModel.PageNumber,
                                                           pageModel.PageSize,
                                                           accountName, operation, startTime, endTime));
@@ -72,13 +72,13 @@ namespace NStore.Web.MallAdmin.Controllers
         /// <param name="pageNumber">当前页数</param>
         /// <param name="pageSize">每页数</param>
         /// <returns></returns>
-        public ActionResult StoreAdminLogList(string storeName, string operation, string startTime, string endTime, int storeId = -1, int pageNumber = 1, int pageSize = 15)
+        public ActionResult MallAdminLogList(string storeName, string operation, string startTime, string endTime, int storeId = -1, int pageNumber = 1, int pageSize = 15)
         {
-            string condition = StoreAdminLogs.GetStoreAdminLogListCondition(storeId, operation, startTime, endTime);
-            PageModel pageModel = new PageModel(pageSize, pageNumber, StoreAdminLogs.GetStoreAdminLogCount(condition));
+            string condition = MallAdminLogs.GetMallAdminLogListCondition(storeId, operation, startTime, endTime);
+            PageModel pageModel = new PageModel(pageSize, pageNumber, MallAdminLogs.GetMallAdminLogCount(condition));
             StoreAdminLogListModel model = new StoreAdminLogListModel()
             {
-                StoreAdminLogList = StoreAdminLogs.GetStoreAdminLogList(pageModel.PageSize, pageModel.PageNumber, condition),
+                MallAdminLogList = MallAdminLogs.GetMallAdminLogList(pageModel.PageSize, pageModel.PageNumber, condition),
                 PageModel = pageModel,
                 StoreId = storeId,
                 StoreName = string.IsNullOrWhiteSpace(storeName) ? "全部店铺" : storeName,
@@ -87,7 +87,7 @@ namespace NStore.Web.MallAdmin.Controllers
                 EndTime = endTime
             };
             MallUtils.SetAdminRefererCookie(string.Format("{0}?pageNumber={1}&pageSize={2}&storeId={3}&storeName={4}&operation={5}&startTime={6}&endTime={7}",
-                                                          Url.Action("storeadminloglist"),
+                                                          Url.Action("MallAdminloglist"),
                                                           pageModel.PageNumber,
                                                           pageModel.PageSize,
                                                           storeId, storeName, operation, startTime, endTime));
@@ -99,7 +99,7 @@ namespace NStore.Web.MallAdmin.Controllers
         /// </summary>
         public ActionResult DelStoreAdminLog(int[] logIdList)
         {
-            StoreAdminLogs.DeleteStoreAdminLogById(logIdList);
+            MallAdminLogs.DeleteMallAdminLogById(logIdList);
             AddMallAdminLog("删除店铺管理日志", "删除店铺管理日志,日志ID为:" + CommonHelper.IntArrayToString(logIdList));
             return PromptView("店铺管理日志删除成功");
         }

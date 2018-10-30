@@ -1,0 +1,7 @@
+E:\NStore\Libraries\NStore.Data\bin\Debug\NStore.Data.dll
+E:\NStore\Libraries\NStore.Data\bin\Debug\NStore.Data.pdb
+E:\NStore\Libraries\NStore.Data\bin\Debug\NStore.Core.dll
+E:\NStore\Libraries\NStore.Data\bin\Debug\NStore.Core.pdb
+E:\NStore\Libraries\NStore.Data\obj\Debug\NStore.Data.csprojResolveAssemblyReference.cache
+E:\NStore\Libraries\NStore.Data\obj\Debug\NStore.Data.dll
+E:\NStore\Libraries\NStore.Data\obj\Debug\NStore.Data.pdb

@@ -50,13 +50,13 @@ namespace NStore.Web.MallAdmin.Controllers
 
             if (ModelState.IsValid)
             {
-                MallAdminGroupInfo mallAdminGroupInfo = new MallAdminGroupInfo()
+                MallAdminGroupInfo MallAdminGroupInfo = new MallAdminGroupInfo()
                 {
                     Title = model.AdminGroupTitle,
                     ActionList = CommonHelper.StringArrayToString(model.ActionList).ToLower()
                 };
 
-                MallAdminGroups.CreateMallAdminGroup(mallAdminGroupInfo);
+                MallAdminGroups.CreateMallAdminGroup(MallAdminGroupInfo);
                 AddMallAdminLog("添加商城管理员组", "添加商城管理员组,商城管理员组为:" + model.AdminGroupTitle);
                 return PromptView("商城管理员组添加成功");
             }
@@ -73,13 +73,13 @@ namespace NStore.Web.MallAdmin.Controllers
             if (mallAGid < 3)
                 return PromptView("内置商城管理员组不能修改");
 
-            MallAdminGroupInfo mallAdminGroupInfo = MallAdminGroups.GetMallAdminGroupById(mallAGid);
-            if (mallAdminGroupInfo == null)
+            MallAdminGroupInfo MallAdminGroupInfo = MallAdminGroups.GetMallAdminGroupById(mallAGid);
+            if (MallAdminGroupInfo == null)
                 return PromptView("商城管理员组不存在");
 
             MallAdminGroupModel model = new MallAdminGroupModel();
-            model.AdminGroupTitle = mallAdminGroupInfo.Title;
-            model.ActionList = StringHelper.SplitString(mallAdminGroupInfo.ActionList);
+            model.AdminGroupTitle = MallAdminGroupInfo.Title;
+            model.ActionList = StringHelper.SplitString(MallAdminGroupInfo.ActionList);
 
             Load();
             return View(model);
@@ -94,8 +94,8 @@ namespace NStore.Web.MallAdmin.Controllers
             if (mallAGid < 3)
                 return PromptView("内置商城管理员组不能修改");
 
-            MallAdminGroupInfo mallAdminGroupInfo = MallAdminGroups.GetMallAdminGroupById(mallAGid);
-            if (mallAdminGroupInfo == null)
+            MallAdminGroupInfo MallAdminGroupInfo = MallAdminGroups.GetMallAdminGroupById(mallAGid);
+            if (MallAdminGroupInfo == null)
                 return PromptView("商城管理员组不存在");
 
             int mallAGid2 = MallAdminGroups.GetMallAdminGroupIdByTitle(model.AdminGroupTitle);
@@ -104,10 +104,10 @@ namespace NStore.Web.MallAdmin.Controllers
 
             if (ModelState.IsValid)
             {
-                mallAdminGroupInfo.Title = model.AdminGroupTitle;
-                mallAdminGroupInfo.ActionList = CommonHelper.StringArrayToString(model.ActionList).ToLower();
+                MallAdminGroupInfo.Title = model.AdminGroupTitle;
+                MallAdminGroupInfo.ActionList = CommonHelper.StringArrayToString(model.ActionList).ToLower();
 
-                MallAdminGroups.UpdateMallAdminGroup(mallAdminGroupInfo);
+                MallAdminGroups.UpdateMallAdminGroup(MallAdminGroupInfo);
                 AddMallAdminLog("修改商城管理员组", "修改商城管理员组,商城管理员组ID为:" + mallAGid);
                 return PromptView("商城管理员组修改成功");
             }
@@ -133,7 +133,7 @@ namespace NStore.Web.MallAdmin.Controllers
 
         private void Load()
         {
-            ViewData["mallAdminActionTree"] = MallAdminActions.GetMallAdminActionTree();
+            ViewData["MallAdminActionTree"] = MallAdminActions.GetMallAdminActionTree();
             ViewData["referer"] = MallUtils.GetMallAdminRefererCookie();
         }
     }

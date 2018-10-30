@@ -1,0 +1,5 @@
+E:\NStore\Presentation\NStore.Web\bin\NStore.CacheStrategy.AspNet.dll
+E:\NStore\Presentation\NStore.Web\bin\NStore.CacheStrategy.AspNet.pdb
+E:\NStore\Strategies\NStore.CacheStrategy.AspNet\obj\Debug\NStore.CacheStrategy.AspNet.csprojResolveAssemblyReference.cache
+E:\NStore\Strategies\NStore.CacheStrategy.AspNet\obj\Debug\NStore.CacheStrategy.AspNet.dll
+E:\NStore\Strategies\NStore.CacheStrategy.AspNet\obj\Debug\NStore.CacheStrategy.AspNet.pdb

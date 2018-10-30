@@ -365,13 +365,13 @@ namespace NStore.Web.MallAdmin.Controllers
         /// 设置店铺管理员
         /// </summary>
         [HttpGet]
-        public ActionResult SetStoreAdminer(int storeId = -1)
+        public ActionResult SetMallAdminer(int storeId = -1)
         {
             StoreInfo storeInfo = AdminStores.GetStoreById(storeId);
             if (storeInfo == null)
                 return PromptView("店铺不存在");
 
-            StoreAdminerModel model = new StoreAdminerModel();
+            MallAdminerModel model = new MallAdminerModel();
             return View(model);
         }
 
@@ -379,7 +379,7 @@ namespace NStore.Web.MallAdmin.Controllers
         /// 设置店铺管理员
         /// </summary>
         [HttpPost]
-        public ActionResult SetStoreAdminer(StoreAdminerModel model, int storeId = -1)
+        public ActionResult SetMallAdminer(MallAdminerModel model, int storeId = -1)
         {
             StoreInfo storeInfo = AdminStores.GetStoreById(storeId);
             if (storeInfo == null)

@@ -1,20 +1,142 @@
-﻿//取消订单
+﻿//获得订单列表
+var orderListNextPageNumber = 2;
+function getOrderList(startAddTime, endAddTime, orderState, page) {
+    document.getElementById("loadBut").style.display = "none";
+    document.getElementById("loadPrompt").style.display = "block";
+    Ajax.get("/mob/ucenter/ajaxorderlist?startAddTime=" + startAddTime + "&endAddTime=" + endAddTime + "&orderState=" + orderState + "&page=" + page, false, function (data) {
+        getOrderListResponse(data);
+    })
+}
+
+//处理获得订单列表的反馈信息
+function getOrderListResponse(data) {
+    try {
+        var result = eval("(" + data + ")");
+        var element = document.createElement("div");
+        element.className = "proItme";
+        var innerHTML = "";
+        for (var i = 0; i < result.OrderList.length; i++) {
+            var oid = result.OrderList[i].oid;
+            var orderState = result.OrderList[i].orderstate;
+            var orderProductInfo = null;
+            for (var j = 0; j < result.OrderProductList.length; j++) {
+                if (result.OrderProductList[j].Oid == oid) {
+                    if (orderProductInfo == null)
+                        orderProductInfo = result.OrderProductList[j];
+                }
+            }
+            innerHTML += "<div class='proItme'>";
+            innerHTML += "<a href='/ucenter/orderinfo?oid=" + oid + "'>";
+            innerHTML += "<img src='/upload/store/" + orderProductInfo.StoreId + "/product/show/thumb60_60/" + orderProductInfo.ShowImg + "'>";
+            innerHTML += "<div class='order-msg'><p class='title'>" + orderProductInfo.Name + "</p><p class='price'>¥" + orderProductInfo.DiscountPrice + "<span></span></p><p class='order-data'>" + orderProductInfo.AddTime + "</p></div>";
+            innerHTML += "</a>";
+            innerHTML += "<div class='proBt'>";
+            innerHTML += "<a class='redBt' href='/ucenter/orderaction?oid=" + oid + "' id='orderActionList" + oid + "'>订单跟踪</a>";
+            if (orderState == 30 && result.OrderList[i].paymode == 1) {
+                innerHTML += "<a class='redBt' href='/order/payshow?oidList=" + oid + "' id='payOrderBut" + oid + "'>在线支付</a>";
+            }
+            if (orderState == 140 && result.OrderList[i].isreview == 0) {
+                innerHTML += "<a class='redBt' href='/ucenter/revieworder?oid=" + oid + "'>订单评价</a>";
+            }
+            if (orderState == 30 || (orderState == 50 && result.OrderList[i].paymode == 0)) {
+                innerHTML += "<a class='redBt' href='javascript:cancelOrder(" + oid + ", 0)' id='cancelOrderBut" + oid + "'>取消订单</a>";
+            }
+            innerHTML += "</div>";
+            innerHTML += "</div>";
+        }
+        element.innerHTML = innerHTML;
+        document.getElementById("orderListBlock").appendChild(element);
+        if (result.PageModel.HasNextPage) {
+            document.getElementById("loadBut").style.display = "block";
+            document.getElementById("loadPrompt").style.display = "none";
+            orderListNextPageNumber += 1;
+        }
+        else {
+            document.getElementById("loadBut").style.display = "none";
+            document.getElementById("loadPrompt").style.display = "none";
+            document.getElementById("lastPagePrompt").style.display = "block";
+        }
+    }
+    catch (ex) {
+        alert("加载错误");
+    }
+}
+
+//取消订单
 function cancelOrder(oid, cancelReason) {
-    Ajax.post("/ucenter/cancelorder", { 'oid': oid, 'cancelReason': cancelReason }, false, cancelOrderResponse);
+    Ajax.post("/mob/ucenter/cancelorder", { 'oid': oid, 'cancelReason': cancelReason }, false, cancelOrderResponse);
 }
 
 //处理取消订单的反馈信息
 function cancelOrderResponse(data) {
     var result = eval("(" + data + ")");
     if (result.state == "success") {
-        document.getElementById("orderState" + result.content).innerHTML = "取消";
-        removeNode(document.getElementById("payOrderBut" + result.content));
-        removeNode(document.getElementById("cancelOrderBut" + result.content));
+        document.getElementById("cancelOrderBut" + result.content).parentNode.innerHTML = "<a class='redBt' href='" + document.getElementById("orderActionList" + result.content).href + "'>订单跟踪</a>";
         alert("取消成功");
     }
     else {
         alert(result.content);
     }
+}
+
+//选择商品星星
+function selectProductStar(i) {
+    var list = document.getElementById("productStarBlock").getElementsByTagName("span");
+    for (var j = 1; j <= 5; j++) {
+        if (j <= i) {
+            list[j - 1].className = "on";
+        }
+        else {
+            list[j - 1].className = "";
+        }
+    }
+    var reviewProductFrom = document.forms["reviewProductFrom"];
+    reviewProductFrom.elements["star"].value = i;
+}
+
+//选择描述星星
+function selectDescriptionStar(i) {
+    var list = document.getElementById("descriptionBlock").getElementsByTagName("span");
+    for (var j = 1; j <= 5; j++) {
+        if (j <= i) {
+            list[j - 1].className = "on";
+        }
+        else {
+            list[j - 1].className = "";
+        }
+    }
+    var reviewProductFrom = document.forms["reviewStoreFrom"];
+    reviewProductFrom.elements["descriptionStar"].value = i;
+}
+
+//选择服务星星
+function selectServiceStar(i) {
+    var list = document.getElementById("serviceBlock").getElementsByTagName("span");
+    for (var j = 1; j <= 5; j++) {
+        if (j <= i) {
+            list[j - 1].className = "on";
+        }
+        else {
+            list[j - 1].className = "";
+        }
+    }
+    var reviewProductFrom = document.forms["reviewStoreFrom"];
+    reviewProductFrom.elements["serviceStar"].value = i;
+}
+
+//选择配送星星
+function selectShipStar(i) {
+    var list = document.getElementById("shipBlock").getElementsByTagName("span");
+    for (var j = 1; j <= 5; j++) {
+        if (j <= i) {
+            list[j - 1].className = "on";
+        }
+        else {
+            list[j - 1].className = "";
+        }
+    }
+    var reviewProductFrom = document.forms["reviewStoreFrom"];
+    reviewProductFrom.elements["shipStar"].value = i;
 }
 
 //打开评价商品层
@@ -30,13 +152,13 @@ function reviewProduct() {
 
     var oid = reviewProductFrom.elements["oid"].value;
     var recordId = reviewProductFrom.elements["recordId"].value;
-    var star = getSelectedRadio(reviewProductFrom.elements["star"]).value;
+    var star = parseInt(reviewProductFrom.elements["star"].value);
     var message = reviewProductFrom.elements["message"].value;
 
     if (!verifyReviewProduct(recordId, star, message)) {
         return;
     }
-    Ajax.post("/ucenter/reviewproduct?oid=" + oid + "&recordId=" + recordId, { 'star': star, 'message': message }, false, reviewProductResponse);
+    Ajax.post("/mob/ucenter/reviewproduct?oid=" + oid + "&recordId=" + recordId, { 'star': star, 'message': message }, false, reviewProductResponse);
 }
 
 //验证评价商品
@@ -67,11 +189,14 @@ function reviewProductResponse(data) {
         var reviewProductFrom = document.forms["reviewProductFrom"];
         reviewProductFrom.elements["recordId"].value = 0;
         reviewProductFrom.elements["message"].value = "";
+        selectProductStar(5);
 
         document.getElementById("reviewProductBlock").style.display = "none";
 
-        document.getElementById("reviewState" + result.content).innerHTML = "已评价";
-        document.getElementById("reviewOperate" + result.content).innerHTML = "";
+        document.getElementById("reviewOperate" + result.content).innerHTML = "您已评价";
+        document.getElementById("reviewOperate" + result.content).onclick = null;
+        document.getElementById("reviewOperate" + result.content).className = "gayBt";
+        document.getElementById("reviewOperate" + result.content).style.color = "#999";
 
         alert("评价成功");
     }
@@ -80,22 +205,33 @@ function reviewProductResponse(data) {
     }
 }
 
+//打开评价店铺层
+function openReviewStoreBlock() {
+    if (document.getElementById("reviewStoreBlock").style.display == "") {
+        document.getElementById("reviewStoreBlock").style.display = "none";
+    }
+    else {
+        document.getElementById("reviewStoreBlock").style.display = "";
+    }
+}
+
 //评价店铺
 function reviewStore() {
     var reviewStoreFrom = document.forms["reviewStoreFrom"];
 
     var oid = reviewStoreFrom.elements["oid"].value;
-    var descriptionStar = getSelectedRadio(reviewStoreFrom.elements["descriptionStar"]).value;
-    var serviceStar = getSelectedRadio(reviewStoreFrom.elements["serviceStar"]).value;
-    var shipStar = getSelectedRadio(reviewStoreFrom.elements["shipStar"]).value;
+    var descriptionStar = parseInt(reviewStoreFrom.elements["descriptionStar"].value);
+    var serviceStar = parseInt(reviewStoreFrom.elements["serviceStar"].value);
+    var shipStar = parseInt(reviewStoreFrom.elements["shipStar"].value);
 
-    Ajax.post("/ucenter/reviewstore?oid=" + oid, { 'descriptionStar': descriptionStar, 'serviceStar': serviceStar, 'shipStar': shipStar }, false, reviewStoreResponse);
+    Ajax.post("/mob/ucenter/reviewstore?oid=" + oid, { 'descriptionStar': descriptionStar, 'serviceStar': serviceStar, 'shipStar': shipStar }, false, reviewStoreResponse);
 }
 
 //处理评价店铺的反馈信息
 function reviewStoreResponse(data) {
     var result = eval("(" + data + ")");
     if (result.state == "success") {
+        document.getElementById("reviewStoreBlock").style.display = "none";
         removeNode(document.getElementById("reviewStoreBut"));
 
         alert("评价成功");

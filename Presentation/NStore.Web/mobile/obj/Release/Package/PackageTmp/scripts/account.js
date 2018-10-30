@@ -1,4 +1,4 @@
-﻿var returnUrl = "/"; //返回地址
+﻿var returnUrl = "/mob"; //返回地址
 var shadowName = ""; //影子账号名
 
 //展示验证错误
@@ -30,7 +30,7 @@ function login() {
     parms["password"] = password;
     parms["verifyCode"] = verifyCode;
     parms["isRemember"] = isRemember;
-    Ajax.post("/account/login", parms, false, loginResponse)
+    Ajax.post("/mob/account/login", parms, false, loginResponse)
 }
 
 //验证登录
@@ -82,7 +82,7 @@ function register() {
     parms["password"] = password;
     parms["confirmPwd"] = confirmPwd;
     parms["verifyCode"] = verifyCode;
-    Ajax.post("/account/register", parms, false, registerResponse)
+    Ajax.post("/mob/account/register", parms, false, registerResponse)
 }
 
 //验证注册
@@ -134,7 +134,7 @@ function findPwd() {
     var parms = new Object();
     parms[shadowName] = accountName;
     parms["verifyCode"] = verifyCode;
-    Ajax.post("/account/findpwd", parms, false, findPwdResponse)
+    Ajax.post("/mob/account/findpwd", parms, false, findPwdResponse)
 }
 
 //验证找回密码
@@ -166,7 +166,7 @@ function findPwdResponse(data) {
 
 //发送找回密码短信
 function sendFindPwdMobile(uid) {
-    Ajax.get("/account/sendfindpwdmobile?uid=" + uid, false, function (data) {
+    Ajax.get("/mob/account/sendfindpwdmobile?uid=" + uid, false, function (data) {
         var result = eval("(" + data + ")");
         alert(result.content)
     })
@@ -178,7 +178,7 @@ function verifyFindPwdMobile(uid, mobileCode) {
         alert("请输入短信验证码");
         return;
     }
-    Ajax.post("/account/verifyfindpwdmobile?uid=" + uid, { 'mobileCode': mobileCode }, false, function (data) {
+    Ajax.post("/mob/account/verifyfindpwdmobile?uid=" + uid, { 'mobileCode': mobileCode }, false, function (data) {
         var result = eval("(" + data + ")");
         if (result.state == "success") {
             window.location.href = result.content;
@@ -191,7 +191,7 @@ function verifyFindPwdMobile(uid, mobileCode) {
 
 //发送找回密码邮件
 function sendFindPwdEmail(uid) {
-    Ajax.get("/account/sendfindpwdemail?uid=" + uid, false, function (data) {
+    Ajax.get("/mob/account/sendfindpwdemail?uid=" + uid, false, function (data) {
         var result = eval("(" + data + ")");
         alert(result.content)
     })
@@ -211,7 +211,7 @@ function resetPwd(v) {
     var parms = new Object();
     parms["password"] = password;
     parms["confirmPwd"] = confirmPwd;
-    Ajax.post("/account/resetpwd?v=" + v, parms, false, resetPwdResponse)
+    Ajax.post("/mob/account/resetpwd?v=" + v, parms, false, resetPwdResponse)
 }
 
 //验证重置密码

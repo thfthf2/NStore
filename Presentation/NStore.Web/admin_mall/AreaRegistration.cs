@@ -8,16 +8,16 @@ namespace NStore.Web.MallAdmin
         {
             get
             {
-                return "malladmin";
+                return "MallAdmin";
             }
         }
 
         public override void RegisterArea(System.Web.Mvc.AreaRegistrationContext context)
         {
             //此路由不能删除
-            context.MapRoute("malladmin_default",
-                              "malladmin/{controller}/{action}",
-                              new { controller = "home", action = "index", area = "malladmin" },
+            context.MapRoute("MallAdmin_default",
+                              "MallAdmin/{controller}/{action}",
+                              new { controller = "home", action = "index", area = "MallAdmin" },
                               new[] { "NStore.Web.MallAdmin.Controllers" });
 
         }

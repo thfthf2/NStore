@@ -38,6 +38,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -230,7 +231,7 @@
     <Content Include="plugins\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="plugins\bin\" />
+    <Folder Include="area\" />
     <Folder Include="upload\advert\" />
     <Folder Include="upload\banner\" />
     <Folder Include="upload\brand\" />
