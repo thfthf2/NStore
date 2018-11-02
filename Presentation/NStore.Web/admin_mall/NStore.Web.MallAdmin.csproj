@@ -22,7 +22,7 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <MvcProjectUpgradeChecked>true</MvcProjectUpgradeChecked>
-    <FileUpgradeFlags>40</FileUpgradeFlags>
+    <FileUpgradeFlags>0</FileUpgradeFlags>
     <UpgradeBackupLocation>E:\NStore\Backup1\</UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
     <TargetFrameworkProfile />

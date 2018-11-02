@@ -23,7 +23,7 @@
     <UseIISExpress>true</UseIISExpress>
     <MvcProjectUpgradeChecked>true</MvcProjectUpgradeChecked>
     <FileUpgradeFlags>40</FileUpgradeFlags>
-    <UpgradeBackupLocation>E:\NStore\Backup1\</UpgradeBackupLocation>
+    <UpgradeBackupLocation>E:\NStore\Backup\</UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
     <TargetFrameworkProfile />
     <IISExpressSSLPort />
