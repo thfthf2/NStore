@@ -2,4 +2,3 @@ E:\NStore\Libraries\NStore.Core\bin\Debug\NStore.Core.dll
 E:\NStore\Libraries\NStore.Core\bin\Debug\NStore.Core.pdb
 E:\NStore\Libraries\NStore.Core\obj\Debug\NStore.Core.dll
 E:\NStore\Libraries\NStore.Core\obj\Debug\NStore.Core.pdb
-E:\NStore\Libraries\NStore.Core\obj\Debug\NStore.Core.csprojResolveAssemblyReference.cache
