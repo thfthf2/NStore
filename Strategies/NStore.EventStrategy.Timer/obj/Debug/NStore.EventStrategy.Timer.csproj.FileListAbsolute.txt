@@ -1,5 +1,0 @@
-E:\NStore\Presentation\NStore.Web\bin\NStore.EventStrategy.Timer.dll
-E:\NStore\Presentation\NStore.Web\bin\NStore.EventStrategy.Timer.pdb
-E:\NStore\Strategies\NStore.EventStrategy.Timer\obj\Debug\NStore.EventStrategy.Timer.csprojResolveAssemblyReference.cache
-E:\NStore\Strategies\NStore.EventStrategy.Timer\obj\Debug\NStore.EventStrategy.Timer.dll
-E:\NStore\Strategies\NStore.EventStrategy.Timer\obj\Debug\NStore.EventStrategy.Timer.pdb

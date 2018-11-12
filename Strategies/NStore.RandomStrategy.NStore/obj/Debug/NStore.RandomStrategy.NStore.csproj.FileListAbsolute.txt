@@ -1,5 +1,0 @@
-E:\NStore\Presentation\NStore.Web\bin\NStore.RandomStrategy.NStore.dll
-E:\NStore\Presentation\NStore.Web\bin\NStore.RandomStrategy.NStore.pdb
-E:\NStore\Strategies\NStore.RandomStrategy.NStore\obj\Debug\NStore.RandomStrategy.NStore.csprojResolveAssemblyReference.cache
-E:\NStore\Strategies\NStore.RandomStrategy.NStore\obj\Debug\NStore.RandomStrategy.NStore.dll
-E:\NStore\Strategies\NStore.RandomStrategy.NStore\obj\Debug\NStore.RandomStrategy.NStore.pdb

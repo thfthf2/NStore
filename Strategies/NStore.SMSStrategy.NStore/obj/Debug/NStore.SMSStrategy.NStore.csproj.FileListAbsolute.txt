@@ -1,5 +1,0 @@
-E:\NStore\Presentation\NStore.Web\bin\NStore.SMSStrategy.NStore.dll
-E:\NStore\Presentation\NStore.Web\bin\NStore.SMSStrategy.NStore.pdb
-E:\NStore\Strategies\NStore.SMSStrategy.NStore\obj\Debug\NStore.SMSStrategy.NStore.csprojResolveAssemblyReference.cache
-E:\NStore\Strategies\NStore.SMSStrategy.NStore\obj\Debug\NStore.SMSStrategy.NStore.dll
-E:\NStore\Strategies\NStore.SMSStrategy.NStore\obj\Debug\NStore.SMSStrategy.NStore.pdb

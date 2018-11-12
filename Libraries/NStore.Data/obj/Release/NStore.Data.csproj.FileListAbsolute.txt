@@ -1,7 +1,0 @@
-E:\NStore\Libraries\NStore.Data\bin\Release\NStore.Data.dll
-E:\NStore\Libraries\NStore.Data\bin\Release\NStore.Data.pdb
-E:\NStore\Libraries\NStore.Data\bin\Release\NStore.Core.dll
-E:\NStore\Libraries\NStore.Data\bin\Release\NStore.Core.pdb
-E:\NStore\Libraries\NStore.Data\obj\Release\NStore.Data.csprojResolveAssemblyReference.cache
-E:\NStore\Libraries\NStore.Data\obj\Release\NStore.Data.dll
-E:\NStore\Libraries\NStore.Data\obj\Release\NStore.Data.pdb

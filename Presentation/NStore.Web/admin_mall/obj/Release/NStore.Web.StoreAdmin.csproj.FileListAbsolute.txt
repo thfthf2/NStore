@@ -1,6 +1,0 @@
-E:\NStore\Presentation\NStore.Web\bin\NStore.Web.StoreAdmin.dll.config
-E:\NStore\Presentation\NStore.Web\bin\NStore.Web.StoreAdmin.dll
-E:\NStore\Presentation\NStore.Web\bin\NStore.Web.StoreAdmin.pdb
-E:\NStore\Presentation\NStore.Web\admin_mall\obj\Release\NStore.Web.StoreAdmin.csprojResolveAssemblyReference.cache
-E:\NStore\Presentation\NStore.Web\admin_mall\obj\Release\NStore.Web.StoreAdmin.dll
-E:\NStore\Presentation\NStore.Web\admin_mall\obj\Release\NStore.Web.StoreAdmin.pdb

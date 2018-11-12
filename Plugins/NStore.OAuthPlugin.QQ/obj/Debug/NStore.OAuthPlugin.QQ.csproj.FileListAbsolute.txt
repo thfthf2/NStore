@@ -1,8 +1,0 @@
-E:\NStore\Presentation\NStore.Web\plugins\NStore.OAuthPlugin.QQ\plugin.config
-E:\NStore\Presentation\NStore.Web\plugins\NStore.OAuthPlugin.QQ\views\adminqqoauth\config.cshtml
-E:\NStore\Presentation\NStore.Web\plugins\NStore.OAuthPlugin.QQ\db.config
-E:\NStore\Presentation\NStore.Web\plugins\NStore.OAuthPlugin.QQ\NStore.OAuthPlugin.QQ.dll
-E:\NStore\Presentation\NStore.Web\plugins\NStore.OAuthPlugin.QQ\NStore.OAuthPlugin.QQ.pdb
-E:\NStore\Plugins\NStore.OAuthPlugin.QQ\obj\Debug\NStore.OAuthPlugin.QQ.csprojResolveAssemblyReference.cache
-E:\NStore\Plugins\NStore.OAuthPlugin.QQ\obj\Debug\NStore.OAuthPlugin.QQ.dll
-E:\NStore\Plugins\NStore.OAuthPlugin.QQ\obj\Debug\NStore.OAuthPlugin.QQ.pdb

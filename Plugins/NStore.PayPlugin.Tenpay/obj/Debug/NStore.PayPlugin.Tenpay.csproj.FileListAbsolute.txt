@@ -1,9 +1,0 @@
-E:\NStore\Presentation\NStore.Web\plugins\NStore.PayPlugin.Tenpay\db.config
-E:\NStore\Presentation\NStore.Web\plugins\NStore.PayPlugin.Tenpay\plugin.config
-E:\NStore\Presentation\NStore.Web\plugins\NStore.PayPlugin.Tenpay\views\admintenpay\config.cshtml
-E:\NStore\Presentation\NStore.Web\plugins\NStore.PayPlugin.Tenpay\views\show.cshtml
-E:\NStore\Presentation\NStore.Web\plugins\NStore.PayPlugin.Tenpay\NStore.PayPlugin.Tenpay.dll
-E:\NStore\Presentation\NStore.Web\plugins\NStore.PayPlugin.Tenpay\NStore.PayPlugin.Tenpay.pdb
-E:\NStore\Plugins\NStore.PayPlugin.Tenpay\obj\Debug\NStore.PayPlugin.Tenpay.csprojResolveAssemblyReference.cache
-E:\NStore\Plugins\NStore.PayPlugin.Tenpay\obj\Debug\NStore.PayPlugin.Tenpay.dll
-E:\NStore\Plugins\NStore.PayPlugin.Tenpay\obj\Debug\NStore.PayPlugin.Tenpay.pdb

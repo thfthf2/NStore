@@ -1,6 +1,0 @@
-E:\NStore\Presentation\NStore.Web\bin\NStore.Web.Mobile.dll.config
-E:\NStore\Presentation\NStore.Web\bin\NStore.Web.Mobile.dll
-E:\NStore\Presentation\NStore.Web\bin\NStore.Web.Mobile.pdb
-E:\NStore\Presentation\NStore.Web\mobile\obj\Release\NStore.Web.Mobile.dll
-E:\NStore\Presentation\NStore.Web\mobile\obj\Release\NStore.Web.Mobile.pdb
-E:\NStore\Presentation\NStore.Web\mobile\obj\Release\NStore.Web.Mobile.csprojResolveAssemblyReference.cache

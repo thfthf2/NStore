@@ -1,5 +1,0 @@
-E:\NStore\Presentation\NStore.Web\bin\NStore.SessionStrategy.AspNetCache.dll
-E:\NStore\Presentation\NStore.Web\bin\NStore.SessionStrategy.AspNetCache.pdb
-E:\NStore\Strategies\NStore.SessionStrategy.AspNetCache\obj\Debug\NStore.SessionStrategy.AspNetCache.csprojResolveAssemblyReference.cache
-E:\NStore\Strategies\NStore.SessionStrategy.AspNetCache\obj\Debug\NStore.SessionStrategy.AspNetCache.dll
-E:\NStore\Strategies\NStore.SessionStrategy.AspNetCache\obj\Debug\NStore.SessionStrategy.AspNetCache.pdb

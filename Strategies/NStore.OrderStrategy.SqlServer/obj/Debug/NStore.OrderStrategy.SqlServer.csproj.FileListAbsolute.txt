@@ -1,4 +1,0 @@
-E:\NStore\Presentation\NStore.Web\bin\NStore.OrderStrategy.SqlServer.dll
-E:\NStore\Presentation\NStore.Web\bin\NStore.OrderStrategy.SqlServer.pdb
-E:\NStore\Strategies\NStore.OrderStrategy.SqlServer\obj\Debug\NStore.OrderStrategy.SqlServer.dll
-E:\NStore\Strategies\NStore.OrderStrategy.SqlServer\obj\Debug\NStore.OrderStrategy.SqlServer.pdb
