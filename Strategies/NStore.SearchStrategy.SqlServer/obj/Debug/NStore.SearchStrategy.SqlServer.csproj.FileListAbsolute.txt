@@ -1,5 +1,4 @@
 E:\NStore\Presentation\NStore.Web\bin\NStore.SearchStrategy.SqlServer.dll
 E:\NStore\Presentation\NStore.Web\bin\NStore.SearchStrategy.SqlServer.pdb
-E:\NStore\Strategies\NStore.SearchStrategy.SqlServer\obj\Debug\NStore.SearchStrategy.SqlServer.csprojResolveAssemblyReference.cache
 E:\NStore\Strategies\NStore.SearchStrategy.SqlServer\obj\Debug\NStore.SearchStrategy.SqlServer.dll
 E:\NStore\Strategies\NStore.SearchStrategy.SqlServer\obj\Debug\NStore.SearchStrategy.SqlServer.pdb
