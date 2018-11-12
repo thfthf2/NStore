@@ -33,3 +33,5 @@
 /Strategies/NStore.SessionStrategy.AspNetCache/obj
 /Strategies/NStore.SMSStrategy.NStore/obj
 /Libraries/NStore.Core/bin
+.vs/config/applicationhost.config
+.vs/NStoreSln/v14/.suo
