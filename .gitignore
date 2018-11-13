@@ -35,3 +35,5 @@
 /Libraries/NStore.Core/bin
 .vs/config/applicationhost.config
 .vs/NStoreSln/v14/.suo
+*.user
+/Presentation/NStore.Web/plugins
