@@ -38,6 +38,7 @@ namespace NStore.Data
             partUserInfo.VerifyMobile = TypeHelper.ObjectToInt(reader["verifymobile"]);
             partUserInfo.LiftBanTime = TypeHelper.ObjectToDateTime(reader["liftbantime"]);
             partUserInfo.Salt = reader["salt"].ToString();
+            partUserInfo.IsEnterprise = TypeHelper.ObjectToInt(reader["isenterprise"]);
 
             return partUserInfo;
         }
@@ -65,6 +66,7 @@ namespace NStore.Data
             userInfo.VerifyMobile = TypeHelper.ObjectToInt(reader["verifymobile"]);
             userInfo.LiftBanTime = TypeHelper.ObjectToDateTime(reader["liftbantime"]);
             userInfo.Salt = reader["salt"].ToString();
+            userInfo.IsEnterprise = TypeHelper.ObjectToInt(reader["isenterprise"]);
             userInfo.LastVisitTime = TypeHelper.ObjectToDateTime(reader["lastvisittime"]);
             userInfo.LastVisitIP = reader["lastvisitip"].ToString();
             userInfo.LastVisitRgId = TypeHelper.ObjectToInt(reader["lastvisitrgid"]);
@@ -497,13 +499,13 @@ namespace NStore.Data
         }
 
         /// <summary>
-        /// 更新用户等级
+        /// 更新用户等级（非关系型缓存数据）
         /// </summary>
         /// <param name="uid">用户id</param>
         /// <param name="userRid">用户等级id</param>
         public static void UpdateUserRankByUid(int uid, int userRid)
         {
-            NStore.Core.BMAData.RDBS.UpdateUserRankByUid(uid, userRid);
+            //NStore.Core.BMAData.RDBS.UpdateUserRankByUid(uid, userRid);
             if (_usernosql != null)
                 _usernosql.UpdateUserRankByUid(uid, userRid);
         }

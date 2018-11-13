@@ -110,7 +110,7 @@ function verifyRegister(accountName, password, confirmPwd, verifyCode) {
 function registerResponse(data) {
     var result = eval("(" + data + ")");
     if (result.state == "success") {
-        window.location.href = returnUrl;
+        window.location.href = result.content;// returnUrl;
     }
     else if (result.state == "exception") {
         alert(result.content);
@@ -118,6 +118,18 @@ function registerResponse(data) {
     else if (result.state == "error") {
         showVerifyError(result.content);
     }
+}
+
+//认证用户
+function authuser(isenterprise)
+{
+    var registerForm = document.forms["authuserForm"];
+
+    var accountName = registerForm.elements[shadowName].value;
+    var password = registerForm.elements["password"].value;
+    var confirmPwd = registerForm.elements["confirmPwd"].value;
+    var verifyCode = registerForm.elements["verifyCode"] ? registerForm.elements["verifyCode"].value : undefined;
+
 }
 
 //找回密码

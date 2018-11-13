@@ -23,6 +23,7 @@ namespace NStore.Core
         private int _verifymobile;//是否验证手机
         private DateTime _liftbantime = new DateTime(1900, 1, 1);//解禁时间
         private string _salt;//盐值
+        private int _isenterprise;//是否为企业用户
 
         /// <summary>
         ///用户id
@@ -151,6 +152,14 @@ namespace NStore.Core
         {
             get { return _salt; }
             set { _salt = value; }
+        }
+        /// <summary>
+        /// 是否为企业用户
+        /// </summary>
+        public int IsEnterprise
+        {
+            get { return _isenterprise; }
+            set { _isenterprise = value; }
         }
     }
 

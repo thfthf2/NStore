@@ -425,6 +425,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\TestPublish.pubxml" />
+    <Content Include="views\account\authentication.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

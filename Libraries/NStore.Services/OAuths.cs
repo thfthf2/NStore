@@ -90,7 +90,7 @@ namespace NStore.Services
         private static string GetValidUserName(string oUserName, string uNamePrefix)
         {
             if (string.IsNullOrWhiteSpace(uNamePrefix))
-                uNamePrefix = "bma";
+                uNamePrefix = "ngh";
 
             string validUserName = uNamePrefix + oUserName;
             int length = StringHelper.GetStringLength(validUserName);

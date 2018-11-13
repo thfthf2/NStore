@@ -167,6 +167,8 @@ namespace NStore.Web.Controllers
             {
                 RegisterModel model = new RegisterModel();
 
+                string registerType = WebHelper.GetQueryString("registerType");
+                model.IsEnterprise = registerType == "1" ? 1 : 0;
                 model.ReturnUrl = returnUrl;
                 model.ShadowName = WorkContext.MallConfig.ShadowName;
                 model.IsVerifyCode = CommonHelper.IsInArray(WorkContext.PageKey, WorkContext.MallConfig.VerifyPages);
@@ -179,11 +181,12 @@ namespace NStore.Web.Controllers
             string password = WebHelper.GetFormString("password");
             string confirmPwd = WebHelper.GetFormString("confirmPwd");
             string verifyCode = WebHelper.GetFormString("verifyCode");
+            string isEnterprise = WebHelper.GetFormString("isEnterprise");
 
             StringBuilder errorList = new StringBuilder("[");
             #region 验证
 
-            //账号验证
+            #region //账号验证
             if (string.IsNullOrWhiteSpace(accountName))
             {
                 errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "账户名不能为空", "}");
@@ -220,6 +223,8 @@ namespace NStore.Web.Controllers
             {
                 errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "账户名包含禁止单词", "}");
             }
+
+            #endregion
 
             //密码验证
             if (string.IsNullOrWhiteSpace(password))
@@ -305,44 +310,45 @@ namespace NStore.Web.Controllers
             UserInfo userInfo = null;
             if (errorList.Length == 1)
             {
-                if (WorkContext.MallConfig.RegType.Contains("2") && ValidateHelper.IsEmail(accountName))//验证邮箱
-                {
-                    string emailProvider = CommonHelper.GetEmailProvider(accountName);
-                    if (WorkContext.MallConfig.AllowEmailProvider.Length != 0 && (!CommonHelper.IsInArray(emailProvider, WorkContext.MallConfig.AllowEmailProvider, "\n")))
-                    {
-                        errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "不能使用'" + emailProvider + "'类型的邮箱", "}");
-                    }
-                    else if (CommonHelper.IsInArray(emailProvider, WorkContext.MallConfig.BanEmailProvider, "\n"))
-                    {
-                        errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "不能使用'" + emailProvider + "'类型的邮箱", "}");
-                    }
-                    else if (Users.IsExistEmail(accountName))
-                    {
-                        errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "邮箱已经存在", "}");
-                    }
-                    else
-                    {
-                        userInfo = new UserInfo();
-                        userInfo.UserName = string.Empty;
-                        userInfo.Email = accountName;
-                        userInfo.Mobile = string.Empty;
-                    }
-                }
-                else if (WorkContext.MallConfig.RegType.Contains("3") && ValidateHelper.IsMobile(accountName))//验证手机
-                {
-                    if (Users.IsExistMobile(accountName))
-                    {
-                        errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "手机号已经存在", "}");
-                    }
-                    else
-                    {
-                        userInfo = new UserInfo();
-                        userInfo.UserName = string.Empty;
-                        userInfo.Email = string.Empty;
-                        userInfo.Mobile = accountName;
-                    }
-                }
-                else if (WorkContext.MallConfig.RegType.Contains("1"))//验证用户名
+                //if (WorkContext.MallConfig.RegType.Contains("2") && ValidateHelper.IsEmail(accountName))//验证邮箱
+                //{
+                //    string emailProvider = CommonHelper.GetEmailProvider(accountName);
+                //    if (WorkContext.MallConfig.AllowEmailProvider.Length != 0 && (!CommonHelper.IsInArray(emailProvider, WorkContext.MallConfig.AllowEmailProvider, "\n")))
+                //    {
+                //        errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "不能使用'" + emailProvider + "'类型的邮箱", "}");
+                //    }
+                //    else if (CommonHelper.IsInArray(emailProvider, WorkContext.MallConfig.BanEmailProvider, "\n"))
+                //    {
+                //        errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "不能使用'" + emailProvider + "'类型的邮箱", "}");
+                //    }
+                //    else if (Users.IsExistEmail(accountName))
+                //    {
+                //        errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "邮箱已经存在", "}");
+                //    }
+                //    else
+                //    {
+                //        userInfo = new UserInfo();
+                //        userInfo.UserName = string.Empty;
+                //        userInfo.Email = accountName;
+                //        userInfo.Mobile = string.Empty;
+                //    }
+                //}
+                //else if (WorkContext.MallConfig.RegType.Contains("3") && ValidateHelper.IsMobile(accountName))//验证手机
+                //{
+                //    if (Users.IsExistMobile(accountName))
+                //    {
+                //        errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "手机号已经存在", "}");
+                //    }
+                //    else
+                //    {
+                //        userInfo = new UserInfo();
+                //        userInfo.UserName = string.Empty;
+                //        userInfo.Email = string.Empty;
+                //        userInfo.Mobile = accountName;
+                //    }
+                //}
+                //else 
+                if (WorkContext.MallConfig.RegType.Contains("1"))//验证用户名
                 {
                     if (NStore.Services.Users.IsExistUserName(accountName))
                     {
@@ -355,6 +361,10 @@ namespace NStore.Web.Controllers
                         userInfo.Email = string.Empty;
                         userInfo.Mobile = string.Empty;
                     }
+                }
+                else
+                {
+                    errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "账号类型不正确", "}");
                 }
             }
 
@@ -376,12 +386,13 @@ namespace NStore.Web.Controllers
                 if (nickName.Length > 0)
                     userInfo.NickName = WebHelper.HtmlEncode(nickName);
                 else
-                    userInfo.NickName = "bma" + Randoms.CreateRandomValue(7);
+                    userInfo.NickName = "ngh" + Randoms.CreateRandomValue(7);
                 userInfo.Avatar = "";
                 userInfo.PayCredits = 0;
                 userInfo.RankCredits = 0;
                 userInfo.VerifyEmail = 0;
                 userInfo.VerifyMobile = 0;
+                userInfo.IsEnterprise = isEnterprise == "1" ? 1 : 0;
 
                 userInfo.LastVisitIP = WorkContext.IP;
                 userInfo.LastVisitRgId = WorkContext.RegionId;
@@ -414,14 +425,14 @@ namespace NStore.Web.Controllers
                 //将用户信息写入cookie
                 MallUtils.SetUserCookie(userInfo, 0);
 
-                //发送注册欢迎信息
-                if (WorkContext.MallConfig.IsWebcomeMsg == 1)
-                {
-                    if (userInfo.Email.Length > 0)
-                        Emails.SendWebcomeEmail(userInfo.Email);
-                    if (userInfo.Mobile.Length > 0)
-                        SMSes.SendWebcomeSMS(userInfo.Mobile);
-                }
+                ////发送注册欢迎信息
+                //if (WorkContext.MallConfig.IsWebcomeMsg == 1)
+                //{
+                //    if (userInfo.Email.Length > 0)
+                //        Emails.SendWebcomeEmail(userInfo.Email);
+                //    if (userInfo.Mobile.Length > 0)
+                //        SMSes.SendWebcomeSMS(userInfo.Mobile);
+                //}
 
                 //同步上下午
                 WorkContext.Uid = userInfo.Uid;
@@ -430,8 +441,45 @@ namespace NStore.Web.Controllers
                 WorkContext.UserMobile = userInfo.Mobile;
                 WorkContext.NickName = userInfo.NickName;
 
-                return AjaxResult("success", "注册成功");
+                //return AjaxResult("success", "注册成功");
+                return AjaxResult("success", Url.Action("Authentication", new RouteValueDictionary { { "uid", userInfo.Uid } }));
             }
+        }
+
+        public ActionResult Authentication()
+        {
+            string returnUrl = WebHelper.GetQueryString("returnUrl");
+            if (returnUrl.Length == 0)
+                returnUrl = "/";
+
+            //get请求
+            if (WebHelper.IsGet())
+            {
+                if (WorkContext.Uid < 1 || WorkContext.PartUserInfo == null)
+                {
+                    return Redirect(Url.Action("index","home"));
+                }
+
+                Authentication model = new Authentication();
+                
+                model.IsEnterprise = WorkContext.PartUserInfo.IsEnterprise;
+                model.ReturnUrl = returnUrl;
+                model.IsVerifyCode = CommonHelper.IsInArray(WorkContext.PageKey, WorkContext.MallConfig.VerifyPages);
+
+                return View(model);
+            }
+
+            string linkname = WebHelper.GetFormString("linkname");
+            string mobile = WebHelper.GetFormString("mobile");
+            string email = WebHelper.GetFormString("email");
+
+            string company = WebHelper.GetFormString("company");
+            string creditcode = WebHelper.GetFormString("creditcode");
+            string businesslicense = WebHelper.GetFormString("businesslicense");
+
+
+            return AjaxResult("success", "认证成功");
+
         }
 
         /// <summary>
@@ -441,7 +489,7 @@ namespace NStore.Web.Controllers
         {
             if (WorkContext.Uid > 0)
             {
-                WebHelper.DeleteCookie("bma");
+                WebHelper.DeleteCookie("ngh");
                 Sessions.RemoverSession(WorkContext.Sid);
                 OnlineUsers.DeleteOnlineUserBySid(WorkContext.Sid);
             }
@@ -676,7 +724,7 @@ namespace NStore.Web.Controllers
                 //设置用户新密码
                 Users.UpdateUserPasswordByUid(uid, p);
                 //清空当前用户信息
-                WebHelper.DeleteCookie("bma");
+                WebHelper.DeleteCookie("ngh");
                 Sessions.RemoverSession(WorkContext.Sid);
                 OnlineUsers.DeleteOnlineUserBySid(WorkContext.Sid);
 

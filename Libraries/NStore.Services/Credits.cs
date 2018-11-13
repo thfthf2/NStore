@@ -75,27 +75,34 @@ namespace NStore.Services
                 if (loginTime.Date <= slcTime.Date)
                     return;
 
+
+                //判断是否为禁用用户
+                if (UserRanks.IsBanUserRank(partUserInfo.UserRid) && partUserInfo.LiftBanTime <= DateTime.Now)
+                {
+                    return;
+                }
+
                 if (!IsSendTodayLoginCredit(partUserInfo.Uid, DateTime.Now))
                 {
                     MallUtils.SetBMACookie("slctime", WebHelper.UrlEncode(loginTime.ToString()));
 
-                    int surplusPayCredits = GetDaySurplusPayCredits(partUserInfo.Uid, loginTime.Date);
+                    //int surplusPayCredits = GetDaySurplusPayCredits(partUserInfo.Uid, loginTime.Date);
                     int surplusRankCredits = GetDaySurplusRankCredits(partUserInfo.Uid, loginTime.Date);
-                    if (surplusPayCredits == 0 && surplusRankCredits == 0)
+                    if (surplusRankCredits == 0) //surplusPayCredits == 0 &&
                         return;
 
-                    int payCredits = 0;
+                    //int payCredits = 0;
                     int rankCredits = 0;
-                    if (surplusPayCredits > 0)
-                        payCredits = surplusPayCredits < _creditconfiginfo.LoginPayCredits ? surplusPayCredits : _creditconfiginfo.LoginPayCredits;
-                    else if (surplusPayCredits == -1)
-                        payCredits = _creditconfiginfo.LoginPayCredits;
+                    //if (surplusPayCredits > 0)
+                    //    payCredits = surplusPayCredits < _creditconfiginfo.LoginPayCredits ? surplusPayCredits : _creditconfiginfo.LoginPayCredits;
+                    //else if (surplusPayCredits == -1)
+                    //    payCredits = _creditconfiginfo.LoginPayCredits;
                     if (surplusRankCredits > 0)
                         rankCredits = surplusRankCredits < _creditconfiginfo.LoginRankCredits ? surplusRankCredits : _creditconfiginfo.LoginRankCredits;
                     else if (surplusRankCredits == -1)
                         rankCredits = _creditconfiginfo.LoginRankCredits;
 
-                    partUserInfo.PayCredits += payCredits;
+                    //partUserInfo.PayCredits += payCredits;
                     partUserInfo.RankCredits += rankCredits;
 
                     int userRid = UserRanks.GetUserRankByCredits(partUserInfo.RankCredits).UserRid;
@@ -106,7 +113,7 @@ namespace NStore.Services
 
                     CreditLogInfo creditLogInfo = new CreditLogInfo();
                     creditLogInfo.Uid = partUserInfo.Uid;
-                    creditLogInfo.PayCredits = payCredits;
+                    creditLogInfo.PayCredits = 0;// payCredits;
                     creditLogInfo.RankCredits = rankCredits;
                     creditLogInfo.Action = (int)CreditAction.Login;
                     creditLogInfo.ActionCode = 0;
@@ -114,7 +121,9 @@ namespace NStore.Services
                     creditLogInfo.ActionDes = "登陆赠送积分";
                     creditLogInfo.Operator = 0;
 
+                    //发送积分，并更新用户等级
                     SendCredits(userRid, creditLogInfo);
+                   
                 }
             }
         }
@@ -128,23 +137,23 @@ namespace NStore.Services
         {
             if (_creditconfiginfo.RegisterPayCredits > 0 || _creditconfiginfo.RegisterRankCredits > 0)
             {
-                int surplusPayCredits = GetDaySurplusPayCredits(userInfo.Uid, registerTime.Date);
+                //int surplusPayCredits = GetDaySurplusPayCredits(userInfo.Uid, registerTime.Date);
                 int surplusRankCredits = GetDaySurplusRankCredits(userInfo.Uid, registerTime.Date);
-                if (surplusPayCredits == 0 && surplusRankCredits == 0)
+                if ( surplusRankCredits == 0) //surplusPayCredits == 0 &&
                     return;
 
-                int payCredits = 0;
+                //int payCredits = 0;
                 int rankCredits = 0;
-                if (surplusPayCredits > 0)
-                    payCredits = surplusPayCredits < _creditconfiginfo.RegisterPayCredits ? surplusPayCredits : _creditconfiginfo.RegisterPayCredits;
-                else if (surplusPayCredits == -1)
-                    payCredits = _creditconfiginfo.RegisterPayCredits;
+                //if (surplusPayCredits > 0)
+                //    payCredits = surplusPayCredits < _creditconfiginfo.RegisterPayCredits ? surplusPayCredits : _creditconfiginfo.RegisterPayCredits;
+                //else if (surplusPayCredits == -1)
+                //    payCredits = _creditconfiginfo.RegisterPayCredits;
                 if (surplusRankCredits > 0)
                     rankCredits = surplusRankCredits < _creditconfiginfo.RegisterRankCredits ? surplusRankCredits : _creditconfiginfo.RegisterRankCredits;
                 else if (surplusRankCredits == -1)
                     rankCredits = _creditconfiginfo.RegisterRankCredits;
 
-                userInfo.PayCredits += payCredits;
+                //userInfo.PayCredits += payCredits;
                 userInfo.RankCredits += rankCredits;
 
                 int userRid = UserRanks.GetUserRankByCredits(userInfo.RankCredits).UserRid;
@@ -155,7 +164,7 @@ namespace NStore.Services
 
                 CreditLogInfo creditLogInfo = new CreditLogInfo();
                 creditLogInfo.Uid = userInfo.Uid;
-                creditLogInfo.PayCredits = payCredits;
+                creditLogInfo.PayCredits = 0;// payCredits;
                 creditLogInfo.RankCredits = rankCredits;
                 creditLogInfo.Action = (int)CreditAction.Register;
                 creditLogInfo.ActionCode = 0;
@@ -532,7 +541,7 @@ namespace NStore.Services
         }
 
         /// <summary>
-        /// 发放积分
+        /// 发放积分，并更新用户等级
         /// </summary>
         /// <param name="userRid">用户等级id</param>
         /// <param name="creditLogInfo">积分日志信息</param>

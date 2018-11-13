@@ -46,9 +46,59 @@ namespace NStore.Web.Models
         /// </summary>
         public string ShadowName { get; set; }
         /// <summary>
+        /// 注册用户类型（0个人,1企业）
+        /// </summary>
+        public int IsEnterprise { get; set; }
+        /// <summary>
         /// 是否启用验证码
         /// </summary>
         public bool IsVerifyCode { get; set; }
+
+    }
+
+    /// <summary>
+    /// 认证模型类
+    /// </summary>
+    public class Authentication
+    {
+        /// <summary>
+        /// 返回地址
+        /// </summary>
+        public string ReturnUrl { get; set; }
+
+        ///// <summary>
+        ///// 手机号
+        ///// </summary>
+        //public string Mobile { get; set; }
+        ///// <summary>
+        ///// 邮箱
+        ///// </summary>
+        //public string Email { get; set; }
+        ///// <summary>
+        ///// 公司名称
+        ///// </summary>
+        //public string CompanyName { get; set; }
+        ///// <summary>
+        ///// 联系人
+        ///// </summary>
+        //public string LinkName { get; set; }
+        ///// <summary>
+        ///// 信用码
+        ///// </summary>
+        //public string CreditCode { get; set; }
+        ///// <summary>
+        ///// 营业执照
+        ///// </summary>
+        //public string BusinessLicense { get; set; }
+        /// <summary>
+        /// 注册用户类型（0个人,1企业）
+        /// </summary>
+        public int IsEnterprise { get; set; }
+        /// <summary>
+        /// 是否启用验证码
+        /// </summary>
+        public bool IsVerifyCode { get; set; }
+
     }
 
     /// <summary>

@@ -1,0 +1,131 @@
+﻿@model NStore.Web.Models.Authentication
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>用户认证-@{@WorkContext.MallConfig.SiteTitle}<</title>
+            @Html.Raw(WorkContext.MallConfig.SEOKeyword)
+            @Html.Raw(WorkContext.MallConfig.SEODescription)
+            <link href="@{@WorkContext.CSSCDN}/css/base.css" rel="stylesheet" type="text/css" />
+            <link href="@{@WorkContext.CSSCDN}/css/account.css" rel="stylesheet" type="text/css" />
+            <script src="@{@WorkContext.ScriptCDN}/scripts/utils.js" type="text/javascript"></script>
+            <script src="@{@WorkContext.ScriptCDN}/scripts/account.js" type="text/javascript"></script>
+            <script type="text/javascript">
+                returnUrl = "@Model.ReturnUrl";
+            </script>
+        </head>
+        <body>
+            <div id="loginTop" class="box">
+                <a href="/" class="left"><img src="@{@WorkContext.ImageCDN}/images/logo.png" width="186" height="42" /></a>
+                <h2>用户认证</h2>
+                <div class="clear"></div>
+            </div>
+            <div class="regTitle box">我想稍后再认证，现在直接 <a href="@Url.Action("index","home")" class="Fblue">跳过</a></div>
+            <div class="reg box">
+                <form name="authuserForm" action="">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <th width="190"><em>*</em>联系人：</th>
+                            <td width="275"><input type="text" name="linkname" value="" class="text userName" /></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <th width="190"><em>*</em>手机号：</th>
+                            <td width="275"><input type="text" name="mobile" value="" class="text tel" /></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        @*<tr class="succ_ok">
+                            <th><em>*</em>验证手机：</th>
+                            <td><input type="password" class="text tel" /></td>
+                            <td>&nbsp;</td>
+                        </tr>*@
+                         <tr>
+                            <th width="190"><em>*</em>短信验证码：</th>
+                             <td width="275"><input type="text" class="YZM text" />
+                             <td><a>获取验证码</a>
+                             </td>
+                         </tr>
+                        <tr>
+                            <th width="190">邮箱（选填）：</th>
+                            <td width="275"><input type="text" name="email" value="" class="text userName" /></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        @if (Model.IsEnterprise == 1)
+                        {
+                            <tr>
+                                <th width="190"><em>*</em>公司名称：</th>
+                                <td width="275"><input type="text" name="company" value="" class="text userName" /></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <th width="190"><em>*</em>信用码：</th>
+                                <td width="275"><input type="text" name="creditcode" value="" class="text userName" /></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <th width="190"><em>*</em>营业执照：</th>
+                                <td width="275"><input type="text" name="businesslicense" value="" class="text userName" /></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        }
+                        @if (Model.IsVerifyCode)
+                        {
+                            <tr class="succ_on">
+                                <th width="190"><em>*</em>验证码：</th>
+                                <td width="275"><input type="text" name="verifyCode" autocomplete="off" value="" class="text userName" /></td>
+                                <td><img id="verifyImage" style="cursor:hand" height="34" title="点击刷新验证码" onclick="this.src='/tool/verifyimage?time=' + new Date()" src="/tool/verifyimage" /></td>
+                            </tr>
+                        }
+                        <tr>
+                            <td align="right">&nbsp;</td>
+                            <td><a href="#" class="regBt redBT" onclick=authuser(@Model.IsEnterprise)">认证提交</a></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </table>
+                </form>
+
+            </div>
+            <div id="footer" class="bigBox">
+                <div class="box">
+                    @{
+                        int flag = 1;
+                        foreach (HelpInfo info in WorkContext.HelpList)
+                        {
+                            if (info.Pid != 0)
+                            {
+                                if (info.Url.Length == 0)
+                                {
+                                    <a href="@Url.Action(" question", "help" , new RouteValueDictionary { { "id" , info.Id } })">@info.Title</a>
+                                }
+                                else
+                                {
+                                    <a href="@info.Url">@info.Title</a>
+                                }
+                            }
+                            else
+                            {
+                                if (flag != 1)
+                                {
+                                    @:</div>
+            }
+                                @:<div class="footerBox">
+                                    <h3>@info.Title</h3>
+            flag++;
+                            }
+                        }
+                        if (WorkContext.HelpList.Count > 0)
+                        {
+                            @:</div>
+    }
+                    }
+                    <div class="clear"></div>
+                </div>
+                </div>
+                @Html.Raw(WorkContext.ExecuteDetail)
+                @Html.Raw(WorkContext.MallConfig.Script)
+            </body>
+        </html>

@@ -475,7 +475,8 @@ namespace NStore.RDBSStrategy.SqlServer
 									   GenerateInParam("@verifymobile",SqlDbType.TinyInt,1,userInfo.VerifyMobile),
 									   GenerateInParam("@liftbantime",SqlDbType.DateTime,8,userInfo.LiftBanTime),
                                        GenerateInParam("@salt",SqlDbType.NChar,6,userInfo.Salt),
-									   GenerateInParam("@lastvisittime",SqlDbType.DateTime,8,userInfo.LastVisitTime),
+                                       GenerateInParam("@isenterprise",SqlDbType.TinyInt,1,userInfo.IsEnterprise),
+                                       GenerateInParam("@lastvisittime",SqlDbType.DateTime,8,userInfo.LastVisitTime),
                                        GenerateInParam("@lastvisitip",SqlDbType.Char,15,userInfo.LastVisitIP),
                                        GenerateInParam("@lastvisitrgid",SqlDbType.SmallInt,2,userInfo.LastVisitRgId),
 									   GenerateInParam("@registertime",SqlDbType.DateTime,8,userInfo.RegisterTime),
@@ -517,6 +518,7 @@ namespace NStore.RDBSStrategy.SqlServer
 									   GenerateInParam("@verifymobile",SqlDbType.TinyInt,1,userInfo.VerifyMobile),
 									   GenerateInParam("@liftbantime",SqlDbType.DateTime,8,userInfo.LiftBanTime),
                                        GenerateInParam("@salt",SqlDbType.NChar,6,userInfo.Salt),
+                                       GenerateInParam("@isenterprise",SqlDbType.TinyInt,1,userInfo.IsEnterprise),
                                        GenerateInParam("@lastvisittime",SqlDbType.DateTime,8,userInfo.LastVisitTime),
                                        GenerateInParam("@lastvisitip",SqlDbType.Char,15,userInfo.LastVisitIP),
                                        GenerateInParam("@lastvisitrgid",SqlDbType.SmallInt,2,userInfo.LastVisitRgId),
@@ -560,7 +562,8 @@ namespace NStore.RDBSStrategy.SqlServer
 									   GenerateInParam("@verifymobile",SqlDbType.TinyInt,1,partUserInfo.VerifyMobile),
 									   GenerateInParam("@liftbantime",SqlDbType.DateTime,8,partUserInfo.LiftBanTime),
                                        GenerateInParam("@salt",SqlDbType.NChar,6,partUserInfo.Salt),
-									   GenerateInParam("@uid",SqlDbType.Int,4,partUserInfo.Uid)
+                                       GenerateInParam("@isenterprise",SqlDbType.TinyInt,1,partUserInfo.IsEnterprise),
+                                       GenerateInParam("@uid",SqlDbType.Int,4,partUserInfo.Uid)
 								   };
 
             RDBSHelper.ExecuteScalar(CommandType.StoredProcedure,
@@ -872,7 +875,7 @@ namespace NStore.RDBSStrategy.SqlServer
         }
 
         /// <summary>
-        /// 更新用户等级
+        /// 更新用户等级（未建立存储过程）
         /// </summary>
         /// <param name="uid">用户id</param>
         /// <param name="userRid">用户等级id</param>
