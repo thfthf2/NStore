@@ -392,7 +392,7 @@ namespace NStore.Web.Controllers
                 userInfo.RankCredits = 0;
                 userInfo.VerifyEmail = 0;
                 userInfo.VerifyMobile = 0;
-                userInfo.IsEnterprise = isEnterprise == "1" ? 1 : 0;
+                userInfo.UserType = isEnterprise == "1" ? 1 : 0;
 
                 userInfo.LastVisitIP = WorkContext.IP;
                 userInfo.LastVisitRgId = WorkContext.RegionId;
@@ -462,7 +462,7 @@ namespace NStore.Web.Controllers
 
                 Authentication model = new Authentication();
                 
-                model.IsEnterprise = WorkContext.PartUserInfo.IsEnterprise;
+                model.IsEnterprise = WorkContext.PartUserInfo.UserType;
                 model.ReturnUrl = returnUrl;
                 model.IsVerifyCode = CommonHelper.IsInArray(WorkContext.PageKey, WorkContext.MallConfig.VerifyPages);
 

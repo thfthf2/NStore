@@ -38,20 +38,17 @@
                             <td width="275"><input type="text" name="mobile" value="" class="text tel" /></td>
                             <td>&nbsp;</td>
                         </tr>
-                        @*<tr class="succ_ok">
-                            <th><em>*</em>验证手机：</th>
-                            <td><input type="password" class="text tel" /></td>
-                            <td>&nbsp;</td>
-                        </tr>*@
                          <tr>
                             <th width="190"><em>*</em>短信验证码：</th>
-                             <td width="275"><input type="text" class="YZM text" />
-                             <td><a>获取验证码</a>
+                             <td width="275">
+                                 <input type="text" style="width:100px;" class="YZM text" name="verifyCode">
+                                 <a href="javascript:sendVerifyMobile()" class="grayBT right" style="height:30px; line-height:30px; margin-left:10px;margin-right:5px; padding:4px 15px;">获取短信校验码</a>
                              </td>
+                             <td>&nbsp;</td>
                          </tr>
                         <tr>
                             <th width="190">邮箱（选填）：</th>
-                            <td width="275"><input type="text" name="email" value="" class="text userName" /></td>
+                            <td width="275"><input type="text" name="email" value="" class="text test" /></td>
                             <td>&nbsp;</td>
                         </tr>
                         @if (Model.IsEnterprise == 1)
@@ -111,16 +108,16 @@
                                 if (flag != 1)
                                 {
                                     @:</div>
-            }
+                                }
                                 @:<div class="footerBox">
                                     <h3>@info.Title</h3>
-            flag++;
+                                    flag++;
                             }
                         }
                         if (WorkContext.HelpList.Count > 0)
                         {
                             @:</div>
-    }
+                        }
                     }
                     <div class="clear"></div>
                 </div>

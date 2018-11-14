@@ -475,7 +475,9 @@ namespace NStore.RDBSStrategy.SqlServer
 									   GenerateInParam("@verifymobile",SqlDbType.TinyInt,1,userInfo.VerifyMobile),
 									   GenerateInParam("@liftbantime",SqlDbType.DateTime,8,userInfo.LiftBanTime),
                                        GenerateInParam("@salt",SqlDbType.NChar,6,userInfo.Salt),
-                                       GenerateInParam("@isenterprise",SqlDbType.TinyInt,1,userInfo.IsEnterprise),
+                                       GenerateInParam("@usertype",SqlDbType.TinyInt,1,userInfo.UserType),
+                                       GenerateInParam("@verifyrank",SqlDbType.TinyInt,1,userInfo.VerifyRank),
+                                       GenerateInParam("@forbidtype",SqlDbType.TinyInt,1,userInfo.ForbidType),
                                        GenerateInParam("@lastvisittime",SqlDbType.DateTime,8,userInfo.LastVisitTime),
                                        GenerateInParam("@lastvisitip",SqlDbType.Char,15,userInfo.LastVisitIP),
                                        GenerateInParam("@lastvisitrgid",SqlDbType.SmallInt,2,userInfo.LastVisitRgId),
@@ -488,8 +490,12 @@ namespace NStore.RDBSStrategy.SqlServer
                                        GenerateInParam("@idcard",SqlDbType.VarChar,18,userInfo.IdCard),
 									   GenerateInParam("@regionid",SqlDbType.SmallInt,2,userInfo.RegionId),
 									   GenerateInParam("@address",SqlDbType.NVarChar,150,userInfo.Address),
-									   GenerateInParam("@bio",SqlDbType.NVarChar,300,userInfo.Bio)
-								   };
+									   GenerateInParam("@bio",SqlDbType.NVarChar,300,userInfo.Bio),
+                                       GenerateInParam("@linkname",SqlDbType.NVarChar,300,userInfo.LinkName),
+                                       GenerateInParam("@company",SqlDbType.NVarChar,300,userInfo.Company),
+                                       GenerateInParam("@creditcode",SqlDbType.NVarChar,300,userInfo.CreditCode),
+                                       GenerateInParam("@businesslicense",SqlDbType.NVarChar,300,userInfo.BusinessLicense)
+                                   };
 
             return TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.StoredProcedure,
                                                                       string.Format("{0}createuser", RDBSHelper.RDBSTablePre),
@@ -518,7 +524,9 @@ namespace NStore.RDBSStrategy.SqlServer
 									   GenerateInParam("@verifymobile",SqlDbType.TinyInt,1,userInfo.VerifyMobile),
 									   GenerateInParam("@liftbantime",SqlDbType.DateTime,8,userInfo.LiftBanTime),
                                        GenerateInParam("@salt",SqlDbType.NChar,6,userInfo.Salt),
-                                       GenerateInParam("@isenterprise",SqlDbType.TinyInt,1,userInfo.IsEnterprise),
+                                       GenerateInParam("@usertype",SqlDbType.TinyInt,1,userInfo.UserType),
+                                       GenerateInParam("@verifyrank",SqlDbType.TinyInt,1,userInfo.VerifyRank),
+                                       GenerateInParam("@forbidtype",SqlDbType.TinyInt,1,userInfo.ForbidType),
                                        GenerateInParam("@lastvisittime",SqlDbType.DateTime,8,userInfo.LastVisitTime),
                                        GenerateInParam("@lastvisitip",SqlDbType.Char,15,userInfo.LastVisitIP),
                                        GenerateInParam("@lastvisitrgid",SqlDbType.SmallInt,2,userInfo.LastVisitRgId),
@@ -532,6 +540,10 @@ namespace NStore.RDBSStrategy.SqlServer
 									   GenerateInParam("@regionid",SqlDbType.SmallInt,2,userInfo.RegionId),
 									   GenerateInParam("@address",SqlDbType.NVarChar,150,userInfo.Address),
 									   GenerateInParam("@bio",SqlDbType.NVarChar,300,userInfo.Bio),
+                                       GenerateInParam("@linkname",SqlDbType.NVarChar,300,userInfo.LinkName),
+                                       GenerateInParam("@company",SqlDbType.NVarChar,300,userInfo.Company),
+                                       GenerateInParam("@creditcode",SqlDbType.NVarChar,300,userInfo.CreditCode),
+                                       GenerateInParam("@businesslicense",SqlDbType.NVarChar,300,userInfo.BusinessLicense),
 									   GenerateInParam("@uid",SqlDbType.Int,4,userInfo.Uid)
 								   };
 
@@ -562,7 +574,9 @@ namespace NStore.RDBSStrategy.SqlServer
 									   GenerateInParam("@verifymobile",SqlDbType.TinyInt,1,partUserInfo.VerifyMobile),
 									   GenerateInParam("@liftbantime",SqlDbType.DateTime,8,partUserInfo.LiftBanTime),
                                        GenerateInParam("@salt",SqlDbType.NChar,6,partUserInfo.Salt),
-                                       GenerateInParam("@isenterprise",SqlDbType.TinyInt,1,partUserInfo.IsEnterprise),
+                                       GenerateInParam("@usertype",SqlDbType.TinyInt,1,partUserInfo.UserType),
+                                       GenerateInParam("@verifyrank",SqlDbType.TinyInt,1,partUserInfo.VerifyRank),
+                                       GenerateInParam("@forbidtype",SqlDbType.TinyInt,1,partUserInfo.ForbidType),
                                        GenerateInParam("@uid",SqlDbType.Int,4,partUserInfo.Uid)
 								   };
 
@@ -591,7 +605,11 @@ namespace NStore.RDBSStrategy.SqlServer
 									   GenerateInParam("@regionid",SqlDbType.SmallInt,2,userDetailInfo.RegionId),
 									   GenerateInParam("@address",SqlDbType.NVarChar,150,userDetailInfo.Address),
 									   GenerateInParam("@bio",SqlDbType.NVarChar,300,userDetailInfo.Bio),
-									   GenerateInParam("@uid",SqlDbType.Int,4,userDetailInfo.Uid)
+                                       GenerateInParam("@linkname",SqlDbType.NVarChar,300,userDetailInfo.LinkName),
+                                       GenerateInParam("@company",SqlDbType.NVarChar,300,userDetailInfo.Company),
+                                       GenerateInParam("@creditcode",SqlDbType.NVarChar,300,userDetailInfo.CreditCode),
+                                       GenerateInParam("@businesslicense",SqlDbType.NVarChar,300,userDetailInfo.BusinessLicense),
+                                       GenerateInParam("@uid",SqlDbType.Int,4,userDetailInfo.Uid)
 								   };
 
             RDBSHelper.ExecuteScalar(CommandType.StoredProcedure,

@@ -125,11 +125,44 @@ function authuser(isenterprise)
 {
     var registerForm = document.forms["authuserForm"];
 
-    var accountName = registerForm.elements[shadowName].value;
-    var password = registerForm.elements["password"].value;
-    var confirmPwd = registerForm.elements["confirmPwd"].value;
-    var verifyCode = registerForm.elements["verifyCode"] ? registerForm.elements["verifyCode"].value : undefined;
+    var linkname = registerForm.elements["linkname"].value;
+    var mobile = registerForm.elements["mobile"].value;
+    var verifyCode = registerForm.elements["verifyCode"].value;
+    var email = registerForm.elements["email"].value;
 
+    if (linkname.length == 0) {
+        alert("请输入联系人");
+        return false;
+    }
+    if (mobile.length == 0) {
+        alert("请输入手机号");
+        return false;
+    }
+    if (verifyCode.length == 0) {
+        alert("请输入短信验证码");
+        return false;
+    }
+
+    if (isenterprise==1) {
+
+        var company = registerForm.elements["company"].value;
+        var creditcode = registerForm.elements["creditcode"].value;
+        var businesslicense = registerForm.elements["businesslicense"].value;
+
+        if (company.length == 0) {
+            alert("请输入公司名称");
+            return false;
+        }
+        if (creditcode.length == 0) {
+            alert("请输入公司信用码");
+            return false;
+        }
+        if (verifyCode.length == 0) {
+            alert("请输入短信验证码");
+            return false;
+        }
+
+    }
 }
 
 //找回密码
