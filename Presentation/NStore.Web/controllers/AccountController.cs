@@ -477,16 +477,15 @@ namespace NStore.Web.Controllers
                 }
 
                 Authentication model = new Authentication();
-                model.ShadowName = WorkContext.MallConfig.ShadowName;
                 model.UserType = WorkContext.PartUserInfo.UserType;
                 model.ReturnUrl = returnUrl;
                 model.IsVerifyCode = CommonHelper.IsInArray(WorkContext.PageKey, WorkContext.MallConfig.VerifyPages);
 
                 return View(model);
             }
-            string accountName = WebHelper.GetFormString(WorkContext.MallConfig.ShadowName);
             string linkname = WebHelper.GetFormString("linkname");
             string mobile = WebHelper.GetFormString("mobile");
+            string verifyCode = WebHelper.GetFormString("verifyCode");
             string email = WebHelper.GetFormString("email");
 
             string company = WebHelper.GetFormString("company");
@@ -495,10 +494,7 @@ namespace NStore.Web.Controllers
 
             #region 验证
             StringBuilder errorList = new StringBuilder("[");
-            if (accountName != WorkContext.PartUserInfo.UserName)
-            {
-                errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "用户名称不正确", "}");
-            }
+
             if (string.IsNullOrEmpty(linkname))
             {
                 errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "linkname", "联系人名称未填写", "}");
@@ -507,10 +503,17 @@ namespace NStore.Web.Controllers
             {
                 errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "linkname", "联系人名称的长度不能大于5", "}");
             }
-            if (mobile != WorkContext.PartUserInfo.Mobile)
+            //if (mobile != WorkContext.PartUserInfo.Mobile)
+            //{
+            //    errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "mobile", "手机号不正确", "}");
+            //}
+
+            var mobileandcode = Sessions.GetValueString(WorkContext.Sid, "authMoibleCode");
+            if (mobileandcode != (mobile + verifyCode))
             {
-                errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "mobile", "手机号不正确", "}");
+                errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "mobile", "手机号验证不正确", "}");
             }
+
             if (!string.IsNullOrEmpty(email)) //验证邮箱
             {
                 if (!ValidateHelper.IsEmail(email))
@@ -534,11 +537,6 @@ namespace NStore.Web.Controllers
             if (errorList.Length > 1)//第一部分验证失败
             {
                 return AjaxResult("error", errorList.Remove(errorList.Length - 1, 1).Append("]").ToString(), true);
-            }
-
-            if (WorkContext.PartUserInfo.VerifyRank > 0)
-            {
-                errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "用户已认证", "}");
             }
 
             if (WorkContext.PartUserInfo.UserType == 1) //企业认证
@@ -567,7 +565,9 @@ namespace NStore.Web.Controllers
             UserInfo userInfo = Users.GetUserById(WorkContext.Uid);
             userInfo.LinkName = linkname;
             userInfo.Mobile = mobile;
+            userInfo.VerifyMobile = 1;
             userInfo.Email = email;
+            userInfo.VerifyRank = WorkContext.PartUserInfo.UserType == 1 ? 1 : 0;
             userInfo.Company = company;
             userInfo.CreditCode = creditcode;
             userInfo.BusinessLicense = businesslicense;

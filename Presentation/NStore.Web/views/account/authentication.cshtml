@@ -12,18 +12,52 @@
             @Html.Raw(WorkContext.MallConfig.SEODescription)
             <link href="@{@WorkContext.CSSCDN}/css/base.css" rel="stylesheet" type="text/css" />
             <link href="@{@WorkContext.CSSCDN}/css/account.css" rel="stylesheet" type="text/css" />
+            <script src="@{@WorkContext.ScriptCDN}/scripts/jquery.js" type="text/javascript"></script>
             <script src="@{@WorkContext.ScriptCDN}/scripts/utils.js" type="text/javascript"></script>
             <script src="@{@WorkContext.ScriptCDN}/scripts/account.js" type="text/javascript"></script>
-            <script src="@{@WorkContext.ScriptCDN}/scripts/ucenter.safe.js" type="text/javascript"></script>
+
+
+            <script src="@{@WorkContext.ScriptCDN}/scripts/ajaxfileupload.js" type="text/javascript"></script>
             <script type="text/javascript">
                 returnUrl = "@Model.ReturnUrl";
+
+                function ajaxFileUploads(obj) {
+                    var td = $(obj).parent();
+                    var id = $(td).children(".file").attr("id");
+                    var img = $(td).children(".img");
+                    var path = $(img).attr("src");
+
+                    if (path.indexOf("images/user-avatar")>0) path = "";
+
+                    $.ajaxFileUpload(
+                    {
+                        url: '/tool/AjaxUpload?path=' + path + '&newpath=/upload/user/',
+                        secureuri: false,
+                        fileElementId: id,
+                        dataType: 'json',
+                        success: function (data, status) {
+                            if (data.state == "success") {
+                                $(img).attr("src", data.content);
+                                $(td).children("input[type=hidden]").val(data.content);
+                            }
+                            else {
+                                //jAlert(data.msg, "error", '../../', '');
+                                alert(data.content);
+                            }
+                        },
+                        error: function (data, status, e) {
+                            //jAlert("图片替换失败", "error", '../../', '');
+                            alert("图片替换失败");
+                        }
+                    });
+                }
             </script>
         </head>
         <body>
             <div id="loginTop" class="box">
                 <a href="/" class="left"><img src="@{@WorkContext.ImageCDN}/images/logo.png" width="186" height="42" /></a>
                 <h2>
-                @if (Model.UserType == 1)
+                @if (Model.UserType == 0)
                 {
                     @Html.Raw("用户个人认证")
                 }
@@ -58,24 +92,29 @@
                          </tr>
                         <tr>
                             <th width="190">邮箱（选填）：</th>
-                            <td width="275"><input type="text" name="email" value="" class="text test" /></td>
+                            <td width="275"><input type="text" name="email" value="" class="text" /></td>
                             <td>&nbsp;</td>
                         </tr>
                         @if (Model.UserType == 1)
                         {
                             <tr>
                                 <th width="190"><em>*</em>公司名称：</th>
-                                <td width="275"><input type="text" name="company" value="" class="text userName" /></td>
+                                <td width="275"><input type="text" name="company" value="" class="text" /></td>
                                 <td>&nbsp;</td>
                             </tr>
                             <tr>
                                 <th width="190"><em>*</em>信用码：</th>
-                                <td width="275"><input type="text" name="creditcode" value="" class="text userName" /></td>
+                                <td width="275"><input type="text" name="creditcode" value="" class="text" /></td>
                                 <td>&nbsp;</td>
                             </tr>
                             <tr>
                                 <th width="190"><em>*</em>营业执照：</th>
-                                <td width="275"><input type="text" name="businesslicense" value="" class="text userName" /></td>
+                                @*<td width="275"><input type="text" name="businesslicense" value="" class="text" /></td>*@
+                                <td> 
+                                <input type="hidden" id="businesslicense" name="businesslicense" value="" />
+                                <img id="img" name="img"  src="~/images/user-avatar.gif" class="img" onclick="javascript:$(this).next('.file').click();" />
+                                <input type="file" onchange="ajaxFileUploads(this)" style="display: none;" class="file" id="fup" name="fup" />
+                                </td>
                                 <td>&nbsp;</td>
                             </tr>
                         }
@@ -89,7 +128,7 @@
                         }
                         <tr>
                             <td align="right">&nbsp;</td>
-                            <td><a href="#" class="regBt redBT" onclick=authuser(@Model.UserType)">认证提交</a></td>
+                            <td><a href="#" class="regBt redBT" onclick="authuser(@Model.UserType)">认证提交</a></td>
                             <td>&nbsp;</td>
                         </tr>
                     </table>

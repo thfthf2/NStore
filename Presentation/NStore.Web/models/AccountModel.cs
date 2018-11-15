@@ -61,10 +61,10 @@ namespace NStore.Web.Models
     /// </summary>
     public class Authentication
     {
-        /// <summary>
-        /// 影子账号名
-        /// </summary>
-        public string ShadowName { get; set; }
+        ///// <summary>
+        ///// 影子账号名
+        ///// </summary>
+        //public string ShadowName { get; set; }
         /// <summary>
         /// 返回地址
         /// </summary>

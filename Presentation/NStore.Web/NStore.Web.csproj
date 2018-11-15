@@ -178,9 +178,11 @@
     <Content Include="images\zoomloader.gif" />
     <Content Include="robots.txt" />
     <Content Include="scripts\account.js" />
+    <Content Include="scripts\ajaxfileupload.js" />
     <Content Include="scripts\common.js" />
     <Content Include="scripts\DD_belatedPNG.js" />
     <Content Include="scripts\dialog.js" />
+    <Content Include="scripts\jquery.js" />
     <Content Include="scripts\magiczoom\graphics\hint.gif" />
     <Content Include="scripts\magiczoom\graphics\loader.gif" />
     <Content Include="scripts\magiczoom\magiczoom.css" />

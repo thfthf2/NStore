@@ -27,8 +27,8 @@ function verifyPassword() {
 }
 
 //发送验证手机短信
-function sendVerifyMobile(mobile) {
-    Ajax.get("/ucenter/sendverifymobile?mobile=" + mobile, false, function (data) {
+function sendVerifyMobile() {
+    Ajax.get("/ucenter/sendverifymobile", false, function (data) {
         var result = eval("(" + data + ")");
         alert(result.content)
     })

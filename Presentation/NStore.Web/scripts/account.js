@@ -143,11 +143,12 @@ function authuser(isenterprise)
         return false;
     }
 
-    if (isenterprise==1) {
 
-        var company = registerForm.elements["company"].value;
-        var creditcode = registerForm.elements["creditcode"].value;
-        var businesslicense = registerForm.elements["businesslicense"].value;
+    var company = registerForm.elements["company"] ? registerForm.elements["company"].value : "";;
+    var creditcode = registerForm.elements["creditcode"] ? registerForm.elements["creditcode"].value : "";;
+    var businesslicense = registerForm.elements["businesslicense"] ? registerForm.elements["businesslicense"].value : "";;
+
+    if (isenterprise==1) {
 
         if (company.length == 0) {
             alert("请输入公司名称");
@@ -161,8 +162,53 @@ function authuser(isenterprise)
             alert("请输入短信验证码");
             return false;
         }
+        if (businesslicense.length == 0) {
+            alert("请上传公司营业执照");
+            return false;
+        }
 
     }
+
+    var parms = new Object();
+    parms["linkname"] = linkname;
+    parms["mobile"] = mobile;
+    parms["verifyCode"] = verifyCode;
+    parms["email"] = email;
+    parms["company"] = company;
+    parms["creditcode"] = creditcode;
+    parms["businesslicense"] = businesslicense;
+    Ajax.post("/account/Authentication", parms, false, authResponse)
+}
+
+//处理认证的反馈信息
+function authResponse(data) {
+    var result = eval("(" + data + ")");
+    if (result.state == "success") {
+        window.location.href =  returnUrl;
+    }
+    else if (result.state == "exception") {
+        alert(result.content);
+    }
+    else if (result.state == "error") {
+        showVerifyError(result.content);
+    }
+}
+
+//发送验证手机短信
+function sendVerifyMobile() {
+    var registerForm = document.forms["authuserForm"];
+    var mobile = registerForm.elements["mobile"].value;
+    if (mobile.length == 0) {
+        alert("请输入手机号");
+        return false;
+    }
+
+    var parms = new Object();
+    parms["mobile"] = mobile;
+    Ajax.post("/ucenter/sendverifymobileforauth", parms, false, function (data) {
+        var result = eval("(" + data + ")");
+        alert(result.content)
+    })
 }
 
 //找回密码

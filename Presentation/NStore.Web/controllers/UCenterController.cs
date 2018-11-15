@@ -289,6 +289,40 @@ namespace NStore.Web.Controllers
         }
 
         /// <summary>
+        /// 发送验证手机短信(注册认证)
+        /// </summary>
+        public ActionResult SendVerifyMobileForAuth()
+        {
+            string mobile = WebHelper.GetFormString("mobile");
+            if (string.IsNullOrEmpty(mobile))
+            {
+                return AjaxResult("verifycode", "手机号不能为空");
+            }
+
+            if (!ValidateHelper.IsMobile(mobile))
+            {
+                return AjaxResult("verifycode", "手机号格式不正确");
+            }
+
+            if (Users.IsExistMobile(mobile))
+            {
+                return AjaxResult("verifycode", "手机号已存在");
+            }
+
+            //if (WorkContext.PartUserInfo.VerifyMobile == 0)
+            //    return AjaxResult("unverifymobile", "手机号没有通过验证,所以不能发送验证短信");
+
+            string moibleCode = Randoms.CreateRandomValue(6);
+            //发送验证手机短信
+            SMSes.SendSCVerifySMS(mobile, moibleCode);
+            //将验证值保存在session中
+            Sessions.SetItem(WorkContext.Sid, "authMoibleCode", mobile + moibleCode);
+
+            return AjaxResult("success", "短信已经发送,请查收");
+        }
+
+
+        /// <summary>
         /// 验证手机
         /// </summary>
         public ActionResult VerifyMobile()
