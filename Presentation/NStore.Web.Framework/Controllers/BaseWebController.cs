@@ -91,6 +91,8 @@ namespace NStore.Web.Framework
             WorkContext.PartUserInfo = partUserInfo;
 
             WorkContext.Uid = partUserInfo.Uid;
+            WorkContext.UserType = partUserInfo.UserType;
+            WorkContext.VerifyRank = partUserInfo.VerifyRank;
             WorkContext.UserName = partUserInfo.UserName;
             WorkContext.UserEmail = partUserInfo.Email;
             WorkContext.UserMobile = partUserInfo.Mobile;

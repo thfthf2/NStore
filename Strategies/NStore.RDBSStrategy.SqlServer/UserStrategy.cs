@@ -477,7 +477,7 @@ namespace NStore.RDBSStrategy.SqlServer
                                        GenerateInParam("@salt",SqlDbType.NChar,6,userInfo.Salt),
                                        GenerateInParam("@usertype",SqlDbType.TinyInt,1,userInfo.UserType),
                                        GenerateInParam("@verifyrank",SqlDbType.TinyInt,1,userInfo.VerifyRank),
-                                       GenerateInParam("@forbidtype",SqlDbType.TinyInt,1,userInfo.ForbidType),
+                                       //GenerateInParam("@forbidtype",SqlDbType.TinyInt,1,userInfo.ForbidType),
                                        GenerateInParam("@lastvisittime",SqlDbType.DateTime,8,userInfo.LastVisitTime),
                                        GenerateInParam("@lastvisitip",SqlDbType.Char,15,userInfo.LastVisitIP),
                                        GenerateInParam("@lastvisitrgid",SqlDbType.SmallInt,2,userInfo.LastVisitRgId),
@@ -526,7 +526,7 @@ namespace NStore.RDBSStrategy.SqlServer
                                        GenerateInParam("@salt",SqlDbType.NChar,6,userInfo.Salt),
                                        GenerateInParam("@usertype",SqlDbType.TinyInt,1,userInfo.UserType),
                                        GenerateInParam("@verifyrank",SqlDbType.TinyInt,1,userInfo.VerifyRank),
-                                       GenerateInParam("@forbidtype",SqlDbType.TinyInt,1,userInfo.ForbidType),
+                                       //GenerateInParam("@forbidtype",SqlDbType.TinyInt,1,userInfo.ForbidType),
                                        GenerateInParam("@lastvisittime",SqlDbType.DateTime,8,userInfo.LastVisitTime),
                                        GenerateInParam("@lastvisitip",SqlDbType.Char,15,userInfo.LastVisitIP),
                                        GenerateInParam("@lastvisitrgid",SqlDbType.SmallInt,2,userInfo.LastVisitRgId),
@@ -576,7 +576,7 @@ namespace NStore.RDBSStrategy.SqlServer
                                        GenerateInParam("@salt",SqlDbType.NChar,6,partUserInfo.Salt),
                                        GenerateInParam("@usertype",SqlDbType.TinyInt,1,partUserInfo.UserType),
                                        GenerateInParam("@verifyrank",SqlDbType.TinyInt,1,partUserInfo.VerifyRank),
-                                       GenerateInParam("@forbidtype",SqlDbType.TinyInt,1,partUserInfo.ForbidType),
+                                       //GenerateInParam("@forbidtype",SqlDbType.TinyInt,1,partUserInfo.ForbidType),
                                        GenerateInParam("@uid",SqlDbType.Int,4,partUserInfo.Uid)
 								   };
 

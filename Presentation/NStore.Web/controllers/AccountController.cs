@@ -154,21 +154,25 @@ namespace NStore.Web.Controllers
             if (WorkContext.MallConfig.RegType.Length == 0)
                 return PromptView(returnUrl, "商城目前已经关闭注册功能!");
             if (WorkContext.Uid > 0)
-                return PromptView(returnUrl, "你已经是本商城的注册用户，无需再注册!");
+                return PromptView(returnUrl, "您已经是本商城的注册用户，无需再注册!");
             if (WorkContext.MallConfig.RegTimeSpan > 0)
             {
                 DateTime registerTime = Users.GetRegisterTimeByRegisterIP(WorkContext.IP);
                 if ((DateTime.Now - registerTime).Minutes <= WorkContext.MallConfig.RegTimeSpan)
-                    return PromptView(returnUrl, "你注册太频繁，请间隔一定时间后再注册!");
+                    return PromptView(returnUrl, "您注册太频繁，请间隔一定时间后再注册!");
             }
 
             //get请求
             if (WebHelper.IsGet())
             {
+                string registerType = WebHelper.GetQueryString("registerType");
+
+                //将注册类型保存到session中
+                Sessions.SetItem(WorkContext.Sid, "registerType", registerType);
+
                 RegisterModel model = new RegisterModel();
 
-                string registerType = WebHelper.GetQueryString("registerType");
-                model.IsEnterprise = registerType == "1" ? 1 : 0;
+                //model.IsEnterprise = registerType == "1" ? 1 : 0;
                 model.ReturnUrl = returnUrl;
                 model.ShadowName = WorkContext.MallConfig.ShadowName;
                 model.IsVerifyCode = CommonHelper.IsInArray(WorkContext.PageKey, WorkContext.MallConfig.VerifyPages);
@@ -181,7 +185,7 @@ namespace NStore.Web.Controllers
             string password = WebHelper.GetFormString("password");
             string confirmPwd = WebHelper.GetFormString("confirmPwd");
             string verifyCode = WebHelper.GetFormString("verifyCode");
-            string isEnterprise = WebHelper.GetFormString("isEnterprise");
+            //string isEnterprise = WebHelper.GetFormString("isEnterprise");
 
             StringBuilder errorList = new StringBuilder("[");
             #region 验证
@@ -392,7 +396,8 @@ namespace NStore.Web.Controllers
                 userInfo.RankCredits = 0;
                 userInfo.VerifyEmail = 0;
                 userInfo.VerifyMobile = 0;
-                userInfo.UserType = isEnterprise == "1" ? 1 : 0;
+                userInfo.UserType = Sessions.GetValueInt(WorkContext.Sid, "registerType");
+                userInfo.VerifyRank = 0;
 
                 userInfo.LastVisitIP = WorkContext.IP;
                 userInfo.LastVisitRgId = WorkContext.RegionId;
@@ -408,6 +413,10 @@ namespace NStore.Web.Controllers
                 userInfo.RegionId = WebHelper.GetFormInt("regionId");
                 userInfo.Address = WebHelper.HtmlEncode(WebHelper.GetFormString("address"));
                 userInfo.Bio = WebHelper.HtmlEncode(WebHelper.GetFormString("bio"));
+                userInfo.LinkName = string.Empty;
+                userInfo.Company = string.Empty;
+                userInfo.CreditCode = string.Empty;
+                userInfo.BusinessLicense = string.Empty;
 
                 #endregion
 
@@ -434,12 +443,14 @@ namespace NStore.Web.Controllers
                 //        SMSes.SendWebcomeSMS(userInfo.Mobile);
                 //}
 
-                //同步上下午
-                WorkContext.Uid = userInfo.Uid;
-                WorkContext.UserName = userInfo.UserName;
-                WorkContext.UserEmail = userInfo.Email;
-                WorkContext.UserMobile = userInfo.Mobile;
-                WorkContext.NickName = userInfo.NickName;
+                ////同步上下午
+                //WorkContext.Uid = userInfo.Uid;
+                //WorkContext.UserType = userInfo.UserType;
+                //WorkContext.VerifyRank = userInfo.VerifyRank;
+                //WorkContext.UserName = userInfo.UserName;
+                //WorkContext.UserEmail = userInfo.Email;
+                //WorkContext.UserMobile = userInfo.Mobile;
+                //WorkContext.NickName = userInfo.NickName;
 
                 //return AjaxResult("success", "注册成功");
                 return AjaxResult("success", Url.Action("Authentication", new RouteValueDictionary { { "uid", userInfo.Uid } }));
@@ -452,23 +463,28 @@ namespace NStore.Web.Controllers
             if (returnUrl.Length == 0)
                 returnUrl = "/";
 
+            if (WorkContext.Uid < 0)
+                return PromptView(returnUrl, "您还未注册成为商城用户，请先注册!");
+            if (WorkContext.PartUserInfo.VerifyRank > 0)
+                return PromptView(returnUrl, "您已认证，无需重复认证!");
+
             //get请求
             if (WebHelper.IsGet())
             {
                 if (WorkContext.Uid < 1 || WorkContext.PartUserInfo == null)
                 {
-                    return Redirect(Url.Action("index","home"));
+                    return Redirect(Url.Action("index", "home"));
                 }
 
                 Authentication model = new Authentication();
-                
-                model.IsEnterprise = WorkContext.PartUserInfo.UserType;
+                model.ShadowName = WorkContext.MallConfig.ShadowName;
+                model.UserType = WorkContext.PartUserInfo.UserType;
                 model.ReturnUrl = returnUrl;
                 model.IsVerifyCode = CommonHelper.IsInArray(WorkContext.PageKey, WorkContext.MallConfig.VerifyPages);
 
                 return View(model);
             }
-
+            string accountName = WebHelper.GetFormString(WorkContext.MallConfig.ShadowName);
             string linkname = WebHelper.GetFormString("linkname");
             string mobile = WebHelper.GetFormString("mobile");
             string email = WebHelper.GetFormString("email");
@@ -477,6 +493,85 @@ namespace NStore.Web.Controllers
             string creditcode = WebHelper.GetFormString("creditcode");
             string businesslicense = WebHelper.GetFormString("businesslicense");
 
+            #region 验证
+            StringBuilder errorList = new StringBuilder("[");
+            if (accountName != WorkContext.PartUserInfo.UserName)
+            {
+                errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "用户名称不正确", "}");
+            }
+            if (string.IsNullOrEmpty(linkname))
+            {
+                errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "linkname", "联系人名称未填写", "}");
+            }
+            if (linkname.Length > 5)
+            {
+                errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "linkname", "联系人名称的长度不能大于5", "}");
+            }
+            if (mobile != WorkContext.PartUserInfo.Mobile)
+            {
+                errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "mobile", "手机号不正确", "}");
+            }
+            if (!string.IsNullOrEmpty(email)) //验证邮箱
+            {
+                if (!ValidateHelper.IsEmail(email))
+                {
+                    errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "email", "邮箱格式不正确", "}");
+                }
+                else
+                {
+                    string emailProvider = CommonHelper.GetEmailProvider(email);
+                    if (WorkContext.MallConfig.AllowEmailProvider.Length != 0 && (!CommonHelper.IsInArray(emailProvider, WorkContext.MallConfig.AllowEmailProvider, "\n")))
+                    {
+                        errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "email", "不能使用'" + emailProvider + "'类型的邮箱", "}");
+                    }
+                    else if (CommonHelper.IsInArray(emailProvider, WorkContext.MallConfig.BanEmailProvider, "\n"))
+                    {
+                        errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "email", "不能使用'" + emailProvider + "'类型的邮箱", "}");
+                    }
+                }
+            }
+
+            if (errorList.Length > 1)//第一部分验证失败
+            {
+                return AjaxResult("error", errorList.Remove(errorList.Length - 1, 1).Append("]").ToString(), true);
+            }
+
+            if (WorkContext.PartUserInfo.VerifyRank > 0)
+            {
+                errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "用户已认证", "}");
+            }
+
+            if (WorkContext.PartUserInfo.UserType == 1) //企业认证
+            {
+                if (string.IsNullOrEmpty(company))
+                {
+                    errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "company", "公司名称未填写", "}");
+                }
+                if (string.IsNullOrEmpty(creditcode))
+                {
+                    errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "creditcode", "公司信用码未填写", "}");
+                }
+                if (string.IsNullOrEmpty(businesslicense))
+                {
+                    errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "businesslicense", "公司营业执照未上传", "}");
+                }
+            }
+
+            if (errorList.Length > 1)//第二部分验证失败
+            {
+                return AjaxResult("error", errorList.Remove(errorList.Length - 1, 1).Append("]").ToString(), true);
+            }
+
+            #endregion
+
+            UserInfo userInfo = Users.GetUserById(WorkContext.Uid);
+            userInfo.LinkName = linkname;
+            userInfo.Mobile = mobile;
+            userInfo.Email = email;
+            userInfo.Company = company;
+            userInfo.CreditCode = creditcode;
+            userInfo.BusinessLicense = businesslicense;
+            AdminUsers.UpdateUser(userInfo);
 
             return AjaxResult("success", "认证成功");
 
