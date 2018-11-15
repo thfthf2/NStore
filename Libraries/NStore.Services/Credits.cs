@@ -69,7 +69,7 @@ namespace NStore.Services
         /// <param name="loginTime">登陆时间</param>
         public static void SendLoginCredits(ref PartUserInfo partUserInfo, DateTime loginTime)
         {
-            if (_creditconfiginfo.LoginPayCredits > 0 || _creditconfiginfo.LoginRankCredits > 0)
+            if (_creditconfiginfo.LoginRankCredits > 0) //_creditconfiginfo.LoginPayCredits > 0 || 
             {
                 DateTime slcTime = TypeHelper.StringToDateTime(WebHelper.UrlDecode(MallUtils.GetBMACookie("slctime")), loginTime.Date.AddDays(-2));
                 if (loginTime.Date <= slcTime.Date)

@@ -28,6 +28,10 @@ namespace NStore.Web.Framework
 
         public int Uid = -1;//用户id
 
+        public int UserType = 0;//用户类型
+
+        public int VerifyRank = 0;//用户认证级别
+
         public string UserName;//用户名
 
         public string UserEmail;//用户邮箱

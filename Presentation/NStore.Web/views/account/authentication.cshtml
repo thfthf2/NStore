@@ -14,6 +14,7 @@
             <link href="@{@WorkContext.CSSCDN}/css/account.css" rel="stylesheet" type="text/css" />
             <script src="@{@WorkContext.ScriptCDN}/scripts/utils.js" type="text/javascript"></script>
             <script src="@{@WorkContext.ScriptCDN}/scripts/account.js" type="text/javascript"></script>
+            <script src="@{@WorkContext.ScriptCDN}/scripts/ucenter.safe.js" type="text/javascript"></script>
             <script type="text/javascript">
                 returnUrl = "@Model.ReturnUrl";
             </script>
@@ -21,7 +22,16 @@
         <body>
             <div id="loginTop" class="box">
                 <a href="/" class="left"><img src="@{@WorkContext.ImageCDN}/images/logo.png" width="186" height="42" /></a>
-                <h2>用户认证</h2>
+                <h2>
+                @if (Model.UserType == 1)
+                {
+                    @Html.Raw("用户个人认证")
+                }
+                else
+                {
+                    @Html.Raw("用户企业认证")
+                }
+                </h2>
                 <div class="clear"></div>
             </div>
             <div class="regTitle box">我想稍后再认证，现在直接 <a href="@Url.Action("index","home")" class="Fblue">跳过</a></div>
@@ -51,7 +61,7 @@
                             <td width="275"><input type="text" name="email" value="" class="text test" /></td>
                             <td>&nbsp;</td>
                         </tr>
-                        @if (Model.IsEnterprise == 1)
+                        @if (Model.UserType == 1)
                         {
                             <tr>
                                 <th width="190"><em>*</em>公司名称：</th>
@@ -79,7 +89,7 @@
                         }
                         <tr>
                             <td align="right">&nbsp;</td>
-                            <td><a href="#" class="regBt redBT" onclick=authuser(@Model.IsEnterprise)">认证提交</a></td>
+                            <td><a href="#" class="regBt redBT" onclick=authuser(@Model.UserType)">认证提交</a></td>
                             <td>&nbsp;</td>
                         </tr>
                     </table>

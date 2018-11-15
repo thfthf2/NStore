@@ -55,8 +55,7 @@
     <td><img id="verifyImage" style="cursor:hand" height="34" title="点击刷新验证码" onclick="this.src='/tool/verifyimage?time=' + new Date()" src="/tool/verifyimage" /></td>
   </tr>
   }
-  @*
-  <tr class="succ_ok">
+  @*<tr class="succ_ok">
     <th><em>*</em>验证手机：</th>
     <td><input type="password" class="text tel" /></td>
     <td>&nbsp;</td>
@@ -76,12 +75,9 @@
     <td align="right">&nbsp;</td>
     <td><label><input type="checkbox" style="vertical-align:-2px; margin-right:5px;" />我已阅读并同意<a href="#" class="Fblue">《用户注册协议》</a></label></td>
     <td>&nbsp;</td>
-  </tr>
-  *@
+  </tr>*@
   <tr>
-    <td align="right">&nbsp;
-     <input  type="hidden" name="@Model.IsEnterprise"/> 
-     </td>
+    <td align="right">&nbsp;</td>
     <td><a href="#" class="regBt redBT" onclick="register()">立即注册</a></td>
     <td>&nbsp;</td>
   </tr>

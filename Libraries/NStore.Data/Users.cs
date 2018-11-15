@@ -40,7 +40,7 @@ namespace NStore.Data
             partUserInfo.Salt = reader["salt"].ToString();
             partUserInfo.UserType = TypeHelper.ObjectToInt(reader["usertype"]);
             partUserInfo.VerifyRank = TypeHelper.ObjectToInt(reader["verifyrank"]);
-            partUserInfo.ForbidType = TypeHelper.ObjectToInt(reader["forbidtype"]);
+            //partUserInfo.ForbidType = TypeHelper.ObjectToInt(reader["forbidtype"]);
 
             return partUserInfo;
         }
@@ -70,7 +70,7 @@ namespace NStore.Data
             userInfo.Salt = reader["salt"].ToString();
             userInfo.UserType = TypeHelper.ObjectToInt(reader["usertype"]);
             userInfo.VerifyRank = TypeHelper.ObjectToInt(reader["verifyrank"]);
-            userInfo.ForbidType = TypeHelper.ObjectToInt(reader["forbidtype"]);
+            //userInfo.ForbidType = TypeHelper.ObjectToInt(reader["forbidtype"]);
             userInfo.LastVisitTime = TypeHelper.ObjectToDateTime(reader["lastvisittime"]);
             userInfo.LastVisitIP = reader["lastvisitip"].ToString();
             userInfo.LastVisitRgId = TypeHelper.ObjectToInt(reader["lastvisitrgid"]);

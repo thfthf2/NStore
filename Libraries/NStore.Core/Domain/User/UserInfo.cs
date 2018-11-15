@@ -26,7 +26,7 @@ namespace NStore.Core
 
         private int _usertype;//用户类型：0个人，1企业
         private int _verifyrank;//认证级别：0个人认证，1企业认证
-        private int _forbidtype;//禁用类型：0未禁用，1登陆禁用
+        //private int _forbidtype;//禁用类型：0未禁用，1登陆禁用
 
         
         /// <summary>
@@ -173,14 +173,14 @@ namespace NStore.Core
             set { _verifyrank = value; }
             get { return _verifyrank; }
         }
-        /// <summary>
-        /// 禁用类型：0未禁用，1登陆禁用
-        /// </summary>
-        public int ForbidType
-        {
-            set { _forbidtype = value; }
-            get { return _forbidtype; }
-        }
+        ///// <summary>
+        ///// 禁用类型：0未禁用，1登陆禁用
+        ///// </summary>
+        //public int ForbidType
+        //{
+        //    set { _forbidtype = value; }
+        //    get { return _forbidtype; }
+        //}
     }
 
     /// <summary>

@@ -45,10 +45,10 @@ namespace NStore.Web.Models
         /// 影子账号名
         /// </summary>
         public string ShadowName { get; set; }
-        /// <summary>
-        /// 注册用户类型（0个人,1企业）
-        /// </summary>
-        public int IsEnterprise { get; set; }
+        ///// <summary>
+        ///// 注册用户类型（0个人,1企业）
+        ///// </summary>
+        //public int IsEnterprise { get; set; }
         /// <summary>
         /// 是否启用验证码
         /// </summary>
@@ -61,6 +61,10 @@ namespace NStore.Web.Models
     /// </summary>
     public class Authentication
     {
+        /// <summary>
+        /// 影子账号名
+        /// </summary>
+        public string ShadowName { get; set; }
         /// <summary>
         /// 返回地址
         /// </summary>
@@ -93,7 +97,7 @@ namespace NStore.Web.Models
         /// <summary>
         /// 注册用户类型（0个人,1企业）
         /// </summary>
-        public int IsEnterprise { get; set; }
+        public int UserType { get; set; }
         /// <summary>
         /// 是否启用验证码
         /// </summary>

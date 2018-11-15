@@ -191,7 +191,7 @@ namespace NStore.Services
                 Salt = "",
                 UserType = 0,
                 VerifyRank = 0,
-                ForbidType=0
+                //ForbidType = 0
             };
         }
 
