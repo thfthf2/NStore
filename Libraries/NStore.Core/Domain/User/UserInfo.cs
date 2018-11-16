@@ -25,7 +25,7 @@ namespace NStore.Core
         private string _salt;//盐值
 
         private int _usertype;//用户类型：0个人，1企业
-        private int _verifyrank;//认证级别：0个人认证，1企业认证
+        private int _verifyrank;//认证级别：1个人认证，2企业认证 ,0未认证
         //private int _forbidtype;//禁用类型：0未禁用，1登陆禁用
 
         
@@ -166,7 +166,7 @@ namespace NStore.Core
             get { return _usertype; }
         }
         /// <summary>
-        /// 认证级别：0个人认证，1企业认证
+        /// 认证级别：1个人认证，2企业认证,0未认证
         /// </summary>
         public int VerifyRank
         {

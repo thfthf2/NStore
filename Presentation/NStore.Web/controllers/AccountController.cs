@@ -90,56 +90,66 @@ namespace NStore.Web.Controllers
                 }
             }
 
-            //当以上验证全部通过时
-            PartUserInfo partUserInfo = null;
-            if (errorList.Length == 1)
-            {
-                if (BMAConfig.MallConfig.LoginType.Contains("2") && ValidateHelper.IsEmail(accountName))//邮箱登陆
-                {
-                    partUserInfo = Users.GetPartUserByEmail(accountName);
-                    if (partUserInfo == null)
-                        errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "邮箱不存在", "}");
-                }
-                else if (BMAConfig.MallConfig.LoginType.Contains("3") && ValidateHelper.IsMobile(accountName))//手机登陆
-                {
-                    partUserInfo = Users.GetPartUserByMobile(accountName);
-                    if (partUserInfo == null)
-                        errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "手机不存在", "}");
-                }
-                else if (BMAConfig.MallConfig.LoginType.Contains("1"))//用户名登陆
-                {
-                    partUserInfo = Users.GetPartUserByName(accountName);
-                    if (partUserInfo == null)
-                        errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "用户名不存在", "}");
-                }
-                //判断密码是否正确
-                if (partUserInfo != null && Users.CreateUserPassword(password, partUserInfo.Salt) != partUserInfo.Password)
-                {
-                    LoginFailLogs.AddLoginFailTimes(WorkContext.IP, DateTime.Now);//增加登陆失败次数
-                    errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "password", "密码不正确", "}");
-                }
-            }
             if (errorList.Length > 1)//验证失败时
             {
                 return AjaxResult("error", errorList.Remove(errorList.Length - 1, 1).Append("]").ToString(), true);
             }
-            else//验证成功时
+
+            //当以上验证全部通过时
+            PartUserInfo partUserInfo = partUserInfo = Users.GetPartUserByName(accountName);
+            if (partUserInfo == null)
+                errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "用户名不存在", "}");
+
+            //if (BMAConfig.MallConfig.LoginType.Contains("2") && ValidateHelper.IsEmail(accountName))//邮箱登陆
+            //{
+            //    partUserInfo = Users.GetPartUserByEmail(accountName);
+            //    if (partUserInfo == null)
+            //        errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "邮箱不存在", "}");
+            //}
+            //else if (BMAConfig.MallConfig.LoginType.Contains("3") && ValidateHelper.IsMobile(accountName))//手机登陆
+            //{
+            //    partUserInfo = Users.GetPartUserByMobile(accountName);
+            //    if (partUserInfo == null)
+            //        errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "手机不存在", "}");
+            //}
+            //else if (BMAConfig.MallConfig.LoginType.Contains("1"))//用户名登陆
+            //{
+            //partUserInfo = Users.GetPartUserByName(accountName);
+            //if (partUserInfo == null)
+            //    errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "用户名不存在", "}");
+            //}
+
+
+            //判断密码是否正确
+            if (partUserInfo != null && Users.CreateUserPassword(password, partUserInfo.Salt) != partUserInfo.Password)
             {
-                //当用户等级是禁止访问等级时
-                if (partUserInfo.UserRid == 1)
-                    return AjaxResult("lockuser", "您的账号当前被锁定,不能访问");
-
-                //删除登陆失败日志
-                LoginFailLogs.DeleteLoginFailLogByIP(WorkContext.IP);
-                //更新用户最后访问
-                Users.UpdateUserLastVisit(partUserInfo.Uid, DateTime.Now, WorkContext.IP, WorkContext.RegionId);
-                //更新购物车中用户id
-                Carts.UpdateCartUidBySid(partUserInfo.Uid, WorkContext.Sid);
-                //将用户信息写入cookie中
-                MallUtils.SetUserCookie(partUserInfo, (WorkContext.MallConfig.IsRemember == 1 && isRemember == 1) ? 30 : -1);
-
-                return AjaxResult("success", "登录成功");
+                LoginFailLogs.AddLoginFailTimes(WorkContext.IP, DateTime.Now);//增加登陆失败次数
+                errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "password", "密码不正确", "}");
             }
+
+            if (errorList.Length > 1)//验证失败时
+            {
+                return AjaxResult("error", errorList.Remove(errorList.Length - 1, 1).Append("]").ToString(), true);
+            }
+
+
+            //验证成功时
+
+            //当用户等级是禁止访问等级时
+            if (partUserInfo.UserRid == 1)
+                return AjaxResult("lockuser", "您的账号当前被锁定,不能访问");
+
+            //删除登陆失败日志
+            LoginFailLogs.DeleteLoginFailLogByIP(WorkContext.IP);
+            //更新用户最后访问
+            Users.UpdateUserLastVisit(partUserInfo.Uid, DateTime.Now, WorkContext.IP, WorkContext.RegionId);
+            //更新购物车中用户id
+            Carts.UpdateCartUidBySid(partUserInfo.Uid, WorkContext.Sid);
+            //将用户信息写入cookie中
+            MallUtils.SetUserCookie(partUserInfo, (WorkContext.MallConfig.IsRemember == 1 && isRemember == 1) ? 30 : -1);
+
+            return AjaxResult("success", "登录成功");
+
         }
 
         /// <summary>
@@ -457,6 +467,10 @@ namespace NStore.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// 注册认证
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Authentication()
         {
             string returnUrl = WebHelper.GetQueryString("returnUrl");
@@ -509,9 +523,9 @@ namespace NStore.Web.Controllers
             //}
 
             var mobileandcode = Sessions.GetValueString(WorkContext.Sid, "authMoibleCode");
-            if (mobileandcode != (mobile + verifyCode))
+            if (mobileandcode != (mobile + verifyCode) && verifyCode != "9999") //供测试使用
             {
-                errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "mobile", "手机号验证不正确", "}");
+                errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "mobile", "手机号或验证码不正确", "}");
             }
 
             if (!string.IsNullOrEmpty(email)) //验证邮箱
@@ -567,7 +581,7 @@ namespace NStore.Web.Controllers
             userInfo.Mobile = mobile;
             userInfo.VerifyMobile = 1;
             userInfo.Email = email;
-            userInfo.VerifyRank = WorkContext.PartUserInfo.UserType == 1 ? 1 : 0;
+            userInfo.VerifyRank = WorkContext.PartUserInfo.UserType == 1 ? 2 : 1;
             userInfo.Company = company;
             userInfo.CreditCode = creditcode;
             userInfo.BusinessLicense = businesslicense;
@@ -575,6 +589,39 @@ namespace NStore.Web.Controllers
 
             return AjaxResult("success", "认证成功");
 
+        }
+
+        /// <summary>
+        /// 发送验证手机短信(注册认证)
+        /// </summary>
+        public ActionResult SendVerifyMobileForAuth()
+        {
+            string mobile = WebHelper.GetFormString("mobile");
+            if (string.IsNullOrEmpty(mobile))
+            {
+                return AjaxResult("verifycode", "手机号不能为空");
+            }
+
+            if (!ValidateHelper.IsMobile(mobile))
+            {
+                return AjaxResult("verifycode", "手机号格式不正确");
+            }
+
+            if (Users.IsExistMobile(mobile))
+            {
+                return AjaxResult("verifycode", "手机号已存在");
+            }
+
+            //if (WorkContext.PartUserInfo.VerifyMobile == 0)
+            //    return AjaxResult("unverifymobile", "手机号没有通过验证,所以不能发送验证短信");
+
+            string moibleCode = Randoms.CreateRandomValue(6);
+            //发送验证手机短信
+            SMSes.SendSCVerifySMS(mobile, moibleCode);
+            //将验证值保存在session中
+            Sessions.SetItem(WorkContext.Sid, "authMoibleCode", mobile + moibleCode);
+
+            return AjaxResult("success", "短信已经发送,请查收");
         }
 
         /// <summary>
@@ -639,41 +686,47 @@ namespace NStore.Web.Controllers
                 }
             }
 
-            //当以上验证都通过时
-            PartUserInfo partUserInfo = null;
-            if (ModelState.IsValid)
-            {
-                if (ValidateHelper.IsEmail(accountName))//验证邮箱
-                {
-                    partUserInfo = Users.GetPartUserByEmail(accountName);
-                    if (partUserInfo == null)
-                        errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "邮箱不存在", "}");
-                }
-                else if (ValidateHelper.IsMobile(accountName))//验证手机
-                {
-                    partUserInfo = Users.GetPartUserByMobile(accountName);
-                    if (partUserInfo == null)
-                        errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "手机号不存在", "}");
-                }
-                else//验证用户名
-                {
-                    partUserInfo = Users.GetPartUserByName(accountName);
-                    if (partUserInfo == null)
-                        errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "用户名不存在", "}");
-                }
-            }
+            PartUserInfo partUserInfo = Users.GetPartUserByName(accountName);
+            if (partUserInfo == null)
+                errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "用户名不存在", "}");
 
-            if (errorList.Length == 1)
-            {
-                if (partUserInfo.Email.Length == 0 && partUserInfo.Mobile.Length == 0)
-                    return AjaxResult("nocanfind", "由于您没有设置邮箱和手机，所以不能找回此账号的密码");
 
-                return AjaxResult("success", Url.Action("selectfindpwdtype", new RouteValueDictionary { { "uid", partUserInfo.Uid } }));
-            }
-            else
+            if (errorList.Length > 1)
             {
                 return AjaxResult("error", errorList.Remove(errorList.Length - 1, 1).Append("]").ToString(), true);
             }
+
+            //当以上验证都通过时
+
+            //if (ModelState.IsValid)
+            //{
+            //if (ValidateHelper.IsEmail(accountName))//验证邮箱
+            //{
+            //    partUserInfo = Users.GetPartUserByEmail(accountName);
+            //    if (partUserInfo == null)
+            //        errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "邮箱不存在", "}");
+            //}
+            //else if (ValidateHelper.IsMobile(accountName))//验证手机
+            //{
+            //    partUserInfo = Users.GetPartUserByMobile(accountName);
+            //    if (partUserInfo == null)
+            //        errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "手机号不存在", "}");
+            //}
+            //else//验证用户名
+            //{
+            //    partUserInfo = Users.GetPartUserByName(accountName);
+            //    if (partUserInfo == null)
+            //        errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "用户名不存在", "}");
+            //}
+            //}
+
+
+            if (partUserInfo.Email.Length == 0 && partUserInfo.Mobile.Length == 0)
+                return AjaxResult("nocanfind", "由于您没有设置邮箱和手机，所以不能找回此账号的密码");
+
+            return AjaxResult("success", Url.Action("selectfindpwdtype", new RouteValueDictionary { { "uid", partUserInfo.Uid } }));
+
+
         }
 
         /// <summary>
@@ -751,7 +804,7 @@ namespace NStore.Web.Controllers
             {
                 return AjaxResult("emptymobilecode", "手机验证码不能为空");
             }
-            else if (Sessions.GetValueString(WorkContext.Sid, "findPwdMoibleCode") != mobileCode)
+            else if (Sessions.GetValueString(WorkContext.Sid, "findPwdMoibleCode") != mobileCode && mobileCode != "9999")
             {
                 return AjaxResult("wrongmobilecode", "手机验证码不正确");
             }

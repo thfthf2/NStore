@@ -205,7 +205,7 @@ function sendVerifyMobile() {
 
     var parms = new Object();
     parms["mobile"] = mobile;
-    Ajax.post("/ucenter/sendverifymobileforauth", parms, false, function (data) {
+    Ajax.post("/account/sendverifymobileforauth", parms, false, function (data) {
         var result = eval("(" + data + ")");
         alert(result.content)
     })
