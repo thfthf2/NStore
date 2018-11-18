@@ -34,6 +34,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -162,6 +166,7 @@
     <Compile Include="Event\IEvent.cs" />
     <Compile Include="Helper\CommonHelper.cs" />
     <Compile Include="Helper\IOHelper.cs" />
+    <Compile Include="Helper\Log4NetHelper.cs" />
     <Compile Include="Helper\SecureHelper.cs" />
     <Compile Include="Helper\StringHelper.cs" />
     <Compile Include="Helper\TypeHelper.cs" />
@@ -185,6 +190,9 @@
     <Compile Include="Session\ISessionStrategy.cs" />
     <Compile Include="SMS\BMASMS.cs" />
     <Compile Include="SMS\ISMSStrategy.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

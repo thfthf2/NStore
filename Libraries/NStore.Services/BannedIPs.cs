@@ -10,6 +10,8 @@ namespace NStore.Services
     /// </summary>
     public partial class BannedIPs
     {
+        private static HttpHelper httpHelper = Commons.HttpHelper;
+
         /// <summary>
         /// 获得禁止的ip列表
         /// </summary>
@@ -19,7 +21,23 @@ namespace NStore.Services
             HashSet<string> ipList = NStore.Core.BMACache.Get(CacheKeys.MALL_BANNEDIP_HASHSET) as HashSet<string>;
             if (ipList == null)
             {
-                ipList = NStore.Data.BannedIPs.GetBannedIPList();
+                if (Commons.DirectConnected)
+                {
+                    ipList = NStore.Data.BannedIPs.GetBannedIPList();
+                }
+                else
+                {
+                    var result = httpHelper.HttpGet<HashSet<string>>("api/GetBannedIPList");
+                    if (result.Code == 0)
+                    {
+                        ipList = result.Data;
+                    }
+                    else
+                    {
+                        Log4NetHelper.Error(string.Format("GetBannedIPList请求失败，错误信息：{0}", result.Msg));
+                        ipList = null;
+                    }
+                }
                 NStore.Core.BMACache.Insert(CacheKeys.MALL_BANNEDIP_HASHSET, ipList);
             }
             return ipList;
@@ -33,7 +51,7 @@ namespace NStore.Services
         public static bool CheckIP(string ip)
         {
             HashSet<string> ipList = GetBannedIPList();
-            if (ipList.Count > 0 && ip.Length > 0)
+            if (ipList != null && ipList.Count > 0 && ip.Length > 0)
             {
                 if (ipList.Contains(ip))
                     return true;
@@ -50,7 +68,23 @@ namespace NStore.Services
         /// <returns></returns>
         public static BannedIPInfo GetBannedIPById(int id)
         {
-            return NStore.Data.BannedIPs.GetBannedIPById(id);
+            if (Commons.DirectConnected)
+            {
+                return NStore.Data.BannedIPs.GetBannedIPById(id);
+            }
+            else
+            {
+                var result = httpHelper.HttpGet<BannedIPInfo>(string.Format("api/GetBannedIPById/{0}", id));
+                if (result.Code == 0)
+                {
+                    return result.Data;
+                }
+                else
+                {
+                    Log4NetHelper.Error(string.Format("GetBannedIPById请求失败，错误信息：{0}", result.Msg));
+                    return null;
+                }
+            }
         }
 
         /// <summary>
@@ -62,7 +96,23 @@ namespace NStore.Services
         {
             if (string.IsNullOrWhiteSpace(ip))
                 return 0;
-            return NStore.Data.BannedIPs.GetBannedIPIdByIP(ip);
+            if (Commons.DirectConnected)
+            {
+                return NStore.Data.BannedIPs.GetBannedIPIdByIP(ip);
+            }
+            else
+            {
+                var result = httpHelper.HttpGet<int>(string.Format("api/GetBannedIPIdByIP/{0}", ip));
+                if (result.Code == 0)
+                {
+                    return result.Data;
+                }
+                else
+                {
+                    Log4NetHelper.Error(string.Format("GetBannedIPIdByIP，错误信息：{0}", result.Msg));
+                    return 0;
+                }
+            }
         }
     }
 }
