@@ -1,4 +1,4 @@
-/*@webSir Css*/
+/*@webSir Css #d23335*/
 *{ margin:0;padding:0;}
 * html body{ overflow:visible;-webkit-text-size-adjust:none;}
 * html iframe, * html frame{ overflow:auto;}
@@ -10,10 +10,10 @@ body div{ text-align:left;}
 textarea,input{ word-wrap:break-word; word-break:break-all; padding:0px;}
 li{ list-style-type:none;}
 img{ border:0 none;}
-a:hover{ color:#d23335;}
+a:hover{ color:#3897da;}
 a:link, a:visited{ text-decoration:none; color:#666;}
 a { outline:none;color:#000;}
-a:hover{ color:#d23335;}
+a:hover{ color:#3883da;}
 h1{ font-size:24px;}
 h2{ font-size:20px;}
 h3{ font-size:18px;}
@@ -53,16 +53,18 @@ html body .grayBT{padding: 1px 10px;background: #f5f5f5;color: #333;border: 1px 
 .headerAD .close:hover{ background:#FFF; color:#333;}
 
 #header{ height:114px; background:#FFF;}
+
 .logo{ width:285px;}
+.logo.left img{ width:225px; height:53px;} 
 
 #header1{ padding-top:30px;}
-
+/*#e33a3c #e33a3c #e33b3d*/
 .box .searchCon .Stext{ float:left; width:300px; height:32px; line-height:32px; border:2px solid #e33a3c; font-size:14px; color:#999; outline:none; padding-left:15px;}
-.box1210 .searchCon .Stext{ float:left; width:400px; height:32px; line-height:32px; border:2px solid #e33a3c; font-size:14px; color:#999; outline:none; padding-left:15px;}
-.searchCon .Sbutton{ float:left;height:36px; line-height:36px; background:#e33a3c; border:0; color:#FFF; font-weight:bold; width:70px; font-size:14px; outline:none; cursor:pointer;}
+.box1210 .searchCon .Stext{ float:left; width:400px; height:32px; line-height:32px; border:2px solid #3897da; font-size:14px; color:#999; outline:none; padding-left:15px;}
+.searchCon .Sbutton{ float:left;height:36px; line-height:36px; background:#3897da; border:0; color:#FFF; font-weight:bold; width:70px; font-size:14px; outline:none; cursor:pointer;}
 .searchHot{ padding-top:5px;}
 .searchHot,.searchHot a{ color:#7a7a7a;}
-.searchHot a:hover,.searchHot a.hot{ color:#e33a3c;}
+.searchHot a:hover,.searchHot a.hot{ color:#3883da;}
 
 
 .shopping{ padding-top:3px; position:relative;z-index:999; background:url(/images/bgW.jpg) repeat-x bottom;}
@@ -99,7 +101,7 @@ html body .grayBT{padding: 1px 10px;background: #f5f5f5;color: #333;border: 1px 
 .shoppingList .shoppingI b span{ color:#666; font-weight:normal;}
 .shoppingList .shoppingI b a{ position:absolute; right:0; font-weight:normal; color:#005EA7;}
 .shoppingList .shoppingI b a:hover{ text-decoration:underline;}
-.shopping .goPay{ border:1px solid #e1e1e1; padding:4px 20px; background:#e33b3d; color:#FFF; font-weight:bold;}
+.shopping .goPay{ border:1px solid #e1e1e1; padding:4px 20px; background:#3897da; color:#FFF; font-weight:bold;}
 .shopping .clearList{border:1px solid #e1e1e1; padding:4px 10px;}
 
 .fullSendSnap .left{ display:block; float:left; margin-left:10px; width:260px; overflow:hidden;}
@@ -108,22 +110,22 @@ html body .grayBT{padding: 1px 10px;background: #f5f5f5;color: #333;border: 1px 
 
 
 
-/*导航*/
-#nav{ background:#da383a;}
+/*导航 #da383a; #d23335 #a40000 #E4393C  #e33b3d*/
+#nav{ background:#3897da;}
 #nav .box{ position:relative; z-index:99;}
 #nav .box1210{ position:relative; z-index:99;}
 
 #navItme{ height:45px; overflow:hidden; padding-left:205px;}
 #navItme li{ float:left;}
 #navItme li a{ display:block; color:#FFF; font-size:15px; font-weight:bold; line-height:45px; padding:0 30px;}
-#navItme li a:hover,#navItme li a.hot{ background:#a40000;}
+#navItme li a:hover,#navItme li a.hot{ background:#3883da;}
 
 #categorys{ position:absolute; width:205px;}
 
 
-#categorys h2{ height:45px; background:#d23335; color:#FFF; font-size:14px; line-height:45px; padding-left:20px;}
+#categorys h2{ height:45px; background:#3893da; color:#FFF; font-size:14px; line-height:45px; padding-left:20px;}
 
-#categorysCon{border:2px solid #d23335; border-top:0;padding:10px 0; background:#fcfcfc; position:relative;min-height:410px; _height:415px;}
+#categorysCon{border:2px solid #3893da; border-top:0;padding:10px 0; background:#fcfcfc; position:relative;min-height:410px; _height:415px;}
 
 
 
@@ -137,7 +139,7 @@ html body .grayBT{padding: 1px 10px;background: #f5f5f5;color: #333;border: 1px 
 .itmeSon dl{ zoom:1; display:block; border-bottom:1px dotted #e1e1e1; margin-bottom:8px; padding-bottom:3px;}
 .itmeSon dt{float: left;width: 54px;line-height: 22px;text-align: right;padding: 0 6px 0 0;zoom:1;}
 
-.itmeSon dt a{ font-weight:bold; color: #E4393C;}
+.itmeSon dt a{ font-weight:bold; color: #3893da;}
 
 .itmeSon dd{ float:left;zoom:1;}
 .itmeSon dd a{white-space: nowrap; color:#666;}
@@ -147,14 +149,14 @@ html body .grayBT{padding: 1px 10px;background: #f5f5f5;color: #333;border: 1px 
 #categorysCon .hotItem .h3{ position:relative; z-index:10; background:#FFF;border-top:1px solid #e1e1e1; border-bottom:1px solid #e1e1e1;}
 #categorysCon .hotItem .itmeSon{ display:block;}
 
-#footer{ border-top:2px solid #e33b3d; background:url(/images/bottomBg.jpg) repeat-x bottom #FFF; margin-top:40px;}
+#footer{ border-top:2px solid #3893da; background:url(/images/bottomBg.jpg) repeat-x bottom #FFF; margin-top:40px;}
 #footer .box1210{ width:1082px; padding-left:128px;}
 .footerBox{ padding:18px 0;}
 
 .footerBox{ float:left; padding-left:52px; width:148px;}
-.footerBox h3{ font-size:14px; color:#e33b3d;}
+.footerBox h3{ font-size:14px; color:#3893da;}
 .footerBox a{ color:#6a6a6a; display:block;}
-.footerBox a:hover{color:#e33b3d;}
+.footerBox a:hover{color:#3893da;}
 
 
 .footerB{ border-top:1px solid #ddd; padding-top:10px;}

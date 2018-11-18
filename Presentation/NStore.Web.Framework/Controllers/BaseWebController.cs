@@ -80,17 +80,19 @@ namespace NStore.Web.Framework
                 WorkContext.EncryptPwd = encryptPwd;
             }
 
-            //设置用户等级
-            if (UserRanks.IsBanUserRank(partUserInfo.UserRid) && partUserInfo.LiftBanTime <= DateTime.Now)
-            {
-                UserRankInfo userRankInfo = UserRanks.GetUserRankByCredits(partUserInfo.PayCredits);
-                Users.UpdateUserRankByUid(partUserInfo.Uid, userRankInfo.UserRid);
-                partUserInfo.UserRid = userRankInfo.UserRid;
-            }
+            ////设置用户等级
+            //if (UserRanks.IsBanUserRank(partUserInfo.UserRid) && partUserInfo.LiftBanTime <= DateTime.Now)
+            //{
+            //    UserRankInfo userRankInfo = UserRanks.GetUserRankByCredits(partUserInfo.PayCredits);
+            //    Users.UpdateUserRankByUid(partUserInfo.Uid, userRankInfo.UserRid);
+            //    partUserInfo.UserRid = userRankInfo.UserRid;
+            //}
 
             WorkContext.PartUserInfo = partUserInfo;
 
             WorkContext.Uid = partUserInfo.Uid;
+            WorkContext.UserType = partUserInfo.UserType;
+            WorkContext.VerifyRank = partUserInfo.VerifyRank;
             WorkContext.UserName = partUserInfo.UserName;
             WorkContext.UserEmail = partUserInfo.Email;
             WorkContext.UserMobile = partUserInfo.Mobile;

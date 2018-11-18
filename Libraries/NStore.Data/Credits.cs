@@ -70,7 +70,7 @@ namespace NStore.Data
         }
 
         /// <summary>
-        /// 发放积分
+        /// 发放积分，并更新用户等级
         /// </summary>
         /// <param name="userRid">用户等级id</param>
         /// <param name="creditLogInfo">积分日志信息</param>

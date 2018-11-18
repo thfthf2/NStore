@@ -19,7 +19,7 @@
 
 <div id="loginTop" class="box">
     <a href="/" class="left"><img src="@{@WorkContext.ImageCDN}/images/logo.png" width="186" height="42" /></a>
-    <h2>选择找回方式</h2>
+    <h2>手机验证</h2>
     <div class="clear"></div>
 </div>
 
@@ -27,7 +27,7 @@
 <div class="step">
 <ul>
     <li><s>1</s>验证身份</li>
-    <li class="hot"><s>2</s>选择找回方式</li>
+    <li class="hot"><s>2</s>验证手机</li>
     <li><s>4</s>设置新密码</li>
     <li><s>4</s>完成</li>
     <div class="clear"></div>
@@ -37,7 +37,7 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <th width="190"><em>*</em>已验证手机：</th>
-    <td width="275"><font size="+1" style="font-weight:bold;">@Html.Raw(CommonHelper.HideMobile(Model.PartUserInfo.Mobile))</font> &nbsp;&nbsp;&nbsp; <a href="javascript:void(0)" onclick="sendFindPwdMobile(@Model.PartUserInfo.Uid)">发送验证短信</a></td>
+    <td width="275"><font size="+1" style="font-weight:bold;">@Html.Raw(CommonHelper.HideMobile(Model.PartUserInfo.Mobile))</font> &nbsp;&nbsp;&nbsp; <a href="javascript:void(0)" onclick="sendFindPwdMobile(@Model.PartUserInfo.Uid)">点击发送验证短信</a></td>
     <td>&nbsp;</td>
   </tr>
   <tr>
@@ -56,11 +56,11 @@
     </td>
     </tr>
 
-   <tr>
+   @*<tr>
     <th width="190"><em>*</em>已验证邮箱：</th>
     <td width="275"><font size="+1" style="font-weight:bold;">@Html.Raw(CommonHelper.HideEmail(Model.PartUserInfo.Email))</font> &nbsp;&nbsp;&nbsp; <a href="javascript:void(0)" onclick="sendFindPwdEmail(@Model.PartUserInfo.Uid)">发送验证邮件</a></td>
     <td>&nbsp;</td>
-  </tr>
+  </tr>*@
 
 </table>
 </div>

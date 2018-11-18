@@ -375,7 +375,7 @@ namespace NStore.Web.Mobile.Controllers
                 if (nickName.Length > 0)
                     userInfo.NickName = WebHelper.HtmlEncode(nickName);
                 else
-                    userInfo.NickName = "bma" + Randoms.CreateRandomValue(7);
+                    userInfo.NickName = "ngh" + Randoms.CreateRandomValue(7);
                 userInfo.Avatar = "";
                 userInfo.PayCredits = 0;
                 userInfo.RankCredits = 0;
@@ -440,7 +440,7 @@ namespace NStore.Web.Mobile.Controllers
         {
             if (WorkContext.Uid > 0)
             {
-                WebHelper.DeleteCookie("bma");
+                WebHelper.DeleteCookie("ngh");
                 Sessions.RemoverSession(WorkContext.Sid);
                 OnlineUsers.DeleteOnlineUserBySid(WorkContext.Sid);
             }
@@ -675,7 +675,7 @@ namespace NStore.Web.Mobile.Controllers
                 //设置用户新密码
                 Users.UpdateUserPasswordByUid(uid, p);
                 //清空当前用户信息
-                WebHelper.DeleteCookie("bma");
+                WebHelper.DeleteCookie("ngh");
                 Sessions.RemoverSession(WorkContext.Sid);
                 OnlineUsers.DeleteOnlineUserBySid(WorkContext.Sid);
 

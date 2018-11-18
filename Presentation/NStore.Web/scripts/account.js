@@ -110,7 +110,7 @@ function verifyRegister(accountName, password, confirmPwd, verifyCode) {
 function registerResponse(data) {
     var result = eval("(" + data + ")");
     if (result.state == "success") {
-        window.location.href = returnUrl;
+        window.location.href = result.content;// returnUrl;
     }
     else if (result.state == "exception") {
         alert(result.content);
@@ -118,6 +118,97 @@ function registerResponse(data) {
     else if (result.state == "error") {
         showVerifyError(result.content);
     }
+}
+
+//认证用户
+function authuser(isenterprise)
+{
+    var registerForm = document.forms["authuserForm"];
+
+    var linkname = registerForm.elements["linkname"].value;
+    var mobile = registerForm.elements["mobile"].value;
+    var verifyCode = registerForm.elements["verifyCode"].value;
+    var email = registerForm.elements["email"].value;
+
+    if (linkname.length == 0) {
+        alert("请输入联系人");
+        return false;
+    }
+    if (mobile.length == 0) {
+        alert("请输入手机号");
+        return false;
+    }
+    if (verifyCode.length == 0) {
+        alert("请输入短信验证码");
+        return false;
+    }
+
+
+    var company = registerForm.elements["company"] ? registerForm.elements["company"].value : "";;
+    var creditcode = registerForm.elements["creditcode"] ? registerForm.elements["creditcode"].value : "";;
+    var businesslicense = registerForm.elements["businesslicense"] ? registerForm.elements["businesslicense"].value : "";;
+
+    if (isenterprise==1) {
+
+        if (company.length == 0) {
+            alert("请输入公司名称");
+            return false;
+        }
+        if (creditcode.length == 0) {
+            alert("请输入公司信用码");
+            return false;
+        }
+        if (verifyCode.length == 0) {
+            alert("请输入短信验证码");
+            return false;
+        }
+        if (businesslicense.length == 0) {
+            alert("请上传公司营业执照");
+            return false;
+        }
+
+    }
+
+    var parms = new Object();
+    parms["linkname"] = linkname;
+    parms["mobile"] = mobile;
+    parms["verifyCode"] = verifyCode;
+    parms["email"] = email;
+    parms["company"] = company;
+    parms["creditcode"] = creditcode;
+    parms["businesslicense"] = businesslicense;
+    Ajax.post("/account/Authentication", parms, false, authResponse)
+}
+
+//处理认证的反馈信息
+function authResponse(data) {
+    var result = eval("(" + data + ")");
+    if (result.state == "success") {
+        window.location.href =  returnUrl;
+    }
+    else if (result.state == "exception") {
+        alert(result.content);
+    }
+    else if (result.state == "error") {
+        showVerifyError(result.content);
+    }
+}
+
+//发送验证手机短信
+function sendVerifyMobile() {
+    var registerForm = document.forms["authuserForm"];
+    var mobile = registerForm.elements["mobile"].value;
+    if (mobile.length == 0) {
+        alert("请输入手机号");
+        return false;
+    }
+
+    var parms = new Object();
+    parms["mobile"] = mobile;
+    Ajax.post("/account/sendverifymobileforauth", parms, false, function (data) {
+        var result = eval("(" + data + ")");
+        alert(result.content)
+    })
 }
 
 //找回密码

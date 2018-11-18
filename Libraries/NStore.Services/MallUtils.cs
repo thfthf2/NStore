@@ -40,7 +40,7 @@ namespace NStore.Services
         /// <returns></returns>
         public static string GetSidCookie()
         {
-            return WebHelper.GetCookie("bmasid");
+            return WebHelper.GetCookie("nghsid");
         }
 
         /// <summary>
@@ -48,9 +48,9 @@ namespace NStore.Services
         /// </summary>
         public static void SetSidCookie(string sid)
         {
-            HttpCookie cookie = HttpContext.Current.Request.Cookies["bmasid"];
+            HttpCookie cookie = HttpContext.Current.Request.Cookies["nghsid"];
             if (cookie == null)
-                cookie = new HttpCookie("bmasid");
+                cookie = new HttpCookie("nghsid");
 
             cookie.Value = sid;
             cookie.Expires = DateTime.Now.AddDays(15);
@@ -114,9 +114,9 @@ namespace NStore.Services
         /// <param name="expires">过期时间</param>
         public static void SetUserCookie(PartUserInfo partUserInfo, int expires)
         {
-            HttpCookie cookie = HttpContext.Current.Request.Cookies["bma"];
+            HttpCookie cookie = HttpContext.Current.Request.Cookies["ngh"];
             if (cookie == null)
-                cookie = new HttpCookie("bma");
+                cookie = new HttpCookie("ngh");
 
             cookie.Values["uid"] = partUserInfo.Uid.ToString();
             cookie.Values["password"] = WebHelper.UrlEncode(AESEncrypt(partUserInfo.Password));
@@ -139,7 +139,7 @@ namespace NStore.Services
         /// <returns></returns>
         public static string GetBMACookie(string key)
         {
-            return WebHelper.GetCookie("bma", key);
+            return WebHelper.GetCookie("ngh", key);
         }
 
         /// <summary>
@@ -149,9 +149,9 @@ namespace NStore.Services
         /// <param name="value">值</param>
         public static void SetBMACookie(string key, string value)
         {
-            HttpCookie cookie = HttpContext.Current.Request.Cookies["bma"];
+            HttpCookie cookie = HttpContext.Current.Request.Cookies["ngh"];
             if (cookie == null)
-                cookie = new HttpCookie("bma");
+                cookie = new HttpCookie("ngh");
 
             cookie[key] = value;
 

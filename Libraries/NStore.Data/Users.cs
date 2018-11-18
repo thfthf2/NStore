@@ -38,6 +38,9 @@ namespace NStore.Data
             partUserInfo.VerifyMobile = TypeHelper.ObjectToInt(reader["verifymobile"]);
             partUserInfo.LiftBanTime = TypeHelper.ObjectToDateTime(reader["liftbantime"]);
             partUserInfo.Salt = reader["salt"].ToString();
+            partUserInfo.UserType = TypeHelper.ObjectToInt(reader["usertype"]);
+            partUserInfo.VerifyRank = TypeHelper.ObjectToInt(reader["verifyrank"]);
+            //partUserInfo.ForbidType = TypeHelper.ObjectToInt(reader["forbidtype"]);
 
             return partUserInfo;
         }
@@ -65,6 +68,9 @@ namespace NStore.Data
             userInfo.VerifyMobile = TypeHelper.ObjectToInt(reader["verifymobile"]);
             userInfo.LiftBanTime = TypeHelper.ObjectToDateTime(reader["liftbantime"]);
             userInfo.Salt = reader["salt"].ToString();
+            userInfo.UserType = TypeHelper.ObjectToInt(reader["usertype"]);
+            userInfo.VerifyRank = TypeHelper.ObjectToInt(reader["verifyrank"]);
+            //userInfo.ForbidType = TypeHelper.ObjectToInt(reader["forbidtype"]);
             userInfo.LastVisitTime = TypeHelper.ObjectToDateTime(reader["lastvisittime"]);
             userInfo.LastVisitIP = reader["lastvisitip"].ToString();
             userInfo.LastVisitRgId = TypeHelper.ObjectToInt(reader["lastvisitrgid"]);
@@ -78,6 +84,10 @@ namespace NStore.Data
             userInfo.RegionId = TypeHelper.ObjectToInt(reader["regionid"]);
             userInfo.Address = reader["address"].ToString();
             userInfo.Bio = reader["bio"].ToString();
+            userInfo.LinkName = reader["linkname"].ToString();
+            userInfo.Company = reader["company"].ToString();
+            userInfo.CreditCode = reader["creditcode"].ToString();
+            userInfo.BusinessLicense = reader["businesslicense"].ToString();
 
             return userInfo;
         }
@@ -103,6 +113,10 @@ namespace NStore.Data
             userDetailInfo.RegionId = TypeHelper.ObjectToInt(reader["regionid"]);
             userDetailInfo.Address = reader["address"].ToString();
             userDetailInfo.Bio = reader["bio"].ToString();
+            userDetailInfo.LinkName = reader["linkname"].ToString();
+            userDetailInfo.Company = reader["company"].ToString();
+            userDetailInfo.CreditCode = reader["creditcode"].ToString();
+            userDetailInfo.BusinessLicense = reader["businesslicense"].ToString();
 
             return userDetailInfo;
         }
@@ -497,13 +511,13 @@ namespace NStore.Data
         }
 
         /// <summary>
-        /// 更新用户等级
+        /// 更新用户等级（非关系型缓存数据）
         /// </summary>
         /// <param name="uid">用户id</param>
         /// <param name="userRid">用户等级id</param>
         public static void UpdateUserRankByUid(int uid, int userRid)
         {
-            NStore.Core.BMAData.RDBS.UpdateUserRankByUid(uid, userRid);
+            //NStore.Core.BMAData.RDBS.UpdateUserRankByUid(uid, userRid);
             if (_usernosql != null)
                 _usernosql.UpdateUserRankByUid(uid, userRid);
         }

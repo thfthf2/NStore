@@ -24,6 +24,11 @@ namespace NStore.Core
         private DateTime _liftbantime = new DateTime(1900, 1, 1);//解禁时间
         private string _salt;//盐值
 
+        private int _usertype;//用户类型：0个人，1企业
+        private int _verifyrank;//认证级别：1个人认证，2企业认证 ,0未认证
+        //private int _forbidtype;//禁用类型：0未禁用，1登陆禁用
+
+        
         /// <summary>
         ///用户id
         /// </summary>
@@ -152,6 +157,30 @@ namespace NStore.Core
             get { return _salt; }
             set { _salt = value; }
         }
+        /// <summary>
+        /// 用户类型：0个人，1企业
+        /// </summary>
+        public int UserType
+        {
+            set { _usertype = value; }
+            get { return _usertype; }
+        }
+        /// <summary>
+        /// 认证级别：1个人认证，2企业认证,0未认证
+        /// </summary>
+        public int VerifyRank
+        {
+            set { _verifyrank = value; }
+            get { return _verifyrank; }
+        }
+        ///// <summary>
+        ///// 禁用类型：0未禁用，1登陆禁用
+        ///// </summary>
+        //public int ForbidType
+        //{
+        //    set { _forbidtype = value; }
+        //    get { return _forbidtype; }
+        //}
     }
 
     /// <summary>
@@ -173,6 +202,11 @@ namespace NStore.Core
         private string _address = "";//所在地
         private string _bio = "";//简介
 
+        private string _linkname = "";//联系人
+        private string _company = "";//公司名
+        private string _creditcode = "";//信用码
+        private string _businesslicense = "";//营业执照图片地址
+        
         /// <summary>
         /// 最后访问时间
         /// </summary>
@@ -277,6 +311,38 @@ namespace NStore.Core
             get { return _bio.TrimEnd(); }
             set { _bio = value; }
         }
+        /// <summary>
+        /// 联系人
+        /// </summary>
+        public string LinkName
+        {
+            set { _linkname = value; }
+            get { return _linkname; }
+        }
+        /// <summary>
+        /// 公司名
+        /// </summary>
+        public string Company
+        {
+            set { _company = value; }
+            get { return _company; }
+        }
+        /// <summary>
+        /// 公司信用码
+        /// </summary>
+        public string CreditCode
+        {
+            set { _creditcode = value; }
+            get { return _creditcode; }
+        }
+        /// <summary>
+        /// 营业执照图片地址
+        /// </summary>
+        public string BusinessLicense
+        {
+            set { _businesslicense = value; }
+            get { return _businesslicense; }
+        }
     }
 
     /// <summary>
@@ -298,6 +364,11 @@ namespace NStore.Core
         private int _regionid = 0;//区域id
         private string _address = "";//所在地
         private string _bio = "";//简介
+
+        private string _linkname = "";//联系人
+        private string _company = "";//公司名
+        private string _creditcode = "";//信用码
+        private string _businesslicense = "";//营业执照图片地址
 
         /// <summary>
         ///用户id
@@ -410,6 +481,38 @@ namespace NStore.Core
         {
             get { return _bio.TrimEnd(); }
             set { _bio = value; }
+        }
+        /// <summary>
+        /// 联系人
+        /// </summary>
+        public string LinkName
+        {
+            set { _linkname = value; }
+            get { return _linkname; }
+        }
+        /// <summary>
+        /// 公司名
+        /// </summary>
+        public string Company
+        {
+            set { _company = value; }
+            get { return _company; }
+        }
+        /// <summary>
+        /// 公司信用码
+        /// </summary>
+        public string CreditCode
+        {
+            set { _creditcode = value; }
+            get { return _creditcode; }
+        }
+        /// <summary>
+        /// 营业执照图片地址
+        /// </summary>
+        public string BusinessLicense
+        {
+            set { _businesslicense = value; }
+            get { return _businesslicense; }
         }
     }
 }

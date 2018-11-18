@@ -29,7 +29,7 @@
 
 
 <div class="box login">
-<a href="@Url.Action("register")" class="loginREG">免费注册</a>
+@*<a href="@Url.Action("register")" class="loginREG">免费注册</a>*@
 
  @{
      List<AdvertInfo> loginAdvertList = Adverts.GetAdvertList(7);
@@ -40,7 +40,7 @@
   <form name="loginForm" action="">
 
   <dl>
-      <dt>邮箱/用户名/已验证手机</dt>
+      <dt>用户名</dt>
       <dd><input type="text" name="@Model.ShadowName" class="userName text" value=""/></dd>
   </dl>
   
@@ -64,16 +64,17 @@
     }
         <a href="@Url.Action("findpwd")">忘记密码?</a>
         <a href="javascript:void(0)" class="redBT loginIn" onclick="login()">登 &nbsp; 陆</a>
+        <a href="@Url.Action("register")" class="redBT loginIn" style="background-color:#7cbe56">免费注册</a>
   </div>
 
-  <div class="openID">
-      <h4>使用以下第三方账号登录：</h4>
+  @*<div class="openID">
+      <h4>使用合作网站账号登录：</h4>
       @foreach (PluginInfo info in Model.OAuthPluginList)
       {
         IOAuthPlugin instance = (IOAuthPlugin)info.Instance;
         <a href="@Url.Action(instance.LoginAction, instance.LoginController)">@info.FriendlyName</a> @:&nbsp;&nbsp;
       }
-  </div>
+  </div>*@
 
   </form>
 </div>

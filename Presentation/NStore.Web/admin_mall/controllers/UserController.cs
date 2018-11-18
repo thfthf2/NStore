@@ -93,7 +93,7 @@ namespace NStore.Web.MallAdmin.Controllers
                 string salt = Users.GenerateUserSalt();
                 string nickName;
                 if (string.IsNullOrWhiteSpace(model.NickName))
-                    nickName = "bma" + Randoms.CreateRandomValue(7);
+                    nickName = "ngh" + Randoms.CreateRandomValue(7);
                 else
                     nickName = model.NickName;
 

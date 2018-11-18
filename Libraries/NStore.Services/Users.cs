@@ -188,7 +188,10 @@ namespace NStore.Services
                 VerifyEmail = 0,
                 VerifyMobile = 0,
                 LiftBanTime = new DateTime(1900, 1, 1),
-                Salt = ""
+                Salt = "",
+                UserType = 0,
+                VerifyRank = 0,
+                //ForbidType = 0
             };
         }
 
@@ -380,7 +383,7 @@ namespace NStore.Services
         }
 
         /// <summary>
-        /// 更新用户等级
+        /// 更新用户等级（非关系型缓存数据）
         /// </summary>
         /// <param name="uid">用户id</param>
         /// <param name="userRid">用户等级id</param>
