@@ -426,6 +426,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Log4Net.config" />
     <None Include="Properties\PublishProfiles\TestPublish.pubxml" />
     <Content Include="views\account\authentication.cshtml" />
   </ItemGroup>

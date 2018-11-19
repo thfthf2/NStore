@@ -35,6 +35,14 @@
 /Libraries/NStore.Core/bin
 .vs/config/applicationhost.config
 .vs/NStoreSln/v14/.suo
+*.user
+/Presentation/NStore.Web/plugins
+/NStoreAPI/NStorePublicAPI/bin
+/NStoreAPI/NStorePublicAPI/obj/Debug
+/NStoreAPI/NStorePublicAPI/plugins
+/packages
+/Presentation/NStore.Web/App_Data/exlogs
+/Presentation/NStore.Web/Log
 Presentation/NStore.Web/plugins/NStore.OAuthPlugin.QQ/NStore.OAuthPlugin.QQ.dll
 Presentation/NStore.Web/plugins/NStore.OAuthPlugin.QQ/NStore.OAuthPlugin.QQ.pdb
 Presentation/NStore.Web/plugins/NStore.PayPlugin.Alipay/NStore.PayPlugin.Alipay.dll
