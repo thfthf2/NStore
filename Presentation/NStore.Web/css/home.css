@@ -1,7 +1,11 @@
 /*@webSir Css*/
 
 /*index第一部分 #e4393c*/
-#index1{ padding:14px 0 0 220px; height:240px; overflow:hidden; width:990px;}
+#centerdiv {padding:14px 0 0 220px; height:430px;overflow:hidden; width:990px;}
+#indexleft{width:670px;height:430px;}
+#indexright{width:302px;height:430px;}
+#index1{  height:240px;}
+/*#index1{ padding:14px 0 0 220px; height:240px; overflow:hidden; width:990px;}*/
 .indexPic{ width:670px; height:240px; }
 #bannerBox{position:relative;}
 #bannerContentID li{position:relative;}
@@ -11,14 +15,19 @@
 
 
 /*公告*/
-.gonggao{ width:302px; height:238px; border:1px solid #e1e1e1;}
-.gonggao h2{ font-size:14px; position:relative; height:35px; line-height:35px; padding-left:30px; background:url(/images/gonggao.jpg) no-repeat 10px 10px; margin-top:5px;}
+.gonggao{ width:302px; height:55px; border:1px solid #e1e1e1;}
+.gonggao h2{ font-size:14px; position:relative; height:30px; line-height:30px; padding-left:30px; background:url(/images/gonggao.jpg) no-repeat 6px 6px; margin-top:2px;}
+.gonggao h2 .more{ position:absolute; display:block; width:80px; text-align:center; color:#FFF; background:#d1caca; font-weight:normal; height:20px; line-height:20px; right:10px; top:3px; font-size:12px;}
+.gonggao h2 .more:hover{ background:#cd292b;}
+.gonggao .textList{ padding-left:25px;}
+.gonggao .textList .hidegongao {display:none; }
+/*.gonggao h2{ font-size:14px; position:relative; height:35px; line-height:35px; padding-left:30px; background:url(/images/gonggao.jpg) no-repeat 10px 10px; margin-top:5px;}
 .gonggao h2 .more{ position:absolute; display:block; width:80px; text-align:center; color:#FFF; background:#d1caca; font-weight:normal; height:20px; line-height:20px; right:10px; top:6px; font-size:12px;}
 .gonggao h2 .more:hover{ background:#cd292b;}
-.gonggao .textList{ padding:10px; padding-left:20px;}
+.gonggao .textList{ padding:10px; padding-left:20px;}*/
 
-
-#index2{padding:14px 0 0 220px; height:176px; overflow:hidden; width:990px;}
+#index2{  height:176px;padding-top:14px;}
+/*#index2{padding:14px 0 0 220px; height:176px; overflow:hidden; width:990px;}*/
 
 #index2 .scroll{ border:1px solid #e1e1e1; width:668px; height:160px; position:relative;}
 .inScroll{ }
@@ -32,7 +41,7 @@ html body .btLhot,body .btL:hover{background-position:left top;}
 body .btR{ background-position:right bottom;right:8px; top:50%;margin-top:-10px;}
 html body .btRhot,body .btR:hover{background-position:right top;}
 
-.indexAd{width:302px; border:1px solid #e1e1e1; height:160px;}
+/*.indexAd{width:302px; border:1px solid #e1e1e1; height:160px;}*/
 
 
 /*楼层*/
