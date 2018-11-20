@@ -35,6 +35,13 @@ namespace NStore.Web.Controllers
             //get请求
             if (WebHelper.IsGet())
             {
+                string registerType = WebHelper.GetQueryString("registerType");
+                if (!string.IsNullOrEmpty(registerType))
+                {
+                    //将注册类型保存到session中
+                    Sessions.SetItem(WorkContext.Sid, "registerType", registerType);
+                }
+
                 LoginModel model = new LoginModel();
 
                 model.ReturnUrl = returnUrl;
@@ -175,10 +182,10 @@ namespace NStore.Web.Controllers
             //get请求
             if (WebHelper.IsGet())
             {
-                string registerType = WebHelper.GetQueryString("registerType");
+                //string registerType = WebHelper.GetQueryString("registerType");
 
-                //将注册类型保存到session中
-                Sessions.SetItem(WorkContext.Sid, "registerType", registerType);
+                ////将注册类型保存到session中
+                //Sessions.SetItem(WorkContext.Sid, "registerType", registerType);
 
                 RegisterModel model = new RegisterModel();
 

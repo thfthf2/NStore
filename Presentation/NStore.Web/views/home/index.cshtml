@@ -277,7 +277,48 @@
 
             </script>
         </div>
-        <div   style="background-color:gray;">
+        <div class="baojia">
+            <a href="#">直接报价</a>
+        </div>
+        <div class="logoinfo" style="display:none;">
+            <div class="logoregister">
+                <table>
+                    <thead class="logohead">
+                        <tr><td colspan="3">登陆注册</td></tr>
+                    </thead>
+                    <tbody>
+                        <tr style="height:1px; background-color:aliceblue;"><td colspan="3"></td></tr>
+                        <tr>
+                            <td class="enter"><a href="/account/login?registerType=0">个人用户</a></td>
+                            <td style="width:2px;">&nbsp;</td>
+                            <td class="enter"><a href="/account/login?registerType=1">企业用户</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="indexAd">
+                @{
+        List<AdvertInfo> newsBottomAdvertList = Adverts.GetAdvertList(9);
+     }
+    <a href="@((newsBottomAdvertList != null && newsBottomAdvertList.Count > 0) ? newsBottomAdvertList[0].Url : string.Empty)">
+    <img src="@{@WorkContext.ImageCDN}/upload/advert/@((newsBottomAdvertList != null && newsBottomAdvertList.Count > 0) ?newsBottomAdvertList[0].Body : string.Empty)" width="302" height="160" /></a>
+
+            </div>
+        </div>
+        <div class="userinfo">
+            <div class="base">
+                <span>欢迎：</span>&nbsp;@WorkContext.PartUserInfo.UserName
+                <span>当前等级：</span>&nbsp;@WorkContext.UserRankInfo.Title
+            </div>
+            <div>
+                <ul>
+                    <li><a href="#">个人中心</a></li>
+                    <li><a href="#">退出</a></li>
+                </ul>
+            </div>
+            <div class="order">
+
+            </div>
         </div>
     </div>
     <div class="clear"></div>

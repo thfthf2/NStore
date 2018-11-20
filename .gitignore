@@ -75,3 +75,5 @@ Presentation/NStore.Web/plugins/NStore.PayPlugin.Tenpay/NStore.PayPlugin.Tenpay.
 Presentation/NStore.Web/App_Data/exlogs/20181114.log
 Presentation/NStore.Web/App_Data/exlogs/20181115.log
 Presentation/NStore.Web/App_Data/exlogs/20181119.log
+.vs/config/applicationhost.config
+Presentation/NStore.Web/App_Data/rdbs.config
