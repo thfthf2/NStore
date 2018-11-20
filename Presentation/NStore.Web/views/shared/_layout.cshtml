@@ -1,1 +1,78 @@
-﻿
+﻿<!DOCUTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div id="headerBar" class="bigBox">
+        <div class="box1210">
+            欢迎访问 @WorkContext.MallConfig.MallName
+            <div class="headerLink">
+                @if (WorkContext.Uid < 1)
+                {
+                    <a href="@Url.Action("login", "account", new RouteValueDictionary { { "returnUrl", WorkContext.Url } })">[登录]</a>
+                    <a href="@Url.Action("register", "account")" class="A_b">[注册]</a>
+                }
+                else
+                {
+                    @:您好: @WorkContext.NickName
+                    <a href="@Url.Action("logout", "account")">[退出]</a>
+                    if (WorkContext.PartUserInfo.StoreId > 1)
+                    {
+                        <a href="@Url.Action("index", "home", new RouteValueDictionary { { "area", "storeadmin" } })">[店铺管理]</a>
+                    }
+                    if (WorkContext.MallAGid > 1)
+                    {
+                        <a href="@Url.Action("index", "home", new RouteValueDictionary { { "area", "malladmin" } })">[商城管理]</a>
+                    }
+                    <a href="@Url.Action("orderlist", "ucenter")">[我的订单]</a>
+                }
+            </div>
+        </div>
+    </div>
+
+    @{
+        List<AdvertInfo> homeTopAdvertList = Adverts.GetAdvertList(6);
+    }
+    @if (homeTopAdvertList != null && homeTopAdvertList.Count > 0)
+    {
+        <div class="headerAD box1210">
+            <a href="@homeTopAdvertList[0].Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@homeTopAdvertList[0].Body" width="1210" height="70" /></a>
+            <a href="javascript:;" class="close" onclick="this.parentNode.style.display='none'">x</a>
+        </div>
+    }
+
+    <div id="header" class="bigBox">
+        <div class="box1210" id="header1">
+            <a href="/" class="logo left"><img src="@{@WorkContext.ImageCDN}/images/logo.jpg" /></a>
+            <div class="search left">
+                <div class="searchCon">
+                    <input type="text" id="keyword" name="keyword" class="Stext" autocomplete="off" onkeydown="javascript:if(event.keyCode==13) mallSearch(document.getElementById('keyword').value);" value="@WorkContext.SearchWord" />
+                    <input name="" type="button" value="搜索" class="Sbutton" onclick="mallSearch(document.getElementById('keyword').value)" />
+                    <div class="clear"></div>
+                </div>
+
+                <div class="searchHot">
+                    热门搜索：
+                    @{
+                        List<AdvertInfo> searchWordAdvertList = Adverts.GetAdvertList(5);
+                    }
+                    @Html.Raw((searchWordAdvertList != null && searchWordAdvertList.Count > 0) ? searchWordAdvertList[0].Body : string.Empty)
+                </div>
+
+            </div>
+
+            <div class="shopping right" onmousemove="getCartSnap()" id="cartSnapBox" onmouseout="closeCartSnap(event)">
+                <h2><a href="@Url.Action("index", "cart")">我的购物车<b id="cartSnapProudctCount">@WorkContext.CartProductCount</b></a></h2>
+                <div id="cartSnap" class="shoppingList" style="display:none;"><div class="loding"><img src="@{@WorkContext.ImageCDN}/images/loading.gif" /><br />加载中，请稍候... </div></div>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    @RenderBody()
+</body>
+</html>

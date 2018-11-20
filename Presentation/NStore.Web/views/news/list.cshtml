@@ -1,6 +1,7 @@
 ﻿@model NStore.Web.Models.NewsListModel
 @{
-    Layout = null;
+    //ViewBag.Title = "牛工汇网上商城-商品详情";
+    Layout = "~/Views/Shared/_layout.cshtml";
 }
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -21,64 +22,6 @@
 </head>
 
 <body>
-
-<div id="headerBar" class="bigBox">
-<div class="box">
-欢迎访问 @WorkContext.MallConfig.MallName
-<div  class="headerLink">
-    @if (WorkContext.Uid < 1)
-    {
-        <a href="@Url.Action("login", "account", new RouteValueDictionary { { "returnUrl", WorkContext.Url } })">[登录]</a>
-        <a href="@Url.Action("register", "account")" class="A_b">[注册]</a>
-    }
-    else
-    {
-        @:您好: @WorkContext.NickName
-        <a href="@Url.Action("logout", "account")">[退出]</a>
-        if (WorkContext.PartUserInfo.StoreId > 1)
-        {
-        <a href="@Url.Action("index", "home", new RouteValueDictionary { { "area", "storeadmin" } })">[店铺管理]</a>
-        }
-        if (WorkContext.MallAGid > 1)
-        {
-        <a href="@Url.Action("index", "home", new RouteValueDictionary { { "area", "malladmin" } })">[商城管理]</a>
-        }
-        <a href="@Url.Action("orderlist", "ucenter")">[我的订单]</a>
-    }
-</div>
-</div> 
-</div>
-
-
-<div id="header" class="bigBox">
-<div class="box" id="header1">
-<a href="/" class="logo left"><img src="@{@WorkContext.ImageCDN}/images/logo.jpg" /></a>
-<div class="search left">
-<div class="searchCon">
-    <input type="text" id="keyword" name="keyword" class="Stext" autocomplete="off" onkeydown="javascript:if(event.keyCode==13) mallSearch(document.getElementById('keyword').value);" value="@WorkContext.SearchWord" />
-    <input name="" type="button" value="搜索" class="Sbutton" onclick="mallSearch(document.getElementById('keyword').value)" />
-<div class="clear"></div>
-</div>
-
-<div class="searchHot">热门搜索：
- @{
-     List<AdvertInfo> searchWordAdvertList = Adverts.GetAdvertList(5);
-     }
-     @Html.Raw(searchWordAdvertList[0].Body)
- </div>
-
-</div>
-
-
-<div class="shopping right" onmousemove="getCartSnap()" id="cartSnapBox" onmouseout="closeCartSnap(event)">
-<h2><a href="@Url.Action("index", "cart")">我的购物车<b id="cartSnapProudctCount">@WorkContext.CartProductCount</b></a></h2>
-<div id="cartSnap" class="shoppingList" style=" display:none;"><div class="loding"><img src="@{@WorkContext.ImageCDN}/images/loading.gif" /><br />加载中，请稍候... </div></div>
-</div>
-
-<div class="clear"></div>
-</div>
-</div>
-
 <div id="nav" class="bigBox">
 <div class="box">
 <!-- 分类导航 -->
