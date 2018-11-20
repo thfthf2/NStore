@@ -34,6 +34,13 @@
 #index2 .scroll ul{  position:absolute; width:10000px;}
 #index2 .scroll li{ float:left;}
 
+.bt{ display:block; background:url(/images/lr.jpg) no-repeat left top; width:20px; height:20px; position:absolute;}
+
+body .btL{ background-position:left bottom; left:8px; top:50%; margin-top:-10px;}
+html body .btLhot,body .btL:hover{background-position:left top;}
+body .btR{ background-position:right bottom;right:8px; top:50%;margin-top:-10px;}
+html body .btRhot,body .btR:hover{background-position:right top;}
+
 /*报价入口*/
 .baojia {width:320px;height:50px;margin-top:10px;padding-left:95px;background-color:#3897da; border:0 solid }
 .baojia a {font-size:25px;line-height:50px;}
@@ -46,17 +53,15 @@
 .logoinfo .logoregister table tbody { font-size:20px;line-height:51px;margin-top:1px;}
 .logoinfo .logoregister table tbody .enter{background-color:#ccc;}
 
-
-.bt{ display:block; background:url(/images/lr.jpg) no-repeat left top; width:20px; height:20px; position:absolute;}
-
-body .btL{ background-position:left bottom; left:8px; top:50%; margin-top:-10px;}
-html body .btLhot,body .btL:hover{background-position:left top;}
-body .btR{ background-position:right bottom;right:8px; top:50%;margin-top:-10px;}
-html body .btRhot,body .btR:hover{background-position:right top;}
-
 /*公告下面小广告*/
 .indexAd{margin-top:21px; width:302px; border:1px solid #e1e1e1; height:160px;}
 
+.userinfo { width:300px;margin-top:10px;border:1px solid #e1e1e1;height:287px;}
+.userinfo .base{ width:300px;margin-top:10px;font-size:18px; }
+.userinfo .base span{font-size:15px; }
+.userinfo .tanfer{height:50px;}
+.userinfo .tanfer ul li { line-height:50px;font-size:20px;}
+.userinfo .order {height:100%;}
 
 /*楼层*/
 
