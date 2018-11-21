@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "牛工汇网上商城-首页";
-    Layout = "~/Views/Shared/_layout.cshtml";
+    Layout = "~/Views/Shared/_layoutbase.cshtml";
 }
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -266,13 +266,21 @@
                     </tr>
                     <tr class="productlist">
                         <td colspan="2">
-                            <div style="padding-left:20px;">
+                            <div style="padding-left:5px;">
                                 <table>
-                                    @for (int i = 0; i < 5; i++)
+                                    @for (int i = 0; i < 4; i++)
                                     {
                                         <tr>
-                                            <td><b>图片</b>2018-11-210</td>
-                                            <td><a href="#">加购</a><a href="#">购买</a></td>
+                                            <td style="width:195px;position:absolute; "><b>图片</b>2018-11-210
+                                            <div style="position:relative;z-index:1000;background-color:#856464">
+                                                <ul>
+                                                    <li>订单商品1</li>
+                                                    <li>订单商品2</li>
+                                                    <li>订单商品2</li>
+                                                </ul>
+                                            </div>
+                                            </td>
+                                            <td style=""><a href="#">加购</a>&nbsp;<a href="#">购买</a></td>
                                         </tr>
                                     }
                                 </table>
