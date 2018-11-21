@@ -61,7 +61,7 @@ html body .grayBT{padding: 1px 10px;background: #f5f5f5;color: #333;border: 1px 
 /*#e33a3c #e33a3c #e33b3d*/
 .box .searchCon .Stext{ float:left; width:300px; height:32px; line-height:32px; border:2px solid #e33a3c; font-size:14px; color:#999; outline:none; padding-left:15px;}
 .box1210 .searchCon .Stext{ float:left; width:400px; height:32px; line-height:32px; border:2px solid #3897da; font-size:14px; color:#999; outline:none; padding-left:15px;}
-.searchCon .Sbutton{ float:left;height:36px; line-height:36px; background:#3897da; border:0; color:#FFF; font-weight:bold; width:70px; font-size:14px; outline:none; cursor:pointer;}
+.searchCon .Sbutton{ float:left;height:32px; line-height:32px; background:#3897da; border:0; color:#FFF; font-weight:bold; width:70px; font-size:14px; outline:none; cursor:pointer;}
 .searchHot{ padding-top:5px;}
 .searchHot,.searchHot a{ color:#7a7a7a;}
 .searchHot a:hover,.searchHot a.hot{ color:#3883da;}
@@ -125,7 +125,7 @@ html body .grayBT{padding: 1px 10px;background: #f5f5f5;color: #333;border: 1px 
 
 #categorys h2{ height:45px; background:#3893da; color:#FFF; font-size:14px; line-height:45px; padding-left:20px;}
 
-#categorysCon{border:2px solid #3893da; border-top:0;padding:10px 0; background:#fcfcfc; position:relative;min-height:410px; _height:415px;}
+#categorysCon{border:2px solid #3893da; border-top:0;padding:10px 0; background:#fcfcfc; position:relative;min-height:410px; _height:410px;}
 
 
 
@@ -135,7 +135,7 @@ html body .grayBT{padding: 1px 10px;background: #f5f5f5;color: #333;border: 1px 
 #categorysCon .item h3 a{ color:#545454; font-size:14px;font-weight:normal;}
 
 
-.itmeSon{ z-index:9; position:absolute; left:200px; width:750px; height:410px; top:0px;-moz-box-shadow: 0 0 10px #DDD;	-webkit-box-shadow: 0 0 10px #DDD;box-shadow: 0 0 10px #DDD; padding:15px; padding-left:10px; z-index:9; background:#FFF; border:1px solid #e1e1e1; display:none;}
+.itmeSon{ z-index:9; position:absolute; left:200px; width:680px; height:400px; top:0px;-moz-box-shadow: 0 0 10px #DDD;	-webkit-box-shadow: 0 0 10px #DDD;box-shadow: 0 0 10px #DDD; padding:15px; padding-left:10px; z-index:9; background:#FFF; border:1px solid #e1e1e1; display:none;}
 .itmeSon dl{ zoom:1; display:block; border-bottom:1px dotted #e1e1e1; margin-bottom:8px; padding-bottom:3px;}
 .itmeSon dt{float: left;width: 54px;line-height: 22px;text-align: right;padding: 0 6px 0 0;zoom:1;}
 
