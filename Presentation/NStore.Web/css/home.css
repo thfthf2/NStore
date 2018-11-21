@@ -57,10 +57,12 @@ html body .btRhot,body .btR:hover{background-position:right top;}
 .indexAd{margin-top:21px; width:302px; border:1px solid #e1e1e1; height:160px;}
 
 .userinfo { width:300px;margin-top:10px;border:1px solid #e1e1e1;height:287px;}
-.userinfo .base{ width:300px;margin-top:10px;font-size:18px; }
-.userinfo .base span{font-size:15px; }
-.userinfo .tanfer{height:50px;}
-.userinfo .tanfer ul li { line-height:50px;font-size:20px;}
+.userinfo table{font-size:18px;width:100%; }
+.userinfo table tr{display:block;  }
+.userinfo table tr.base{line-height:50px;text-align:left; }
+.userinfo table .second td{background-color:#ccc;color:cornflowerblue; }
+
+
 .userinfo .order {height:100%;}
 
 /*楼层*/

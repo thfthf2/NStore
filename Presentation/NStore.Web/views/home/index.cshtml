@@ -242,7 +242,48 @@
             </div>
         </div>
         <div class="userinfo">
-            <div class="base">
+            <table>
+                <tbody>
+                    <tr class="base first">
+                        <td style="width:153px">
+                            <span>欢迎:</span>&nbsp;@WorkContext.PartUserInfo.UserName
+                        </td>
+                        <td>
+                            <span>等级:</span>&nbsp;@WorkContext.UserRankInfo.Title
+                        </td>
+                    </tr>
+                    <tr class="base second">
+                        <td style="width:153px">
+                            <a href="#">&nbsp;个人中心</a>
+                        </td>
+                        <td style="width:147px">
+                            <a href="#">退出&nbsp;</a>
+                        </td>
+                    </tr>
+                    <tr class="base"> 
+                        <td style="width:153px">您感兴趣的商品：</td>
+                        <td style="width:147px; text-align:right"><a href="#">更多</a></td>
+                    </tr>
+                    <tr class="productlist">
+                        <td colspan="2">
+                            <div style="padding-left:20px;">
+                                <table>
+                                    @for (int i = 0; i < 5; i++)
+                                    {
+                                        <tr>
+                                            <td><b>图片</b>2018-11-210</td>
+                                            <td><a href="#">加购</a><a href="#">购买</a></td>
+                                        </tr>
+                                    }
+                                </table>
+                                
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            @*<div class="base">
                 <div class="left">
                     <span>&nbsp;欢迎：</span>&nbsp;@WorkContext.PartUserInfo.UserName
                 </div>
@@ -254,12 +295,12 @@
             <div class="tanfer">
                 <ul>
                     <li class="left"><a href="#">&nbsp;个人中心</a></li>
-                    <li class="right"><a href="#">退出&nbsp;</a></li>
+                    <li class="left"><a href="#">退出&nbsp;</a></li>
                 </ul>
             </div>
             <div class="order">
 
-            </div>
+            </div>*@
         </div>
     </div>
     <div class="clear"></div>
