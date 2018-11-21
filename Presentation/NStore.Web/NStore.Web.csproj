@@ -429,6 +429,7 @@
     <Content Include="Log4Net.config" />
     <None Include="Properties\PublishProfiles\TestPublish.pubxml" />
     <Content Include="views\account\authentication.cshtml" />
+    <Content Include="views\shared\_layoutbase.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

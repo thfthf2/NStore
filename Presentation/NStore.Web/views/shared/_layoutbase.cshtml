@@ -74,67 +74,10 @@
         </div>
     </div>
 
-    <div class="clear"></div>
-    </div>
-    </div>
-
-    <div id="nav" class="bigBox">
-        <div class="box">
-            <!-- 分类导航 -->
-
-            <div id="categorys" onmouseover="document.getElementById('categorysCon').className=''" onmouseout="document.getElementById('categorysCon').className='hide'">
-                <h2><i style="font-size:large">牛工工场</i>&nbsp;商品分类</h2>
-                <div id="categorysCon" class="hide">
-                    @{
-                        List<NavInfo> navList = Navs.GetNavList();
-                    }
-                    @{
-                        int layerFlag = 0;
-                        foreach (NavInfo info in navList)
-                        {
-                            if (info.Layer == 1)
-                            {
-                                if (layerFlag == 1)
-                                {
-                                    @:</div></div>
-                                }
-                                @:<div class="item" onmouseover="this.className='item hotItem'" onmouseout="this.className='item'"><h3><a href="javascript:void(0)">@info.Name</a></h3><div class="itmeSon">
-                                layerFlag = 1;
-                            }
-                            else if (info.Layer == 2)
-                            {
-                                @:<dl><dt><a style="" href="javascript:void(0)">@info.Name</a></dt><dd>
-                                foreach (NavInfo nav in navList.FindAll(x => x.Pid == info.Id))
-                                {
-                                    @:<em><a style="" href="@nav.Url">@nav.Name</a></em>
-                                }
-                                @:</dd><div class="clear"></div></dl>
-                            }
-                        }
-                        @:</div></div>
-                    }
-                </div>
-            </div>
-
-    <!-- 分类导航结束 -->
-
-    <ul id="navItme">
-        <li><a href="/">首页</a></li>
-        <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 65 } })">电脑专场</a></li>
-        <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 55 } })">条码设备</a></li>
-        <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 71 } })">办公打印</a></li>
-        <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 72 } })">计量衡器</a></li>
-        <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 73 } })">五金电子</a></li>
-        <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 74 } })">劳保用品</a></li>
-    </ul>
-    </div>
-    </div>
-
     @RenderSection("body")
 
     <div id="footer" class="bigBox">
         <div class="box">
-
             @{
                 int flag = 1;
                 foreach (HelpInfo info in WorkContext.HelpList)
@@ -155,37 +98,38 @@
                         if (flag != 1)
                         {
                             @:</div>
-            }
+                        }
                         @:<div class="footerBox">
                             <h3>@info.Title</h3>
-            flag++;
+                        flag++;
                     }
                 }
                 if (WorkContext.HelpList.Count > 0)
                 {
                     @:</div>
-    }
+                }
             }
 
             <div class="clear"></div>
         </div>
-    <div class="bigBox footerB">
+        <div class="bigBox footerB">
             <div id="footerB">
                 <div class="links">
                     @foreach (FriendLinkInfo info in WorkContext.FriendLinkList)
                     {
                         <a href="@info.Url" target="@info.Target" title="@info.Title">@info.Name</a> @:|
-        }
+                    }
                 </div>
                 <div>苏州市公安局备案编号031143485246&nbsp;&nbsp;|&nbsp;&nbsp;苏ICP证047722号&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#" target="_blank"></a><br />牛工汇电子商务有限公司 程序版本 @WorkContext.MallVersion 版权所有 @WorkContext.MallCopyright</div>
-                <div><a href="#"><img width="108" height="40" src="@{@WorkContext.ImageCDN}/images/power_jy.gif"></a>
-                 <a href="#"><img width="108" height="40" src="@{@WorkContext.ImageCDN}/images/power_kx.gif"></a>
-                 <a href="#"><img width="108" height="40" src="@{@WorkContext.ImageCDN}/images/power_wj.png"></a>
-                 <a href="#"><img width="112" height="40" src="@{@WorkContext.ImageCDN}/images/power_cx.png"></a>
+                <div>
+                    <a href="#"><img width="108" height="40" src="@{@WorkContext.ImageCDN}/images/power_jy.gif"></a>
+                    <a href="#"><img width="108" height="40" src="@{@WorkContext.ImageCDN}/images/power_kx.gif"></a>
+                    <a href="#"><img width="108" height="40" src="@{@WorkContext.ImageCDN}/images/power_wj.png"></a>
+                    <a href="#"><img width="112" height="40" src="@{@WorkContext.ImageCDN}/images/power_cx.png"></a>
                 </div>
             </div>
         </div>
-    @Html.Raw(WorkContext.ExecuteDetail)
-    @Html.Raw(WorkContext.MallConfig.Script)
-</body>
+        @Html.Raw(WorkContext.ExecuteDetail)
+        @Html.Raw(WorkContext.MallConfig.Script)
+    </body>
 </html>
