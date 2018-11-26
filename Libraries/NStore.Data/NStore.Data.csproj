@@ -76,6 +76,7 @@
     <Compile Include="SearchHistories.cs" />
     <Compile Include="ShipAddresses.cs" />
     <Compile Include="ShipCompanies.cs" />
+    <Compile Include="SpecialPerformance.cs" />
     <Compile Include="StoreAdminLogs.cs" />
     <Compile Include="StoreIndustries.cs" />
     <Compile Include="StoreRanks.cs" />

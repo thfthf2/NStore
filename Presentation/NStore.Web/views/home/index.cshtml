@@ -66,13 +66,24 @@
 
                 <ul id="navItme">
                     <li><a href="/">首页</a></li>
-                    <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 55 } })">耗材专场</a></li>
+                    @{
+                        var specialList= SpecialPerformance.GetSpecialList();
+                        if (specialList!=null&& specialList.Count>0)
+                        {
+                            foreach (var item in specialList)
+                            {
+                                <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "specialId", item.Specialid } })">@item.Name</a></li>
+                            }
+                        }
+                     }
+
+                    @*<li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 55 } })">耗材专场</a></li>
                     <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 65 } })">电脑专场</a></li>
                     <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 71 } })">条码专场</a></li>
                     <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 72 } })">办公打印</a></li>
                     <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 73 } })">计量衡器</a></li>
                     <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 74 } })">五金电子</a></li>
-                    <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 75 } })">劳保用品</a></li>
+                    <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 75 } })">劳保用品</a></li>*@
                 </ul>
                 </div>
                 </div>
@@ -880,12 +891,12 @@
                             {
                                 <li>
                                     <div  style="display:block;width:181px;line-height:50px;background-color:#ccc;float:left;margin:5px 10px;">阿尔卑斯</div>
-                                </li>
+                                 </li>
                             }
                     </ul>
                     </div>
                 <div class="clear"></div>
-                </div>
+                 </div>
 
 
 }

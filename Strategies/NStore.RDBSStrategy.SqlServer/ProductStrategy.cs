@@ -281,6 +281,22 @@ namespace NStore.RDBSStrategy.SqlServer
 
         #endregion
 
+        #region 专场
+        
+        /// <summary>
+        /// 获得专场列表
+        /// </summary>
+        /// <returns></returns>
+        public IDataReader GetSpecialList()
+        {
+            string commandText = string.Format("SELECT {1} FROM [{0}specialperformance] WHERE state=1 ORDER BY [sort] ASC",
+                                                RDBSHelper.RDBSTablePre,
+                                                RDBSFields.PRODUCT_SPECIAL);
+            return RDBSHelper.ExecuteReader(CommandType.Text, commandText);
+        }
+
+        #endregion
+
         #region 分类
 
         /// <summary>

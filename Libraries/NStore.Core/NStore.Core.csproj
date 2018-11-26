@@ -116,6 +116,7 @@
     <Compile Include="Domain\Order\OrderProductInfo.cs" />
     <Compile Include="Domain\Order\OrderState.cs" />
     <Compile Include="Domain\Order\OrderRefundInfo.cs" />
+    <Compile Include="Domain\Product\SpecialPerformanceInfo.cs" />
     <Compile Include="Domain\Store\StoreReviewInfo.cs" />
     <Compile Include="Domain\User\ShipAddressInfo.cs" />
     <Compile Include="Domain\Product\TimeProductInfo.cs" />

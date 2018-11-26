@@ -52,7 +52,10 @@ namespace NStore.Core
         /// 品牌分类缓存键
         /// </summary>
         public const string MALL_BRAND_CATEGORYLIST = "/Mall/BrandCategoryList/";
-
+        /// <summary>
+        /// 专场列表缓存键
+        /// </summary>
+        public const string MALL_SPECIAL_LIST = "/Mall/SpecialList/";
 
         /// <summary>
         /// 分类列表缓存键

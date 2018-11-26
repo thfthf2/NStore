@@ -391,5 +391,10 @@ namespace NStore.Core
         /// 用户等级表
         /// </summary>
         public const string USER_RANKS = "[userrid],[system],[title],[avatar],[creditslower],[creditsupper],[limitdays]";
+        
+        /// <summary>
+        /// 商品专场表
+        /// </summary>
+        public const string PRODUCT_SPECIAL = "[specialid],[name],[sort],[state]";
     }
 }

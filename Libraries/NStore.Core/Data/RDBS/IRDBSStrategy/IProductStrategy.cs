@@ -107,6 +107,16 @@ namespace NStore.Core
 
         #endregion
 
+        #region 专场
+        
+        /// <summary>
+        /// 获得专场列表
+        /// </summary>
+        /// <returns></returns>
+        IDataReader GetSpecialList();
+
+        #endregion
+
         #region 分类
 
         /// <summary>

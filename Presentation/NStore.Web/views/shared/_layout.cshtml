@@ -121,12 +121,22 @@
 
     <ul id="navItme">
         <li><a href="/">首页</a></li>
-        <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 65 } })">电脑专场</a></li>
+         @{
+            var specialList= SpecialPerformance.GetSpecialList();
+            if (specialList!=null&& specialList.Count>0)
+            {
+                foreach (var item in specialList)
+                {
+                    <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "specialId", item.Specialid } })">@item.Name 1</a></li>
+                }
+            }
+          }
+        @*<li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 65 } })">电脑专场</a></li>
         <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 55 } })">条码设备</a></li>
         <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 71 } })">办公打印</a></li>
         <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 72 } })">计量衡器</a></li>
         <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 73 } })">五金电子</a></li>
-        <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 74 } })">劳保用品</a></li>
+        <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 74 } })">劳保用品</a></li>*@
     </ul>
     </div>
     </div>

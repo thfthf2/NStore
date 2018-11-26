@@ -150,11 +150,6 @@ namespace NStore.Data
         }
 
 
-
-
-
-
-
         /// <summary>
         /// 获得分类的属性分组列表
         /// </summary>
