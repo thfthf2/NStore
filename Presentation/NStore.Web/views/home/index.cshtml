@@ -887,11 +887,19 @@
                     <h2 class="floorT"></h2>
                     <div>
                         <ul>
-                            @for (int i = 0; i< 12; i++)
-                            {
-                                <li>
-                                    <div  style="display:block;width:181px;line-height:50px;background-color:#ccc;float:left;margin:5px 10px;">阿尔卑斯</div>
-                                 </li>
+                            @{ 
+                                var brandList = Brands.GetBrandList(20,1,"");
+                                if (brandList!=null&& brandList.Count>0)
+                                {
+                                    foreach (var item in brandList)
+                                    {
+                                        <li>
+                                            <div style="display:block;width:181px;line-height:50px;background-color:#ccc;float:left;margin:5px 10px;">
+                                               <a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "brandId", item.BrandId } })"><img src="@item.Logo" alt="@item.Name" /></a> 
+                                            </div>
+                                        </li>
+                                    }
+                                }
                             }
                     </ul>
                     </div>
