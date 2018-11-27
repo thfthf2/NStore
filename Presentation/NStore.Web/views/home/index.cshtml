@@ -76,14 +76,6 @@
                             }
                         }
                      }
-
-                    @*<li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 55 } })">耗材专场</a></li>
-                    <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 65 } })">电脑专场</a></li>
-                    <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 71 } })">条码专场</a></li>
-                    <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 72 } })">办公打印</a></li>
-                    <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 73 } })">计量衡器</a></li>
-                    <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 74 } })">五金电子</a></li>
-                    <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "cateId", 75 } })">劳保用品</a></li>*@
                 </ul>
                 </div>
                 </div>
@@ -884,20 +876,29 @@
 
                 <!-- 品牌商标展示 -->
                 <div class="floor box1210">
-                    <h2 class="floorT"></h2>
+                    <h2 class="floorT">
+                         <b>5F</b>品牌合作商
+                    </h2>
+                   
                     <div>
                         <ul>
-                            @for (int i = 0; i< 12; i++)
-                            {
-                                <li>
-                                    <div  style="display:block;width:181px;line-height:50px;background-color:#ccc;float:left;margin:5px 10px;">阿尔卑斯</div>
-                                 </li>
+                            @{
+                                var brandList = Brands.GetBrandList(20, 1, "");
+                                if (brandList != null && brandList.Count > 0)
+                                {
+                                    foreach (var item in brandList)
+                                    {
+                                        <li>
+                                            <a style="display:block;line-height:50px;background-color:#ccc;float:left;margin:10px 8px;" href="@Url.Action("category", "catalog", new RouteValueDictionary { { "brandId", @item.BrandId } }))">
+                                            <img  src="\upload\brand\thumb100_100\@item.Logo" alt="@item.Name"/>
+                                            </a>
+                                        </li>
+                                    }
+                                }
                             }
                     </ul>
                     </div>
                 <div class="clear"></div>
                  </div>
-
-
 }
 </html>

@@ -78,5 +78,14 @@ namespace NStore.Core
         /// <param name="keyword">关键词</param>
         /// <returns></returns>
         List<BrandInfo> GetCategoryBrandListByKeyword(int cateId, string keyword);
+
+        /// <summary>
+        /// 根据搜索词获取商品匹配关联词
+        /// </summary>
+        /// <param name="name">搜索词</param>
+        /// <returns></returns>
+        ProductSearchKeyInfo GetProductSearchKey(string name);
+
+
     }
 }

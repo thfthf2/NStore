@@ -160,6 +160,14 @@ namespace NStore.Web.Controllers
             int brandId = GetRouteInt("brandId");
             if (brandId == 0)
                 brandId = WebHelper.GetQueryInt("brandId");
+            //专场id
+            int specialId = GetRouteInt("specialId");
+            if (specialId == 0)
+                specialId = WebHelper.GetQueryInt("specialId");
+            //关键词
+            string keyword = GetRouteString("keyword");
+            if (string.IsNullOrEmpty(keyword))
+                keyword = WebHelper.GetQueryString("keyword");
             //筛选价格
             int filterPrice = GetRouteInt("filterPrice");
             if (filterPrice == 0)
@@ -602,6 +610,23 @@ namespace NStore.Web.Controllers
 
             ProductConsults.ConsultProduct(pid, consultTypeId, WorkContext.Uid, partProductInfo.StoreId, DateTime.Now, WebHelper.HtmlEncode(consultMessage), WorkContext.NickName, partProductInfo.Name, partProductInfo.ShowImg, WorkContext.IP);
             return AjaxResult("success", Url.Action("product", new RouteValueDictionary { { "pid", pid } })); ;
+        }
+
+        /// <summary>
+        /// 获取满足搜索条件的商品id列表
+        /// </summary>
+        /// <param name="searchKeyList">商品id列表</param>
+        /// <param name="name">搜索词</param>
+        /// <param name="keytype">搜索词类型</param>
+        public void GetProductSearchKeyList(ref List<ProductSearchKeyInfo> searchKeyList, string name, int keytype)
+        {
+            //if (searchKeyList == null)
+            //{
+            //    searchKeyList = Searches.GetProductSearchKeyList(name, keytype);
+            //    return;
+            //}
+
+            //searchKeyList = searchKeyList.FindAll(p => p.Name == name && p.keyType == keytype);
         }
     }
 }

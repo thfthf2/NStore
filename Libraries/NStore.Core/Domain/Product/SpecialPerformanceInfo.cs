@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NStore.Core.Domain.Product
+namespace NStore.Core
 {
     /// <summary>
     /// 专场信息类

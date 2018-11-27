@@ -100,5 +100,16 @@ namespace NStore.Services
         {
             return _isearchstrategy.GetCategoryBrandListByKeyword(cateId, keyword);
         }
+
+        /// <summary>
+        /// 根据商品搜索词获取匹配商品id列表
+        /// </summary>
+        /// <param name="name">搜索词</param>
+        /// <returns></returns>
+        public static ProductSearchKeyInfo GetProductSearchKey(string name)
+        {
+            return _isearchstrategy.GetProductSearchKey(name);
+        }
+        
     }
 }
