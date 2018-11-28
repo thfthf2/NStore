@@ -8,13 +8,34 @@ namespace NStore.Core.Domain.Enum
 {
     public enum ProductKeyEnum
     {
-        //1商品类型，2品牌，3专场，4属性，5属性值，6关键词
+        /// <summary>
+        /// 1商品类型
+        /// </summary>
+        Category = 1,
+        
+        /// <summary>
+        /// 2品牌
+        /// </summary>
+        Brand = 2,
 
-        Category=1,
-        Brand=2,
-        Special=3,
-        Attribute=4,
-        AttributeValue=5,
-        KeyWord=6
+        /// <summary>
+        /// 3专场
+        /// </summary>
+        Special = 3,
+
+        /// <summary>
+        /// 4属性
+        /// </summary>
+        Attribute = 4,
+
+        /// <summary>
+        /// 5属性值
+        /// </summary>
+        AttributeValue = 5,
+
+        /// <summary>
+        /// 6关键词
+        /// </summary>
+        KeyWord = 6
     }
 }

@@ -107,5 +107,13 @@ namespace NStore.Core
         /// <param name="attrValueId">属性值id</param>
         /// <returns></returns>
         List<int> GetProductIdListByAttrId(int attrId, int attrValueId);
+        
+        /// <summary>
+        /// 获得分类商品列表
+        /// </summary>
+        /// <param name="pageSize">每页数</param>
+        /// <param name="pageNumber">当前页数</param>
+        /// <param name="cateId">分类id</param>
+         List<StoreProductInfo> GetCategoryProductList(int pageSize, int pageNumber, int cateId);
     }
 }

@@ -23,7 +23,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetBrandById(int brandId)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@brandid", SqlDbType.Int, 4, brandId)    
+                                        GenerateInParam("@brandid", SqlDbType.Int, 4, brandId)
                                     };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
                                             string.Format("{0}getbrandbyid", RDBSHelper.RDBSTablePre),
@@ -53,7 +53,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public void DeleteBrandById(int brandId)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@brandid", SqlDbType.Int, 4, brandId)    
+                                        GenerateInParam("@brandid", SqlDbType.Int, 4, brandId)
                                     };
             string commandText = string.Format("DELETE FROM [{0}brands] WHERE [brandid]=@brandid",
                                                 RDBSHelper.RDBSTablePre);
@@ -70,7 +70,7 @@ namespace NStore.RDBSStrategy.SqlServer
                                         GenerateInParam("@displayorder", SqlDbType.Int,4,brandInfo.DisplayOrder),
                                         GenerateInParam("@name", SqlDbType.NChar, 20, brandInfo.Name),
                                         GenerateInParam("@logo", SqlDbType.NChar,100,brandInfo.Logo),
-                                        GenerateInParam("@brandid", SqlDbType.Int, 4, brandInfo.BrandId)    
+                                        GenerateInParam("@brandid", SqlDbType.Int, 4, brandInfo.BrandId)
                                     };
 
             string commandText = string.Format("UPDATE [{0}brands] SET [displayorder]=@displayorder,[name]=@name,[logo]=@logo WHERE [brandid]=@brandid",
@@ -238,7 +238,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetBrandCategoryList(int brandId)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@brandid", SqlDbType.Int, 4, brandId)    
+                                        GenerateInParam("@brandid", SqlDbType.Int, 4, brandId)
                                     };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
                                             string.Format("{0}getbrandcategorylist", RDBSHelper.RDBSTablePre),
@@ -256,7 +256,7 @@ namespace NStore.RDBSStrategy.SqlServer
         {
             DbParameter[] parms = {
                                     GenerateInParam("@pagesize", SqlDbType.Int, 4, pageSize),
-                                    GenerateInParam("@pagenumber", SqlDbType.Int, 4, pageNumber),   
+                                    GenerateInParam("@pagenumber", SqlDbType.Int, 4, pageNumber),
                                     GenerateInParam("@brandname", SqlDbType.NChar, 20, brandName)
                                    };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
@@ -282,7 +282,7 @@ namespace NStore.RDBSStrategy.SqlServer
         #endregion
 
         #region 专场
-        
+
         /// <summary>
         /// 获得专场列表
         /// </summary>
@@ -338,7 +338,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public void DeleteCategoryById(int cateId)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@cateid", SqlDbType.SmallInt, 2, cateId)    
+                                        GenerateInParam("@cateid", SqlDbType.SmallInt, 2, cateId)
                                     };
             string commandText = string.Format("DELETE FROM [{0}categories] WHERE [cateid]=@cateid",
                                                 RDBSHelper.RDBSTablePre);
@@ -359,7 +359,7 @@ namespace NStore.RDBSStrategy.SqlServer
                                         GenerateInParam("@layer", SqlDbType.TinyInt,1,categoryInfo.Layer),
                                         GenerateInParam("@haschild", SqlDbType.TinyInt,1,categoryInfo.HasChild),
                                         GenerateInParam("@path", SqlDbType.Char,100, categoryInfo.Path),
-                                        GenerateInParam("@cateid", SqlDbType.SmallInt, 2, categoryInfo.CateId)    
+                                        GenerateInParam("@cateid", SqlDbType.SmallInt, 2, categoryInfo.CateId)
                                     };
 
             string commandText = string.Format("UPDATE [{0}categories] SET [displayorder]=@displayorder,[name]=@name,[pricerange]=@pricerange,[parentId]=@parentId,[layer]=@layer,[haschild]=@haschild,[path]=@path WHERE [cateid]=@cateid",
@@ -375,7 +375,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetCategoryBrandList(int cateId)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@cateid", SqlDbType.SmallInt, 2, cateId)    
+                                        GenerateInParam("@cateid", SqlDbType.SmallInt, 2, cateId)
                                     };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
                                             string.Format("{0}getcategorybrandlist", RDBSHelper.RDBSTablePre),
@@ -394,7 +394,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetAttributeGroupListByCateId(int cateId)
         {
             DbParameter[] parms = {
-                                    GenerateInParam("@cateid", SqlDbType.SmallInt, 2, cateId)    
+                                    GenerateInParam("@cateid", SqlDbType.SmallInt, 2, cateId)
                                   };
             string commandText = string.Format("SELECT {1} FROM [{0}attributegroups] WHERE [cateid]=@cateid ORDER BY [displayorder] DESC",
                                                 RDBSHelper.RDBSTablePre,
@@ -409,7 +409,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetAttributeGroupById(int attrGroupId)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@attrgroupid", SqlDbType.SmallInt, 2, attrGroupId)    
+                                        GenerateInParam("@attrgroupid", SqlDbType.SmallInt, 2, attrGroupId)
                                     };
             string commandText = string.Format("SELECT {1} FROM [{0}attributegroups] WHERE [attrgroupid]=@attrgroupid",
                                                 RDBSHelper.RDBSTablePre,
@@ -439,7 +439,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public void DeleteAttributeGroupById(int attrGroupId)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@attrgroupid", SqlDbType.SmallInt, 2, attrGroupId)  
+                                        GenerateInParam("@attrgroupid", SqlDbType.SmallInt, 2, attrGroupId)
                                     };
             string commandText = string.Format("DELETE FROM [{0}attributegroups] WHERE [attrgroupid]=@attrgroupid",
                                                 RDBSHelper.RDBSTablePre);
@@ -457,7 +457,7 @@ namespace NStore.RDBSStrategy.SqlServer
                                         GenerateInParam("@cateid", SqlDbType.SmallInt, 2, attributeGroupInfo.CateId),
                                         GenerateInParam("@name", SqlDbType.NChar, 20, attributeGroupInfo.Name),
                                         GenerateInParam("@displayorder", SqlDbType.Int,4,attributeGroupInfo.DisplayOrder),
-                                        GenerateInParam("@attrgroupid", SqlDbType.SmallInt, 2, attributeGroupInfo.AttrGroupId)    
+                                        GenerateInParam("@attrgroupid", SqlDbType.SmallInt, 2, attributeGroupInfo.AttrGroupId)
                                     };
 
             string commandText = string.Format("UPDATE [{0}attributegroups] SET [cateid]=@cateid,[name]=@name,[displayorder]=@displayorder WHERE [attrgroupid]=@attrgroupid",
@@ -504,7 +504,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetAttributeListByCateId(int cateId)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@cateid", SqlDbType.SmallInt, 2, cateId)    
+                                        GenerateInParam("@cateid", SqlDbType.SmallInt, 2, cateId)
                                     };
             string commandText = string.Format("SELECT {1} FROM [{0}attributes] WHERE [cateid]=@cateid ORDER BY [displayorder] DESC",
                                                 RDBSHelper.RDBSTablePre,
@@ -520,7 +520,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetAttributeListByAttrGroupId(int attrGroupId)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@attrgroupid", SqlDbType.SmallInt, 2, attrGroupId)    
+                                        GenerateInParam("@attrgroupid", SqlDbType.SmallInt, 2, attrGroupId)
                                     };
             string commandText = string.Format("SELECT {1} FROM [{0}attributes] WHERE [attrgroupid]=@attrgroupid ORDER BY [displayorder] DESC",
                                                 RDBSHelper.RDBSTablePre,
@@ -536,12 +536,26 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetFilterAttributeListByCateId(int cateId)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@cateid", SqlDbType.SmallInt, 2, cateId)    
+                                        GenerateInParam("@cateid", SqlDbType.SmallInt, 2, cateId)
                                     };
             string commandText = string.Format("SELECT {1} FROM [{0}attributes] WHERE [cateid]=@cateid AND [isfilter]=1 ORDER BY [displayorder] DESC",
                                                 RDBSHelper.RDBSTablePre,
                                                 RDBSFields.ATTRIBUTES);
             return RDBSHelper.ExecuteReader(CommandType.Text, commandText, parms);
+        }
+
+        /// <summary>
+        /// 获得筛选属性列表
+        /// </summary>
+        /// <param name="cateId">分类id</param>
+        /// <returns></returns>
+        public IDataReader GetFilterAttributeList()
+        {
+     
+            string commandText = string.Format("SELECT {1} FROM [{0}attributes] WHERE  [state]=0 ORDER BY [sort] DESC",
+                                                RDBSHelper.RDBSTablePre,
+                                                RDBSFields.ATTRIBUTES);
+            return RDBSHelper.ExecuteReader(CommandType.Text, commandText);
         }
 
         /// <summary>
@@ -584,7 +598,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetAttributeById(int attrId)
         {
             DbParameter[] parms = {
-                                    GenerateInParam("@attrid", SqlDbType.Int, 4, attrId)    
+                                    GenerateInParam("@attrid", SqlDbType.Int, 4, attrId)
                                     };
             string commandText = string.Format("SELECT {1} FROM [{0}attributes] WHERE [attrid]=@attrid",
                                                 RDBSHelper.RDBSTablePre,
@@ -603,11 +617,11 @@ namespace NStore.RDBSStrategy.SqlServer
         {
             DbParameter[] parms = {
                                         GenerateInParam("@name", SqlDbType.NChar, 30, attributeInfo.Name),
-                                        GenerateInParam("@cateid", SqlDbType.SmallInt,2,attributeInfo.CateId),
-                                        GenerateInParam("@attrgroupid", SqlDbType.SmallInt,2,attributeInfo.AttrGroupId),
-                                        GenerateInParam("@showtype", SqlDbType.TinyInt,1,attributeInfo.ShowType),
-                                        GenerateInParam("@isfilter", SqlDbType.TinyInt,1,attributeInfo.IsFilter),
-                                        GenerateInParam("@displayorder", SqlDbType.Int,4,attributeInfo.DisplayOrder)
+                                        //GenerateInParam("@cateid", SqlDbType.SmallInt,2,attributeInfo.CateId),
+                                        //GenerateInParam("@attrgroupid", SqlDbType.SmallInt,2,attributeInfo.AttrGroupId),
+                                        //GenerateInParam("@showtype", SqlDbType.TinyInt,1,attributeInfo.ShowType),
+                                        //GenerateInParam("@isfilter", SqlDbType.TinyInt,1,attributeInfo.IsFilter),
+                                        //GenerateInParam("@displayorder", SqlDbType.Int,4,attributeInfo.DisplayOrder)
                                     };
             string commandText = string.Format("INSERT INTO [{0}attributes]([name],[cateid],[attrgroupid],[showtype],[isfilter],[displayorder]) VALUES(@name,@cateid,@attrgroupid,@showtype,@isfilter,@displayorder);SELECT SCOPE_IDENTITY();",
                                                 RDBSHelper.RDBSTablePre);
@@ -617,8 +631,8 @@ namespace NStore.RDBSStrategy.SqlServer
                 commandText = string.Format("INSERT INTO [{0}attributevalues]([attrvalue],[isinput],[attrname],[attrdisplayorder],[attrshowtype],[attrvaluedisplayorder],[attrgroupid],[attrgroupname],[attrgroupdisplayorder],[attrid]) VALUES('手动输入',1,'{1}',{2},{3},0,{4},'{5}',{6},{7})",
                                              RDBSHelper.RDBSTablePre,
                                              attributeInfo.Name,
-                                             attributeInfo.DisplayOrder,
-                                             attributeInfo.ShowType,
+                                             //attributeInfo.DisplayOrder,
+                                             //attributeInfo.ShowType,
                                              attrGroupId,
                                              attrGroupName,
                                              attrGroupDisplayOrder,
@@ -634,7 +648,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public void DeleteAttributeById(int attrId)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@attrid", SqlDbType.SmallInt, 2, attrId)    
+                                        GenerateInParam("@attrid", SqlDbType.SmallInt, 2, attrId)
                                     };
             string commandText = string.Format("DELETE FROM [{0}attributevalues] WHERE [attrid]=@attrid;DELETE FROM [{0}attributes] WHERE [attrid]=@attrid",
                                                 RDBSHelper.RDBSTablePre);
@@ -650,12 +664,12 @@ namespace NStore.RDBSStrategy.SqlServer
         {
             DbParameter[] parms = {
                                         GenerateInParam("@name", SqlDbType.NChar, 30, attributeInfo.Name),
-                                        GenerateInParam("@cateid", SqlDbType.SmallInt,2,attributeInfo.CateId),
-                                        GenerateInParam("@attrgroupid", SqlDbType.SmallInt,2,attributeInfo.AttrGroupId),
-                                        GenerateInParam("@showtype", SqlDbType.TinyInt,1,attributeInfo.ShowType),
-                                        GenerateInParam("@isfilter", SqlDbType.TinyInt,1,attributeInfo.IsFilter),
-                                        GenerateInParam("@displayorder", SqlDbType.Int,4,attributeInfo.DisplayOrder),
-                                        GenerateInParam("@attrid", SqlDbType.SmallInt, 2, attributeInfo.AttrId)    
+                                        //GenerateInParam("@cateid", SqlDbType.SmallInt,2,attributeInfo.CateId),
+                                        //GenerateInParam("@attrgroupid", SqlDbType.SmallInt,2,attributeInfo.AttrGroupId),
+                                        //GenerateInParam("@showtype", SqlDbType.TinyInt,1,attributeInfo.ShowType),
+                                        //GenerateInParam("@isfilter", SqlDbType.TinyInt,1,attributeInfo.IsFilter),
+                                        //GenerateInParam("@displayorder", SqlDbType.Int,4,attributeInfo.DisplayOrder),
+                                        GenerateInParam("@attrid", SqlDbType.SmallInt, 2, attributeInfo.AttrId)
                                     };
 
             string commandText = string.Format("UPDATE [{0}attributes] SET [name]=@name,[cateid]=@cateid,[attrgroupid]=@attrgroupid,[showtype]=@showtype,[isfilter]=@isfilter,[displayorder]=@displayorder WHERE [attrid]=@attrid",
@@ -666,8 +680,8 @@ namespace NStore.RDBSStrategy.SqlServer
                 commandText = string.Format("UPDATE [{0}attributevalues] SET [attrname]='{1}',[attrdisplayorder]={2},[attrshowtype]={3} WHERE [attrid]={4}",
                                              RDBSHelper.RDBSTablePre,
                                              attributeInfo.Name,
-                                             attributeInfo.DisplayOrder,
-                                             attributeInfo.ShowType,
+                                             //attributeInfo.DisplayOrder,
+                                             //attributeInfo.ShowType,
                                              attributeInfo.AttrId);
                 RDBSHelper.ExecuteNonQuery(CommandType.Text, commandText);
             }
@@ -682,8 +696,8 @@ namespace NStore.RDBSStrategy.SqlServer
         public int GetAttrIdByCateIdAndName(int cateId, string attributeName)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@cateid", SqlDbType.SmallInt, 2, cateId),   
-                                        GenerateInParam("@name", SqlDbType.NChar, 30, attributeName)    
+                                        GenerateInParam("@cateid", SqlDbType.SmallInt, 2, cateId),
+                                        GenerateInParam("@name", SqlDbType.NChar, 30, attributeName)
                                     };
             string commandText = string.Format("SELECT [attrid] FROM [{0}attributes] WHERE [cateid]=@cateid AND [name]=@name",
                                                RDBSHelper.RDBSTablePre);
@@ -702,7 +716,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetAttributeValueById(int attrValueId)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@attrvalueid", SqlDbType.Int, 4, attrValueId)    
+                                        GenerateInParam("@attrvalueid", SqlDbType.Int, 4, attrValueId)
                                     };
             string commandText = string.Format("SELECT {1} FROM [{0}attributevalues] WHERE [attrvalueid]=@attrvalueid;",
                                                 RDBSHelper.RDBSTablePre,
@@ -717,14 +731,14 @@ namespace NStore.RDBSStrategy.SqlServer
         {
             DbParameter[] parms = {
                                         GenerateInParam("@attrvalue", SqlDbType.NChar,70, attributeValueInfo.AttrValue),
-                                        GenerateInParam("@isinput", SqlDbType.TinyInt,1, attributeValueInfo.IsInput),
-                                        GenerateInParam("@attrname", SqlDbType.NChar,30, attributeValueInfo.AttrName),
-                                        GenerateInParam("@attrdisplayorder", SqlDbType.Int,4, attributeValueInfo.AttrDisplayOrder),
-                                        GenerateInParam("@attrshowtype", SqlDbType.TinyInt,1, attributeValueInfo.AttrShowType),
-                                        GenerateInParam("@attrvaluedisplayorder", SqlDbType.Int,4,attributeValueInfo.AttrValueDisplayOrder),
-                                        GenerateInParam("@attrgroupid", SqlDbType.SmallInt,2, attributeValueInfo.AttrGroupId),
-                                        GenerateInParam("@attrgroupname", SqlDbType.NChar,20, attributeValueInfo.AttrGroupName),
-                                        GenerateInParam("@attrgroupdisplayorder", SqlDbType.Int,4, attributeValueInfo.AttrGroupDisplayOrder),
+                                        //GenerateInParam("@isinput", SqlDbType.TinyInt,1, attributeValueInfo.IsInput),
+                                        //GenerateInParam("@attrname", SqlDbType.NChar,30, attributeValueInfo.AttrName),
+                                        //GenerateInParam("@attrdisplayorder", SqlDbType.Int,4, attributeValueInfo.AttrDisplayOrder),
+                                        //GenerateInParam("@attrshowtype", SqlDbType.TinyInt,1, attributeValueInfo.AttrShowType),
+                                        //GenerateInParam("@attrvaluedisplayorder", SqlDbType.Int,4,attributeValueInfo.AttrValueDisplayOrder),
+                                        //GenerateInParam("@attrgroupid", SqlDbType.SmallInt,2, attributeValueInfo.AttrGroupId),
+                                        //GenerateInParam("@attrgroupname", SqlDbType.NChar,20, attributeValueInfo.AttrGroupName),
+                                        //GenerateInParam("@attrgroupdisplayorder", SqlDbType.Int,4, attributeValueInfo.AttrGroupDisplayOrder),
                                         GenerateInParam("@attrid", SqlDbType.SmallInt,2,attributeValueInfo.AttrId)
                                     };
             string commandText = string.Format("INSERT INTO [{0}attributevalues]([attrvalue],[isinput],[attrname],[attrdisplayorder],[attrshowtype],[attrvaluedisplayorder],[attrgroupid],[attrgroupname],[attrgroupdisplayorder],[attrid]) VALUES(@attrvalue,@isinput,@attrname,@attrdisplayorder,@attrshowtype,@attrvaluedisplayorder,@attrgroupid,@attrgroupname,@attrgroupdisplayorder,@attrid)",
@@ -739,7 +753,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public void DeleteAttributeValueById(int attrValueId)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@attrvalueid", SqlDbType.Int, 4, attrValueId)    
+                                        GenerateInParam("@attrvalueid", SqlDbType.Int, 4, attrValueId)
                                     };
             string commandText = string.Format("DELETE FROM [{0}attributevalues] WHERE [attrvalueid]=@attrvalueid;",
                                                 RDBSHelper.RDBSTablePre);
@@ -753,16 +767,16 @@ namespace NStore.RDBSStrategy.SqlServer
         {
             DbParameter[] parms = {
                                         GenerateInParam("@attrvalue", SqlDbType.NChar,70, attributeValueInfo.AttrValue),
-                                        GenerateInParam("@isinput", SqlDbType.TinyInt,1, attributeValueInfo.IsInput),
-                                        GenerateInParam("@attrname", SqlDbType.NChar,30, attributeValueInfo.AttrName),
-                                        GenerateInParam("@attrdisplayorder", SqlDbType.Int,4, attributeValueInfo.AttrDisplayOrder),
-                                        GenerateInParam("@attrshowtype", SqlDbType.TinyInt,1, attributeValueInfo.AttrShowType),
-                                        GenerateInParam("@attrvaluedisplayorder", SqlDbType.Int,4,attributeValueInfo.AttrValueDisplayOrder),
-                                        GenerateInParam("@attrgroupid", SqlDbType.SmallInt,2, attributeValueInfo.AttrGroupId),
-                                        GenerateInParam("@attrgroupname", SqlDbType.NChar,20, attributeValueInfo.AttrGroupName),
-                                        GenerateInParam("@attrgroupdisplayorder", SqlDbType.Int,4, attributeValueInfo.AttrGroupDisplayOrder),
+                                        //GenerateInParam("@isinput", SqlDbType.TinyInt,1, attributeValueInfo.IsInput),
+                                        //GenerateInParam("@attrname", SqlDbType.NChar,30, attributeValueInfo.AttrName),
+                                        //GenerateInParam("@attrdisplayorder", SqlDbType.Int,4, attributeValueInfo.AttrDisplayOrder),
+                                        //GenerateInParam("@attrshowtype", SqlDbType.TinyInt,1, attributeValueInfo.AttrShowType),
+                                        //GenerateInParam("@attrvaluedisplayorder", SqlDbType.Int,4,attributeValueInfo.AttrValueDisplayOrder),
+                                        //GenerateInParam("@attrgroupid", SqlDbType.SmallInt,2, attributeValueInfo.AttrGroupId),
+                                        //GenerateInParam("@attrgroupname", SqlDbType.NChar,20, attributeValueInfo.AttrGroupName),
+                                        //GenerateInParam("@attrgroupdisplayorder", SqlDbType.Int,4, attributeValueInfo.AttrGroupDisplayOrder),
                                         GenerateInParam("@attrid", SqlDbType.SmallInt,2,attributeValueInfo.AttrId),
-                                        GenerateInParam("@attrvalueid", SqlDbType.Int, 4, attributeValueInfo.AttrValueId)    
+                                        GenerateInParam("@attrvalueid", SqlDbType.Int, 4, attributeValueInfo.AttrValueId)
                                     };
 
             string commandText = string.Format("UPDATE [{0}attributevalues] SET [attrvalue]=@attrvalue,[isinput]=@isinput,[attrname]=@attrname,[attrdisplayorder]=@attrdisplayorder,[attrshowtype]=@attrshowtype,[attrvaluedisplayorder]=@attrvaluedisplayorder,[attrgroupid]=@attrgroupid,[attrgroupname]=@attrgroupname,[attrgroupdisplayorder]=@attrgroupdisplayorder,[attrid]=@attrid WHERE [attrvalueid]=@attrvalueid",
@@ -778,9 +792,9 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetAttributeValueListByAttrId(int attrId)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@attrid", SqlDbType.SmallInt, 2, attrId)    
+                                        GenerateInParam("@attrid", SqlDbType.SmallInt, 2, attrId)
                                     };
-            string commandText = string.Format("SELECT {1} FROM [{0}attributevalues] WHERE [attrid]=@attrid ORDER BY [isinput] ASC, [attrvaluedisplayorder] DESC",
+            string commandText = string.Format("SELECT {1} FROM [{0}attributevalues] WHERE [attrid]=@attrid and [state]=0 ORDER BY [sort] ASC",
                                                 RDBSHelper.RDBSTablePre,
                                                 RDBSFields.ATTRIBUTE_VALUES);
             return RDBSHelper.ExecuteReader(CommandType.Text, commandText, parms);
@@ -796,7 +810,7 @@ namespace NStore.RDBSStrategy.SqlServer
         {
             DbParameter[] parms = {
                                         GenerateInParam("@attrid", SqlDbType.SmallInt, 2, attrId),
-                                        GenerateInParam("@attrvalue", SqlDbType.NChar, 30, attrValue)    
+                                        GenerateInParam("@attrvalue", SqlDbType.NChar, 30, attrValue)
                                     };
             string commandText = string.Format("SELECT [attrvalueid] FROM [{0}attributevalues] WHERE [attrid]=@attrid AND [attrvalue]=@attrvalue",
                                                 RDBSHelper.RDBSTablePre);
@@ -929,24 +943,24 @@ namespace NStore.RDBSStrategy.SqlServer
         public int CreateProduct(ProductInfo productInfo)
         {
             DbParameter[] parms = {
-									 GenerateInParam("@psn",SqlDbType.Char,30,productInfo.PSN),
-									 GenerateInParam("@cateid",SqlDbType.SmallInt,2,productInfo.CateId),
-									 GenerateInParam("@brandid",SqlDbType.Int,4,productInfo.BrandId),
-									 GenerateInParam("@storeid",SqlDbType.Int,4,productInfo.StoreId),
-									 GenerateInParam("@storecid",SqlDbType.Int,4,productInfo.StoreCid),
-									 GenerateInParam("@storestid",SqlDbType.Int,4,productInfo.StoreSTid),
-									 GenerateInParam("@skugid",SqlDbType.Int,4,productInfo.SKUGid),
-									 GenerateInParam("@name",SqlDbType.NVarChar,200,productInfo.Name),
-									 GenerateInParam("@shopprice",SqlDbType.Decimal,4,productInfo.ShopPrice),
-									 GenerateInParam("@marketprice",SqlDbType.Decimal,4,productInfo.MarketPrice),
-									 GenerateInParam("@costprice",SqlDbType.Decimal,4,productInfo.CostPrice),
-									 GenerateInParam("@state",SqlDbType.TinyInt,1,productInfo.State),
+                                     GenerateInParam("@psn",SqlDbType.Char,30,productInfo.PSN),
+                                     GenerateInParam("@cateid",SqlDbType.SmallInt,2,productInfo.CateId),
+                                     GenerateInParam("@brandid",SqlDbType.Int,4,productInfo.BrandId),
+                                     GenerateInParam("@storeid",SqlDbType.Int,4,productInfo.StoreId),
+                                     GenerateInParam("@storecid",SqlDbType.Int,4,productInfo.StoreCid),
+                                     GenerateInParam("@storestid",SqlDbType.Int,4,productInfo.StoreSTid),
+                                     GenerateInParam("@skugid",SqlDbType.Int,4,productInfo.SKUGid),
+                                     GenerateInParam("@name",SqlDbType.NVarChar,200,productInfo.Name),
+                                     GenerateInParam("@shopprice",SqlDbType.Decimal,4,productInfo.ShopPrice),
+                                     GenerateInParam("@marketprice",SqlDbType.Decimal,4,productInfo.MarketPrice),
+                                     GenerateInParam("@costprice",SqlDbType.Decimal,4,productInfo.CostPrice),
+                                     GenerateInParam("@state",SqlDbType.TinyInt,1,productInfo.State),
                                      GenerateInParam("@isbest",SqlDbType.TinyInt,1,productInfo.IsBest),
-									 GenerateInParam("@ishot",SqlDbType.TinyInt,1,productInfo.IsHot),
-									 GenerateInParam("@isnew",SqlDbType.TinyInt,1,productInfo.IsNew),
-									 GenerateInParam("@displayorder",SqlDbType.Int,4,productInfo.DisplayOrder),
+                                     GenerateInParam("@ishot",SqlDbType.TinyInt,1,productInfo.IsHot),
+                                     GenerateInParam("@isnew",SqlDbType.TinyInt,1,productInfo.IsNew),
+                                     GenerateInParam("@displayorder",SqlDbType.Int,4,productInfo.DisplayOrder),
                                      GenerateInParam("@weight",SqlDbType.Int,4,productInfo.Weight),
-									 GenerateInParam("@showimg",SqlDbType.NVarChar,100,productInfo.ShowImg),
+                                     GenerateInParam("@showimg",SqlDbType.NVarChar,100,productInfo.ShowImg),
                                      GenerateInParam("@salecount",SqlDbType.Int,4,productInfo.SaleCount),
                                      GenerateInParam("@visitcount",SqlDbType.Int,4,productInfo.VisitCount),
                                      GenerateInParam("@reviewcount",SqlDbType.Int,4,productInfo.ReviewCount),
@@ -955,8 +969,8 @@ namespace NStore.RDBSStrategy.SqlServer
                                      GenerateInParam("@star3",SqlDbType.Int,4,productInfo.Star3),
                                      GenerateInParam("@star4",SqlDbType.Int,4,productInfo.Star4),
                                      GenerateInParam("@star5",SqlDbType.Int,4,productInfo.Star5),
-									 GenerateInParam("@addtime",SqlDbType.DateTime,8,productInfo.AddTime),
-									 GenerateInParam("@description",SqlDbType.NText,0,productInfo.Description)
+                                     GenerateInParam("@addtime",SqlDbType.DateTime,8,productInfo.AddTime),
+                                     GenerateInParam("@description",SqlDbType.NText,0,productInfo.Description)
                                    };
 
             string commandText = string.Format(@"INSERT INTO [{0}products]([psn],[cateid],[brandid],[storeid],[storecid],[storestid],[skugid],[name],[shopprice],[marketprice],[costprice],[state],[isbest],[ishot],[isnew],
@@ -975,24 +989,24 @@ namespace NStore.RDBSStrategy.SqlServer
         public void UpdateProduct(ProductInfo productInfo)
         {
             DbParameter[] parms = {
-									GenerateInParam("@psn",SqlDbType.Char,30,productInfo.PSN),
-									GenerateInParam("@cateid",SqlDbType.SmallInt,2,productInfo.CateId),
-									GenerateInParam("@brandid",SqlDbType.Int,4,productInfo.BrandId),
+                                    GenerateInParam("@psn",SqlDbType.Char,30,productInfo.PSN),
+                                    GenerateInParam("@cateid",SqlDbType.SmallInt,2,productInfo.CateId),
+                                    GenerateInParam("@brandid",SqlDbType.Int,4,productInfo.BrandId),
                                     GenerateInParam("@storeid",SqlDbType.Int,4,productInfo.StoreId),
-									GenerateInParam("@storecid",SqlDbType.Int,4,productInfo.StoreCid),
-									GenerateInParam("@storestid",SqlDbType.Int,4,productInfo.StoreSTid),
-									GenerateInParam("@skugid",SqlDbType.Int,4,productInfo.SKUGid),
-									GenerateInParam("@name",SqlDbType.NVarChar,200,productInfo.Name),
-									GenerateInParam("@shopprice",SqlDbType.Decimal,4,productInfo.ShopPrice),
-									GenerateInParam("@marketprice",SqlDbType.Decimal,4,productInfo.MarketPrice),
-									GenerateInParam("@costprice",SqlDbType.Decimal,4,productInfo.CostPrice),
-									GenerateInParam("@state",SqlDbType.TinyInt,1,productInfo.State),
+                                    GenerateInParam("@storecid",SqlDbType.Int,4,productInfo.StoreCid),
+                                    GenerateInParam("@storestid",SqlDbType.Int,4,productInfo.StoreSTid),
+                                    GenerateInParam("@skugid",SqlDbType.Int,4,productInfo.SKUGid),
+                                    GenerateInParam("@name",SqlDbType.NVarChar,200,productInfo.Name),
+                                    GenerateInParam("@shopprice",SqlDbType.Decimal,4,productInfo.ShopPrice),
+                                    GenerateInParam("@marketprice",SqlDbType.Decimal,4,productInfo.MarketPrice),
+                                    GenerateInParam("@costprice",SqlDbType.Decimal,4,productInfo.CostPrice),
+                                    GenerateInParam("@state",SqlDbType.TinyInt,1,productInfo.State),
                                     GenerateInParam("@isbest",SqlDbType.TinyInt,1,productInfo.IsBest),
-									GenerateInParam("@ishot",SqlDbType.TinyInt,1,productInfo.IsHot),
-									GenerateInParam("@isnew",SqlDbType.TinyInt,1,productInfo.IsNew),
-									GenerateInParam("@displayorder",SqlDbType.Int,4,productInfo.DisplayOrder),
+                                    GenerateInParam("@ishot",SqlDbType.TinyInt,1,productInfo.IsHot),
+                                    GenerateInParam("@isnew",SqlDbType.TinyInt,1,productInfo.IsNew),
+                                    GenerateInParam("@displayorder",SqlDbType.Int,4,productInfo.DisplayOrder),
                                     GenerateInParam("@weight",SqlDbType.Int,4,productInfo.Weight),
-									GenerateInParam("@showimg",SqlDbType.NVarChar,100,productInfo.ShowImg),
+                                    GenerateInParam("@showimg",SqlDbType.NVarChar,100,productInfo.ShowImg),
                                     GenerateInParam("@salecount",SqlDbType.Int,4,productInfo.SaleCount),
                                     GenerateInParam("@visitcount",SqlDbType.Int,4,productInfo.VisitCount),
                                     GenerateInParam("@reviewcount",SqlDbType.Int,4,productInfo.ReviewCount),
@@ -1001,8 +1015,8 @@ namespace NStore.RDBSStrategy.SqlServer
                                     GenerateInParam("@star3",SqlDbType.Int,4,productInfo.Star3),
                                     GenerateInParam("@star4",SqlDbType.Int,4,productInfo.Star4),
                                     GenerateInParam("@star5",SqlDbType.Int,4,productInfo.Star5),
-									GenerateInParam("@addtime",SqlDbType.DateTime,8,productInfo.AddTime),
-									GenerateInParam("@description",SqlDbType.NText,0,productInfo.Description),
+                                    GenerateInParam("@addtime",SqlDbType.DateTime,8,productInfo.AddTime),
+                                    GenerateInParam("@description",SqlDbType.NText,0,productInfo.Description),
                                     GenerateInParam("@pid",SqlDbType.Int,4,productInfo.Pid)
                                    };
 
@@ -1050,7 +1064,7 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <returns></returns>
         public IDataReader AdminGetProductById(int pid)
         {
-            DbParameter[] parms =  { 
+            DbParameter[] parms =  {
                                         GenerateInParam("@pid", SqlDbType.Int, 4, pid)
                                     };
             string commandText = string.Format("SELECT {0} FROM [{1}products] WHERE [pid]=@pid",
@@ -1066,7 +1080,7 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <returns></returns>
         public IDataReader AdminGetPartProductById(int pid)
         {
-            DbParameter[] parms =  { 
+            DbParameter[] parms =  {
                                         GenerateInParam("@pid", SqlDbType.Int, 4, pid)
                                     };
             string commandText = string.Format("SELECT {0} FROM [{1}products] WHERE [pid]=@pid",
@@ -1082,7 +1096,7 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <returns></returns>
         public IDataReader GetProductById(int pid)
         {
-            DbParameter[] parms =  { 
+            DbParameter[] parms =  {
                                         GenerateInParam("@pid", SqlDbType.Int, 4, pid)
                                     };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
@@ -1097,7 +1111,7 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <returns></returns>
         public IDataReader GetPartProductById(int pid)
         {
-            DbParameter[] parms =  { 
+            DbParameter[] parms =  {
                                         GenerateInParam("@pid", SqlDbType.Int, 4, pid)
                                     };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
@@ -1231,7 +1245,7 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <returns></returns>
         public IDataReader GetPartProductList(string pidList)
         {
-            DbParameter[] parms =  { 
+            DbParameter[] parms =  {
                                         GenerateInParam("@pidlist", SqlDbType.NVarChar, 1000, pidList)
                                     };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
@@ -1481,6 +1495,7 @@ namespace NStore.RDBSStrategy.SqlServer
             return RDBSHelper.ExecuteReader(CommandType.Text, commandText.ToString());
         }
 
+
         /// <summary>
         /// 获得分类商品数量
         /// </summary>
@@ -1692,7 +1707,7 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <returns></returns>
         public IDataReader GetStoreTraitProductList(int count, int storeId, int storeCid, int trait)
         {
-            DbParameter[] parms =  { 
+            DbParameter[] parms =  {
                                         GenerateInParam("@count", SqlDbType.Int, 4, count),
                                         GenerateInParam("@storeid", SqlDbType.Int, 4, storeId),
                                         GenerateInParam("@storecid", SqlDbType.Int, 4, storeCid),
@@ -1712,7 +1727,7 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <returns></returns>
         public IDataReader GetStoreSaleProductList(int count, int storeId, int storeCid)
         {
-            DbParameter[] parms =  { 
+            DbParameter[] parms =  {
                                         GenerateInParam("@count", SqlDbType.Int, 4, count),
                                         GenerateInParam("@storeid", SqlDbType.Int, 4, storeId),
                                         GenerateInParam("@storecid", SqlDbType.Int, 4, storeCid)
@@ -1742,7 +1757,7 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <returns></returns>
         public int AdminGetBrandProductCount(int brandId)
         {
-            DbParameter[] parms =  { 
+            DbParameter[] parms =  {
                                         GenerateInParam("@brandid", SqlDbType.Int, 4, brandId)
                                     };
             string commandText = string.Format("SELECT COUNT([pid]) FROM [{0}products] WHERE [brandid]=@brandid",
@@ -1757,7 +1772,7 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <returns></returns>
         public int AdminGetCategoryProductCount(int cateId)
         {
-            DbParameter[] parms =  { 
+            DbParameter[] parms =  {
                                         GenerateInParam("@cateid", SqlDbType.SmallInt, 2, cateId)
                                     };
             string commandText = string.Format("SELECT COUNT([pid]) FROM [{0}products] WHERE [cateid]=@cateid",
@@ -1772,7 +1787,7 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <returns></returns>
         public int AdminGetAttrValueProductCount(int attrValueId)
         {
-            DbParameter[] parms =  { 
+            DbParameter[] parms =  {
                                         GenerateInParam("@attrvalueid", SqlDbType.Int, 4, attrValueId)
                                     };
             string commandText = string.Format("SELECT (SELECT COUNT([recordid]) FROM [{0}productattributes] WHERE [attrvalueid]=@attrvalueid)+(SELECT COUNT([recordid]) FROM [{0}productskus] WHERE [attrvalueid]=@attrvalueid) AS [count]",
@@ -1917,7 +1932,7 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <returns></returns>
         public IDataReader GetProductAttributeList(int pid)
         {
-            DbParameter[] parms =  { 
+            DbParameter[] parms =  {
                                         GenerateInParam("@pid", SqlDbType.Int, 4, pid)
                                     };
             string commandText = string.Format("SELECT {0} FROM [{1}productattributes] WHERE [pid]=@pid",
@@ -1933,7 +1948,7 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <returns></returns>
         public IDataReader GetExtProductAttributeList(int pid)
         {
-            DbParameter[] parms =  { 
+            DbParameter[] parms =  {
                                         GenerateInParam("@pid", SqlDbType.Int, 4, pid)
                                     };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
@@ -2126,7 +2141,7 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <returns></returns>
         public IDataReader GetProductStockByPid(int pid)
         {
-            DbParameter[] parms =  { 
+            DbParameter[] parms =  {
                                         GenerateInParam("@pid", SqlDbType.Int, 4, pid)
                                     };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
@@ -2196,7 +2211,7 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <returns></returns>
         public int GetProductStockNumberByPid(int pid)
         {
-            DbParameter[] parms =  { 
+            DbParameter[] parms =  {
                                         GenerateInParam("@pid", SqlDbType.Int, 4, pid)
                                     };
             return TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.StoredProcedure,
@@ -2245,7 +2260,7 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <returns></returns>
         public IDataReader GetProductStockList(string pidList)
         {
-            DbParameter[] parms =  { 
+            DbParameter[] parms =  {
                                         GenerateInParam("@pidlist", SqlDbType.NVarChar, 1000, pidList)
                                     };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
@@ -2679,10 +2694,10 @@ namespace NStore.RDBSStrategy.SqlServer
         private void AddProductStat(int pid, string category, string value)
         {
             DbParameter[] parms = {
-									GenerateInParam("@pid",SqlDbType.Int,4, pid),
-									GenerateInParam("@category",SqlDbType.Char,10, category),
-									GenerateInParam("@value",SqlDbType.Char,20, value)
-			                       };
+                                    GenerateInParam("@pid",SqlDbType.Int,4, pid),
+                                    GenerateInParam("@category",SqlDbType.Char,10, category),
+                                    GenerateInParam("@value",SqlDbType.Char,20, value)
+                                   };
             string commandText = string.Format("SELECT [recordid] FROM [{0}productstats] WHERE [pid]=@pid AND [category]=@category AND [value]=@value",
                                                 RDBSHelper.RDBSTablePre);
             if (TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.Text, commandText, parms)) < 1)
@@ -2729,7 +2744,7 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <returns></returns>
         public IDataReader GetUserBrowseProductList(int pageSize, int pageNumber, int uid)
         {
-            DbParameter[] parms =  { 
+            DbParameter[] parms =  {
                                      GenerateInParam("@pagesize", SqlDbType.Int, 4, pageSize),
                                      GenerateInParam("@pagenumber", SqlDbType.Int, 4, pageNumber),
                                      GenerateInParam("@uid", SqlDbType.Int, 4, uid)
@@ -2746,7 +2761,7 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <returns></returns>
         public int GetUserBrowseProductCount(int uid)
         {
-            DbParameter[] parms =  { 
+            DbParameter[] parms =  {
                                      GenerateInParam("@uid", SqlDbType.Int, 4, uid)
                                     };
             return TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.StoredProcedure,
@@ -2763,10 +2778,10 @@ namespace NStore.RDBSStrategy.SqlServer
         public void UpdateBrowseHistory(int uid, int pid, DateTime updateTime)
         {
             DbParameter[] parms = {
-									GenerateInParam("@uid",SqlDbType.Int,4, uid),
-									GenerateInParam("@pid",SqlDbType.Int,4, pid),
-									GenerateInParam("@updatetime",SqlDbType.DateTime,8, updateTime)
-			                       };
+                                    GenerateInParam("@uid",SqlDbType.Int,4, uid),
+                                    GenerateInParam("@pid",SqlDbType.Int,4, pid),
+                                    GenerateInParam("@updatetime",SqlDbType.DateTime,8, updateTime)
+                                   };
             string commandText = string.Format("UPDATE [{0}browsehistories] SET [times]=[times]+1,[updatetime]=@updatetime WHERE [uid]=@uid AND [pid]=@pid",
                                                 RDBSHelper.RDBSTablePre);
             if (RDBSHelper.ExecuteNonQuery(CommandType.Text, commandText, parms) < 1)
@@ -2818,7 +2833,7 @@ namespace NStore.RDBSStrategy.SqlServer
             DbParameter[] parms = {
                                     GenerateInParam("@title", SqlDbType.NChar,30,productConsultTypeInfo.Title),
                                     GenerateInParam("@displayorder", SqlDbType.Int,4,productConsultTypeInfo.DisplayOrder),
-                                    GenerateInParam("@consulttypeid", SqlDbType.TinyInt, 1, productConsultTypeInfo.ConsultTypeId)    
+                                    GenerateInParam("@consulttypeid", SqlDbType.TinyInt, 1, productConsultTypeInfo.ConsultTypeId)
                                   };
 
             string commandText = string.Format("UPDATE [{0}productconsulttypes] SET [title]=@title,[displayorder]=@displayorder WHERE [consulttypeid]=@consulttypeid",
@@ -2833,7 +2848,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public void DeleteProductConsultTypeById(int consultTypeId)
         {
             DbParameter[] parms = {
-                                    GenerateInParam("@consulttypeid", SqlDbType.TinyInt, 1, consultTypeId)    
+                                    GenerateInParam("@consulttypeid", SqlDbType.TinyInt, 1, consultTypeId)
                                   };
             string commandText = string.Format("DELETE FROM [{0}productconsults] WHERE [consulttypeid]=@consulttypeid;DELETE FROM [{0}productconsulttypes] WHERE [consulttypeid]=@consulttypeid;",
                                                 RDBSHelper.RDBSTablePre);
@@ -2920,7 +2935,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetProductConsultById(int consultId)
         {
             DbParameter[] parms = {
-                                     GenerateInParam("@consultid", SqlDbType.Int, 4, consultId)    
+                                     GenerateInParam("@consultid", SqlDbType.Int, 4, consultId)
                                    };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
                                             string.Format("{0}getproductconsultbyid", RDBSHelper.RDBSTablePre),
@@ -2935,7 +2950,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader AdminGetProductConsultById(int consultId)
         {
             DbParameter[] parms = {
-                                     GenerateInParam("@consultid", SqlDbType.Int, 4, consultId)    
+                                     GenerateInParam("@consultid", SqlDbType.Int, 4, consultId)
                                    };
             string commandText = string.Format("SELECT {1} FROM [{0}productconsults] WHERE [consultid]=@consultid",
                                                 RDBSHelper.RDBSTablePre,
@@ -3087,7 +3102,7 @@ namespace NStore.RDBSStrategy.SqlServer
         {
             DbParameter[] parms = {
                                     GenerateInParam("@consultid", SqlDbType.Int, 4, consultId),
-                                    GenerateInParam("@state", SqlDbType.TinyInt, 1, state)    
+                                    GenerateInParam("@state", SqlDbType.TinyInt, 1, state)
                                    };
 
             string commandText = string.Format("UPDATE [{0}productconsults] SET [state]=@state WHERE [consultid]=@consultid",
@@ -3417,7 +3432,7 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <param name="uid">用户id</param>
         public bool IsVoteProductReview(int reviewId, int uid)
         {
-            DbParameter[] parms =  { 
+            DbParameter[] parms =  {
                                     GenerateInParam("@reviewid", SqlDbType.Int, 4, reviewId),
                                     GenerateInParam("@uid", SqlDbType.Int, 4, uid)
                                     };
@@ -3436,7 +3451,7 @@ namespace NStore.RDBSStrategy.SqlServer
         {
             DbParameter[] parms = {
                                         GenerateInParam("@reviewid", SqlDbType.Int, 4, reviewId),
-                                        GenerateInParam("@state", SqlDbType.TinyInt, 1, state)    
+                                        GenerateInParam("@state", SqlDbType.TinyInt, 1, state)
                                     };
             string commandText = string.Format("UPDATE [{0}productreviews] SET [state]=@state WHERE [reviewid]=@reviewid",
                                                 RDBSHelper.RDBSTablePre);
@@ -3558,10 +3573,10 @@ namespace NStore.RDBSStrategy.SqlServer
         public void UpdateSearchHistory(int uid, string word, DateTime updateTime)
         {
             DbParameter[] parms = {
-									GenerateInParam("@uid",SqlDbType.Int,4, uid),
-									GenerateInParam("@word",SqlDbType.NVarChar,60, word),
-									GenerateInParam("@updatetime",SqlDbType.DateTime,8, updateTime)
-			                       };
+                                    GenerateInParam("@uid",SqlDbType.Int,4, uid),
+                                    GenerateInParam("@word",SqlDbType.NVarChar,60, word),
+                                    GenerateInParam("@updatetime",SqlDbType.DateTime,8, updateTime)
+                                   };
             string commandText = string.Format("UPDATE [{0}searchhistories] SET [times]=[times]+1,[updatetime]=@updatetime WHERE [uid]=@uid AND [word]=@word",
                                                 RDBSHelper.RDBSTablePre);
             if (RDBSHelper.ExecuteNonQuery(CommandType.Text, commandText, parms) < 1)
@@ -3666,5 +3681,6 @@ namespace NStore.RDBSStrategy.SqlServer
         }
 
         #endregion
+
     }
 }

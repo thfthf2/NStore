@@ -328,7 +328,7 @@ namespace NStore.Services
                     json.AppendFormat("{0}\"attrId\":\"{1}\",\"name\":\"{2}\",\"attrValueList\":[", "{", attributeInfo.AttrId, attributeInfo.Name);
                     foreach (AttributeValueInfo attributeValueInfo in item.Value)
                     {
-                        json.AppendFormat("{0}\"attrValueId\":\"{1}\",\"attrValue\":\"{2}\",\"isInput\":\"{3}\"{4},", "{", attributeValueInfo.AttrValueId, attributeValueInfo.AttrValue, attributeValueInfo.IsInput, "}");
+                        json.AppendFormat("{0}\"attrValueId\":\"{1}\",\"attrValue\":\"{2}\",\"isInput\":\"{3}\"{4},", "{", attributeValueInfo.AttrValueId, attributeValueInfo.AttrValue, 0, "}");//attributeValueInfo.IsInput
                     }
                     if (item.Value.Count > 0)
                         json.Remove(json.Length - 1, 1);
@@ -443,7 +443,15 @@ namespace NStore.Services
             return NStore.Data.Categories.GetFilterAttributeListByCateId(cateId);
         }
 
-
+        /// <summary>
+        /// 获得筛选属性列表
+        /// </summary>
+        /// <param name="cateId">分类id</param>
+        /// <returns></returns>
+        public static List<AttributeInfo> GetFilterAttributeList()
+        {
+            return NStore.Data.Categories.GetFilterAttributeList();
+        }
 
 
 
@@ -461,7 +469,7 @@ namespace NStore.Services
             List<AttributeValueInfo> attributeValueList2 = new List<AttributeValueInfo>(attributeValueList1.Count - 1);
             foreach (AttributeValueInfo attributeValueInfo in attributeValueList1)
             {
-                if (attributeValueInfo.IsInput == 0)
+                //if (attributeValueInfo.IsInput == 0)
                     attributeValueList2.Add(attributeValueInfo);
             }
             return attributeValueList2;
@@ -498,6 +506,32 @@ namespace NStore.Services
             if (attrId < 1 || string.IsNullOrWhiteSpace(attrValue))
                 return 0;
             return NStore.Data.Categories.GetAttributeValueIdByAttrIdAndValue(attrId, attrValue);
+        }
+
+        /// <summary>
+        /// 获得属性列表
+        /// </summary>
+        /// <param name="cateId">分类id</param>
+        /// <returns></returns>
+        public static List<KeyValuePair<AttributeInfo, List<AttributeValueInfo>>> GetCategoryFilterAAndVList()
+        {
+            List<KeyValuePair<AttributeInfo, List<AttributeValueInfo>>> itemList = NStore.Core.BMACache.Get(CacheKeys.MALL_CATEGORY_FILTERAANDVLIST) as List<KeyValuePair<AttributeInfo, List<AttributeValueInfo>>>;
+            if (itemList == null)
+            {
+                itemList = new List<KeyValuePair<AttributeInfo, List<AttributeValueInfo>>>();
+                List<AttributeInfo> filterAttributeList = GetFilterAttributeList();
+                foreach (AttributeInfo attributeInfo in filterAttributeList)
+                {
+                    List<AttributeValueInfo> attributeValueList = GetAttributeValueListByAttrId(attributeInfo.AttrId);
+                    itemList.Add(new KeyValuePair<AttributeInfo, List<AttributeValueInfo>>(attributeInfo, attributeValueList));
+                }
+
+                NStore.Core.BMACache.Insert(CacheKeys.MALL_CATEGORY_FILTERAANDVLIST, itemList);
+            }
+
+
+
+            return itemList;
         }
     }
 }

@@ -702,6 +702,74 @@ namespace NStore.SearchStrategy.SqlServer
             return productIdList;
         }
 
+        
+        
+        /// <summary>
+        /// 获得分类商品列表
+        /// </summary>
+        /// <param name="pageSize">每页数</param>
+        /// <param name="pageNumber">当前页数</param>
+        /// <param name="cateId">分类id</param>
+        /// <returns></returns>
+        public  List<StoreProductInfo> GetCategoryProductList(int pageSize, int pageNumber, int cateId)
+        {
+            DbParameter[] parms =  {
+                                        GenerateInParam("@cateid", SqlDbType.SmallInt, 2, cateId)
+                                    };
+            StringBuilder commandText = new StringBuilder();
+            if (pageNumber == 1)
+            {
+                commandText.AppendFormat("SELECT TOP {1} * FROM [{0}products] where state=0 and [cateid]=@cateid ORDER BY displayorder ASC,pid ASC", RDBSHelper.RDBSTablePre, pageSize);
+            }
+            else
+            {
+                commandText.AppendFormat(@"SELECT w2.n, w1.* FROM {0}products w1,
+(SELECT TOP {1} row_number() OVER (ORDER BY displayorder ASC,pid ASC) n, pid FROM {0}products where state=0 and [cateid]=@cateid ) w2 
+WHERE w1.pid = w2.pid AND w2.n > {2} ORDER BY w2.n ASC ", RDBSHelper.RDBSTablePre, pageNumber * pageSize, (pageNumber-1) * pageSize);
+            }
+            
+            List<StoreProductInfo> storeProductList = new List<StoreProductInfo>();
+            IDataReader reader = RDBSHelper.ExecuteReader(CommandType.Text, commandText.ToString());
+            while (reader.Read())
+            {
+                StoreProductInfo storeProductInfo = new StoreProductInfo();
+
+                storeProductInfo.Pid = TypeHelper.ObjectToInt(reader["pid"]);
+                storeProductInfo.PSN = reader["psn"].ToString();
+                storeProductInfo.CateId = TypeHelper.ObjectToInt(reader["cateid"]);
+                storeProductInfo.BrandId = TypeHelper.ObjectToInt(reader["brandid"]);
+                storeProductInfo.StoreId = TypeHelper.ObjectToInt(reader["storeid"]);
+                storeProductInfo.StoreCid = TypeHelper.ObjectToInt(reader["storecid"]);
+                storeProductInfo.StoreSTid = TypeHelper.ObjectToInt(reader["storestid"]);
+                storeProductInfo.SKUGid = TypeHelper.ObjectToInt(reader["skugid"]);
+                storeProductInfo.Name = reader["name"].ToString();
+                storeProductInfo.ShopPrice = TypeHelper.ObjectToDecimal(reader["shopprice"]);
+                storeProductInfo.MarketPrice = TypeHelper.ObjectToDecimal(reader["marketprice"]);
+                storeProductInfo.CostPrice = TypeHelper.ObjectToDecimal(reader["costprice"]);
+                storeProductInfo.State = TypeHelper.ObjectToInt(reader["state"]);
+                storeProductInfo.IsBest = TypeHelper.ObjectToInt(reader["isbest"]);
+                storeProductInfo.IsHot = TypeHelper.ObjectToInt(reader["ishot"]);
+                storeProductInfo.IsNew = TypeHelper.ObjectToInt(reader["isnew"]);
+                storeProductInfo.DisplayOrder = TypeHelper.ObjectToInt(reader["displayorder"]);
+                storeProductInfo.Weight = TypeHelper.ObjectToInt(reader["weight"]);
+                storeProductInfo.ShowImg = reader["showimg"].ToString();
+                storeProductInfo.SaleCount = TypeHelper.ObjectToInt(reader["salecount"]);
+                storeProductInfo.VisitCount = TypeHelper.ObjectToInt(reader["visitcount"]);
+                storeProductInfo.ReviewCount = TypeHelper.ObjectToInt(reader["reviewcount"]);
+                storeProductInfo.Star1 = TypeHelper.ObjectToInt(reader["star1"]);
+                storeProductInfo.Star2 = TypeHelper.ObjectToInt(reader["star2"]);
+                storeProductInfo.Star3 = TypeHelper.ObjectToInt(reader["star3"]);
+                storeProductInfo.Star4 = TypeHelper.ObjectToInt(reader["star4"]);
+                storeProductInfo.Star5 = TypeHelper.ObjectToInt(reader["star5"]);
+                storeProductInfo.AddTime = TypeHelper.ObjectToDateTime(reader["addtime"]);
+                storeProductInfo.StoreName =""; // reader["storename"].ToString();
+
+                storeProductList.Add(storeProductInfo);
+            }
+            reader.Close();
+            return storeProductList;
+        }
+
         #region  辅助方法
 
         /// <summary>

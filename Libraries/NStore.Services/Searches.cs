@@ -141,5 +141,18 @@ namespace NStore.Services
         {
             return _isearchstrategy.GetProductIdListByAttrId(attrId, attrValueId);
         }
+        
+        /// <summary>
+        /// 获得分类商品列表
+        /// </summary>
+        /// <param name="pageSize">每页数</param>
+        /// <param name="pageNumber">当前页数</param>
+        /// <param name="cateId">分类id</param>
+        /// <returns></returns>
+        public static List<StoreProductInfo> GetCategoryProductList(int pageSize, int pageNumber, int cateId)
+        {
+            return _isearchstrategy.GetCategoryProductList(pageSize, pageNumber, cateId);
+        }
+
     }
 }

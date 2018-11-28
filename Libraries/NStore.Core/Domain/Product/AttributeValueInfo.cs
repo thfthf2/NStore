@@ -9,6 +9,11 @@ namespace NStore.Core
     {
         private int _attrvalueid = 0;//属性值id
         private string _attrvalue = "";//属性值
+        private int _attrid = 0;//属性id
+        private int _sort = 0;//排序
+        private int _state = 0;//状态，0有效，1无效
+
+
         private int _isinput = 0;//是否为输入值
         private string _attrname = "";//属性名称
         private int _attrdisplayorder = 0;//属性排序
@@ -17,7 +22,6 @@ namespace NStore.Core
         private int _attrgroupid;//属性分组id
         private string _attrgroupname = "";//属性分组名称
         private int _attrgroupdisplayorder;///属性分组排序
-        private int _attrid = 0;//属性id
 
         /// <summary>
         /// 属性值id
@@ -107,6 +111,24 @@ namespace NStore.Core
         {
             get { return _attrid; }
             set { _attrid = value; }
+        }
+
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public int Sort
+        {
+            set { _sort = value; }
+            get { return _sort; }
+        }
+
+        /// <summary>
+        /// 状态，0有效，1无效
+        /// </summary>
+        public int State
+        {
+            set { _state = value; }
+            get { return _state; }
         }
     }
 }

@@ -57,10 +57,10 @@ namespace NStore.Data
             attributeInfo.AttrId = TypeHelper.ObjectToInt(reader["attrid"]);
             attributeInfo.Name = reader["name"].ToString();
             attributeInfo.AttrGroupId = TypeHelper.ObjectToInt(reader["attrgroupid"]);
-            attributeInfo.CateId = TypeHelper.ObjectToInt(reader["cateid"]);
-            attributeInfo.ShowType = TypeHelper.ObjectToInt(reader["showtype"]);
-            attributeInfo.IsFilter = TypeHelper.ObjectToInt(reader["isfilter"]);
-            attributeInfo.DisplayOrder = TypeHelper.ObjectToInt(reader["displayorder"]);
+            //attributeInfo.CateId = TypeHelper.ObjectToInt(reader["cateid"]);
+            //attributeInfo.ShowType = TypeHelper.ObjectToInt(reader["showtype"]);
+            //attributeInfo.IsFilter = TypeHelper.ObjectToInt(reader["isfilter"]);
+            //attributeInfo.DisplayOrder = TypeHelper.ObjectToInt(reader["displayorder"]);
 
             return attributeInfo;
         }
@@ -74,14 +74,14 @@ namespace NStore.Data
 
             attributeValueInfo.AttrValueId = TypeHelper.ObjectToInt(reader["attrvalueid"]);
             attributeValueInfo.AttrValue = reader["attrvalue"].ToString();
-            attributeValueInfo.IsInput = TypeHelper.ObjectToInt(reader["isinput"]);
-            attributeValueInfo.AttrName = reader["attrname"].ToString();
-            attributeValueInfo.AttrDisplayOrder = TypeHelper.ObjectToInt(reader["attrdisplayorder"]);
-            attributeValueInfo.AttrShowType = TypeHelper.ObjectToInt(reader["attrshowtype"]);
-            attributeValueInfo.AttrValueDisplayOrder = TypeHelper.ObjectToInt(reader["attrvaluedisplayorder"]);
-            attributeValueInfo.AttrGroupId = TypeHelper.ObjectToInt(reader["attrgroupid"]);
-            attributeValueInfo.AttrGroupName = reader["attrgroupname"].ToString();
-            attributeValueInfo.AttrGroupDisplayOrder = TypeHelper.ObjectToInt(reader["attrgroupdisplayorder"]);
+            //attributeValueInfo.IsInput = TypeHelper.ObjectToInt(reader["isinput"]);
+            //attributeValueInfo.AttrName = reader["attrname"].ToString();
+            //attributeValueInfo.AttrDisplayOrder = TypeHelper.ObjectToInt(reader["attrdisplayorder"]);
+            //attributeValueInfo.AttrShowType = TypeHelper.ObjectToInt(reader["attrshowtype"]);
+            //attributeValueInfo.AttrValueDisplayOrder = TypeHelper.ObjectToInt(reader["attrvaluedisplayorder"]);
+            //attributeValueInfo.AttrGroupId = TypeHelper.ObjectToInt(reader["attrgroupid"]);
+            //attributeValueInfo.AttrGroupName = reader["attrgroupname"].ToString();
+            //attributeValueInfo.AttrGroupDisplayOrder = TypeHelper.ObjectToInt(reader["attrgroupdisplayorder"]);
             attributeValueInfo.AttrId = TypeHelper.ObjectToInt(reader["attrid"]);
 
             return attributeValueInfo;
@@ -295,6 +295,24 @@ namespace NStore.Data
         {
             List<AttributeInfo> attributeList = new List<AttributeInfo>();
             IDataReader reader = NStore.Core.BMAData.RDBS.GetFilterAttributeListByCateId(cateId);
+            while (reader.Read())
+            {
+                AttributeInfo attributeInfo = BuildAttributeFromReader(reader);
+                attributeList.Add(attributeInfo);
+            }
+            reader.Close();
+            return attributeList;
+        }
+
+        /// <summary>
+        /// 获得筛选属性列表
+        /// </summary>
+        /// <param name="cateId">分类id</param>
+        /// <returns></returns>
+        public static List<AttributeInfo> GetFilterAttributeList()
+        {
+            List<AttributeInfo> attributeList = new List<AttributeInfo>();
+            IDataReader reader = NStore.Core.BMAData.RDBS.GetFilterAttributeList();
             while (reader.Read())
             {
                 AttributeInfo attributeInfo = BuildAttributeFromReader(reader);

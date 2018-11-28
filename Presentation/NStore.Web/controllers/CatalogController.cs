@@ -165,10 +165,10 @@ namespace NStore.Web.Controllers
             int specialId = GetRouteInt("specialId");
             if (specialId == 0)
                 specialId = WebHelper.GetQueryInt("specialId");
-            //关键词
-            string keyword = GetRouteString("keyword");
-            if (string.IsNullOrEmpty(keyword))
-                keyword = WebHelper.GetQueryString("keyword");
+            ////关键词
+            //string keyword = GetRouteString("keyword");
+            //if (string.IsNullOrEmpty(keyword))
+            //    keyword = WebHelper.GetQueryString("keyword");
             //筛选价格
             int filterPrice = GetRouteInt("filterPrice");
             if (filterPrice == 0)
@@ -202,7 +202,8 @@ namespace NStore.Web.Controllers
             //分类关联品牌列表
             List<BrandInfo> brandList = Categories.GetCategoryBrandList(cateId);
             //分类筛选属性及其值列表
-            List<KeyValuePair<AttributeInfo, List<AttributeValueInfo>>> cateAAndVList = Categories.GetCategoryFilterAAndVList(cateId);
+            List<KeyValuePair<AttributeInfo, List<AttributeValueInfo>>> cateAAndVList = Categories.GetCategoryFilterAAndVList();
+
             //分类价格范围列表
             string[] catePriceRangeList = StringHelper.SplitString(categoryInfo.PriceRange, "\r\n");
 
@@ -627,6 +628,23 @@ namespace NStore.Web.Controllers
             //异步保存搜索历史
             Asyn.UpdateSearchHistory(WorkContext.Uid, keyword);
 
+            //获取当前搜索词上次匹配结果
+            var keyRes = TypeHelper.ObjectToInt(BMACache.Get(keyword), 0);
+            if (keyRes < 0)
+            {
+                return PromptView(WorkContext.UrlReferrer, "您搜索的商品不存在");
+            }
+
+
+            //if (navTree == null)
+            //{
+            //    navTree = new List<NavInfo>();
+            //    List<NavInfo> navList = NStore.Data.Navs.GetNavList();
+
+            //    CreateNavTree(navList, navTree, 0);
+            //    NStore.Core.BMACache.Insert(CacheKeys.MALL_NAV_LIST, navTree);
+            //}
+
             return null;
         }
 
@@ -657,6 +675,7 @@ namespace NStore.Web.Controllers
             //品牌列表
             List<BrandInfo> brandList = null;
 
+            List<StoreProductInfo> productInfoList = null;
 
             //判断搜索词获取商品关联信息
             ProductSearchKeyInfo keyInfo = Searches.GetProductSearchKey(keyword);
@@ -670,9 +689,23 @@ namespace NStore.Web.Controllers
             {
                 case (int)ProductKeyEnum.Category:
                     {
+                        //类型不存在
+                        categoryInfo = Categories.GetCategoryById(keyInfo.ToId);
+                        if (categoryInfo == null)
+                        {
+                            return null;
+                        }
+
+                        productInfoList = Searches.GetCategoryProductList(1,20, categoryInfo.CateId);
+
                         break;
                     }
-                default:break;
+                case (int)ProductKeyEnum.Brand:
+                    {
+
+                        break;
+                    }
+                default: break;
             }
 
             return null;

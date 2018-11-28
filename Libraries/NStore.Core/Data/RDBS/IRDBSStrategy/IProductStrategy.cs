@@ -108,7 +108,7 @@ namespace NStore.Core
         #endregion
 
         #region 专场
-        
+
         /// <summary>
         /// 获得专场列表
         /// </summary>
@@ -201,6 +201,13 @@ namespace NStore.Core
         /// <param name="attrId">属性id</param>
         /// <returns></returns>
         IDataReader GetAttributeById(int attrId);
+
+        /// <summary>
+        /// 获得筛选属性列表
+        /// </summary>
+        /// <param name="cateId">分类id</param>
+        /// <returns></returns>
+        IDataReader GetFilterAttributeList();
 
         /// <summary>
         /// 创建属性
@@ -1358,5 +1365,6 @@ namespace NStore.Core
         int GetSearchWordStatCount(string word);
 
         #endregion
+
     }
 }
