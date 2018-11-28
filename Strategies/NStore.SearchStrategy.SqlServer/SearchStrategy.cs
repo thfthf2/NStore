@@ -623,6 +623,85 @@ namespace NStore.SearchStrategy.SqlServer
             return searchKey;
         }
 
+        /// <summary>
+        /// 根据专场id获取商品id列表
+        /// </summary>
+        /// <param name="specialId">专场id</param>
+        /// <returns></returns>
+        public List<int> GetProductIdListBySpecialId(int specialId)
+        {
+            DbParameter[] parms = {
+                                    GenerateInParam("@specialid", SqlDbType.SmallInt,2,specialId)
+                                   };
+
+            string commandText = string.Format("SELECT [pid] FROM [{0}productspecialperformance] WHERE [specialid]=@specialid ", RDBSHelper.RDBSTablePre);
+
+    
+            List<int> productIdList = new List<int>();
+            IDataReader reader = RDBSHelper.ExecuteReader(CommandType.Text, commandText, parms);
+            while (reader.Read())
+            {
+                productIdList.Add(TypeHelper.ObjectToInt(reader["pid"]));
+            }
+            reader.Close();
+            return productIdList;
+        }
+
+        /// <summary>
+        /// 根据关键字id获取商品id列表
+        /// </summary>
+        /// <param name="keyId">关键字id</param>
+        /// <returns></returns>
+        public List<int> GetProductIdListByKeyId(int keyId)
+        {
+            DbParameter[] parms = {
+                                    GenerateInParam("@keywordid", SqlDbType.Int,4,keyId)
+                                   };
+
+            string commandText = string.Format("SELECT [pid] FROM [{0}productkeywords] WHERE [keywordid]=@keywordid ", RDBSHelper.RDBSTablePre);
+
+
+            List<int> productIdList = new List<int>();
+            IDataReader reader = RDBSHelper.ExecuteReader(CommandType.Text, commandText, parms);
+            while (reader.Read())
+            {
+                productIdList.Add(TypeHelper.ObjectToInt(reader["pid"]));
+            }
+            reader.Close();
+            return productIdList;
+        }
+
+        /// <summary>
+        /// 根据属性id或属性值id获取商品id列表
+        /// </summary>
+        /// <param name="attrId">属性id</param>
+        /// <param name="attrValueId">属性值id</param>
+        /// <returns></returns>
+        public List<int> GetProductIdListByAttrId(int attrId, int attrValueId)
+        {
+            List<DbParameter> parmsList = new List<DbParameter>();
+            StringBuilder commandText = new StringBuilder("SELECT [pid] FROM [{0}productattributes] WHERE 1=1 ");
+            if (attrId>0)
+            {
+                parmsList.Add(GenerateInParam("@attrid", SqlDbType.SmallInt, 2, attrId));
+                commandText.Append(" AND [attrid]=@attrid");
+            }
+            if (attrValueId > 0)
+            {
+                parmsList.Add(GenerateInParam("@attrvalueid", SqlDbType.Int, 4, attrValueId));
+                commandText.Append(" AND [attrvalueid]=@attrvalueid");
+            }
+
+            List<int> productIdList = new List<int>();
+            IDataReader reader = RDBSHelper.ExecuteReader(CommandType.Text, string.Format(commandText.ToString(), RDBSHelper.RDBSTablePre), parmsList.ToArray());
+            while (reader.Read())
+            {
+                productIdList.Add(TypeHelper.ObjectToInt(reader["pid"]));
+            }
+            reader.Close();
+            return productIdList;
+        }
+
         #region  辅助方法
 
         /// <summary>

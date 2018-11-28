@@ -9,6 +9,7 @@ using NStore.Core;
 using NStore.Services;
 using NStore.Web.Framework;
 using NStore.Web.Models;
+using NStore.Core.Domain.Enum;
 
 namespace NStore.Web.Controllers
 {
@@ -612,21 +613,69 @@ namespace NStore.Web.Controllers
             return AjaxResult("success", Url.Action("product", new RouteValueDictionary { { "pid", pid } })); ;
         }
 
+
+        public ActionResult KeySearch()
+        {
+            //搜索词
+            string keyword = WebHelper.GetQueryString("keyword");
+            WorkContext.SearchWord = WebHelper.HtmlEncode(keyword);
+            if (keyword.Length == 0)
+                return PromptView(WorkContext.UrlReferrer, "请输入搜索词");
+            if (!SecureHelper.IsSafeSqlString(keyword))
+                return PromptView(WorkContext.UrlReferrer, "您搜索的商品不存在");
+
+            //异步保存搜索历史
+            Asyn.UpdateSearchHistory(WorkContext.Uid, keyword);
+
+            return null;
+        }
+
+        public ActionResult CategorySearch()
+        {
+
+            return null;
+        }
+
+        public ActionResult FilterSearch()
+        {
+            return null;
+
+        }
+
         /// <summary>
         /// 获取满足搜索条件的商品id列表
         /// </summary>
         /// <param name="searchKeyList">商品id列表</param>
         /// <param name="name">搜索词</param>
         /// <param name="keytype">搜索词类型</param>
-        public void GetProductSearchKeyList(ref List<ProductSearchKeyInfo> searchKeyList, string name, int keytype)
+        public MallSearchModel GetProductModelList(string keyword)
         {
-            //if (searchKeyList == null)
-            //{
-            //    searchKeyList = Searches.GetProductSearchKeyList(name, keytype);
-            //    return;
-            //}
+            //分类列表
+            List<CategoryInfo> categoryList = null;
+            //分类信息
+            CategoryInfo categoryInfo = null;
+            //品牌列表
+            List<BrandInfo> brandList = null;
 
-            //searchKeyList = searchKeyList.FindAll(p => p.Name == name && p.keyType == keytype);
+
+            //判断搜索词获取商品关联信息
+            ProductSearchKeyInfo keyInfo = Searches.GetProductSearchKey(keyword);
+            if (keyInfo == null)
+            {
+                return null;
+
+            }
+
+            switch (keyInfo.keyType)
+            {
+                case (int)ProductKeyEnum.Category:
+                    {
+                        break;
+                    }
+                default:break;
+            }
+
+            return null;
         }
     }
 }

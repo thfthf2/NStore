@@ -110,6 +110,36 @@ namespace NStore.Services
         {
             return _isearchstrategy.GetProductSearchKey(name);
         }
-        
+
+        /// <summary>
+        /// 根据专场id获取商品id列表
+        /// </summary>
+        /// <param name="specialId">专场id</param>
+        /// <returns></returns>
+        public static List<int> GetProductIdListBySpecialId(int specialId)
+        {
+            return _isearchstrategy.GetProductIdListBySpecialId(specialId);
+        }
+
+        /// <summary>
+        /// 根据关键字id获取商品id列表
+        /// </summary>
+        /// <param name="keyId">关键字id</param>
+        /// <returns></returns>
+        public static List<int> GetProductIdListByKeyId(int keyId)
+        {
+            return _isearchstrategy.GetProductIdListByKeyId(keyId);
+        }
+
+        /// <summary>
+        /// 根据属性id或属性值id获取商品id列表
+        /// </summary>
+        /// <param name="attrId">属性id</param>
+        /// <param name="attrValueId">属性值id</param>
+        /// <returns></returns>
+        public static List<int> GetProductIdListByAttrId(int attrId,int attrValueId)
+        {
+            return _isearchstrategy.GetProductIdListByAttrId(attrId, attrValueId);
+        }
     }
 }

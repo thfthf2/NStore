@@ -91,6 +91,7 @@
     <Compile Include="Data\RDBS\IRDBSStrategy\IUserStrategy.cs" />
     <Compile Include="Data\RDBS\RDBSFields.cs" />
     <Compile Include="Data\RDBS\RDBSHelper.cs" />
+    <Compile Include="Domain\Enum\ProductKeyEnum.cs" />
     <Compile Include="Domain\Mall\CreditAction.cs" />
     <Compile Include="Domain\Mall\CreditLogInfo.cs" />
     <Compile Include="Domain\Mall\MallAdminLogInfo.cs" />

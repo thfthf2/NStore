@@ -86,6 +86,26 @@ namespace NStore.Core
         /// <returns></returns>
         ProductSearchKeyInfo GetProductSearchKey(string name);
 
+        /// <summary>
+        /// 根据专场id获取商品id列表
+        /// </summary>
+        /// <param name="specialId">专场id</param>
+        /// <returns></returns>
+        List<int> GetProductIdListBySpecialId(int specialId);
 
+        /// <summary>
+        /// 根据关键字id获取商品id列表
+        /// </summary>
+        /// <param name="keyId">关键字id</param>
+        /// <returns></returns>
+        List<int> GetProductIdListByKeyId(int keyId);
+
+        /// <summary>
+        /// 根据属性id或属性值id获取商品id列表
+        /// </summary>
+        /// <param name="attrId">属性id</param>
+        /// <param name="attrValueId">属性值id</param>
+        /// <returns></returns>
+        List<int> GetProductIdListByAttrId(int attrId, int attrValueId);
     }
 }
