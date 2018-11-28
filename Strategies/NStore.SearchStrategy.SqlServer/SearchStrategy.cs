@@ -593,6 +593,36 @@ namespace NStore.SearchStrategy.SqlServer
             return brandList;
         }
 
+        /// <summary>
+        /// 根据商品搜索词获取匹配商品id列表
+        /// </summary>
+        /// <param name="name">搜索词</param>
+        /// <returns></returns>
+        public ProductSearchKeyInfo GetProductSearchKey(string name)
+        {
+            ProductSearchKeyInfo searchKey = null;
+            string commandText = string.Format("SELECT TOP 1 [name],[toid] ,[keytype] FROM [{0}keyvalue_search] WHERE [name]=@name ORDER BY [keytype]", RDBSHelper.RDBSTablePre);
+
+            DbParameter[] parms = {
+                                    GenerateInParam("@name", SqlDbType.NChar,50,name)
+                                   };
+
+            List<ProductSearchKeyInfo> searchKeyList = new List<ProductSearchKeyInfo>();
+            IDataReader reader = RDBSHelper.ExecuteReader(CommandType.Text, commandText, parms);
+
+
+            if (reader.Read())
+            {
+                searchKey = new ProductSearchKeyInfo();
+                searchKey.ToId = TypeHelper.ObjectToInt(reader["toid"]);
+                searchKey.keyType = TypeHelper.ObjectToInt(reader["keytype"]);
+                searchKey.Name = reader["name"].ToString();
+
+            }
+            reader.Close();
+            return searchKey;
+        }
+
         #region  辅助方法
 
         /// <summary>
