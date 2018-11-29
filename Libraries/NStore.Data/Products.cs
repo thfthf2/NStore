@@ -1246,7 +1246,22 @@ namespace NStore.Data
             return productStockList;
         }
 
-
+        /// <summary>
+        /// 获得库存商品id列表
+        /// </summary>
+        /// <param name="pidList">商品id列表</param>
+        /// <returns></returns>
+        public static List<int> GetStockProductIdList()
+        {
+            List<int> stockProductIdList = new List<int>();
+            IDataReader reader = NStore.Core.BMAData.RDBS.GetStockProductIdList();
+            while (reader.Read())
+            {
+                stockProductIdList.Add(TypeHelper.ObjectToInt(reader["pid"]));
+            }
+            reader.Close();
+            return stockProductIdList;
+        }
 
 
 

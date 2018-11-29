@@ -395,6 +395,6 @@ namespace NStore.Core
         /// <summary>
         /// 商品专场表
         /// </summary>
-        public const string PRODUCT_SPECIAL = "[specialid],[name],[sort],[state]";
+        public const string PRODUCT_SPECIAL = "[specialid],[name],[displayorder],[state]";
     }
 }

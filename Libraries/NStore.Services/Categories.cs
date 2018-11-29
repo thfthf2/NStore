@@ -30,6 +30,20 @@ namespace NStore.Services
         }
 
         /// <summary>
+        /// 根据类型id获得分类列表
+        /// </summary>
+        /// <returns></returns>
+        public static List<CategoryInfo> GetCategoryListByIds(List<int> ids)
+        {
+            var categoryList = GetCategoryList();
+            if (categoryList == null)
+            {
+                return new List<CategoryInfo>();
+            }
+            return categoryList.FindAll(p => ids.Contains(p.CateId));
+        }
+
+        /// <summary>
         /// 递归创建分类列表树
         /// </summary>
         protected static void CreateCategoryTree(List<CategoryInfo> sourceCategoryList, List<CategoryInfo> resultCategoryList, int parentId)
@@ -453,7 +467,20 @@ namespace NStore.Services
             return NStore.Data.Categories.GetFilterAttributeList();
         }
 
-
+        /// <summary>
+        /// 根据属性id获得筛选属性列表
+        /// </summary>
+        /// <param name="cateId">分类id</param>
+        /// <returns></returns>
+        public static List<AttributeInfo> GetFilterAttributeListByIds(List<int> ids)
+        {
+            var attributeList = GetFilterAttributeList();
+            if (attributeList == null)
+            {
+                return new List<AttributeInfo>();
+            }
+            return attributeList.FindAll(p => ids.Contains(p.AttrId));
+        }
 
         /// <summary>
         /// 获得属性的可选值列表
@@ -470,7 +497,7 @@ namespace NStore.Services
             foreach (AttributeValueInfo attributeValueInfo in attributeValueList1)
             {
                 //if (attributeValueInfo.IsInput == 0)
-                    attributeValueList2.Add(attributeValueInfo);
+                attributeValueList2.Add(attributeValueInfo);
             }
             return attributeValueList2;
         }
@@ -484,6 +511,23 @@ namespace NStore.Services
         {
             return NStore.Data.Categories.GetAttributeValueListByAttrId(attrId);
         }
+
+
+        /// <summary>
+        /// 根据属性值id获得属性值列表
+        /// </summary>
+        /// <param name="attrId">属性id</param>
+        /// <returns></returns>
+        public static List<AttributeValueInfo> GetAttributeValueListByIds(int attrId, List<int> ids)
+        {
+            var attrValueList = GetAttributeValueListByAttrId(attrId);
+            if (attrValueList == null)
+            {
+                return new List<AttributeValueInfo>();
+            }
+            return attrValueList.FindAll(p => ids.Contains(p.AttrValueId));
+        }
+
 
         /// <summary>
         /// 获得属性值
@@ -528,8 +572,6 @@ namespace NStore.Services
 
                 NStore.Core.BMACache.Insert(CacheKeys.MALL_CATEGORY_FILTERAANDVLIST, itemList);
             }
-
-
 
             return itemList;
         }

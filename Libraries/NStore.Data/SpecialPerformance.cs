@@ -25,7 +25,7 @@ namespace NStore.Data
 
             specialInfo.Specialid = TypeHelper.ObjectToInt(reader["specialid"]);
             specialInfo.Name = reader["name"].ToString();
-            specialInfo.Sort = TypeHelper.ObjectToInt(reader["sort"]);
+            specialInfo.DisplayOrder = TypeHelper.ObjectToInt(reader["displayorder"]);
             specialInfo.State = TypeHelper.ObjectToInt(reader["state"]);
 
             return specialInfo;

@@ -323,6 +323,21 @@ namespace NStore.Data
         }
 
         /// <summary>
+        /// 根据属性id获得筛选属性列表
+        /// </summary>
+        /// <param name="cateId">分类id</param>
+        /// <returns></returns>
+        public static List<AttributeInfo> GetFilterAttributeListByIds(List<int> ids)
+        {
+            var rattributeList = GetFilterAttributeList();
+            if (rattributeList == null)
+            {
+                return new List<AttributeInfo>();
+            }
+            return rattributeList.FindAll(p => ids.Contains(p.AttrId));
+        }
+
+        /// <summary>
         /// 获得属性
         /// </summary>
         /// <param name="attrId">属性id</param>

@@ -71,6 +71,23 @@ namespace NStore.Services
         }
 
         /// <summary>
+        /// 根据品牌id获得品牌列表
+        /// </summary>
+        /// <param name="pageSize">每页数</param>
+        /// <param name="pageNumber">当前页数</param>
+        /// <param name="brandName">品牌名称</param>
+        /// <returns></returns>
+        public static List<BrandInfo> GetBrandListByIds(List<int> ids)
+        {
+            var brandList = GetBrandList(1000, 1, "");
+            if (brandList == null)
+            {
+                return new List<BrandInfo>();
+            }
+            return brandList.FindAll(p => ids.Contains(p.BrandId));
+        }
+
+        /// <summary>
         /// 获得品牌数量
         /// </summary>
         /// <param name="brandName">品牌名称</param>

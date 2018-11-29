@@ -869,40 +869,64 @@ namespace NStore.Web.Controllers
             //获取可选的商品id列表
             if (specialProductList != null && specialProductList.Count > 0)
             {
-                productSearchIdList.AddRange(specialProductList.Select(p => p.Pid));
-                productIdList.AddRange(specialProductList.Where(p =>
-                                                                    (p.SpecialId == specialId || specialId == 0) &&
-                                                                    (p.CateId == cateId || cateId == 0) &&
-                                                                    (p.BrandId == brandId || brandId == 0)
-                                                                 ).Select(p => p.Pid));
+                productSearchIdList = productSearchIdList.Count == 0
+                    ? specialProductList.Select(p => p.Pid).ToList()
+                    : specialProductList.Select(p => p.Pid).Where(p => productSearchIdList.Contains(p)).ToList();
+                if (productSearchIdList.Count == 0)
+                {
+                    return false;
+                }
+
+                var ss = specialProductList.Where(p =>
+                                                    (p.SpecialId == specialId || specialId == 0) &&
+                                                    (p.CateId == cateId || cateId == 0) &&
+                                                    (p.BrandId == brandId || brandId == 0)
+                                                ).Select(p => p.Pid).ToList();
+                productIdList = productIdList.Count == 0 ? ss : productIdList.Where(p => ss.Contains(p)).ToList();
             }
             if (keywordProductList != null && keywordProductList.Count > 0)
             {
-                productSearchIdList.AddRange(keywordProductList.Select(p => p.Pid));
+                productSearchIdList = productSearchIdList.Count == 0
+                    ? keywordProductList.Select(p => p.Pid).ToList()
+                    : keywordProductList.Select(p => p.Pid).Where(p => productSearchIdList.Contains(p)).ToList();
+                if (productSearchIdList.Count == 0)
+                {
+                    return false;
+                }
+
             }
             if (attrProductList != null && attrProductList.Count > 0)
             {
-                productSearchIdList.AddRange(attrProductList.Select(p => p.Pid));
+                productSearchIdList = productSearchIdList.Count == 0
+                    ? attrProductList.Select(p => p.Pid).ToList()
+                    : attrProductList.Select(p => p.Pid).Where(p => productSearchIdList.Contains(p)).ToList();
+                if (productSearchIdList.Count == 0)
+                {
+                    return false;
+                }
 
                 string[] filterAttrValueIdList = StringHelper.SplitString(filterAttr, "-");
-                productIdList.AddRange(attrProductList.Where(p =>
-                                                                    (filterAttrValueIdList.Contains(p.AttrValueId.ToString()) || string.IsNullOrEmpty(filterAttr)) &&
-                                                                    (p.CateId == cateId || cateId == 0) &&
-                                                                    (p.BrandId == brandId || brandId == 0)
-                                                                 ).Select(p => p.Pid));
-            }
-            if (productSearchIdList.Count == 0)
-            {
-                return false;
-            }
-
-            //有货筛选
-            if (onlyStock == 1)
-            {
-
+                var ss = attrProductList.Where(p =>
+                                                (filterAttrValueIdList.Contains(p.AttrValueId.ToString()) || string.IsNullOrEmpty(filterAttr)) &&
+                                                (p.CateId == cateId || cateId == 0) &&
+                                                (p.BrandId == brandId || brandId == 0)
+                                            ).Select(p => p.Pid).ToList();
+                productIdList = productIdList.Count == 0 ? ss : productIdList.Where(p => ss.Contains(p)).ToList();
             }
 
             productSearchIdList = productSearchIdList.Distinct().ToList();
+            productIdList = productIdList.Distinct().ToList();
+
+            //有货筛选
+            if (onlyStock == 1 && productIdList.Count > 0)
+            {
+                var stockProductIdList = Products.GetStockProductIdList();
+                if (stockProductIdList != null && stockProductIdList.Count > 0)
+                {
+                    productIdList = productIdList.Where(p => stockProductIdList.Contains(p)).ToList();
+                }
+            }
+
 
             //获取可选的类型id列表,品牌id列表,属性id列表,属性值id列表
             List<int> categoryIdList = new List<int>();
@@ -935,15 +959,25 @@ namespace NStore.Web.Controllers
             if (categoryIdList.Count > 0)
             {
                 categoryIdList = categoryIdList.Distinct().ToList();
-
+                categoryList = Categories.GetCategoryListByIds(categoryIdList);
             }
             if (brandIdList.Count > 0)
             {
-
+                brandIdList = brandIdList.Distinct().ToList();
+                brandList = Brands.GetBrandListByIds(brandIdList);
             }
             if (attrIdList.Count > 0 && attrValueIdList.Count > 0)
             {
+                attrIdList = attrIdList.Distinct().ToList();
+                attrValueIdList = attrValueIdList.Distinct().ToList();
 
+                var attrList = Categories.GetFilterAttributeListByIds(attrIdList);
+
+                foreach (var item in attrList)
+                {
+                    var attrValueList = Categories.GetAttributeValueListByIds(item.AttrId, attrValueIdList);
+                    cateAAndVList.Add(new KeyValuePair<AttributeInfo, List<AttributeValueInfo>>(item, attrValueList));
+                }
             }
 
             return true;

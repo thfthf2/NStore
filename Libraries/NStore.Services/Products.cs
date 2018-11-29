@@ -327,6 +327,16 @@ namespace NStore.Services
         }
 
         /// <summary>
+        /// 获得库存商品id列表
+        /// </summary>
+        /// <param name="pidList">商品id列表</param>
+        /// <returns></returns>
+        public static List<int> GetStockProductIdList()
+        {
+            return NStore.Data.Products.GetStockProductIdList();
+        }
+
+        /// <summary>
         /// 获得商品库存
         /// </summary>
         /// <param name="pid">商品id</param>

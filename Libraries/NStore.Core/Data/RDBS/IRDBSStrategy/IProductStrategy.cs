@@ -803,6 +803,12 @@ namespace NStore.Core
         /// <param name="pidList">商品id列表</param>
         /// <returns></returns>
         IDataReader GetProductStockList(string pidList);
+        
+        /// <summary>
+        /// 获得库存商品id列表
+        /// </summary>
+        /// <returns></returns>
+        IDataReader GetStockProductIdList();
 
         #endregion
 

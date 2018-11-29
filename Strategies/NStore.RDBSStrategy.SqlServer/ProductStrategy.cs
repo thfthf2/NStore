@@ -289,7 +289,7 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <returns></returns>
         public IDataReader GetSpecialList()
         {
-            string commandText = string.Format("SELECT {1} FROM [{0}specialperformance] WHERE state=1 ORDER BY [sort] ASC",
+            string commandText = string.Format("SELECT {1} FROM [{0}specialperformance] WHERE state=0 ORDER BY [displayorder] ASC",
                                                 RDBSHelper.RDBSTablePre,
                                                 RDBSFields.PRODUCT_SPECIAL);
             return RDBSHelper.ExecuteReader(CommandType.Text, commandText);
@@ -551,8 +551,8 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <returns></returns>
         public IDataReader GetFilterAttributeList()
         {
-     
-            string commandText = string.Format("SELECT {1} FROM [{0}attributes] WHERE  [state]=0 ORDER BY [sort] DESC",
+
+            string commandText = string.Format("SELECT {1} FROM [{0}attributes] WHERE  [state]=0 ORDER BY [displayorder] DESC",
                                                 RDBSHelper.RDBSTablePre,
                                                 RDBSFields.ATTRIBUTES);
             return RDBSHelper.ExecuteReader(CommandType.Text, commandText);
@@ -2266,6 +2266,16 @@ namespace NStore.RDBSStrategy.SqlServer
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
                                             string.Format("{0}getproductstocklist", RDBSHelper.RDBSTablePre),
                                             parms);
+        }
+
+        /// <summary>
+        /// 获得库存商品id列表
+        /// </summary>
+        /// <returns></returns>
+        public IDataReader GetStockProductIdList()
+        {
+            string commandText = string.Format("SELECT [pid] FROM [{0}productstocks] WHERE [number]> 0", RDBSHelper.RDBSTablePre);
+            return RDBSHelper.ExecuteReader(CommandType.StoredProcedure, commandText);
         }
 
         #endregion
