@@ -102,7 +102,7 @@ namespace NStore.Services
         }
 
         /// <summary>
-        /// 根据商品搜索词获取匹配商品id列表
+        /// 根据商品搜索词获取匹配商品关联对象列表
         /// </summary>
         /// <param name="name">搜索词</param>
         /// <returns></returns>
@@ -112,36 +112,36 @@ namespace NStore.Services
         }
 
         /// <summary>
-        /// 根据专场id获取商品id列表
+        /// 根据专场id获取商品关联列表
         /// </summary>
         /// <param name="specialId">专场id</param>
         /// <returns></returns>
-        public static List<int> GetProductIdListBySpecialId(int specialId)
+        public static List<ProductSpecialInfo> GetProductIdListBySpecialId(int specialId, int cateId, int brandId)
         {
-            return _isearchstrategy.GetProductIdListBySpecialId(specialId);
+            return _isearchstrategy.GetProductIdListBySpecialId(specialId, cateId, brandId);
         }
 
         /// <summary>
-        /// 根据关键字id获取商品id列表
+        /// 根据关键字id获取商品关联列表
         /// </summary>
         /// <param name="keyId">关键字id</param>
         /// <returns></returns>
-        public static List<int> GetProductIdListByKeyId(int keyId)
+        public static List<ProductKeywordInfo> GetProductIdListByKeyId(int keyId, int cateId, int brandId)
         {
-            return _isearchstrategy.GetProductIdListByKeyId(keyId);
+            return _isearchstrategy.GetProductIdListByKeyId(keyId, cateId, brandId);
         }
 
         /// <summary>
-        /// 根据属性id或属性值id获取商品id列表
+        /// 根据属性id或属性值id获取商品关联列表
         /// </summary>
         /// <param name="attrId">属性id</param>
         /// <param name="attrValueId">属性值id</param>
         /// <returns></returns>
-        public static List<int> GetProductIdListByAttrId(int attrId,int attrValueId)
+        public static List<ProductAttributeInfo> GetProductIdListByAttrId(int attrId, int attrValueId, int cateId, int brandId)
         {
-            return _isearchstrategy.GetProductIdListByAttrId(attrId, attrValueId);
+            return _isearchstrategy.GetProductIdListByAttrId(attrId, attrValueId, cateId, brandId);
         }
-        
+
         /// <summary>
         /// 获得分类商品列表
         /// </summary>

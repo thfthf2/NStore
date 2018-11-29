@@ -11,6 +11,11 @@ namespace NStore.Core
         private int _pid;//商品id
         private int _attrid;//属性id
         private int _attrvalueid;//属性值id
+        private int _cateid;//商品类型id
+        private int _brandid;//品牌id
+        private int _isfilter; //是否提供筛选
+        private int _isdetail; //是否提供详情展示
+
         private string _inputvalue;//输入值
 
         /// <summary>
@@ -45,6 +50,41 @@ namespace NStore.Core
             get { return _attrvalueid; }
             set { _attrvalueid = value; }
         }
+
+        /// <summary>
+        /// 商品类型id
+        /// </summary>
+        public int CateId
+        {
+            set { _cateid = value; }
+            get { return _cateid; }
+        }
+
+        /// <summary>
+        /// 品牌id
+        /// </summary>
+        public int BrandId
+        {
+            set { _brandid = value; }
+            get { return _brandid; }
+        }
+        /// <summary>
+        /// 是否提供筛选
+        /// </summary>
+        public int IsFilter
+        {
+            set { _isfilter = value; }
+            get { return _isfilter; }
+        }
+        /// <summary>
+        /// 是否提供详情展示
+        /// </summary>
+        public int IsDetail
+        {
+            set { _isdetail = value; }
+            get { return _isdetail; }
+        }
+        
         /// <summary>
         /// 输入值
         /// </summary>
@@ -53,6 +93,7 @@ namespace NStore.Core
             get { return _inputvalue; }
             set { _inputvalue = value; }
         }
+
     }
 
     /// <summary>

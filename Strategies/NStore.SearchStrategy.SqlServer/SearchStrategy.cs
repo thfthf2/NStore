@@ -594,7 +594,7 @@ namespace NStore.SearchStrategy.SqlServer
         }
 
         /// <summary>
-        /// 根据商品搜索词获取匹配商品id列表
+        /// 根据商品搜索词获取匹配商品关联对象列表
         /// </summary>
         /// <param name="name">搜索词</param>
         /// <returns></returns>
@@ -624,86 +624,134 @@ namespace NStore.SearchStrategy.SqlServer
         }
 
         /// <summary>
-        /// 根据专场id获取商品id列表
+        /// 根据专场id获取商品关联列表
         /// </summary>
         /// <param name="specialId">专场id</param>
         /// <returns></returns>
-        public List<int> GetProductIdListBySpecialId(int specialId)
+        public List<ProductSpecialInfo> GetProductIdListBySpecialId(int specialId, int cateId, int brandId)
         {
-            DbParameter[] parms = {
-                                    GenerateInParam("@specialid", SqlDbType.SmallInt,2,specialId)
-                                   };
+            List<DbParameter> parmsList = new List<DbParameter>();
+            StringBuilder commandText = new StringBuilder(string.Format("SELECT [specialid],[pid],[cateid],[brandid] FROM [{0}productspecialperformance] WHERE 1=1 ", RDBSHelper.RDBSTablePre));
+            if (specialId > 0)
+            {
+                commandText.Append(" AND [specialid]=@specialid");
+                parmsList.Add(GenerateInParam("@specialid", SqlDbType.SmallInt, 2, specialId));
+            }
+            if (cateId > 0)
+            {
+                commandText.Append(" AND [cateid]=@cateid");
+                parmsList.Add(GenerateInParam("@cateid", SqlDbType.SmallInt, 2, cateId));
+            }
+            if (brandId > 0)
+            {
+                commandText.Append(" AND [brandid]=@brandid");
+                parmsList.Add(GenerateInParam("@brandid", SqlDbType.SmallInt, 2, brandId));
+            }
 
-            string commandText = string.Format("SELECT [pid] FROM [{0}productspecialperformance] WHERE [specialid]=@specialid ", RDBSHelper.RDBSTablePre);
-
-    
-            List<int> productIdList = new List<int>();
-            IDataReader reader = RDBSHelper.ExecuteReader(CommandType.Text, commandText, parms);
+            List<ProductSpecialInfo> productIdList = new List<ProductSpecialInfo>();
+            IDataReader reader = RDBSHelper.ExecuteReader(CommandType.Text, commandText.ToString(), parmsList.ToArray());
             while (reader.Read())
             {
-                productIdList.Add(TypeHelper.ObjectToInt(reader["pid"]));
+                var product = new ProductSpecialInfo();
+                product.SpecialId = TypeHelper.ObjectToInt(reader["specialid"]);
+                product.Pid = TypeHelper.ObjectToInt(reader["pid"]);
+                product.CateId = TypeHelper.ObjectToInt(reader["cateid"]);
+                product.BrandId = TypeHelper.ObjectToInt(reader["brandid"]);
+                productIdList.Add(product);
             }
             reader.Close();
             return productIdList;
         }
 
         /// <summary>
-        /// 根据关键字id获取商品id列表
+        /// 根据关键字id获取商品关联列表
         /// </summary>
         /// <param name="keyId">关键字id</param>
         /// <returns></returns>
-        public List<int> GetProductIdListByKeyId(int keyId)
+        public List<ProductKeywordInfo> GetProductIdListByKeyId(int keyId, int cateId, int brandId)
         {
-            DbParameter[] parms = {
-                                    GenerateInParam("@keywordid", SqlDbType.Int,4,keyId)
-                                   };
+            List<DbParameter> parmsList = new List<DbParameter>();
+            StringBuilder commandText = new StringBuilder(string.Format("SELECT [keywordid],[pid],[cateid],[brandid] FROM [{0}productkeywords] WHERE 1=1 ", RDBSHelper.RDBSTablePre));
+            if (keyId > 0)
+            {
+                commandText.Append(" AND [keywordid]=@keywordid");
+                parmsList.Add(GenerateInParam("@keywordid", SqlDbType.Int, 4, keyId));
+            }
+            if (cateId > 0)
+            {
+                commandText.Append(" AND [cateid]=@cateid");
+                parmsList.Add(GenerateInParam("@cateid", SqlDbType.SmallInt, 2, cateId));
+            }
+            if (brandId > 0)
+            {
+                commandText.Append(" AND [brandid]=@brandid");
+                parmsList.Add(GenerateInParam("@brandid", SqlDbType.SmallInt, 2, brandId));
+            }
 
-            string commandText = string.Format("SELECT [pid] FROM [{0}productkeywords] WHERE [keywordid]=@keywordid ", RDBSHelper.RDBSTablePre);
-
-
-            List<int> productIdList = new List<int>();
-            IDataReader reader = RDBSHelper.ExecuteReader(CommandType.Text, commandText, parms);
+            List<ProductKeywordInfo> productIdList = new List<ProductKeywordInfo>();
+            IDataReader reader = RDBSHelper.ExecuteReader(CommandType.Text, commandText.ToString(), parmsList.ToArray());
             while (reader.Read())
             {
-                productIdList.Add(TypeHelper.ObjectToInt(reader["pid"]));
+                var product = new ProductKeywordInfo();
+                product.KeywordId = TypeHelper.ObjectToInt(reader["keywordid"]);
+                product.Pid = TypeHelper.ObjectToInt(reader["pid"]);
+                product.CateId = TypeHelper.ObjectToInt(reader["cateid"]);
+                product.BrandId = TypeHelper.ObjectToInt(reader["brandid"]);
+                productIdList.Add(product);
             }
             reader.Close();
             return productIdList;
         }
 
         /// <summary>
-        /// 根据属性id或属性值id获取商品id列表
+        /// 根据属性id或属性值id获取商品关联列表
         /// </summary>
         /// <param name="attrId">属性id</param>
         /// <param name="attrValueId">属性值id</param>
         /// <returns></returns>
-        public List<int> GetProductIdListByAttrId(int attrId, int attrValueId)
+        public List<ProductAttributeInfo> GetProductIdListByAttrId(int attrId, int attrValueId, int cateId, int brandId)
         {
             List<DbParameter> parmsList = new List<DbParameter>();
-            StringBuilder commandText = new StringBuilder("SELECT [pid] FROM [{0}productattributes] WHERE 1=1 ");
-            if (attrId>0)
+            StringBuilder commandText = new StringBuilder(string.Format("SELECT [attrvalueid],[attrid],[pid],[cateid],[brandid] FROM [{0}productattributes] WHERE isfilter=1 ", RDBSHelper.RDBSTablePre));
+            if (attrId > 0)
             {
-                parmsList.Add(GenerateInParam("@attrid", SqlDbType.SmallInt, 2, attrId));
                 commandText.Append(" AND [attrid]=@attrid");
+                parmsList.Add(GenerateInParam("@attrid", SqlDbType.SmallInt, 2, attrId));
             }
             if (attrValueId > 0)
             {
-                parmsList.Add(GenerateInParam("@attrvalueid", SqlDbType.Int, 4, attrValueId));
                 commandText.Append(" AND [attrvalueid]=@attrvalueid");
+                parmsList.Add(GenerateInParam("@attrvalueid", SqlDbType.Int, 4, attrValueId));
+            }
+            if (cateId > 0)
+            {
+                commandText.Append(" AND [cateid]=@cateid");
+                parmsList.Add(GenerateInParam("@cateid", SqlDbType.SmallInt, 2, cateId));
+            }
+            if (brandId > 0)
+            {
+                commandText.Append(" AND [brandid]=@brandid");
+                parmsList.Add(GenerateInParam("@brandid", SqlDbType.SmallInt, 2, brandId));
             }
 
-            List<int> productIdList = new List<int>();
-            IDataReader reader = RDBSHelper.ExecuteReader(CommandType.Text, string.Format(commandText.ToString(), RDBSHelper.RDBSTablePre), parmsList.ToArray());
+            List<ProductAttributeInfo> productIdList = new List<ProductAttributeInfo>();
+            IDataReader reader = RDBSHelper.ExecuteReader(CommandType.Text, commandText.ToString(), parmsList.ToArray());
             while (reader.Read())
             {
-                productIdList.Add(TypeHelper.ObjectToInt(reader["pid"]));
+                var product = new ProductAttributeInfo();
+                product.AttrValueId = TypeHelper.ObjectToInt(reader["attrvalueid"]);
+                product.AttrId = TypeHelper.ObjectToInt(reader["attrid"]);
+                product.Pid = TypeHelper.ObjectToInt(reader["pid"]);
+                product.CateId = TypeHelper.ObjectToInt(reader["cateid"]);
+                product.BrandId = TypeHelper.ObjectToInt(reader["brandid"]);
+                productIdList.Add(product);
             }
             reader.Close();
             return productIdList;
         }
 
-        
-        
+
+
         /// <summary>
         /// 获得分类商品列表
         /// </summary>
@@ -711,7 +759,7 @@ namespace NStore.SearchStrategy.SqlServer
         /// <param name="pageNumber">当前页数</param>
         /// <param name="cateId">分类id</param>
         /// <returns></returns>
-        public  List<StoreProductInfo> GetCategoryProductList(int pageSize, int pageNumber, int cateId)
+        public List<StoreProductInfo> GetCategoryProductList(int pageSize, int pageNumber, int cateId)
         {
             DbParameter[] parms =  {
                                         GenerateInParam("@cateid", SqlDbType.SmallInt, 2, cateId)
@@ -725,9 +773,9 @@ namespace NStore.SearchStrategy.SqlServer
             {
                 commandText.AppendFormat(@"SELECT w2.n, w1.* FROM {0}products w1,
 (SELECT TOP {1} row_number() OVER (ORDER BY displayorder ASC,pid ASC) n, pid FROM {0}products where state=0 and [cateid]=@cateid ) w2 
-WHERE w1.pid = w2.pid AND w2.n > {2} ORDER BY w2.n ASC ", RDBSHelper.RDBSTablePre, pageNumber * pageSize, (pageNumber-1) * pageSize);
+WHERE w1.pid = w2.pid AND w2.n > {2} ORDER BY w2.n ASC ", RDBSHelper.RDBSTablePre, pageNumber * pageSize, (pageNumber - 1) * pageSize);
             }
-            
+
             List<StoreProductInfo> storeProductList = new List<StoreProductInfo>();
             IDataReader reader = RDBSHelper.ExecuteReader(CommandType.Text, commandText.ToString());
             while (reader.Read())
@@ -762,7 +810,7 @@ WHERE w1.pid = w2.pid AND w2.n > {2} ORDER BY w2.n ASC ", RDBSHelper.RDBSTablePr
                 storeProductInfo.Star4 = TypeHelper.ObjectToInt(reader["star4"]);
                 storeProductInfo.Star5 = TypeHelper.ObjectToInt(reader["star5"]);
                 storeProductInfo.AddTime = TypeHelper.ObjectToDateTime(reader["addtime"]);
-                storeProductInfo.StoreName =""; // reader["storename"].ToString();
+                storeProductInfo.StoreName = ""; // reader["storename"].ToString();
 
                 storeProductList.Add(storeProductInfo);
             }

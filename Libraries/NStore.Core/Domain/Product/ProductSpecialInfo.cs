@@ -1,28 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace NStore.Core
 {
-    /// <summary>
-    /// 商品关键词信息类
-    /// </summary>
-    public class ProductKeywordInfo
+    public class ProductSpecialInfo
     {
-        private int _keywordid;//关键词id
+        private int _specialid;//专场id
         private int _pid;//商品id
         private int _cateid;//商品类型id
         private int _brandid;//品牌id
 
-
-        private string _keyword;//关键词
-        private int _relevancy;//相关性
-
         /// <summary>
-        /// 关键词id
+        /// 专场id
         /// </summary>
-        public int KeywordId
+        public int SpecialId
         {
-            set { _keywordid = value; }
-            get { return _keywordid; }
+            set { _specialid = value; }
+            get { return _specialid; }
         }
         /// <summary>
         /// 商品id
@@ -51,21 +48,5 @@ namespace NStore.Core
             get { return _brandid; }
         }
 
-        /// <summary>
-        /// 关键词
-        /// </summary>
-        public string Keyword
-        {
-            set { _keyword = value.Trim(); }
-            get { return _keyword; }
-        }
-        /// <summary>
-        /// 相关性
-        /// </summary>
-        public int Relevancy
-        {
-            set { _relevancy = value; }
-            get { return _relevancy; }
-        }
     }
 }

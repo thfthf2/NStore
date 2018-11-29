@@ -13,7 +13,7 @@ namespace NStore.Core
     {
         private int _specialid;//专场id
         private string _name = "";//专场名称
-        private int _sort = 0;//专场排序
+        private int _displayorder = 0;//排序
         private int _state = 0;//状态
 
 
@@ -27,7 +27,7 @@ namespace NStore.Core
         }
         
         /// <summary>
-        /// 专场id
+        /// 专场名称
         /// </summary>
         public string Name
         {
@@ -36,16 +36,16 @@ namespace NStore.Core
         }
 
         /// <summary>
-        /// 专场id
+        /// 排序
         /// </summary>
-        public int Sort
+        public int DisplayOrder
         {
-            set { _sort = value; }
-            get { return _sort; }
+            set { _displayorder = value; }
+            get { return _displayorder; }
         }
 
         /// <summary>
-        /// 专场id
+        /// 状态
         /// </summary>
         public int State
         {

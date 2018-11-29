@@ -218,6 +218,74 @@ namespace NStore.Web.Models
     }
 
     /// <summary>
+    /// 搜索模型类
+    /// </summary>
+    public class CategorySearchModel
+    {
+        /// <summary>
+        /// 搜索词
+        /// </summary>
+        public string Word { get; set; }
+        /// <summary>
+        /// 关键词id
+        /// </summary>
+        public int KeyWordId { get; set; }
+        /// <summary>
+        /// 分类id
+        /// </summary>
+        public int CateId { get; set; }
+        /// <summary>
+        /// 品牌id
+        /// </summary>
+        public int BrandId { get; set; }
+        /// <summary>
+        /// 专场id
+        /// </summary>
+        public int SpecialId { get; set; }
+        /// <summary>
+        /// 筛选属性
+        /// </summary>
+        public string FilterAttr { get; set; }
+        /// <summary>
+        /// 是否只显示有货
+        /// </summary>
+        public int OnlyStock { get; set; }
+        /// <summary>
+        /// 排序列
+        /// </summary>
+        public int SortColumn { get; set; }
+        /// <summary>
+        /// 排序方向
+        /// </summary>
+        public int SortDirection { get; set; }
+        /// <summary>
+        /// 分类信息
+        /// </summary>
+        public CategoryInfo CategoryInfo { get; set; }
+        /// <summary>
+        /// 品牌列表
+        /// </summary>
+        public List<BrandInfo> BrandList { get; set; }
+        /// <summary>
+        /// 分类价格范围列表
+        /// </summary>
+        public string[] CatePriceRangeList { get; set; }
+        /// <summary>
+        /// 属性及其值列表
+        /// </summary>
+        public List<KeyValuePair<AttributeInfo, List<AttributeValueInfo>>> AAndVList { get; set; }
+        /// <summary>
+        /// 分页对象
+        /// </summary>
+        public PageModel PageModel { get; set; }
+        /// <summary>
+        /// 商品列表
+        /// </summary>
+        public List<StoreProductInfo> ProductList { get; set; }
+    }
+
+
+    /// <summary>
     /// 商城搜索模型类
     /// </summary>
     public class MallSearchModel

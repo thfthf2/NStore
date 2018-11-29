@@ -10,10 +10,9 @@ namespace NStore.Core
         private int _attrid;//属性id
         private string _name = "";//属性名称
         private int _attrgroupid;//分组id
-        private int _sort = 0;//排序
+        private int _displayorder = 0;//排序
         private int _state = 0;//状态，0有效，1无效
 
-        private int _displayOrder = 0;//排序
         private int _cateid = 0;//分类id
         private int _showtype = 0;//展示类型(0代表文字,1代表图片)
         private int _isfilter = 0;//是否是筛选属性
@@ -45,15 +44,6 @@ namespace NStore.Core
             get { return _attrgroupid; }
         }
 
-
-        /// <summary>
-        /// 属性排序
-        /// </summary>
-        public int DisplayOrder
-        {
-            get { return _displayOrder; }
-            set { _displayOrder = value; }
-        }
         /// <summary>
         /// 分类id
         /// </summary>
@@ -82,10 +72,10 @@ namespace NStore.Core
         /// <summary>
         /// 排序
         /// </summary>
-        public int Sort
+        public int DisplayOrder
         {
-            set { _sort = value; }
-            get { return _sort; }
+            set { _displayorder = value; }
+            get { return _displayorder; }
         }
 
         /// <summary>
