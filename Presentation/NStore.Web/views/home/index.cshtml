@@ -72,7 +72,7 @@
                         {
                             foreach (var item in specialList)
                             {
-                                <li><a href="@Url.Action("category", "catalog", new RouteValueDictionary { { "specialId", item.Specialid } })">@item.Name</a></li>
+                                <li><a href="@Url.Action("categorysearch", "catalog", new RouteValueDictionary { { "specialId", item.Specialid } })">@item.Name</a></li>
                             }
                         }
                      }

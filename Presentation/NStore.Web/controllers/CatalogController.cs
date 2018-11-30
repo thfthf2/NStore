@@ -656,7 +656,7 @@ namespace NStore.Web.Controllers
             {
                 return PromptView(WorkContext.UrlReferrer, "您搜索的商品不存在");
             }
-            
+
             return Redirect(Url.Action("categorysearch", new RouteValueDictionary { { "keyword", keyword }, { "searchKeyType", keyInfo.keyType }, { "searchKeyId", keyInfo.ToId } }));
         }
 
@@ -770,7 +770,7 @@ namespace NStore.Web.Controllers
                 ProductList = Searches.SearchMallProducts(productIdList, pageModel.PageSize, pageModel.PageNumber, sortColumn, sortDirection)
             };
 
-            return View(model);
+            return View("search", model);
         }
 
         public ActionResult FilterSearch()
@@ -788,6 +788,7 @@ namespace NStore.Web.Controllers
         public bool GetProductFliterList(ref List<int> productIdList, ref List<CategoryInfo> categoryList, ref List<BrandInfo> brandList, ref List<KeyValuePair<AttributeInfo, List<AttributeValueInfo>>> cateAAndVList,
             int searchKeyType, int searchKeyId, int cateId, int brandId, int specialId, string filterAttr, int onlyStock)
         {
+
             int cateSearchId = 0, brandSearchId = 0, specialSearchId = 0, keywordSearchId = 0, attrSearchId = 0, attrValueSearchId = 0; //分类id,品牌id,专场id,关键词id,属性id,属性值id
             switch (searchKeyType)
             {
@@ -831,6 +832,13 @@ namespace NStore.Web.Controllers
                     }
             }
 
+            //特殊情况：直接选择商品类型搜索,仅展示所选类型的类型结构树,提前限定,减少查询量
+            if (searchKeyType == 0 && cateId > 0)
+            {
+                cateSearchId = cateId;
+            }
+
+            //获取商品关联信息
             List<int> productSearchIdList = new List<int>();
             var specialProductList = Searches.GetProductIdListBySpecialId(specialSearchId, cateSearchId, brandSearchId);
             var keywordProductList = Searches.GetProductIdListByKeyId(keywordSearchId, cateSearchId, brandSearchId);
@@ -897,40 +905,54 @@ namespace NStore.Web.Controllers
                 }
             }
 
-
-            //获取可选的类型id列表,品牌id列表,属性id列表,属性值id列表
+            //获取可选的类型id列表
             List<int> categoryIdList = new List<int>();
-            List<int> brandIdList = new List<int>();
-            List<int> attrIdList = new List<int>();
-            List<int> attrValueIdList = new List<int>();
+
             if (specialProductList != null && specialProductList.Count > 0)
             {
                 var productSelecttIds = specialProductList.Where(p => productSearchIdList.Contains(p.Pid));
                 categoryIdList.AddRange(productSelecttIds.Select(p => p.CateId));
-                brandIdList.AddRange(productSelecttIds.Select(p => p.BrandId));
             }
             if (keywordProductList != null && keywordProductList.Count > 0)
             {
                 var productSelecttIds = keywordProductList.Where(p => productSearchIdList.Contains(p.Pid));
                 categoryIdList.AddRange(productSelecttIds.Select(p => p.CateId));
-                brandIdList.AddRange(productSelecttIds.Select(p => p.BrandId));
             }
             if (specialProductList != null && specialProductList.Count > 0)
             {
                 var productSelecttIds = attrProductList.Where(p => productSearchIdList.Contains(p.Pid));
                 categoryIdList.AddRange(productSelecttIds.Select(p => p.CateId));
+            }
+            //获取类型信息列表
+            if (categoryIdList.Count > 0)
+            {
+                categoryIdList = categoryIdList.Distinct().ToList();
+                categoryList = Categories.GetCategoryListByIds(categoryIdList);
+                cateId = categoryList.FirstOrDefault(p => p.HasChild == 0).CateId;
+            }
+            //获取可选的类型id列表,品牌id列表,属性id列表,属性值id列表
+            List<int> brandIdList = new List<int>();
+            List<int> attrIdList = new List<int>();
+            List<int> attrValueIdList = new List<int>();
+            if (specialProductList != null && specialProductList.Count > 0)
+            {
+                var productSelecttIds = specialProductList.Where(p => p.CateId == cateId && productSearchIdList.Contains(p.Pid));
+                brandIdList.AddRange(productSelecttIds.Select(p => p.BrandId));
+            }
+            if (keywordProductList != null && keywordProductList.Count > 0)
+            {
+                var productSelecttIds = keywordProductList.Where(p => p.CateId == cateId &&productSearchIdList.Contains(p.Pid));
+                brandIdList.AddRange(productSelecttIds.Select(p => p.BrandId));
+            }
+            if (specialProductList != null && specialProductList.Count > 0)
+            {
+                var productSelecttIds = attrProductList.Where(p => p.CateId == cateId &&productSearchIdList.Contains(p.Pid));
                 brandIdList.AddRange(productSelecttIds.Select(p => p.BrandId));
 
                 attrIdList.AddRange(productSelecttIds.Select(p => p.AttrId));
                 attrValueIdList.AddRange(productSelecttIds.Select(p => p.AttrValueId));
             }
-
-            //获取类型信息列表，品牌信息列表，属性信息列表
-            if (categoryIdList.Count > 0)
-            {
-                categoryIdList = categoryIdList.Distinct().ToList();
-                categoryList = Categories.GetCategoryListByIds(categoryIdList);
-            }
+            //获取品牌信息列表，属性信息列表
             if (brandIdList.Count > 0)
             {
                 brandIdList = brandIdList.Distinct().ToList();

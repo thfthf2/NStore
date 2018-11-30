@@ -317,7 +317,7 @@ namespace NStore.SearchStrategy.SqlServer
                 {
                     case 0:
                         //commandText.Append("[pk].[relevancy]");
-                        commandText.Append("[p].[pid]");
+                        commandText.Append("[p].[visitcount]");
                         break;
                     case 1:
                         commandText.Append("[p].[salecount]");
@@ -328,15 +328,15 @@ namespace NStore.SearchStrategy.SqlServer
                     case 3:
                         commandText.Append("[p].[reviewcount]");
                         break;
-                    case 4:
-                        commandText.Append("[p].[addtime]");
-                        break;
-                    case 5:
-                        commandText.Append("[p].[visitcount]");
-                        break;
+                    //case 4:
+                    //    commandText.Append("[p].[addtime]");
+                    //    break;
+                    //case 5:
+                    //    commandText.Append("[p].[visitcount]");
+                    //    break;
                     default:
                         //commandText.Append("[pk].[relevancy]");
-                        commandText.Append("[p].[pid]");
+                        commandText.Append("[p].[visitcount]");
                         break;
                 }
                 switch (sortDirection)
@@ -360,7 +360,7 @@ namespace NStore.SearchStrategy.SqlServer
                 {
                     case 0:
                         //commandText.Append("[pk].[relevancy]");
-                        commandText.Append("[p].[pid]");
+                        commandText.Append("[p].[reviewcount]");
                         break;
                     case 1:
                         commandText.Append("[p].[salecount]");
@@ -371,15 +371,15 @@ namespace NStore.SearchStrategy.SqlServer
                     case 3:
                         commandText.Append("[p].[reviewcount]");
                         break;
-                    case 4:
-                        commandText.Append("[p].[addtime]");
-                        break;
-                    case 5:
-                        commandText.Append("[p].[visitcount]");
-                        break;
+                    //case 4:
+                    //    commandText.Append("[p].[addtime]");
+                    //    break;
+                    //case 5:
+                    //    commandText.Append("[p].[visitcount]");
+                    //    break;
                     default:
                         //commandText.Append("[pk].[relevancy]");
-                        commandText.Append("[p].[pid]");
+                        commandText.Append("[p].[reviewcount]");
                         break;
                 }
                 switch (sortDirection)

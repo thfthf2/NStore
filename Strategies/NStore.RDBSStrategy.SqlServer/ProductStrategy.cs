@@ -794,7 +794,7 @@ namespace NStore.RDBSStrategy.SqlServer
             DbParameter[] parms = {
                                         GenerateInParam("@attrid", SqlDbType.SmallInt, 2, attrId)
                                     };
-            string commandText = string.Format("SELECT {1} FROM [{0}attributevalues] WHERE [attrid]=@attrid and [state]=0 ORDER BY [sort] ASC",
+            string commandText = string.Format("SELECT {1} FROM [{0}attributevalues] WHERE [attrid]=@attrid and [state]=0 ORDER BY [displayorder] ASC",
                                                 RDBSHelper.RDBSTablePre,
                                                 RDBSFields.ATTRIBUTE_VALUES);
             return RDBSHelper.ExecuteReader(CommandType.Text, commandText, parms);

@@ -19,7 +19,11 @@ namespace NStore.Services
             if (specialList == null)
             {
                 specialList = NStore.Data.SpecialPerformance.GetSpecialList();
-                NStore.Core.BMACache.Insert(CacheKeys.MALL_SPECIAL_LIST, specialList);
+                if (specialList != null && specialList.Count > 0)
+                {
+                    NStore.Core.BMACache.Insert(CacheKeys.MALL_SPECIAL_LIST, specialList);
+                }
+                else NStore.Core.BMACache.Insert(CacheKeys.MALL_SPECIAL_LIST, specialList, 60);
             }
             return specialList;
         }

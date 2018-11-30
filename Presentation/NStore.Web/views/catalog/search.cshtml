@@ -20,14 +20,13 @@
 
 @section body{
 @{
-    List<CategoryInfo> categoryList = Categories.GetCategoryList();
-    CategoryInfo categoryInfo2 = Categories.GetCategoryById(Model.CategoryInfo.ParentId, categoryList);
-    CategoryInfo categoryInfo1 = Categories.GetCategoryById(categoryInfo2.ParentId, categoryList);
+    CategoryInfo categoryInfo2 = Categories.GetCategoryById(Model.CategoryInfo.ParentId, Model.CategoryList);
+    CategoryInfo categoryInfo1 = Categories.GetCategoryById(categoryInfo2.ParentId, Model.CategoryList);
     }
 
 <div class="breadcrumb box1210">
-    <strong><a href="#">@categoryInfo1.Name</a></strong>
-    <span>&nbsp;&gt;&nbsp;<a href="#">@categoryInfo2.Name</a>&nbsp;&gt;&nbsp;<a href="@Url.Action("category", new RouteValueDictionary { { "cateId", Model.CategoryInfo.CateId } })">@Model.CategoryInfo.Name</a></span>
+    <strong><a href="@Url.Action("categorysearch", new RouteValueDictionary { { "cateId", Model.CategoryInfo.CateId } })">@categoryInfo1.Name</a></strong>
+    <span>&nbsp;&gt;&nbsp;<a href="@Url.Action("categorysearch", new RouteValueDictionary { { "cateId", Model.CategoryInfo.CateId } })">@categoryInfo2.Name</a>&nbsp;&gt;&nbsp;<a href="@Url.Action("categorysearch", new RouteValueDictionary { { "cateId", Model.CategoryInfo.CateId } })">@Model.CategoryInfo.Name</a></span>
 </div>
 
 
@@ -38,6 +37,11 @@
     <h2>@categoryInfo1.Name</h2>
   </div>
   <div class="mc">
+      @foreach (var item in Model.CategoryList)
+      {
+
+      }
+
     <div class="item hot">
         <h3><b></b>相关分类</h3>
         <ul>
@@ -115,23 +119,6 @@
         <div class="clear"></div>
     </div>
     }
-    @if(Model.CatePriceRangeList.Length > 0)
-    {
-    <div class="selectItme">
-        <h3>价格：</h3>
-        <ul>
-            <li><a href="@Url.Action("search", new RouteValueDictionary { { "keyword", Model.Word }, { "filterAttr", Model.FilterAttr }, { "cateId", Model.CateId }, { "brandId", Model.BrandId }, { "filterPrice", 0 }, { "onlyStock", 0 }, { "sortColumn", 0 }, { "sortDirection", 0 }, { "page", 1 } })" @if (Model.FilterPrice == 0)
-                                                                                                                                                                                                                                                                                                           { <text>class="hot"</text>}>不限</a></li>
-            @for (int i = 0; i < Model.CatePriceRangeList.Length; i++)
-            {
-            <li><a href="@Url.Action("search", new RouteValueDictionary { { "keyword", Model.Word }, { "filterAttr", Model.FilterAttr }, { "cateId", Model.CateId }, { "brandId", Model.BrandId }, { "filterPrice", i + 1 }, { "onlyStock", 0 }, { "sortColumn", 0 }, { "sortDirection", 0 }, { "page", 1 } })" @if (Model.FilterPrice == (i + 1))
-                                                                                                                                                                                                                                                                                     { <text>class="hot"</text>}>@Model.CatePriceRangeList[i]</a></li>
-            }
-            <div class="clear"></div>
-        </ul>
-        <div class="clear"></div>
-    </div>
-    }
   @{
       int order = 1;
       string startStr;
@@ -188,11 +175,11 @@
 <div class="orderList">
 <dl>
     <dt>排序:</dt>
-    <dd><a href="@Url.Action("search", new RouteValueDictionary { { "keyword", Model.Word }, { "filterAttr", Model.FilterAttr }, { "cateId", Model.CateId }, { "brandId", Model.BrandId }, { "filterPrice", Model.FilterPrice }, { "onlyStock", 0 }, { "sortColumn", 0 }, { "sortDirection", Model.SortDirection == 0 ? 1 : 0 }, { "page", 1 } })" class="@if (Model.SortColumn == 0)
+    <dd><a href="@Url.Action("search", new RouteValueDictionary { { "keyword", Model.Word }, { "filterAttr", Model.FilterAttr }, { "cateId", Model.CateId }, { "brandId", Model.BrandId }, { "filterPrice", Model.FilterPrice }, { "onlyStock", 0 }, { "sortColumn", 3 }, { "sortDirection", Model.SortDirection == 0 ? 1 : 0 }, { "page", 1 } })" class="@if (Model.SortColumn == 0)
                                                                                                                                                                                                                                                                                                                                { <text>current</text>} @if (Model.SortDirection == 1 && Model.SortColumn == 0)
-                                                                                                                                                                                                                                                                                                                                                                     { <text>down</text>}
+                                                                                                                                                                                                                                                                                                                                                                     { <text>up</text>}
                                                                                                                                                                                                                                                                                                                                                        else if (Model.SortDirection == 0 && Model.SortColumn == 0)
-                                                                                                                                                                                                                                                                                                                                                                     { <text>up</text>}">相关</a></dd>
+                                                                                                                                                                                                                                                                                                                                                                     { <text>down</text>}">人气</a></dd>
     <dd><a href="@Url.Action("search", new RouteValueDictionary { { "keyword", Model.Word }, { "filterAttr", Model.FilterAttr }, { "cateId", Model.CateId }, { "brandId", Model.BrandId }, { "filterPrice", Model.FilterPrice }, { "onlyStock", 0 }, { "sortColumn", 1 }, { "sortDirection", Model.SortDirection == 0 ? 1 : 0 }, { "page", 1 } })" class="@if (Model.SortColumn == 1)
                                                                                                                                                                                                                                                                                                                                { <text>current</text>} @if (Model.SortDirection == 1 && Model.SortColumn == 1)
                                                                                                                                                                                                                                                                                                                                                                          { <text>up</text>}
