@@ -16,7 +16,7 @@ namespace NStore.Web.Framework
     {
         //工作上下文
         public WebWorkContext WorkContext = new WebWorkContext();
-        
+
         protected override void Initialize(RequestContext requestContext)
         {
             base.Initialize(requestContext);
@@ -271,7 +271,7 @@ namespace NStore.Web.Framework
         /// <returns></returns>
         protected string GetRouteString(string key)
         {
-            return GetRouteString(key, "");
+            return string.IsNullOrEmpty(key) ? "" : GetRouteString(key, "");
         }
 
         /// <summary>
@@ -292,7 +292,7 @@ namespace NStore.Web.Framework
         /// <returns></returns>
         protected int GetRouteInt(string key)
         {
-            return GetRouteInt(key, 0);
+            return string.IsNullOrEmpty(key) ? 0 : GetRouteInt(key, 0);
         }
 
         /// <summary>

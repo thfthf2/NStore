@@ -8,7 +8,7 @@ function mallSearch(keyword) {
         alert("请输入关键词");
     }
     else {
-        window.location.href = "/catalog/search?keyword=" + encodeURIComponent(keyword);
+        window.location.href = "/catalog/keywordSearch?keyword=" + encodeURIComponent(keyword);
     }
 }
 

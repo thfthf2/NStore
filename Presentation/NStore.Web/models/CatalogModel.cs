@@ -295,6 +295,14 @@ namespace NStore.Web.Models
         /// </summary>
         public string Word { get; set; }
         /// <summary>
+        /// 搜索词关联对象
+        /// </summary>
+        public string SearchKey { get; set; }
+        /// <summary>
+        /// 搜索词关联对象id
+        /// </summary>
+        public int SearchKeyId { get; set; }
+        /// <summary>
         /// 分类id
         /// </summary>
         public int CateId { get; set; }

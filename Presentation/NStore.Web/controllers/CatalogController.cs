@@ -656,77 +656,24 @@ namespace NStore.Web.Controllers
             {
                 return PromptView(WorkContext.UrlReferrer, "您搜索的商品不存在");
             }
-
-            var routeKey = "keywordSearchId";
-            switch (keyInfo.keyType)
-            {
-                case (int)ProductKeyEnum.Category:
-                    {
-                        routeKey = "cateSearchId";
-                        break;
-                    }
-                case (int)ProductKeyEnum.Brand:
-                    {
-                        routeKey = "brandSearchId";
-                        break;
-                    }
-                case (int)ProductKeyEnum.Special:
-                    {
-                        routeKey = "speciaSearchlId";
-                        break;
-                    }
-                case (int)ProductKeyEnum.Attribute:
-                    {
-                        routeKey = "attrSearchId";
-                        break;
-                    }
-                case (int)ProductKeyEnum.AttributeValue:
-                    {
-                        routeKey = "attrValueSearchId";
-                        break;
-                    }
-                case (int)ProductKeyEnum.KeyWord:
-                    {
-                        routeKey = "keywordSearchId";
-                        break;
-                    }
-                default:
-                    {
-                        routeKey = "keywordSearchId";
-                        break;
-                    }
-            }
-
-            return Redirect(Url.Action("categorysearch", new RouteValueDictionary { { routeKey, keyInfo.ToId } }));
+            
+            return Redirect(Url.Action("categorysearch", new RouteValueDictionary { { "keyword", keyword }, { "searchKeyType", keyInfo.keyType }, { "searchKeyId", keyInfo.ToId } }));
         }
 
         public ActionResult CategorySearch()
         {
-            //分类id
-            int cateSearchId = GetRouteInt("cateSearchId");
-            if (cateSearchId == 0)
-                cateSearchId = WebHelper.GetQueryInt("cateSearchId");
-            //品牌id
-            int brandSearchId = GetRouteInt("brandSearchId");
-            if (brandSearchId == 0)
-                brandSearchId = WebHelper.GetQueryInt("brandSearchId");
-            //专场id
-            int specialSearchId = GetRouteInt("specialSearchId");
-            if (specialSearchId == 0)
-                specialSearchId = WebHelper.GetQueryInt("specialSearchId");
-            //关键词id
-            int keywordSearchId = GetRouteInt("keywordSearchId");
-            if (keywordSearchId == 0)
-                keywordSearchId = WebHelper.GetQueryInt("keywordSearchId");
-            //属性id
-            int attrSearchId = GetRouteInt("attrSearchId");
-            if (attrSearchId == 0)
-                attrSearchId = WebHelper.GetQueryInt("attrSearchId");
-            //属性值id
-            int attrValueSearchId = GetRouteInt("attrValueSearchId");
-            if (attrValueSearchId == 0)
-                attrValueSearchId = WebHelper.GetQueryInt("attrValueSearchId");
-
+            //搜索词
+            string keyword = GetRouteString("keyword");
+            if (string.IsNullOrEmpty(keyword))
+                keyword = WebHelper.GetQueryString("keyword");
+            //搜索关联匹配类型
+            int searchKeyType = GetRouteInt("searchKeyType");
+            if (searchKeyType == 0)
+                searchKeyType = WebHelper.GetQueryInt("searchKeyType");
+            //搜索关联匹配对对象id
+            int searchKeyId = GetRouteInt("searchKeyId");
+            if (searchKeyId == 0)
+                searchKeyId = WebHelper.GetQueryInt("searchKeyId");
 
             //分类id
             int cateId = GetRouteInt("cateId");
@@ -761,8 +708,18 @@ namespace NStore.Web.Controllers
             List<KeyValuePair<AttributeInfo, List<AttributeValueInfo>>> cateAAndVList = new List<KeyValuePair<AttributeInfo, List<AttributeValueInfo>>>();
 
 
-            GetProductFliterList(ref productIdList, ref categoryList, ref brandList, ref cateAAndVList, cateSearchId, brandSearchId, specialSearchId, keywordSearchId, attrSearchId, attrValueSearchId
-                , cateId, brandId, specialId, filterAttr, onlyStock);
+            bool isValid = GetProductFliterList(ref productIdList, ref categoryList, ref brandList, ref cateAAndVList,
+                searchKeyType, searchKeyId, cateId, brandId, specialId, filterAttr, onlyStock);
+
+            if (!isValid)
+            {
+                return PromptView(WorkContext.UrlReferrer, "您搜索的商品不存在");
+            }
+
+            //选中的分类信息
+            CategoryInfo categoryInfo = categoryList.FirstOrDefault(p => p.HasChild == 0 && (cateId == 0 || p.CateId == cateId));
+            if (categoryInfo == null)
+                return PromptView("/", "此分类不存在");
 
             //排序列
             int sortColumn = GetRouteInt("sortColumn");
@@ -779,55 +736,24 @@ namespace NStore.Web.Controllers
 
 
 
-            //筛选价格
-            int filterPrice = GetRouteInt("filterPrice");
-            if (filterPrice == 0)
-                filterPrice = WebHelper.GetQueryInt("filterPrice");
-            //分类信息
-            CategoryInfo categoryInfo = Categories.GetCategoryById(cateId);
-            if (categoryInfo == null)
-                return PromptView("/", "此分类不存在");
+            ////筛选价格
+            //int filterPrice = GetRouteInt("filterPrice");
+            //if (filterPrice == 0)
+            //    filterPrice = WebHelper.GetQueryInt("filterPrice");
 
-            ////分类关联品牌列表
-            //List<BrandInfo> brandList = Categories.GetCategoryBrandList(cateId);
-            ////分类筛选属性及其值列表
-            //List<KeyValuePair<AttributeInfo, List<AttributeValueInfo>>> cateAAndVList = Categories.GetCategoryFilterAAndVList();
 
-            //分类价格范围列表
-            string[] catePriceRangeList = StringHelper.SplitString(categoryInfo.PriceRange, "\r\n");
+            ////分类价格范围列表
+            //string[] catePriceRangeList = StringHelper.SplitString(categoryInfo.PriceRange, "\r\n");
 
-            //筛选属性处理
-            List<int> attrValueIdList = new List<int>();
-            string[] filterAttrValueIdList = StringHelper.SplitString(filterAttr, "-");
-            if (filterAttrValueIdList.Length != cateAAndVList.Count)//当筛选属性和分类的筛选属性数目不对应时，重置筛选属性
-            {
-                if (cateAAndVList.Count == 0)
-                {
-                    filterAttr = "0";
-                }
-                else
-                {
-                    int count = cateAAndVList.Count;
-                    StringBuilder sb = new StringBuilder();
-                    for (int i = 0; i < count; i++)
-                        sb.Append("0-");
-                    filterAttr = sb.Remove(sb.Length - 1, 1).ToString();
-                }
-            }
-            else
-            {
-                foreach (string attrValueId in filterAttrValueIdList)
-                {
-                    int temp = TypeHelper.StringToInt(attrValueId);
-                    if (temp > 0) attrValueIdList.Add(temp);
-                }
-            }
 
             //分页对象
-            PageModel pageModel = new PageModel(20, page, Products.GetCategoryProductCount(cateId, brandId, filterPrice, catePriceRangeList, attrValueIdList, onlyStock));
+            PageModel pageModel = new PageModel(20, page, Searches.GetSearchMallProductCount(productIdList));
             //视图对象
-            CategorySearchModel model = new CategorySearchModel()
+            MallSearchModel model = new MallSearchModel()
             {
+                Word = GetRouteString("keyword"),
+                SearchKey = GetRouteString("searchKey"),
+                SearchKeyId = GetRouteInt(GetRouteString("searchKey")),
                 CateId = cateId,
                 BrandId = brandId,
                 //FilterPrice = filterPrice,
@@ -835,12 +761,13 @@ namespace NStore.Web.Controllers
                 OnlyStock = onlyStock,
                 SortColumn = sortColumn,
                 SortDirection = sortDirection,
+                CategoryList = categoryList,
                 CategoryInfo = categoryInfo,
                 BrandList = brandList,
-                CatePriceRangeList = catePriceRangeList,
+                //CatePriceRangeList = catePriceRangeList,
                 AAndVList = cateAAndVList,
                 PageModel = pageModel,
-                ProductList = Products.GetCategoryProductList(pageModel.PageSize, pageModel.PageNumber, cateId, brandId, filterPrice, catePriceRangeList, attrValueIdList, onlyStock, sortColumn, sortDirection)
+                ProductList = Searches.SearchMallProducts(productIdList, pageModel.PageSize, pageModel.PageNumber, sortColumn, sortDirection)
             };
 
             return View(model);
@@ -858,9 +785,52 @@ namespace NStore.Web.Controllers
         /// <param name="searchKeyList">商品id列表</param>
         /// <param name="name">搜索词</param>
         /// <param name="keytype">搜索词类型</param>
-        public bool GetProductFliterList(ref List<int> productIdList, ref List<CategoryInfo> categoryList, ref List<BrandInfo> brandList, ref List<KeyValuePair<AttributeInfo, List<AttributeValueInfo>>> cateAAndVList, int cateSearchId, int brandSearchId, int specialSearchId, int keywordSearchId, int attrSearchId, int attrValueSearchId
-            , int cateId, int brandId, int specialId, string filterAttr, int onlyStock)
+        public bool GetProductFliterList(ref List<int> productIdList, ref List<CategoryInfo> categoryList, ref List<BrandInfo> brandList, ref List<KeyValuePair<AttributeInfo, List<AttributeValueInfo>>> cateAAndVList,
+            int searchKeyType, int searchKeyId, int cateId, int brandId, int specialId, string filterAttr, int onlyStock)
         {
+            int cateSearchId = 0, brandSearchId = 0, specialSearchId = 0, keywordSearchId = 0, attrSearchId = 0, attrValueSearchId = 0; //分类id,品牌id,专场id,关键词id,属性id,属性值id
+            switch (searchKeyType)
+            {
+                case (int)ProductKeyEnum.Category:
+                    {
+                        cateSearchId = searchKeyId;
+                        break;
+                    }
+                case (int)ProductKeyEnum.Brand:
+                    {
+                        brandSearchId = searchKeyId;
+                        break;
+                    }
+                case (int)ProductKeyEnum.Special:
+                    {
+                        specialSearchId = searchKeyId;
+                        break;
+                    }
+                case (int)ProductKeyEnum.Attribute:
+                    {
+                        attrSearchId = searchKeyId;
+                        break;
+                    }
+                case (int)ProductKeyEnum.AttributeValue:
+                    {
+                        attrValueSearchId = searchKeyId;
+                        break;
+                    }
+                case (int)ProductKeyEnum.KeyWord:
+                    {
+                        keywordSearchId = searchKeyId;
+                        break;
+                    }
+                default:
+                    {
+                        if (searchKeyId > 0)
+                        {
+                            return false;
+                        }
+                        break;
+                    }
+            }
+
             List<int> productSearchIdList = new List<int>();
             var specialProductList = Searches.GetProductIdListBySpecialId(specialSearchId, cateSearchId, brandSearchId);
             var keywordProductList = Searches.GetProductIdListByKeyId(keywordSearchId, cateSearchId, brandSearchId);

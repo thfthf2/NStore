@@ -31,6 +31,20 @@ namespace NStore.Services
         {
             return _isearchstrategy.SearchMallProducts(pageSize, pageNumber, keyword, cateId, brandId, filterPrice, catePriceRangeList, attrValueIdList, onlyStock, sortColumn, sortDirection);
         }
+        
+        /// <summary>
+        /// 搜索商城商品
+        /// </summary>
+        /// <param name="ids">商品ids</param>
+        /// <param name="pageSize">每页数</param>
+        /// <param name="pageNumber">当前页数</param>
+        /// <param name="sortColumn">排序列</param>
+        /// <param name="sortDirection">排序方向</param>
+        /// <returns></returns>
+        public static List<StoreProductInfo> SearchMallProducts(List<int> ids, int pageSize, int pageNumber, int sortColumn, int sortDirection)
+        {
+            return _isearchstrategy.SearchMallProducts(ids, pageSize, pageNumber, sortColumn, sortDirection);
+        }
 
         /// <summary>
         /// 获得搜索商城商品数量
@@ -46,6 +60,16 @@ namespace NStore.Services
         public static int GetSearchMallProductCount(string keyword, int cateId, int brandId, int filterPrice, string[] catePriceRangeList, List<int> attrValueIdList, int onlyStock)
         {
             return _isearchstrategy.GetSearchMallProductCount(keyword, cateId, brandId, filterPrice, catePriceRangeList, attrValueIdList, onlyStock);
+        }
+
+        /// <summary>
+        /// 获得搜索商城商品数量
+        /// </summary>
+        /// <param name="ids">商品ids</param>
+        /// <returns></returns>
+        public static int GetSearchMallProductCount(List<int> ids)
+        {
+            return _isearchstrategy.GetSearchMallProductCount(ids);
         }
 
         /// <summary>
