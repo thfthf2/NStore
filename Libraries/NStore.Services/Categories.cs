@@ -4,6 +4,7 @@ using System.Text;
 using System.Collections.Generic;
 
 using NStore.Core;
+using System.Linq;
 
 namespace NStore.Services
 {
@@ -30,7 +31,7 @@ namespace NStore.Services
         }
 
         /// <summary>
-        /// 根据类型id获得分类列表
+        /// 根据3级类型id获得2级，3级分类列表
         /// </summary>
         /// <returns></returns>
         public static List<CategoryInfo> GetCategoryListByIds(List<int> ids)
@@ -40,6 +41,8 @@ namespace NStore.Services
             {
                 return new List<CategoryInfo>();
             }
+            //获取父类id
+            ids.AddRange(categoryList.Where(p => ids.Contains(p.CateId)).Select(p => p.ParentId));
             return categoryList.FindAll(p => ids.Contains(p.CateId));
         }
 

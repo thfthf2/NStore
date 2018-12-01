@@ -295,9 +295,9 @@ namespace NStore.Web.Models
         /// </summary>
         public string Word { get; set; }
         /// <summary>
-        /// 搜索词关联对象
+        /// 搜索词关联对象类型
         /// </summary>
-        public string SearchKey { get; set; }
+        public int SearchKeyType { get; set; }
         /// <summary>
         /// 搜索词关联对象id
         /// </summary>
@@ -335,9 +335,9 @@ namespace NStore.Web.Models
         /// </summary>
         public List<CategoryInfo> CategoryList { get; set; }
         /// <summary>
-        /// 分类信息
+        /// 选择的分类信息
         /// </summary>
-        public CategoryInfo CategoryInfo { get; set; }
+        public List<CategoryInfo> CategoryInfo { get; set; }
         /// <summary>
         /// 品牌列表
         /// </summary>

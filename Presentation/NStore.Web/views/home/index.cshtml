@@ -31,32 +31,38 @@
             <h2><i style="font-size:large">牛工工场</i>&nbsp;商品分类</h2>
             <div id="categorysCon">
                 @{
-                    List<NavInfo> navList = Navs.GetNavList();
+                    List<CategoryInfo> cateList = Categories.GetCategoryList();
                 }
                 @{
                     int layerFlag = 0;
-                    foreach (NavInfo info in navList)
+                    foreach (CategoryInfo info in cateList)
                     {
                         if (info.Layer == 1)
                         {
                             if (layerFlag == 1)
                             {
-                                @:</div></div>
+                                @Html.Raw("</div></div>")
                             }
-                            @:<div class="item" onmouseover="this.className='item hotItem'" onmouseout="this.className='item'"><h3><a href="javascript:void(0)">@info.Name</a></h3><div class="itmeSon">
+                            <text>
+                            <div class="item" onmouseover="this.className='item hotItem'" onmouseout="this.className='item'">
+                                <h3>
+                                    <a href="javascript:void(0)">@info.Name</a>
+                                </h3>
+                            <div class="itmeSon">
+                            </text>
                             layerFlag = 1;
-                            }
-                            else if (info.Layer == 2)
+                        }
+                        else if (info.Layer == 2)
+                        {
+                            <text><dl><dt><a style="" href="javascript:void(0)">@info.Name</a></dt><dd> </text>
+                            foreach (CategoryInfo cate in cateList.FindAll(x => x.ParentId == info.CateId))
                             {
-                            @:<dl><dt><a style="" href="javascript:void(0)">@info.Name</a></dt><dd>
-                            foreach (NavInfo nav in navList.FindAll(x => x.Pid == info.Id))
-                            {
-                                @:<em><a style="" href="@nav.Url">@nav.Name</a></em>
+                                @:<em><a style="" href="@Url.Action("categorysearch", "catalog", new RouteValueDictionary { { "searchKeyType",1 } , { "searchKeyId",cate.CateId } })">@cate.Name</a></em>
                             }
                             @:</dd><div class="clear"></div></dl>
                         }
-                        }
-                    @:</div></div>
+                    }
+                    @Html.Raw("</div></div>")
                 }
 
     </div>
@@ -72,7 +78,7 @@
                         {
                             foreach (var item in specialList)
                             {
-                                <li><a href="@Url.Action("categorysearch", "catalog", new RouteValueDictionary { { "specialId", item.Specialid } })">@item.Name</a></li>
+                                <li><a href="@Url.Action("categorysearch", "catalog", new RouteValueDictionary { { "searchKeyType", 3 }, { "searchKeyId", item.Specialid } })">@item.Name</a></li>
                             }
                         }
                      }
@@ -889,7 +895,7 @@
                                     foreach (var item in brandList)
                                     {
                                         <li>
-                                            <a style="display:block;line-height:50px;background-color:#ccc;float:left;margin:10px 8px;" href="@Url.Action("category", "catalog", new RouteValueDictionary { { "brandId", @item.BrandId } }))">
+                                            <a style="display:block;line-height:50px;background-color:#ccc;float:left;margin:10px 8px;" href="@Url.Action("categorysearch", "catalog", new RouteValueDictionary { { "searchKeyType", 2 }, { "searchKeyId", item.BrandId } })">
                                             <img  src="\upload\brand\thumb100_100\@item.Logo" alt="@item.Name"/>
                                             </a>
                                         </li>
