@@ -94,7 +94,6 @@ namespace NStore.Core
                 return sourceStr.Split(splitStr[0]);
             else
                 return Regex.Split(sourceStr, Regex.Escape(splitStr), RegexOptions.IgnoreCase);
-
         }
 
         /// <summary>

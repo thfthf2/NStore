@@ -29,26 +29,29 @@
 <div class="box1210">
 <div id="listL">
 <div id="sortlist" class="m">
+<script type="text/javascript">
+    function toggleClass(obj) {
+        var classValue = obj.className;
+        if (classValue == "item hot") {
+            obj.className = "item";
+        }
+        else {
+            obj.className = "item hot";
+        }
+    }
+</script>
   @*<div class="mt">
     <h2>@categoryInfo1.Name</h2>
   </div>*@
   <div class="mc">
       @foreach (var item in Model.CategoryList.Where(p => p.Layer == 2))
       {
-          if (item.CateId == Model.CategoryInfo[1].CateId)
-          {
-            <text><div class="item hot"></text>
-          }
-          else
-          {
-            <text><div class="item"></text>
-          }
-
+          <text><div class="item hot" onclick="toggleClass(this)"></text>
             <h3><b></b>@item.Name</h3>
             <ul>
-                @foreach (CategoryInfo info in Model.CategoryList.Where(p=>p.ParentId== @item.CateId))
+                @foreach (CategoryInfo info in Model.CategoryList.Where(p => p.ParentId == @item.CateId))
                 {
-                    <li><a href="@Url.Action("categorysearch", new RouteValueDictionary { { "searchKeyType", Model.SearchKeyType }, { "searchKeyId", Model.SearchKeyId }, { "keyword" , Model.Word }, { "cateId", info.CateId } })">@info.Name</a></li>
+                    <li><a href="@Url.Action("categorysearch", new RouteValueDictionary { { "searchKeyType" , Model.SearchKeyType }, { "searchKeyId" , Model.SearchKeyId }, { "keyword" , Model.Word }, { "cateId" , info.CateId } })">@info.Name</a></li>
                 }
             </ul>
             @:</div>

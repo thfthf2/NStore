@@ -289,8 +289,7 @@ namespace NStore.SearchStrategy.SqlServer
                 //}
 
                 //commandText.Append(" AND [p].[state]=0");
-
-                commandText.Append(" WHERE [p].[state]=0");
+                commandText.AppendFormat(" WHERE  [p].[pid] IN ({0}) and  [p].[state]=0", string.Join(",", ids));
 
                 //if (attrValueIdList.Count > 0)
                 //{
@@ -418,7 +417,7 @@ namespace NStore.SearchStrategy.SqlServer
                 //}
 
                 //commandText.Append(" AND [p].[state]=0");
-                commandText.Append(" WHERE [p].[state]=0");
+                commandText.AppendFormat(" WHERE  [p].[pid] IN ({0}) and  [p].[state]=0", string.Join(",", ids));
                 //if (attrValueIdList.Count > 0)
                 //{
                 //    commandText.Append(" AND [p].[pid] IN (SELECT [pa1].[pid] FROM");
@@ -558,9 +557,9 @@ namespace NStore.SearchStrategy.SqlServer
         public int GetSearchMallProductCount(List<int> ids)
         {
             StringBuilder commandText = new StringBuilder();
-            
+
             commandText.AppendFormat("SELECT COUNT([pid]) FROM [{0}products] WHERE [pid] IN ({1}) and [state]=0", RDBSHelper.RDBSTablePre, string.Join(",", ids));
-            
+
             return TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.Text, commandText.ToString()));
         }
 
