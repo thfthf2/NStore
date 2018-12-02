@@ -5,19 +5,47 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href="@{@WorkContext.CSSCDN}/css/base.css" rel="stylesheet" type="text/css" />
+    <script src="@{@WorkContext.ScriptCDN}/scripts/jquery.js" type="text/javascript"></script>
     @RenderSection("header", false)
+     <script type="text/javascript">
+        $(function(){
+        //置顶按钮显示/隐藏实现
+        $(window).scroll(function(){
+            var w_height = $(window).height();//浏览器高度
+            var scroll_top = $(document).scrollTop();//滚动条到顶部的垂直高度
+            if(scroll_top > w_height){
+                $("#goto-top").fadeIn(500);
+            }
+            else {
+                $("#goto-top").fadeOut(500);
+            }
+        });
+    //置顶
+    $("#goto-top").click(function(e){
+            e.preventDefault();
+            $(document.documentElement).animate({
+                scrollTop: 0
+                },200);
+            //支持chrome
+            $(document.body).animate({
+                scrollTop: 0
+                },200);
+        });
+    })
+        </script>
 </head>
 <body>
     <div id="headerBar" class="bigBox">
         <div class="box1210">
             欢迎访问 @WorkContext.MallConfig.MallName
             <div class="headerLink">
-                @if (WorkContext.Uid < 1)
+                @*@if (WorkContext.Uid < 1)
                 {
                     <a href="@Url.Action("login", "account", new RouteValueDictionary { { "returnUrl", WorkContext.Url } })">[登录]</a>
                     <a href="@Url.Action("register", "account")" class="A_b">[注册]</a>
                 }
-                else
+                else*@
+                @if (WorkContext.Uid > 0 && (WorkContext.PartUserInfo.StoreId > 1 || WorkContext.MallAGid > 1))
                 {
                     @:您好: @WorkContext.NickName
                     <a href="@Url.Action("logout", "account")">[退出]</a>
@@ -39,9 +67,9 @@
     }
     @if (homeTopAdvertList != null && homeTopAdvertList.Count > 0)
     {
-        <div class="headerAD box1210">
+        <div class="headerAD box1210" onmousemove="javascript:document.getElementById('closeheadAD').style.display='block'" onmouseout="javascript:document.getElementById('closeheadAD').style.display='none'">
             <a href="@homeTopAdvertList[0].Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@homeTopAdvertList[0].Body" width="1210" height="70" /></a>
-            <a href="javascript:;" class="close" onclick="this.parentNode.style.display='none'">x</a>
+            <a id="closeheadAD" href="javascript:;" class="close" onclick="this.parentNode.style.display='none'">x</a>
         </div>
     }
     <div id="header" class="bigBox">
@@ -185,6 +213,7 @@
                                     </div>
                                 </div>
                             </div>
+        <a href="#" title="返回顶部" id="goto-top">返回顶部</a>
                             @Html.Raw(WorkContext.ExecuteDetail)
                             @Html.Raw(WorkContext.MallConfig.Script)
                         </body>

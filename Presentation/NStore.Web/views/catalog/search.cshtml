@@ -219,7 +219,16 @@
     {
         <li>
             <a href="@Url.Action("product", new RouteValueDictionary { { "pid", info.Pid } })"><img src="@{@WorkContext.ImageCDN}/upload/store/@info.StoreId/product/show/thumb230_230/@info.ShowImg" width="100%" /><em>@info.Name</em></a>
-            <b>¥@info.ShopPrice</b>
+            <b>¥
+            @if (info.ShopPrice == info.MarketPrice || info.MarketPrice<=0)
+            {
+                @info.ShopPrice
+            }
+            else
+            {
+                @info.MarketPrice<s>¥@info.ShopPrice</s>
+            }
+            </b>
             <div class="info">
                 <div class="star"><span class="star_yellow" style=" width:@Html.Raw((info.GetStarLevel()*20).ToString())%;">&nbsp;</span></div>
                 <a href="#">已有 @info.ReviewCount 人评价</a> 

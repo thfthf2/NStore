@@ -405,66 +405,88 @@
                                             </ul>
                                             <div class="clear"></div>
                                         </h2>
-                                        <div class="floorL left">
+                                    <div class="floorL left">
+                                        <ul>
+                                            @{
+    List<AdvertInfo> floor1AdvertList1 = Adverts.GetAdvertList(10);
+                                            }
+                                            <AdvertInfo>
+                                                <AdvertInfo>
+                                                    @foreach (AdvertInfo info in floor1AdvertList1)
+    {
+                                                    <li><a href="@info.Url" class="hot">@info.Body</a></li>
+    }
+                                                    <div class="clear"></div>
+                                                </AdvertInfo>
+                                            </AdvertInfo>
+                                        </ul>
+                                        @{
+    List<AdvertInfo> floor1AdvertList2 = Adverts.GetAdvertList(11);
+                                        }<AdvertInfo>
+                                            <AdvertInfo>
+                                                @if (floor1AdvertList2.Count > 0)
+    {
+                                                <a href="@floor1AdvertList2[0].Url" class="floorAD"><img src="@{@WorkContext.ImageCDN}/upload/advert/@floor1AdvertList2[0].Body" width="202" height="155" /></a>
+    }
+                                            </AdvertInfo>
+                                        </AdvertInfo>
+                                    </div>
+                                    <div class="floorR right">
+                                        <div class="floorCon">
                                             <ul>
                                                 @{
-        List<AdvertInfo> floor1AdvertList1 = Adverts.GetAdvertList(10);
+    List<AdvertInfo> floor1AdvertList3 = Adverts.GetAdvertList(12);
                                                 }
                                                 <AdvertInfo>
                                                     <AdvertInfo>
-                                                        @foreach (AdvertInfo info in floor1AdvertList1)
-     {
-                                                        <li><a href="@info.Url" class="hot">@info.Body</a></li>
-     }
-                                                        <div class="clear"></div>
+                                                        @foreach (AdvertInfo info in floor1AdvertList3)
+    {
+                                                        <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
+                                                            <b>¥
+                                                            @if (string.IsNullOrEmpty(info.ExtField3) || info.ExtField3 == info.ExtField2)
+                                                            {
+                                                                @info.ExtField2
+                                                            }
+                                                            else
+                                                            {
+                                                                @info.ExtField3<s>¥@info.ExtField2</s>
+                                                            }
+                                                            </b>
+                                                            </a></li>
+    }
                                                     </AdvertInfo>
                                                 </AdvertInfo>
                                             </ul>
-                                            @{
-        List<AdvertInfo> floor1AdvertList2 = Adverts.GetAdvertList(11);
-                                            }<AdvertInfo>
+                                        </div>
+                                    </div>
+                                    <div class="floorR right hide">
+                                        <div class="floorCon">
+                                            <ul>
+                                                @{
+    List<AdvertInfo> floor1AdvertList4 = Adverts.GetAdvertList(13);
+                                                }
                                                 <AdvertInfo>
-                                                    @if (floor1AdvertList2.Count > 0)
-     {
-                                                    <a href="@floor1AdvertList2[0].Url" class="floorAD"><img src="@{@WorkContext.ImageCDN}/upload/advert/@floor1AdvertList2[0].Body" width="202" height="155" /></a>
-     }
+                                                    <AdvertInfo>
+                                                        @foreach (AdvertInfo info in floor1AdvertList4)
+    {
+                                                        <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
+                                                                <b>¥
+                                                                @if (string.IsNullOrEmpty(info.ExtField3) || info.ExtField3 == info.ExtField2)
+                                                                {
+                                                                    @info.ExtField2
+                                                                }
+                                                                else
+                                                                {
+                                                                    @info.ExtField3<s>¥@info.ExtField2</s>
+                                                                }
+                                                                </b>
+                                                            </a></li>
+    }
+                                                    </AdvertInfo>
                                                 </AdvertInfo>
-                                            </AdvertInfo>
+                                            </ul>
                                         </div>
-                                        <div class="floorR right">
-                                            <div class="floorCon">
-                                                <ul>
-                                                    @{
-        List<AdvertInfo> floor1AdvertList3 = Adverts.GetAdvertList(12);
-                                                    }
-                                                    <AdvertInfo>
-                                                        <AdvertInfo>
-                                                            @foreach (AdvertInfo info in floor1AdvertList3)
-     {
-                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em><b>¥@info.ExtField2<s>¥@info.ExtField3</s></b></a></li>
-     }
-                                                        </AdvertInfo>
-                                                    </AdvertInfo>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="floorR right hide">
-                                            <div class="floorCon">
-                                                <ul>
-                                                    @{
-        List<AdvertInfo> floor1AdvertList4 = Adverts.GetAdvertList(13);
-                                                    }
-                                                    <AdvertInfo>
-                                                        <AdvertInfo>
-                                                            @foreach (AdvertInfo info in floor1AdvertList4)
-     {
-                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em><b>¥@info.ExtField2<s>¥@info.ExtField3</s></b></a></li>
-     }
-                                                        </AdvertInfo>
-                                                    </AdvertInfo>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                    </div>
                                         <div class="floorR right hide">
                                             <div class="floorCon">
                                                 <ul>
@@ -475,7 +497,18 @@
                                                         <AdvertInfo>
                                                             @foreach (AdvertInfo info in floor1AdvertList5)
      {
-                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em><b>¥@info.ExtField2<s>¥@info.ExtField3</s></b></a></li>
+                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
+                                                                    <b>¥
+                                                                    @if (string.IsNullOrEmpty(info.ExtField3) || info.ExtField3 == info.ExtField2)
+                                                                    {
+                                                                        @info.ExtField2
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        @info.ExtField3<s>¥@info.ExtField2</s>
+                                                                    }
+                                                                    </b>
+                                                                </a></li>
      }
                                                         </AdvertInfo>
                                                     </AdvertInfo>
@@ -492,7 +525,18 @@
                                                         <AdvertInfo>
                                                             @foreach (AdvertInfo info in floor1AdvertList6)
      {
-                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em><b>¥@info.ExtField2<s>¥@info.ExtField3</s></b></a></li>
+                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
+                                                                    <b>¥
+                                                                    @if (string.IsNullOrEmpty(info.ExtField3) || info.ExtField3 == info.ExtField2)
+                                                                    {
+                                                                        @info.ExtField2
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        @info.ExtField3<s>¥@info.ExtField2</s>
+                                                                    }
+                                                                    </b>
+                                                                </a></li>
      }
                                                         </AdvertInfo>
                                                     </AdvertInfo>
@@ -550,7 +594,19 @@
                                                         <AdvertInfo>
                                                             @foreach (AdvertInfo info in floor2AdvertList3)
      {
-                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em><b>¥@info.ExtField2<s>¥@info.ExtField3</s></b></a></li>
+                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
+                                                                    <b>
+                                                                        ¥
+                                                                        @if (string.IsNullOrEmpty(info.ExtField3) || info.ExtField3 == info.ExtField2)
+                                                                        {
+                                                                            @info.ExtField2
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            @info.ExtField3<s>¥@info.ExtField2</s>
+                                                                        }
+                                                                    </b>
+                                                                </a></li>
      }
                                                         </AdvertInfo>
                                                     </AdvertInfo>
@@ -567,7 +623,19 @@
                                                         <AdvertInfo>
                                                             @foreach (AdvertInfo info in floor2AdvertList4)
      {
-                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em><b>¥@info.ExtField2<s>¥@info.ExtField3</s></b></a></li>
+                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
+                                                                    <b>
+                                                                        ¥
+                                                                        @if (string.IsNullOrEmpty(info.ExtField3) || info.ExtField3 == info.ExtField2)
+                                                                        {
+                                                                            @info.ExtField2
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            @info.ExtField3<s>¥@info.ExtField2</s>
+                                                                        }
+                                                                    </b>
+                                                                </a></li>
      }
                                                         </AdvertInfo>
                                                     </AdvertInfo>
@@ -584,7 +652,17 @@
                                                         <AdvertInfo>
                                                             @foreach (AdvertInfo info in floor2AdvertList5)
      {
-                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em><b>¥@info.ExtField2<s>¥@info.ExtField3</s></b></a></li>
+                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
+                                                                <b>¥
+                                                                @if (string.IsNullOrEmpty(info.ExtField3) || info.ExtField3 == info.ExtField2)
+                                                                {
+                                                                    @info.ExtField2
+                                                                }
+                                                                else
+                                                                {
+                                                                    @info.ExtField3<s>¥@info.ExtField2</s>
+                                                                }
+                                                               </b></a></li>
      }
                                                         </AdvertInfo>
                                                     </AdvertInfo>
@@ -601,7 +679,17 @@
                                                         <AdvertInfo>
                                                             @foreach (AdvertInfo info in floor2AdvertList6)
      {
-                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em><b>¥@info.ExtField2<s>¥@info.ExtField3</s></b></a></li>
+                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
+                                                                <b>¥
+                                                                @if (string.IsNullOrEmpty(info.ExtField3) || info.ExtField3 == info.ExtField2)
+                                                                {
+                                                                    @info.ExtField2
+                                                                }
+                                                                else
+                                                                {
+                                                                    @info.ExtField3<s>¥@info.ExtField2</s>
+                                                                }
+                                                               </b></a></li>
      }
                                                         </AdvertInfo>
                                                     </AdvertInfo>
@@ -670,7 +758,17 @@
                                                                 <AdvertInfo>
                                                                     @foreach (AdvertInfo info in floor3AdvertList3)
                                             {
-                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em><b>¥@info.ExtField2<s>¥@info.ExtField3</s></b></a></li>
+                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
+                                                                <b>¥
+                                                                @if (string.IsNullOrEmpty(info.ExtField3) || info.ExtField3 == info.ExtField2)
+                                                                {
+                                                                    @info.ExtField2
+                                                                }
+                                                                else
+                                                                {
+                                                                    @info.ExtField3<s>¥@info.ExtField2</s>
+                                                                }
+                                                               </b></a></li>
     }
                                                                 </AdvertInfo>
                                                             </AdvertInfo>
@@ -691,7 +789,17 @@
                                                                 <AdvertInfo>
                                                                     @foreach (AdvertInfo info in floor3AdvertList4)
                                             {
-                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em><b>¥@info.ExtField2<s>¥@info.ExtField3</s></b></a></li>
+                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
+                                                                <b>¥
+                                                                @if (string.IsNullOrEmpty(info.ExtField3) || info.ExtField3 == info.ExtField2)
+                                                                {
+                                                                    @info.ExtField2
+                                                                }
+                                                                else
+                                                                {
+                                                                    @info.ExtField3<s>¥@info.ExtField2</s>
+                                                                }
+                                                               </b></a></li>
     }
                                                                 </AdvertInfo>
                                                             </AdvertInfo>
@@ -712,7 +820,17 @@
                                                                 <AdvertInfo>
                                                                     @foreach (AdvertInfo info in floor3AdvertList5)
                                             {
-                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em><b>¥@info.ExtField2<s>¥@info.ExtField3</s></b></a></li>
+                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
+                                                                <b>¥
+                                                                @if (string.IsNullOrEmpty(info.ExtField3) || info.ExtField3 == info.ExtField2)
+                                                                {
+                                                                    @info.ExtField2
+                                                                }
+                                                                else
+                                                                {
+                                                                    @info.ExtField3<s>¥@info.ExtField2</s>
+                                                                }
+                                                               </b></a></li>
     }
                                                                 </AdvertInfo>
                                                             </AdvertInfo>
@@ -733,7 +851,17 @@
                                                                 <AdvertInfo>
                                                                     @foreach (AdvertInfo info in floor3AdvertList6)
                                             {
-                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em><b>¥@info.ExtField2<s>¥@info.ExtField3</s></b></a></li>
+                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
+                                                                <b>¥
+                                                                @if (string.IsNullOrEmpty(info.ExtField3) || info.ExtField3 == info.ExtField2)
+                                                                {
+                                                                    @info.ExtField2
+                                                                }
+                                                                else
+                                                                {
+                                                                    @info.ExtField3<s>¥@info.ExtField2</s>
+                                                                }
+                                                               </b></a></li>
     }
                                                                 </AdvertInfo>
                                                             </AdvertInfo>
@@ -805,7 +933,17 @@
                                                                 <AdvertInfo>
                                                                     @foreach (AdvertInfo info in floor4AdvertList3)
                                             {
-                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em><b>¥@info.ExtField2<s>¥@info.ExtField3</s></b></a></li>
+                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
+                                                                <b>¥
+                                                                @if (string.IsNullOrEmpty(info.ExtField3) || info.ExtField3 == info.ExtField2)
+                                                                {
+                                                                    @info.ExtField2
+                                                                }
+                                                                else
+                                                                {
+                                                                    @info.ExtField3<s>¥@info.ExtField2</s>
+                                                                }
+                                                               </b></a></li>
     }
                                                                 </AdvertInfo>
                                                             </AdvertInfo>
@@ -826,7 +964,17 @@
                                                                 <AdvertInfo>
                                                                     @foreach (AdvertInfo info in floor4AdvertList4)
                                             {
-                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em><b>¥@info.ExtField2<s>¥@info.ExtField3</s></b></a></li>
+                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
+                                                                <b>¥
+                                                                @if (string.IsNullOrEmpty(info.ExtField3) || info.ExtField3 == info.ExtField2)
+                                                                {
+                                                                    @info.ExtField2
+                                                                }
+                                                                else
+                                                                {
+                                                                    @info.ExtField3<s>¥@info.ExtField2</s>
+                                                                }
+                                                               </b></a></li>
     }
                                                                 </AdvertInfo>
                                                             </AdvertInfo>
@@ -847,7 +995,17 @@
                                                                 <AdvertInfo>
                                                                     @foreach (AdvertInfo info in floor4AdvertList5)
                                             {
-                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em><b>¥@info.ExtField2<s>¥@info.ExtField3</s></b></a></li>
+                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
+                                                                <b>¥
+                                                                @if (string.IsNullOrEmpty(info.ExtField3) || info.ExtField3 == info.ExtField2)
+                                                                {
+                                                                    @info.ExtField2
+                                                                }
+                                                                else
+                                                                {
+                                                                    @info.ExtField3<s>¥@info.ExtField2</s>
+                                                                }
+                                                               </b></a></li>
     }
                                                                 </AdvertInfo>
                                                             </AdvertInfo>
@@ -868,7 +1026,17 @@
                                                                 <AdvertInfo>
                                                                     @foreach (AdvertInfo info in floor4AdvertList6)
                                             {
-                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em><b>¥@info.ExtField2<s>¥@info.ExtField3</s></b></a></li>
+                                                            <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
+                                                                <b>¥
+                                                                @if (string.IsNullOrEmpty(info.ExtField3) || info.ExtField3 == info.ExtField2)
+                                                                {
+                                                                    @info.ExtField2
+                                                                }
+                                                                else
+                                                                {
+                                                                    @info.ExtField3<s>¥@info.ExtField2</s>
+                                                                }
+                                                               </b></a></li>
     }
                                                                 </AdvertInfo>
                                                             </AdvertInfo>
