@@ -1963,7 +1963,7 @@ namespace NStore.RDBSStrategy.SqlServer
 	[temp2].[attrname],
 	[temp2].[attrgroupid],
 	[temp2].[attrgroupname]
-	FROM (SELECT [recordid],[pid],[attrid],[attrvalueid],[inputvalue] FROM [{0}productattributes] WHERE [pid]=@pid) AS [temp1] 
+	FROM (SELECT [recordid],[pid],[attrid],[attrvalueid] FROM [{0}productattributes] WHERE [pid]=@pid) AS [temp1] 
 	LEFT JOIN [{0}attributevalues] AS [temp2]
 	ON [temp1].[attrvalueid]=[temp2].[attrvalueid]
 	ORDER BY [temp2].[attrgroupdisplayorder] DESC,[temp2].[attrdisplayorder] DESC,[temp2].[attrvaluedisplayorder] DESC;",

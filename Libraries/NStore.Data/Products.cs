@@ -183,9 +183,9 @@ namespace NStore.Data
             extProductSKUItemInfo.Pid = TypeHelper.ObjectToInt(reader["pid"]);
             extProductSKUItemInfo.AttrId = TypeHelper.ObjectToInt(reader["attrid"]);
             extProductSKUItemInfo.AttrValueId = TypeHelper.ObjectToInt(reader["attrvalueid"]);
-            extProductSKUItemInfo.InputValue = reader["inputvalue"].ToString();
+            //extProductSKUItemInfo.InputValue = reader["inputvalue"].ToString();
             extProductSKUItemInfo.AttrValue = reader["attrvalue"].ToString();
-            extProductSKUItemInfo.IsInput = TypeHelper.ObjectToInt(reader["isinput"]);
+            //extProductSKUItemInfo.IsInput = TypeHelper.ObjectToInt(reader["isinput"]);
             extProductSKUItemInfo.AttrName = reader["attrname"].ToString();
             extProductSKUItemInfo.AttrShowType = TypeHelper.ObjectToInt(reader["attrshowtype"]);
             extProductSKUItemInfo.ShowImg = reader["showimg"].ToString();

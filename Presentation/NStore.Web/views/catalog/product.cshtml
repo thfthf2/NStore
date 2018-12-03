@@ -69,9 +69,9 @@
     var maxStep = liList.length - 5;
     function selectProductImg(obj) {
         for (var i = 0; i < liList.length; i++) {
-            liList[i].className = ""
+            liList[i].className = "";
         }
-        obj.parentNode.parentNode.className = "hot"
+        obj.parentNode.parentNode.className = "hot";
     }
     function moveL() {
         if (!canRoll) {
@@ -79,7 +79,7 @@
         }
         if (step < maxStep) {
             step = step + 1;
-            inBox.style.marginLeft = (-1 * (step * boxWidth)) + "px"
+            inBox.style.marginLeft = (-1 * (step * boxWidth)) + "px";
         }
     }
     function moveR() {
@@ -88,7 +88,7 @@
         }
         if (step > 0) {
             step = step - 1;
-            inBox.style.marginLeft = (-1 * (step * boxWidth)) + "px"
+            inBox.style.marginLeft = (-1 * (step * boxWidth)) + "px";
         }
     }
 </script>
@@ -99,6 +99,8 @@
 	</div>
 
     <div class="conLL">
+    @if (Model.ProductInfo.StoreId >0 && Model.StoreInfo != null&&false)
+    {
     <div id="store">
         <dl>
             <dt>卖&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;家：</dt>
@@ -150,25 +152,26 @@
         </dl>
         <div class="storeInfo"><a href="javascript:void(0)" onclick="addStoreToFavorite(@Model.ProductInfo.StoreId)" class="talk">收藏店铺</a><a href="@Url.Action("index", "store", new RouteValueDictionary { { "storeId", Model.ProductInfo.StoreId } })" class="goStore">进入卖家店铺</a></div>
     </div>
-
+    
+    }
     <div id="info">
       <dl>
         <dt>商品编号：</dt>
         <dd>@Model.ProductInfo.PSN</dd>
       </dl>
-      <dl>
+      @*<dl>
         <dt>市&nbsp;场&nbsp;价：</dt>
         <dd class="price">￥@Model.ProductInfo.MarketPrice</dd>
-      </dl>
+      </dl>*@
       <dl>
-        <dt>本&nbsp;店&nbsp;价：</dt>
+        <dt>价&nbsp;&nbsp;格：</dt>
         <dd class="price">￥@Model.ProductInfo.ShopPrice@*<a href="#" class="priceDown">(降价通知)</a>*@</dd>
       </dl>
       <dl class="talk">
         <dt>商品评分：</dt>
         <dd><div class="star">
         <span class="star_yellow" style=" width:@Html.Raw((Model.ProductInfo.GetStarLevel() * 20).ToString())%;">&nbsp;</span>
-        </div><a href="@Url.Action("productreviewlist", new RouteValueDictionary { { "pid", Model.Pid } })" id="prCount"></a></dd>
+        </div><a href="@Url.Action("productreviewlist", new RouteValueDictionary { { "pid", Model.Pid } })" id="prCount">(已有 @Model.ProductInfo.ReviewCount 人评价)</a></dd>
       </dl>
       @if (Model.ExtGiftList != null && Model.ExtGiftList.Count > 0)
       {
