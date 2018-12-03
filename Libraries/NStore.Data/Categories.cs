@@ -57,10 +57,11 @@ namespace NStore.Data
             attributeInfo.AttrId = TypeHelper.ObjectToInt(reader["attrid"]);
             attributeInfo.Name = reader["name"].ToString();
             attributeInfo.AttrGroupId = TypeHelper.ObjectToInt(reader["attrgroupid"]);
+            attributeInfo.ShowType = TypeHelper.ObjectToInt(reader["showtype"]);
+            attributeInfo.DisplayOrder = TypeHelper.ObjectToInt(reader["displayorder"]);
+
             //attributeInfo.CateId = TypeHelper.ObjectToInt(reader["cateid"]);
-            //attributeInfo.ShowType = TypeHelper.ObjectToInt(reader["showtype"]);
             //attributeInfo.IsFilter = TypeHelper.ObjectToInt(reader["isfilter"]);
-            //attributeInfo.DisplayOrder = TypeHelper.ObjectToInt(reader["displayorder"]);
 
             return attributeInfo;
         }
@@ -74,15 +75,16 @@ namespace NStore.Data
 
             attributeValueInfo.AttrValueId = TypeHelper.ObjectToInt(reader["attrvalueid"]);
             attributeValueInfo.AttrValue = reader["attrvalue"].ToString();
-            //attributeValueInfo.IsInput = TypeHelper.ObjectToInt(reader["isinput"]);
-            //attributeValueInfo.AttrName = reader["attrname"].ToString();
-            //attributeValueInfo.AttrDisplayOrder = TypeHelper.ObjectToInt(reader["attrdisplayorder"]);
-            //attributeValueInfo.AttrShowType = TypeHelper.ObjectToInt(reader["attrshowtype"]);
-            //attributeValueInfo.AttrValueDisplayOrder = TypeHelper.ObjectToInt(reader["attrvaluedisplayorder"]);
-            //attributeValueInfo.AttrGroupId = TypeHelper.ObjectToInt(reader["attrgroupid"]);
-            //attributeValueInfo.AttrGroupName = reader["attrgroupname"].ToString();
-            //attributeValueInfo.AttrGroupDisplayOrder = TypeHelper.ObjectToInt(reader["attrgroupdisplayorder"]);
+            attributeValueInfo.AttrValueDisplayOrder = TypeHelper.ObjectToInt(reader["attrvaluedisplayorder"]);
             attributeValueInfo.AttrId = TypeHelper.ObjectToInt(reader["attrid"]);
+            attributeValueInfo.AttrName = reader["attrname"].ToString();
+            attributeValueInfo.AttrShowType = TypeHelper.ObjectToInt(reader["attrshowtype"]);
+            attributeValueInfo.AttrDisplayOrder = TypeHelper.ObjectToInt(reader["attrdisplayorder"]);
+            attributeValueInfo.AttrGroupId = TypeHelper.ObjectToInt(reader["attrgroupid"]);
+            attributeValueInfo.AttrGroupName = reader["attrgroupname"].ToString();
+            attributeValueInfo.AttrGroupDisplayOrder = TypeHelper.ObjectToInt(reader["attrgroupdisplayorder"]);
+
+            //attributeValueInfo.IsInput = TypeHelper.ObjectToInt(reader["isinput"]);
 
             return attributeValueInfo;
         }

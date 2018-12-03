@@ -161,9 +161,9 @@ namespace NStore.Data
             extProductAttributeInfo.Pid = TypeHelper.ObjectToInt(reader["pid"]);
             extProductAttributeInfo.AttrId = TypeHelper.ObjectToInt(reader["attrid"]);
             extProductAttributeInfo.AttrValueId = TypeHelper.ObjectToInt(reader["attrvalueid"]);
-            extProductAttributeInfo.InputValue = reader["inputvalue"].ToString();
+            //extProductAttributeInfo.InputValue = reader["inputvalue"].ToString();
             extProductAttributeInfo.AttrValue = reader["attrvalue"].ToString();
-            extProductAttributeInfo.IsInput = TypeHelper.ObjectToInt(reader["isinput"]);
+            //extProductAttributeInfo.IsInput = TypeHelper.ObjectToInt(reader["isinput"]);
             extProductAttributeInfo.AttrGroupId = TypeHelper.ObjectToInt(reader["attrgroupid"]);
             extProductAttributeInfo.AttrGroupName = reader["attrgroupname"].ToString();
             extProductAttributeInfo.AttrName = reader["attrname"].ToString();

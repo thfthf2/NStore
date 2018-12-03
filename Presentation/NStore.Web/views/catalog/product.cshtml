@@ -435,14 +435,16 @@
                 {
                     <tr><th colspan="2" class="tdTitle">@info.AttrGroupName</th></tr><tr></tr>
                 }
-                if (info.IsInput == 0)
+                @*if (info.IsInput == 0)
                 {
 				    <tr><td class="tdTitle">@info.AttrName</td><td>@info.AttrValue</td></tr>
                 }
                 else
                 {
 				    <tr><td class="tdTitle">@info.AttrName</td><td>@info.InputValue</td></tr>
-                }
+                }*@
+            
+                <tr><td class="tdTitle">@info.AttrName</td><td>@info.AttrValue</td></tr>
                 tempAttrGroupId = info.AttrGroupId;
             }
             }

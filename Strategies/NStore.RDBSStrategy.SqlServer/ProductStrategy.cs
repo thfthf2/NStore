@@ -552,7 +552,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetFilterAttributeList()
         {
 
-            string commandText = string.Format("SELECT {1} FROM [{0}attributes] WHERE  [state]=0 ORDER BY [displayorder] DESC",
+            string commandText = string.Format("SELECT {1} FROM [{0}attributes] ORDER BY [displayorder] ASC",
                                                 RDBSHelper.RDBSTablePre,
                                                 RDBSFields.ATTRIBUTES);
             return RDBSHelper.ExecuteReader(CommandType.Text, commandText);
@@ -618,10 +618,10 @@ namespace NStore.RDBSStrategy.SqlServer
             DbParameter[] parms = {
                                         GenerateInParam("@name", SqlDbType.NChar, 30, attributeInfo.Name),
                                         //GenerateInParam("@cateid", SqlDbType.SmallInt,2,attributeInfo.CateId),
-                                        //GenerateInParam("@attrgroupid", SqlDbType.SmallInt,2,attributeInfo.AttrGroupId),
-                                        //GenerateInParam("@showtype", SqlDbType.TinyInt,1,attributeInfo.ShowType),
+                                        GenerateInParam("@attrgroupid", SqlDbType.SmallInt,2,attributeInfo.AttrGroupId),
+                                        GenerateInParam("@showtype", SqlDbType.TinyInt,1,attributeInfo.ShowType),
                                         //GenerateInParam("@isfilter", SqlDbType.TinyInt,1,attributeInfo.IsFilter),
-                                        //GenerateInParam("@displayorder", SqlDbType.Int,4,attributeInfo.DisplayOrder)
+                                        GenerateInParam("@displayorder", SqlDbType.Int,4,attributeInfo.DisplayOrder)
                                     };
             string commandText = string.Format("INSERT INTO [{0}attributes]([name],[cateid],[attrgroupid],[showtype],[isfilter],[displayorder]) VALUES(@name,@cateid,@attrgroupid,@showtype,@isfilter,@displayorder);SELECT SCOPE_IDENTITY();",
                                                 RDBSHelper.RDBSTablePre);
@@ -665,10 +665,10 @@ namespace NStore.RDBSStrategy.SqlServer
             DbParameter[] parms = {
                                         GenerateInParam("@name", SqlDbType.NChar, 30, attributeInfo.Name),
                                         //GenerateInParam("@cateid", SqlDbType.SmallInt,2,attributeInfo.CateId),
-                                        //GenerateInParam("@attrgroupid", SqlDbType.SmallInt,2,attributeInfo.AttrGroupId),
-                                        //GenerateInParam("@showtype", SqlDbType.TinyInt,1,attributeInfo.ShowType),
+                                        GenerateInParam("@attrgroupid", SqlDbType.SmallInt,2,attributeInfo.AttrGroupId),
+                                        GenerateInParam("@showtype", SqlDbType.TinyInt,1,attributeInfo.ShowType),
                                         //GenerateInParam("@isfilter", SqlDbType.TinyInt,1,attributeInfo.IsFilter),
-                                        //GenerateInParam("@displayorder", SqlDbType.Int,4,attributeInfo.DisplayOrder),
+                                        GenerateInParam("@displayorder", SqlDbType.Int,4,attributeInfo.DisplayOrder),
                                         GenerateInParam("@attrid", SqlDbType.SmallInt, 2, attributeInfo.AttrId)
                                     };
 
@@ -732,13 +732,13 @@ namespace NStore.RDBSStrategy.SqlServer
             DbParameter[] parms = {
                                         GenerateInParam("@attrvalue", SqlDbType.NChar,70, attributeValueInfo.AttrValue),
                                         //GenerateInParam("@isinput", SqlDbType.TinyInt,1, attributeValueInfo.IsInput),
-                                        //GenerateInParam("@attrname", SqlDbType.NChar,30, attributeValueInfo.AttrName),
-                                        //GenerateInParam("@attrdisplayorder", SqlDbType.Int,4, attributeValueInfo.AttrDisplayOrder),
-                                        //GenerateInParam("@attrshowtype", SqlDbType.TinyInt,1, attributeValueInfo.AttrShowType),
-                                        //GenerateInParam("@attrvaluedisplayorder", SqlDbType.Int,4,attributeValueInfo.AttrValueDisplayOrder),
-                                        //GenerateInParam("@attrgroupid", SqlDbType.SmallInt,2, attributeValueInfo.AttrGroupId),
-                                        //GenerateInParam("@attrgroupname", SqlDbType.NChar,20, attributeValueInfo.AttrGroupName),
-                                        //GenerateInParam("@attrgroupdisplayorder", SqlDbType.Int,4, attributeValueInfo.AttrGroupDisplayOrder),
+                                        GenerateInParam("@attrname", SqlDbType.NChar,30, attributeValueInfo.AttrName),
+                                        GenerateInParam("@attrdisplayorder", SqlDbType.Int,4, attributeValueInfo.AttrDisplayOrder),
+                                        GenerateInParam("@attrshowtype", SqlDbType.TinyInt,1, attributeValueInfo.AttrShowType),
+                                        GenerateInParam("@attrvaluedisplayorder", SqlDbType.Int,4,attributeValueInfo.AttrValueDisplayOrder),
+                                        GenerateInParam("@attrgroupid", SqlDbType.SmallInt,2, attributeValueInfo.AttrGroupId),
+                                        GenerateInParam("@attrgroupname", SqlDbType.NChar,20, attributeValueInfo.AttrGroupName),
+                                        GenerateInParam("@attrgroupdisplayorder", SqlDbType.Int,4, attributeValueInfo.AttrGroupDisplayOrder),
                                         GenerateInParam("@attrid", SqlDbType.SmallInt,2,attributeValueInfo.AttrId)
                                     };
             string commandText = string.Format("INSERT INTO [{0}attributevalues]([attrvalue],[isinput],[attrname],[attrdisplayorder],[attrshowtype],[attrvaluedisplayorder],[attrgroupid],[attrgroupname],[attrgroupdisplayorder],[attrid]) VALUES(@attrvalue,@isinput,@attrname,@attrdisplayorder,@attrshowtype,@attrvaluedisplayorder,@attrgroupid,@attrgroupname,@attrgroupdisplayorder,@attrid)",
@@ -768,13 +768,13 @@ namespace NStore.RDBSStrategy.SqlServer
             DbParameter[] parms = {
                                         GenerateInParam("@attrvalue", SqlDbType.NChar,70, attributeValueInfo.AttrValue),
                                         //GenerateInParam("@isinput", SqlDbType.TinyInt,1, attributeValueInfo.IsInput),
-                                        //GenerateInParam("@attrname", SqlDbType.NChar,30, attributeValueInfo.AttrName),
-                                        //GenerateInParam("@attrdisplayorder", SqlDbType.Int,4, attributeValueInfo.AttrDisplayOrder),
-                                        //GenerateInParam("@attrshowtype", SqlDbType.TinyInt,1, attributeValueInfo.AttrShowType),
-                                        //GenerateInParam("@attrvaluedisplayorder", SqlDbType.Int,4,attributeValueInfo.AttrValueDisplayOrder),
-                                        //GenerateInParam("@attrgroupid", SqlDbType.SmallInt,2, attributeValueInfo.AttrGroupId),
-                                        //GenerateInParam("@attrgroupname", SqlDbType.NChar,20, attributeValueInfo.AttrGroupName),
-                                        //GenerateInParam("@attrgroupdisplayorder", SqlDbType.Int,4, attributeValueInfo.AttrGroupDisplayOrder),
+                                        GenerateInParam("@attrname", SqlDbType.NChar,30, attributeValueInfo.AttrName),
+                                        GenerateInParam("@attrdisplayorder", SqlDbType.Int,4, attributeValueInfo.AttrDisplayOrder),
+                                        GenerateInParam("@attrshowtype", SqlDbType.TinyInt,1, attributeValueInfo.AttrShowType),
+                                        GenerateInParam("@attrvaluedisplayorder", SqlDbType.Int,4,attributeValueInfo.AttrValueDisplayOrder),
+                                        GenerateInParam("@attrgroupid", SqlDbType.SmallInt,2, attributeValueInfo.AttrGroupId),
+                                        GenerateInParam("@attrgroupname", SqlDbType.NChar,20, attributeValueInfo.AttrGroupName),
+                                        GenerateInParam("@attrgroupdisplayorder", SqlDbType.Int,4, attributeValueInfo.AttrGroupDisplayOrder),
                                         GenerateInParam("@attrid", SqlDbType.SmallInt,2,attributeValueInfo.AttrId),
                                         GenerateInParam("@attrvalueid", SqlDbType.Int, 4, attributeValueInfo.AttrValueId)
                                     };
@@ -794,7 +794,7 @@ namespace NStore.RDBSStrategy.SqlServer
             DbParameter[] parms = {
                                         GenerateInParam("@attrid", SqlDbType.SmallInt, 2, attrId)
                                     };
-            string commandText = string.Format("SELECT {1} FROM [{0}attributevalues] WHERE [attrid]=@attrid and [state]=0 ORDER BY [displayorder] ASC",
+            string commandText = string.Format("SELECT {1} FROM [{0}attributevalues] WHERE [attrid]=@attrid ORDER BY [attrvaluedisplayorder] ASC", //and [state]=0
                                                 RDBSHelper.RDBSTablePre,
                                                 RDBSFields.ATTRIBUTE_VALUES);
             return RDBSHelper.ExecuteReader(CommandType.Text, commandText, parms);
@@ -1951,9 +1951,25 @@ namespace NStore.RDBSStrategy.SqlServer
             DbParameter[] parms =  {
                                         GenerateInParam("@pid", SqlDbType.Int, 4, pid)
                                     };
-            return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
-                                            string.Format("{0}getextproductattributelist", RDBSHelper.RDBSTablePre),
-                                            parms);
+            //return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
+            //                                string.Format("{0}getextproductattributelist", RDBSHelper.RDBSTablePre),
+            //                                parms);
+            string commandText = string.Format(@"SELECT 
+	[temp1].[recordid],
+	[temp1].[pid],
+	[temp1].[attrid],
+	[temp1].[attrvalueid],
+	[temp2].[attrvalue],
+	[temp2].[attrname],
+	[temp2].[attrgroupid],
+	[temp2].[attrgroupname]
+	FROM (SELECT [recordid],[pid],[attrid],[attrvalueid],[inputvalue] FROM [{0}productattributes] WHERE [pid]=@pid) AS [temp1] 
+	LEFT JOIN [{0}attributevalues] AS [temp2]
+	ON [temp1].[attrvalueid]=[temp2].[attrvalueid]
+	ORDER BY [temp2].[attrgroupdisplayorder] DESC,[temp2].[attrdisplayorder] DESC,[temp2].[attrvaluedisplayorder] DESC;",
+                                    RDBSHelper.RDBSTablePre);
+
+            return RDBSHelper.ExecuteReader(CommandType.Text, commandText, parms);
         }
 
         #endregion

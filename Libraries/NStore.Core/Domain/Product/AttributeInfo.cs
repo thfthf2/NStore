@@ -10,14 +10,13 @@ namespace NStore.Core
         private int _attrid;//属性id
         private string _name = "";//属性名称
         private int _attrgroupid;//分组id
+        private int _showtype = 0;//展示类型(0代表文字,1代表图片)
         private int _displayorder = 0;//排序
         private int _state = 0;//状态，0有效，1无效
 
         private int _cateid = 0;//分类id
-        private int _showtype = 0;//展示类型(0代表文字,1代表图片)
         private int _isfilter = 0;//是否是筛选属性
-
-
+        
         /// <summary>
         /// 属性id
         /// </summary>
@@ -34,7 +33,6 @@ namespace NStore.Core
             set { _name = value.TrimEnd(); }
             get { return _name; }
         }
-
         /// <summary>
         /// 分组id
         /// </summary>
@@ -43,6 +41,31 @@ namespace NStore.Core
             set { _attrgroupid = value; }
             get { return _attrgroupid; }
         }
+        /// <summary>
+        /// 是否是筛选属性
+        /// </summary>
+        public int IsFilter
+        {
+            set { _isfilter = value; }
+            get { return _isfilter; }
+        }
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public int DisplayOrder
+        {
+            set { _displayorder = value; }
+            get { return _displayorder; }
+        }
+        /// <summary>
+        /// 状态，0有效，1无效
+        /// </summary>
+        public int State
+        {
+            set { _state = value; }
+            get { return _state; }
+        }
+
 
         /// <summary>
         /// 分类id
@@ -59,32 +82,6 @@ namespace NStore.Core
         {
             set { _showtype = value; }
             get { return _showtype; }
-        }
-        /// <summary>
-        /// 是否是筛选属性
-        /// </summary>
-        public int IsFilter
-        {
-            set { _isfilter = value; }
-            get { return _isfilter; }
-        }
-
-        /// <summary>
-        /// 排序
-        /// </summary>
-        public int DisplayOrder
-        {
-            set { _displayorder = value; }
-            get { return _displayorder; }
-        }
-
-        /// <summary>
-        /// 状态，0有效，1无效
-        /// </summary>
-        public int State
-        {
-            set { _state = value; }
-            get { return _state; }
         }
 
 

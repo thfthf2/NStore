@@ -9,19 +9,18 @@ namespace NStore.Core
     {
         private int _attrvalueid = 0;//属性值id
         private string _attrvalue = "";//属性值
+        private int _attrvaluedisplayorder = 0;//属性值排序
         private int _attrid = 0;//属性id
-        private int _displayorder = 0;//排序
+        private string _attrname = "";//属性名称
+        private int _attrshowtype;//属性展示类型(0代表文字,1代表图片)
+        private int _attrdisplayorder = 0;//属性排序
+        private int _attrgroupid;//属性分组id
+        private string _attrgroupname = "";//属性分组名称
+        private int _attrgroupdisplayorder;///属性分组排序
         private int _state = 0;//状态，0有效，1无效
 
 
         private int _isinput = 0;//是否为输入值
-        private string _attrname = "";//属性名称
-        private int _attrdisplayorder = 0;//属性排序
-        private int _attrshowtype;//属性展示类型(0代表文字,1代表图片)
-        private int _attrvaluedisplayorder = 0;//属性值排序
-        private int _attrgroupid;//属性分组id
-        private string _attrgroupname = "";//属性分组名称
-        private int _attrgroupdisplayorder;///属性分组排序
 
         /// <summary>
         /// 属性值id
@@ -41,12 +40,20 @@ namespace NStore.Core
             set { _attrvalue = value.TrimEnd(); }
         }
         /// <summary>
-        /// 是否为输入值
+        /// 属性值排序
         /// </summary>
-        public int IsInput
+        public int AttrValueDisplayOrder
         {
-            get { return _isinput; }
-            set { _isinput = value; }
+            get { return _attrvaluedisplayorder; }
+            set { _attrvaluedisplayorder = value; }
+        }
+        /// <summary>
+        /// 属性id
+        /// </summary>
+        public int AttrId
+        {
+            get { return _attrid; }
+            set { _attrid = value; }
         }
         /// <summary>
         /// 属性名称
@@ -57,14 +64,6 @@ namespace NStore.Core
             set { _attrname = value.TrimEnd(); }
         }
         /// <summary>
-        /// 属性排序
-        /// </summary>
-        public int AttrDisplayOrder
-        {
-            get { return _attrdisplayorder; }
-            set { _attrdisplayorder = value; }
-        }
-        /// <summary>
         /// 属性展示类型(0代表文字,1代表图片)
         /// </summary>
         public int AttrShowType
@@ -73,12 +72,12 @@ namespace NStore.Core
             set { _attrshowtype = value; }
         }
         /// <summary>
-        /// 属性值排序
+        /// 属性排序
         /// </summary>
-        public int AttrValueDisplayOrder
+        public int AttrDisplayOrder
         {
-            get { return _attrvaluedisplayorder; }
-            set { _attrvaluedisplayorder = value; }
+            get { return _attrdisplayorder; }
+            set { _attrdisplayorder = value; }
         }
         /// <summary>
         /// 属性分组id
@@ -105,30 +104,22 @@ namespace NStore.Core
             set { _attrgroupdisplayorder = value; }
         }
         /// <summary>
-        /// 属性id
-        /// </summary>
-        public int AttrId
-        {
-            get { return _attrid; }
-            set { _attrid = value; }
-        }
-
-        /// <summary>
-        /// 排序
-        /// </summary>
-        public int DisplayOrder
-        {
-            set { _displayorder = value; }
-            get { return _displayorder; }
-        }
-
-        /// <summary>
         /// 状态，0有效，1无效
         /// </summary>
         public int State
         {
             set { _state = value; }
             get { return _state; }
+        }
+
+
+        /// <summary>
+        /// 是否为输入值
+        /// </summary>
+        public int IsInput
+        {
+            get { return _isinput; }
+            set { _isinput = value; }
         }
     }
 }

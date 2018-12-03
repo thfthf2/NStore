@@ -25,13 +25,13 @@ namespace NStore.Core
         /// <summary>
         /// 属性表
         /// </summary>
-        public const string ATTRIBUTES = "[attrid],[name],[attrgroupid],[displayorder],[state]"; 
+        public const string ATTRIBUTES = "[attrid],[name],[attrgroupid],[showtype],[displayorder]";  //,[state]
         // public const string ATTRIBUTES = "[attrid],[name],[cateid],[attrgroupid],[showtype],[isfilter],[displayorder]";
 
         /// <summary>
         /// 属性值表
         /// </summary>
-        public const string ATTRIBUTE_VALUES = "[attrvalueid],[attrvalue],[attrid],[displayorder],[state]";
+        public const string ATTRIBUTE_VALUES = "[attrvalueid],[attrvalue],[attrvaluedisplayorder],[attrid],[attrname],[attrshowtype],[attrdisplayorder],[attrgroupid],[attrgroupname],[attrgroupdisplayorder]"; //,[state]
         //public const string ATTRIBUTE_VALUES = "[attrvalueid],[attrvalue],[isinput],[attrname],[attrdisplayorder],[attrshowtype],[attrvaluedisplayorder],[attrgroupid],[attrgroupname],[attrgroupdisplayorder],[attrid]";
 
         /// <summary>
