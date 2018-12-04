@@ -46,7 +46,7 @@ namespace NStore.Web.Controllers
             //商品信息
             model.ProductInfo = productInfo;
             //商品分类
-            model.CategoryInfo = Categories.GetCategoryById(productInfo.CateId);
+            model.CategoryInfo = Categories.GetCategoryInfoById(productInfo.CateId);
             //商品品牌
             model.BrandInfo = Brands.GetBrandById(productInfo.BrandId);
             //店铺信息
@@ -826,18 +826,7 @@ namespace NStore.Web.Controllers
             {
                 cateId = categoryList.FirstOrDefault(p => p.HasChild == 0).CateId;
             }
-            var _cateid = cateId;
-            while (_cateid > 0)
-            {
-                var cateInfo = categoryAllList.FirstOrDefault(p => p.CateId == _cateid);
-                if (cateInfo == null)
-                {
-                    break;
-                }
-                categoryInfo.Add(cateInfo);
-                _cateid = cateInfo.ParentId;
-            }
-            categoryInfo = categoryInfo.OrderBy(p => p.Layer).ToList();
+            categoryInfo = Categories.GetCategoryInfoById(cateId, categoryAllList);
 
             //获取可选的品牌列表
             var brandIdList = productCateBrandList.Where(p => p.Item2 == cateId).Select(p => p.Item3).Distinct().ToList();
@@ -960,18 +949,8 @@ namespace NStore.Web.Controllers
             cateId = cateId > 0 ? cateId : searchKeyId;
             var categoryAllList = Categories.GetCategoryList();
             //获取指定的树形分类信息
-            var _cateid = cateId;
-            while (_cateid > 0)
-            {
-                var cateInfo = categoryAllList.FirstOrDefault(p => p.CateId == _cateid);
-                if (cateInfo == null)
-                {
-                    break;
-                }
-                categoryInfo.Add(cateInfo);
-                _cateid = cateInfo.ParentId;
-            }
-            categoryInfo = categoryInfo.OrderBy(p => p.Layer).ToList();
+            categoryInfo = Categories.GetCategoryInfoById(cateId, categoryAllList);
+
             //获取可选的分类信息列表
             int pid0 = categoryInfo[0].CateId;
             var pidList = categoryAllList.FindAll(p => p.ParentId == pid0 && p.Layer == 2).Select(p => p.CateId);

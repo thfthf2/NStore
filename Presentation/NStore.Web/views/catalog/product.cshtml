@@ -23,15 +23,10 @@
 }
 
 @section body{
-@{
-    List<CategoryInfo> categoryList = Categories.GetCategoryList();
-    CategoryInfo categoryInfo2 = Categories.GetCategoryById(Model.CategoryInfo.ParentId, categoryList);
-    CategoryInfo categoryInfo1 = Categories.GetCategoryById(categoryInfo2.ParentId, categoryList);
-    }
 
 <div class="breadcrumb box1210">
-<strong><a href="#">@categoryInfo1.Name</a></strong>
-<span>&nbsp;&gt;&nbsp;<a href="#">@categoryInfo2.Name</a>&nbsp;&gt;&nbsp;<a href="@Url.Action("category", new RouteValueDictionary { { "cateId", Model.CategoryInfo.CateId } })">@Model.CategoryInfo.Name</a></span></div>
+<strong><a href="#">@Model.CategoryInfo[2].Name</a></strong>
+<span>&nbsp;&gt;&nbsp;<a href="#">@Model.CategoryInfo[1].Name</a>&nbsp;&gt;&nbsp;<a href="@Url.Action("categorysearch", "catalog" , new RouteValueDictionary { { "searchKeyType" ,1 } , { "searchKeyId" ,Model.CategoryInfo[0].CateId } })">@Model.CategoryInfo[0].Name</a></span></div>
 
 
 <div class="box1210" id="content">
@@ -308,7 +303,7 @@
 <div id="infoL">
 <div class="itme infoList">
     <h2>相关分类</h2>
-    @foreach (CategoryInfo info in Categories.GetChildCategoryList(categoryInfo2.CateId, categoryInfo2.Layer, categoryList))
+    @foreach (CategoryInfo info in Categories.GetChildCategoryList(@Model.CategoryInfo[1].CateId, @Model.CategoryInfo[1].Layer))
     {
       <a href="@Url.Action("category", new RouteValueDictionary { { "cateId", info.CateId } })">@info.Name</a>
     }

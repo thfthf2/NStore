@@ -124,6 +124,59 @@ namespace NStore.Services
             return null;
         }
 
+
+        /// <summary>
+        /// 获得指定分类的树形分类列表(仅支持多级结构)
+        /// </summary>
+        /// <param name="cateId">分类id</param>
+        /// <returns></returns>
+        public static List<CategoryInfo> GetCategoryInfoById(int cateId)
+        {
+            var categoryAllList = GetCategoryList();
+            if (categoryAllList != null && categoryAllList.Count > 0)
+            {
+                List<CategoryInfo> categoryInfo = new List<CategoryInfo>();
+                while (cateId > 0)
+                {
+                    var cateInfo = categoryAllList.FirstOrDefault(p => p.CateId == cateId);
+                    if (cateInfo == null)
+                    {
+                        break;
+                    }
+                    categoryInfo.Add(cateInfo);
+                    cateId = cateInfo.ParentId;
+                }
+                return categoryInfo.OrderBy(p => p.Layer).ToList();
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 获得指定分类的树形分类列表(仅支持多级结构)
+        /// </summary>
+        /// <param name="cateId">分类id</param>
+        /// <param name="categoryList">分类列表</param>
+        /// <returns></returns>
+        public static List<CategoryInfo> GetCategoryInfoById(int cateId, List<CategoryInfo> categoryAllList)
+        {
+            if (categoryAllList != null && categoryAllList.Count > 0)
+            {
+                List<CategoryInfo> categoryInfo = new List<CategoryInfo>();
+                while (cateId > 0)
+                {
+                    var cateInfo = categoryAllList.FirstOrDefault(p => p.CateId == cateId);
+                    if (cateInfo == null)
+                    {
+                        break;
+                    }
+                    categoryInfo.Add(cateInfo);
+                    cateId = cateInfo.ParentId;
+                }
+                return categoryInfo.OrderBy(p => p.Layer).ToList();
+            }
+            return null;
+        }
+
         /// <summary>
         /// 获得子分类列表
         /// </summary>
@@ -144,43 +197,8 @@ namespace NStore.Services
         /// <returns></returns>
         public static List<CategoryInfo> GetChildCategoryList(int cateId, int layer, bool isAllChildren)
         {
-            List<CategoryInfo> categoryList = new List<CategoryInfo>();
-
-            if (cateId > 0)
-            {
-                bool flag = false;
-                if (isAllChildren)
-                {
-                    foreach (CategoryInfo categoryInfo in GetCategoryList())
-                    {
-                        if (flag && categoryInfo.Layer == layer)
-                        {
-                            flag = false;
-                        }
-                        if (flag || categoryInfo.ParentId == cateId)
-                        {
-                            flag = true;
-                            categoryList.Add(categoryInfo);
-                        }
-                    }
-                }
-                else
-                {
-                    foreach (CategoryInfo categoryInfo in GetCategoryList())
-                    {
-                        if (categoryInfo.ParentId == cateId)
-                        {
-                            flag = true;
-                            categoryList.Add(categoryInfo);
-                        }
-                        else if (flag && categoryInfo.Layer == layer)
-                        {
-                            break;
-                        }
-                    }
-                }
-            }
-            return categoryList;
+            return GetChildCategoryList(cateId, layer, isAllChildren, GetCategoryList());
+         
         }
 
         /// <summary>
@@ -221,7 +239,7 @@ namespace NStore.Services
         /// </summary>
         /// <param name="cateId">分类id</param>
         /// <param name="layer">级别</param>
-        /// <param name="isAllChildren">是否包括全部子节点</param>
+        /// <param name="isAllChildren">是否包括全部后代子节点</param>
         /// <param name="categoryList">分类列表</param>
         /// <returns></returns>
         public static List<CategoryInfo> GetChildCategoryList(int cateId, int layer, bool isAllChildren, List<CategoryInfo> categoryList)

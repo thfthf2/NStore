@@ -24,7 +24,7 @@ namespace NStore.Web.Models
         /// <summary>
         /// 商品分类
         /// </summary>
-        public CategoryInfo CategoryInfo { get; set; }
+        public List<CategoryInfo> CategoryInfo { get; set; }
         /// <summary>
         /// 商品品牌
         /// </summary>
