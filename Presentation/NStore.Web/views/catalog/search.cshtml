@@ -231,7 +231,7 @@
             </b>
             <div class="info">
                 <div class="star"><span class="star_yellow" style=" width:@Html.Raw((info.GetStarLevel()*20).ToString())%;">&nbsp;</span></div>
-                <a href="#">已有 @info.ReviewCount 人评价</a> 
+                <a href="@Url.Action("productreviewlist",new RouteValueDictionary { { "pid", info.Pid } })">已有 @info.ReviewCount 人评价</a> 
             </div>
             <div class="info2"><span onclick="addProductToFavorite(@info.Pid)">加入收藏</span><a href="javascript:addProductToCart(@info.Pid, 1)" class="addShopping">加入购物车</a></div>
         </li>

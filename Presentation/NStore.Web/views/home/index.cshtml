@@ -19,6 +19,15 @@
         uid = @WorkContext.Uid;
         isGuestSC = @WorkContext.MallConfig.IsGuestSC;
         scSubmitType = @WorkContext.MallConfig.SCSubmitType;
+
+        function changeRed(id)
+        {
+            javascript:document.getElementById(id).style.backgroundColor='#e13a3a';
+        }
+        function changeBlue(id)
+        {
+            javascript:document.getElementById(id).style.backgroundColor='#3897da';
+        }
     </script>
 }
 
@@ -112,39 +121,39 @@
                                 </div>
                             @if (bannerList.Length > 1)
                             {
-                            <script type="text/javascript">
-                                new Marquee(
-                                            {
-                                                MSClassID: "bannerBox",
-                                                ContentID: "bannerContentID",
-                                                TabID: "bannerNumID",
-                                                Direction: 2,
-                                                Step: 0.5,
-                                                Width: 670,
-                                                Height: 240,
-                                                Timer: 20,
-                                                DelayTime: 3000,
-                                                WaitTime: 0,
-                                                ScrollStep: 670,
-                                                SwitchType: 0,
-                                                AutoStart: 1
-                                            })
-                            </script>
+                                <script type="text/javascript">
+                                    new Marquee(
+                                                {
+                                                    MSClassID: "bannerBox",
+                                                    ContentID: "bannerContentID",
+                                                    TabID: "bannerNumID",
+                                                    Direction: 2,
+                                                    Step: 0.5,
+                                                    Width: 670,
+                                                    Height: 240,
+                                                    Timer: 20,
+                                                    DelayTime: 3000,
+                                                    WaitTime: 0,
+                                                    ScrollStep: 670,
+                                                    SwitchType: 0,
+                                                    AutoStart: 1
+                                                })
+                                </script>
                             }
-                                                </div>
-                                            </div>
-                                            <div id="index2">
+                        </div>
+                        </div>
+                        <div id="index2">
 
-                                                <div class="scroll left">
-                                                    <div id="demo" style="width:600px; overflow:hidden;margin-left:33px; position:relative; height:176px;">
-                                                        <div class="inScroll" id="demo1">
-                                                            <ul>
-                                                                @{
-                                                List<AdvertInfo> bannerBottomAdvertList = Adverts.GetAdvertList(8);
-                                                                }
-                                                                <AdvertInfo>
-                                                                    <AdvertInfo>
-                                                                        @foreach (AdvertInfo info in bannerBottomAdvertList)
+                        <div class="scroll left">
+                            <div id="demo" style="width:600px; overflow:hidden;margin-left:33px; position:relative; height:176px;">
+                                <div class="inScroll" id="demo1">
+                                    <ul>
+                                        @{
+                        List<AdvertInfo> bannerBottomAdvertList = Adverts.GetAdvertList(8);
+                                        }
+                                        <AdvertInfo>
+                                            <AdvertInfo>
+                                                @foreach (AdvertInfo info in bannerBottomAdvertList)
                                                 {
                                                                         <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="200" height="160" /></a></li>
     }
@@ -196,196 +205,196 @@
                                                     }
                                                     @foreach (DataRow row in homeNewsList.Rows)
                 {
-                                                            <li style="list-style-type:square;" class="hidegongao">
-                                                                <a href="@Url.Action("details", "news", new RouteValueDictionary { { "newsId", row["newsid"] } })">@row["title"]</a>
-                                                            </li>
-                                                        }
-                                                </ul>
+                            <li style="list-style-type:square;" class="hidegongao">
+                                <a href="@Url.Action("details", "news", new RouteValueDictionary { { "newsId", row["newsid"] } })">@row["title"]</a>
+                            </li>
+                        }
+                </ul>
 
-                                                <script type="text/javascript">
-                                                    var showindex=1;
-                                                    var lidivs=  $("ul.textList").find("li");
-                                                    if (lidivs.length>0) {
-                                                        $(lidivs[showindex]).removeClass("hidegongao");
-                                                    }
-                                                    var timer = setInterval(function() {
+                <script type="text/javascript">
+                    var showindex=1;
+                    var lidivs=  $("ul.textList").find("li");
+                    if (lidivs.length>0) {
+                        $(lidivs[showindex]).removeClass("hidegongao");
+                    }
+                    var timer = setInterval(function() {
 
-                                                        if (lidivs.length>0) {
-                                                            var beforeindex=showindex-1;
-                                                            if (showindex>lidivs.length-1) {
-                                                                showindex=0;
-                                                                beforeindex=lidivs.length-1;
-                                                            }
+                        if (lidivs.length>0) {
+                            var beforeindex=showindex-1;
+                            if (showindex>lidivs.length-1) {
+                                showindex=0;
+                                beforeindex=lidivs.length-1;
+                            }
 
-                                                            $(lidivs[beforeindex]).addClass("hidegongao");
-                                                            $(lidivs[showindex]).removeClass("hidegongao");
-                                                            showindex=showindex+1;
-                                                        }
-                                                    }, 2000);
+                            $(lidivs[beforeindex]).addClass("hidegongao");
+                            $(lidivs[showindex]).removeClass("hidegongao");
+                            showindex=showindex+1;
+                        }
+                    }, 2000);
 
-                                                </script>
-                                            </div>
-                                            <div class="baojia">
-                                                <a href="#">直接报价</a>
-                                            </div>
-                                            @if (WorkContext.Uid>0)
-        {
-                                                                <div class="userinfo">
-                                                                    <table>
-                                                                        <tbody>
-                                                                            <tr class="base first">
-                                                                                <td style="width:153px">
-                                                                                    <span>欢迎:</span>&nbsp;@WorkContext.PartUserInfo.UserName
-                                                                                </td>
-                                                                                <td>
-                                                                                    <span>等级:</span>&nbsp;@WorkContext.UserRankInfo.Title
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr class="base second">
-                                                                                <td style="width:153px">
-                                                                                    <a href="@Url.Action("userinfo", "ucenter")">&nbsp;个人中心</a>
-                                                                                </td>
-                                                                                <td style="width:147px">
-                                                                                    <a href="@Url.Action("logout", "account")">退出&nbsp;</a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr class="base">
-                                                                                <td style="width:153px">您感兴趣的商品：</td>
-                                                                                <td style="width:147px; text-align:right"><a href="#">更多&nbsp;&nbsp;</a></td>
-                                                                            </tr>
-                                                                            <tr class="productlist">
-                                                                                <td colspan="2">
-                                                                                    <div style="padding-left:5px;">
-                                                                                        <table>
-                                                                                            @for (int i = 0; i< 4; i++)
+                </script>
+            </div>
+            @if (WorkContext.Uid > 0)
+            {
+                <div id="baojia" class="baojia" onmousemove="javascript:document.getElementById('baojia').style.backgroundColor='#e13a3a'"  onmouseout="javascript:document.getElementById('baojia').style.backgroundColor='#3897da'">
+                    <a href="#">直接报价</a>
+                </div>
+            <div class="userinfo">
+                <table>
+                    <tbody>
+                        <tr class="base first">
+                            <td style="width:153px">
+                                <span>欢迎您:</span>&nbsp;@WorkContext.PartUserInfo.UserName
+                            </td>
+                            <td>
+                                <span>等级:</span>&nbsp;@WorkContext.UserRankInfo.Title
+                            </td>
+                        </tr>
+                        <tr class="base second">
+                            <td style="width:153px">
+                                <a href="@Url.Action("userinfo", "ucenter")">&nbsp;个人中心</a>
+                            </td>
+                            <td style="width:147px">
+                                <a href="@Url.Action("logout", "account")">退出&nbsp;</a>
+                            </td>
+                        </tr>
+                        <tr class="base">
+                            <td style="width:153px">您感兴趣的商品：</td>
+                            <td style="width:147px; text-align:right"><a href="#">更多&nbsp;&nbsp;</a></td>
+                        </tr>
+                        <tr class="productlist">
+                            <td colspan="2">
+                                <div style="padding-left:5px;">
+                                    <table>
+                                        @for (int i = 0; i< 4; i++)
                                         {
-                                                                                        <tr onmousemove="showorderproduct(this)" onmouseout="closeorderproduct(this)">
-                                                                                            <td class="order">
-                                                                                                <b>图片</b>&nbsp;2018-11-21
+                                            <tr onmousemove="showorderproduct(this)" onmouseout="closeorderproduct(this)">
+                                                <td class="order">
+                                                    <b>图片</b>&nbsp;2018-11-21
 
-                                                                                                <div class="orderproduct">
-                                                                                                    <ul>
-                                                                                                        <li>订单商品1 @i</li>
-                                                                                                        <li>订单商品2 @i</li>
-                                                                                                        <li>订单商品2 @i</li>
-                                                                                                    </ul>
-                                                                                                </div>
-                                                                                            </td>
-                                                                                            <td class="action"><a href="#">加购</a>&nbsp;<a href="#">购买</a></td>
-                                                                                        </tr>
+                                                    <div class="orderproduct">
+                                                        <ul>
+                                                            <li>订单商品1 @i</li>
+                                                            <li>订单商品2 @i</li>
+                                                            <li>订单商品2 @i</li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                                <td class="action"><a href="#">加购</a>&nbsp;<a href="#">购买</a></td>
+                                            </tr>
                                         }
-                                                                                        </table>
+                                    </table>
 
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-                                                                    @*<div class="base">
-                                                                            <div class="left">
-                                                                                <span>&nbsp;欢迎：</span>&nbsp;@WorkContext.PartUserInfo.UserName
-                                                                            </div>
-                                                                            <div class="right">
-                                                                                <span>当前等级：</span>&nbsp;@WorkContext.UserRankInfo.Title &nbsp;
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="clear"></div>
-                                                                        <div class="tanfer">
-                                                                            <ul>
-                                                                                <li class="left"><a href="#">&nbsp;个人中心</a></li>
-                                                                                <li class="left"><a href="#">退出&nbsp;</a></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                        <div class="order">
+                @*<div class="base">
+                        <div class="left">
+                            <span>&nbsp;欢迎：</span>&nbsp;@WorkContext.PartUserInfo.UserName
+                        </div>
+                        <div class="right">
+                            <span>当前等级：</span>&nbsp;@WorkContext.UserRankInfo.Title &nbsp;
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="tanfer">
+                        <ul>
+                            <li class="left"><a href="#">&nbsp;个人中心</a></li>
+                            <li class="left"><a href="#">退出&nbsp;</a></li>
+                        </ul>
+                    </div>
+                    <div class="order">
 
-                                                                        </div>*@<div class="base">
-                                                                        <div class="left">
-                                                                            <span></span>
-                                                                        </div>
-                                                                        <div class="right">
-                                                                            <span></span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="clear"></div>
-                                                                    <div class="tanfer">
-                                                                        <ul>
-                                                                            <li class="left"><a href="#"></a></li>
-                                                                            <li class="left"><a href="#"></a></li>
-                                                                        </ul>
-                                                                    </div>
-                                                                    <div class="order">
+                    </div>*@<div class="base">
+                    <div class="left">
+                        <span></span>
+                    </div>
+                    <div class="right">
+                        <span></span>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="tanfer">
+                    <ul>
+                        <li class="left"><a href="#"></a></li>
+                        <li class="left"><a href="#"></a></li>
+                    </ul>
+                </div>
+                <div class="order">
 
-                                                                    </div><div class="base">
-                                                                        <div class="left">
-                                                                            <span></span>
-                                                                        </div>
-                                                                        <div class="right">
-                                                                            <span></span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="clear"></div>
-                                                                    <div class="tanfer">
-                                                                        <ul>
-                                                                            <li class="left"><a href="#"></a></li>
-                                                                            <li class="left"><a href="#"></a></li>
-                                                                        </ul>
-                                                                    </div>
-                                                                    <div class="order">
+                </div><div class="base">
+                    <div class="left">
+                        <span></span>
+                    </div>
+                    <div class="right">
+                        <span></span>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="tanfer">
+                    <ul>
+                        <li class="left"><a href="#"></a></li>
+                        <li class="left"><a href="#"></a></li>
+                    </ul>
+                </div>
+                <div class="order">
 
-                                                                    </div><div class="base">
-                                                                        <div class="left">
-                                                                            <span></span>
-                                                                        </div>
-                                                                        <div class="right">
-                                                                            <span></span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="clear"></div>
-                                                                    <div class="tanfer">
-                                                                        <ul>
-                                                                            <li class="left"><a href="#"></a></li>
-                                                                            <li class="left"><a href="#"></a></li>
-                                                                        </ul>
-                                                                    </div>
-                                                                    <div class="order">
+                </div><div class="base">
+                    <div class="left">
+                        <span></span>
+                    </div>
+                    <div class="right">
+                        <span></span>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="tanfer">
+                    <ul>
+                        <li class="left"><a href="#"></a></li>
+                        <li class="left"><a href="#"></a></li>
+                    </ul>
+                </div>
+                <div class="order">
 
-                                                                    </div>
-                                                                </div>
+                </div>
+            </div>
         }
         else
         {
-                                                                                                            <div class="logoinfo">
-                                                                                                                <div class="logoregister">
-                                                                                                                    <table>
-                                                                                                                        <thead class="logohead">
-                                                                                                                            <tr><td colspan="3">登陆注册</td></tr>
-                                                                                                                        </thead>
-                                                                                                                        <tbody>
-                                                                                                                            <tr style="height:3px; background-color:aliceblue;"><td colspan="3"></td></tr>
-                                                                                                                            <tr>
-                                                                                                                                <td class="enter"><a href="/account/login?registerType=0">个人用户</a></td>
-                                                                                                                                <td style="width:2px;">&nbsp;</td>
-                                                                                                                                <td class="enter"><a href="/account/login?registerType=1">企业用户</a></td>
-                                                                                                                            </tr>
-                                                                                                                        </tbody>
-                                                                                                                    </table>
-                                                                                                                </div>
-                                                                                                                <div class="indexAd">
-                                                                                                                    @{
-                            List<AdvertInfo> newsBottomAdvertList = Adverts.GetAdvertList(9);
-                                                                                                                    }<AdvertInfo>
-                                                                                                                        <AdvertInfo>
-                                                                                                                            <a href="@((newsBottomAdvertList != null && newsBottomAdvertList.Count > 0) ? newsBottomAdvertList[0].Url : string.Empty)">
-                                                                                                                                <img src="@{@WorkContext.ImageCDN}/upload/advert/@((newsBottomAdvertList != null && newsBottomAdvertList.Count > 0) ?newsBottomAdvertList[0].Body : string.Empty)" width="302" height="160" />
-                                                                                                                            </a>
-
-                                                                                                                        </AdvertInfo>
-
-                                                                                                                    </AdvertInfo>
-
-                                                                                                                </div>
-                                                                                                            </div>
+            <div class="logoinfo">
+                <div class="logoregister">
+                    <table>
+                        <thead class="logohead">
+                            <tr><td colspan="3">游客您好，请<span class="font_b">登录</span>/<span class="font_b">注册</span>:</td></tr>
+                        </thead>
+                        <tbody>
+                            <tr style="height:3px; background-color:aliceblue;"><td colspan="3"></td></tr>
+                            <tr>
+                                <td id="person" class="enter"><a href="/account/login?registerType=0"  onmouseover="changeRed('person')"  onmouseout="changeBlue('person')">个人用户</a></td>
+                                <td style="width:2px;">&nbsp;</td>
+                                <td id="company" class="enter"><a href="/account/login?registerType=1"  onmouseover="changeRed('company')"  onmouseout="changeBlue('company')">企业用户</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="baojia1" class="baojia" onmouseover="changeRed('baojia1')"  onmouseout="changeBlue('baojia1')">
+                <a href="#">直接报价</a>
+            </div>
+                <div class="indexAd">
+                    @{
+                        List<AdvertInfo> newsBottomAdvertList = Adverts.GetAdvertList(9);
+                    }<AdvertInfo>
+                        <AdvertInfo>
+                            <a href="@((newsBottomAdvertList != null && newsBottomAdvertList.Count > 0) ? newsBottomAdvertList[0].Url : string.Empty)">
+                                <img src="@{@WorkContext.ImageCDN}/upload/advert/@((newsBottomAdvertList != null && newsBottomAdvertList.Count > 0) ?newsBottomAdvertList[0].Body : string.Empty)" width="302" height="180" />
+                            </a>
+                        </AdvertInfo>
+                    </AdvertInfo>
+                </div>
+            </div>
         }
                                         </div>
                                         <div class="clear"></div>

@@ -85,8 +85,8 @@
                     热门搜索：
                     @{
                         List<AdvertInfo> searchWordAdvertList = Adverts.GetAdvertList(5);
-                    }<AdvertInfo>
-                        @Html.Raw((searchWordAdvertList != null && searchWordAdvertList.Count > 0) ? searchWordAdvertList[0].Body : string.Empty)
+                    }
+                    @Html.Raw((searchWordAdvertList != null && searchWordAdvertList.Count > 0) ? searchWordAdvertList[0].Body : string.Empty)
                 </div>
             </div>
             <div class="shopping right" onmousemove="getCartSnap()" id="cartSnapBox" onmouseout="closeCartSnap(event)">

@@ -42,19 +42,21 @@ body .btR{ background-position:right bottom;right:8px; top:50%;margin-top:-10px;
 html body .btRhot,body .btR:hover{background-position:right top;}
 
 /*报价入口*/
-.baojia {width:320px;height:50px;margin-top:10px;padding-left:95px;background-color:#ccc; border:0 solid }
-.baojia a {font-size:25px;line-height:50px;}
+.baojia {width:320px;height:50px;margin-top:10px;padding-left:95px;background-color:#3897da; border:0 solid;color:#fff; }
+.baojia a {font-size:25px;line-height:50px;color: #fff;}
 
 /*未登录用户入口*/
 .logoinfo{width:320px;margin-top:10px;}
 /*.userinfo .logoregister { width:319px;height:100px;}*/
-.logoinfo .logoregister table { width:300px;text-align:center;vertical-align:bottom;border: 1px solid black;border-collapse: collapse;}
-.logoinfo .logoregister table thead { font-size:20px;line-height:51px;background-color:#ccc;}
+.logoinfo .logoregister table { width:300px;text-align:center;vertical-align:bottom;border: 0px solid black;border-collapse: collapse;}
+.logoinfo .logoregister table thead { font-size:16px;line-height:31px;text-align: left;}
+.logoinfo .logoregister table thead .font_b{ color:#3897da;}
 .logoinfo .logoregister table tbody { font-size:20px;line-height:51px;margin-top:1px;}
-.logoinfo .logoregister table tbody .enter{background-color:#ccc;}
+.logoinfo .logoregister table tbody .enter{background-color:#3897da;}
+.logoinfo .logoregister table tbody .enter a{color:#fff;}
 
 /*公告下面小广告*/
-.indexAd{margin-top:21px; width:302px; border:1px solid #e1e1e1; height:160px;}
+.indexAd{margin-top:21px; width:302px; border:1px solid #e1e1e1; height:180px;}
 
 /*登陆用户入口*/
 .userinfo { width:300px;margin-top:10px;border:1px solid #e1e1e1;height:287px;}
