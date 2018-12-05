@@ -20,13 +20,15 @@
         isGuestSC = @WorkContext.MallConfig.IsGuestSC;
         scSubmitType = @WorkContext.MallConfig.SCSubmitType;
 
-        function changeRed(id)
+        function changeRed(obj)
         {
-            javascript:document.getElementById(id).style.backgroundColor='#e13a3a';
+            //$(obj).css({"background":"#e13a3a"});
+            obj.style.backgroundColor='#e13a3a';
         }
-        function changeBlue(id)
+        function changeBlue(obj)
         {
-            javascript:document.getElementById(id).style.backgroundColor='#3897da';
+            //$(obj).css({"background":"#3897da"});
+            obj.style.backgroundColor='#3897da';
         }
     </script>
 }
@@ -236,7 +238,7 @@
             </div>
             @if (WorkContext.Uid > 0)
             {
-                <div id="baojia" class="baojia" onmousemove="javascript:document.getElementById('baojia').style.backgroundColor='#e13a3a'"  onmouseout="javascript:document.getElementById('baojia').style.backgroundColor='#3897da'">
+                <div class="baojia" onmouseover="changeRed(this)"  onmouseout="changeBlue(this)">
                     <a href="#">直接报价</a>
                 </div>
             <div class="userinfo">
@@ -244,17 +246,17 @@
                     <tbody>
                         <tr class="base first">
                             <td style="width:153px">
-                                <span>欢迎您:</span>&nbsp;@WorkContext.PartUserInfo.UserName
+                                <span>&nbsp;您好:</span>&nbsp;@WorkContext.PartUserInfo.UserName
                             </td>
                             <td>
-                                <span>等级:</span>&nbsp;@WorkContext.UserRankInfo.Title
+                                <span>等级:</span>&nbsp;<img src="@WorkContext.UserRankInfo.Avatar" alt="@WorkContext.UserRankInfo.Title"/>
                             </td>
                         </tr>
                         <tr class="base second">
-                            <td style="width:153px">
+                            <td style="width:148px" onmouseover="changeRed(this)"  onmouseout="changeBlue(this)">
                                 <a href="@Url.Action("userinfo", "ucenter")">&nbsp;个人中心</a>
                             </td>
-                            <td style="width:147px">
+                            <td style="width:152px" onmouseover="changeRed(this)"  onmouseout="changeBlue(this)">
                                 <a href="@Url.Action("logout", "account")">退出&nbsp;</a>
                             </td>
                         </tr>
@@ -290,76 +292,6 @@
                         </tr>
                     </tbody>
                 </table>
-
-                @*<div class="base">
-                        <div class="left">
-                            <span>&nbsp;欢迎：</span>&nbsp;@WorkContext.PartUserInfo.UserName
-                        </div>
-                        <div class="right">
-                            <span>当前等级：</span>&nbsp;@WorkContext.UserRankInfo.Title &nbsp;
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                    <div class="tanfer">
-                        <ul>
-                            <li class="left"><a href="#">&nbsp;个人中心</a></li>
-                            <li class="left"><a href="#">退出&nbsp;</a></li>
-                        </ul>
-                    </div>
-                    <div class="order">
-
-                    </div>*@<div class="base">
-                    <div class="left">
-                        <span></span>
-                    </div>
-                    <div class="right">
-                        <span></span>
-                    </div>
-                </div>
-                <div class="clear"></div>
-                <div class="tanfer">
-                    <ul>
-                        <li class="left"><a href="#"></a></li>
-                        <li class="left"><a href="#"></a></li>
-                    </ul>
-                </div>
-                <div class="order">
-
-                </div><div class="base">
-                    <div class="left">
-                        <span></span>
-                    </div>
-                    <div class="right">
-                        <span></span>
-                    </div>
-                </div>
-                <div class="clear"></div>
-                <div class="tanfer">
-                    <ul>
-                        <li class="left"><a href="#"></a></li>
-                        <li class="left"><a href="#"></a></li>
-                    </ul>
-                </div>
-                <div class="order">
-
-                </div><div class="base">
-                    <div class="left">
-                        <span></span>
-                    </div>
-                    <div class="right">
-                        <span></span>
-                    </div>
-                </div>
-                <div class="clear"></div>
-                <div class="tanfer">
-                    <ul>
-                        <li class="left"><a href="#"></a></li>
-                        <li class="left"><a href="#"></a></li>
-                    </ul>
-                </div>
-                <div class="order">
-
-                </div>
             </div>
         }
         else
@@ -368,19 +300,19 @@
                 <div class="logoregister">
                     <table>
                         <thead class="logohead">
-                            <tr><td colspan="3">游客您好，请<span class="font_b">登录</span>/<span class="font_b">注册</span>:</td></tr>
+                            <tr><td colspan="3">&nbsp;访客您好，请<a class="font_b" href="/account/login?registerType=0">登录</a>/<a class="font_b" href="@Url.Action("register","account")">注册</a>:</td></tr>
                         </thead>
                         <tbody>
                             <tr style="height:3px; background-color:aliceblue;"><td colspan="3"></td></tr>
                             <tr>
-                                <td id="person" class="enter"><a href="/account/login?registerType=0"  onmouseover="changeRed('person')"  onmouseout="changeBlue('person')">个人用户</a></td>
-                                <td style="width:2px;">&nbsp;</td>
-                                <td id="company" class="enter"><a href="/account/login?registerType=1"  onmouseover="changeRed('company')"  onmouseout="changeBlue('company')">企业用户</a></td>
+                                <td class="enter" onmouseover="changeRed(this)"  onmouseout="changeBlue(this)"><a href="/account/login?registerType=0">个人用户</a></td>
+                                <td style="width:3px;">&nbsp;</td>
+                                <td class="enter" onmouseover="changeRed(this)"  onmouseout="changeBlue(this)"><a href="/account/login?registerType=1">企业用户</a></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div id="baojia1" class="baojia" onmouseover="changeRed('baojia1')"  onmouseout="changeBlue('baojia1')">
+                <div class="baojia" onmouseover="changeRed(this)"  onmouseout="changeBlue(this)">
                 <a href="#">直接报价</a>
             </div>
                 <div class="indexAd">
@@ -461,7 +393,9 @@
                                                                 @info.ExtField3<s>¥@info.ExtField2</s>
                                                             }
                                                             </b>
-                                                            </a></li>
+                                                            </a>
+                                                            @*<div class="info2"><span onclick="javascript:addProductToCart(@info.Body, 2)">加入购物车</span><a href="javascript:addProductToCart(@info.Body, 1)" class="addShopping">立即购买</a></div>*@
+                                                        </li>
     }
                                                     </AdvertInfo>
                                                 </AdvertInfo>
@@ -1060,7 +994,8 @@
                 <!-- 品牌商标展示 -->
                 <div class="floor box1210">
                     <h2 class="floorT">
-                         <b>5F</b>品牌合作商
+                         @*<b>5F</b>*@
+                        合作品牌
                     </h2>
                    
                     <div>

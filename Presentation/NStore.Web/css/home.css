@@ -63,7 +63,8 @@ html body .btRhot,body .btR:hover{background-position:right top;}
 .userinfo table{font-size:18px;width:100%; }
 .userinfo table tr{display:block;  }
 .userinfo table tr.base{line-height:50px;text-align:left; }
-.userinfo table .second td{background-color:#ccc;color:cornflowerblue; }
+.userinfo table .second td{background-color:#3897da;text-align:center;}
+.userinfo table .second td a{color:#fff; }
 
 
 .userinfo .productlist {height:100%; margin-top: -16px;}
