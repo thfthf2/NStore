@@ -252,14 +252,14 @@
                                 <span>等级:</span>&nbsp;<img src="@WorkContext.UserRankInfo.Avatar" alt="@WorkContext.UserRankInfo.Title"/>
                             </td>
                         </tr>
-                        <tr class="base second">
+                        @*<tr class="base second">
                             <td style="width:148px" onmouseenter="changeRed(this)"  onmouseleave="changeBlue(this)">
                                 <a href="@Url.Action("userinfo", "ucenter")">&nbsp;个人中心</a>
                             </td>
                             <td style="width:152px" onmouseenter="changeRed(this)"  onmouseleave="changeBlue(this)">
                                 <a href="@Url.Action("logout", "account")">退出&nbsp;</a>
                             </td>
-                        </tr>
+                        </tr>*@
                         <tr class="base">
                             <td style="width:153px">您感兴趣的商品：</td>
                             <td style="width:147px; text-align:right"><a href="#">更多&nbsp;&nbsp;</a></td>
@@ -268,7 +268,7 @@
                             <td colspan="2">
                                 <div style="padding-left:5px;">
                                     <table>
-                                        @for (int i = 0; i< 4; i++)
+                                        @for (int i = 0; i< 5; i++)
                                         {
                                             <tr onmouseenter="showorderproduct(this)" onmouseleave="closeorderproduct(this)">
                                                 <td class="order">
@@ -336,12 +336,12 @@
                 <!-- 1楼 -->
                                     <div class="floor box1210">
                                         <h2 class="floorT">
-                                            <b>1F</b>电脑/办公用品
+                                            <b>1F</b>条码设备/耗材
                                             <ul>
-                                                <li><a href="javascript:void(0)">组装电脑</a></li>
-                                                <li><a href="javascript:void(0)">电脑配件</a></li>
-                                                <li><a href="javascript:void(0)">打印复印</a></li>
-                                                <li><a href="javascript:void(0)">打印耗材</a></li>
+                                                <li><a href="javascript:void(0)">待定</a></li>
+                                                <li><a href="javascript:void(0)">待定</a></li>
+                                                <li><a href="javascript:void(0)">扫描</a></li>
+                                                <li><a href="javascript:void(0)">碳带</a></li>
                                                 <div class="clear"></div>
                                             </ul>
                                             <div class="clear"></div>
@@ -378,8 +378,6 @@
                                                 @{
     List<AdvertInfo> floor1AdvertList3 = Adverts.GetAdvertList(12);
                                                 }
-                                                <AdvertInfo>
-                                                    <AdvertInfo>
                                                         @foreach (AdvertInfo info in floor1AdvertList3)
     {
                                                         <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
@@ -393,12 +391,10 @@
                                                                 @info.ExtField3<s>¥@info.ExtField2</s>
                                                             }
                                                             </b>
-                                                            </a>
-                                                            @*<div class="info2"><span onclick="javascript:addProductToCart(@info.Body, 2)">加入购物车</span><a href="javascript:addProductToCart(@info.Body, 1)" class="addShopping">立即购买</a></div>*@
+                                                           </a>
+                                                           <div><a class="btn addShopping" href="javascript:addProductToCart(@info.Body, 1)">加入购物车</a><a href="javascript:addProductToCart(@info.Body, 1)" class="btn nowbuy">立即购买</a></div>
                                                         </li>
     }
-                                                    </AdvertInfo>
-                                                </AdvertInfo>
                                             </ul>
                                         </div>
                                     </div>
@@ -408,8 +404,6 @@
                                                 @{
     List<AdvertInfo> floor1AdvertList4 = Adverts.GetAdvertList(13);
                                                 }
-                                                <AdvertInfo>
-                                                    <AdvertInfo>
                                                         @foreach (AdvertInfo info in floor1AdvertList4)
     {
                                                         <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
@@ -425,8 +419,6 @@
                                                                 </b>
                                                             </a></li>
     }
-                                                    </AdvertInfo>
-                                                </AdvertInfo>
                                             </ul>
                                         </div>
                                     </div>
@@ -436,8 +428,6 @@
                                                     @{
         List<AdvertInfo> floor1AdvertList5 = Adverts.GetAdvertList(14);
                                                     }
-                                                    <AdvertInfo>
-                                                        <AdvertInfo>
                                                             @foreach (AdvertInfo info in floor1AdvertList5)
      {
                                                             <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
@@ -453,8 +443,6 @@
                                                                     </b>
                                                                 </a></li>
      }
-                                                        </AdvertInfo>
-                                                    </AdvertInfo>
                                                 </ul>
                                             </div>
                                         </div>
@@ -464,8 +452,6 @@
                                                     @{
         List<AdvertInfo> floor1AdvertList6 = Adverts.GetAdvertList(15);
                                                     }
-                                                    <AdvertInfo>
-                                                        <AdvertInfo>
                                                             @foreach (AdvertInfo info in floor1AdvertList6)
      {
                                                             <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
@@ -481,8 +467,6 @@
                                                                     </b>
                                                                 </a></li>
      }
-                                                        </AdvertInfo>
-                                                    </AdvertInfo>
                                                 </ul>
                                             </div>
                                         </div>
@@ -492,12 +476,12 @@
                 <!-- 2楼 -->
                                     <div class="floor box1210">
                                         <h2 class="floorT">
-                                            <b>2F</b>打印耗材
+                                            <b>2F</b>组装电脑/配件
                                             <ul>
-                                                <li><a href="javascript:void(0)">条码打印机</a></li>
-                                                <li><a href="javascript:void(0)">条码打印机</a></li>
-                                                <li><a href="javascript:void(0)">条码打印机</a></li>
-                                                <li><a href="javascript:void(0)">碳带</a></li>
+                                                <li><a href="javascript:void(0)">家用</a></li>
+                                                <li><a href="javascript:void(0)">办公</a></li>
+                                                <li><a href="javascript:void(0)">游戏</a></li>
+                                                <li><a href="javascript:void(0)">待定</a></li>
                                                 <div class="clear"></div>
                                             </ul><div class="clear"></div>
                                         </h2>
@@ -506,20 +490,15 @@
                                                 @{
         List<AdvertInfo> floor2AdvertList1 = Adverts.GetAdvertList(16);
                                                 }
-                                                <AdvertInfo>
-                                                    <AdvertInfo>
                                                         @foreach (AdvertInfo info in floor2AdvertList1)
      {
                                                         <li><a href="@info.Url" class="hot">@info.Body</a></li>
      }
                                                         <div class="clear"></div>
-                                                    </AdvertInfo>
-                                                </AdvertInfo>
                                             </ul>
                                             @{
         List<AdvertInfo> floor2AdvertList2 = Adverts.GetAdvertList(17);
-                                            }<AdvertInfo>
-                                                <AdvertInfo>
+                                            }
                                                     @if (floor2AdvertList2.Count > 0)
      {
                                                     <a href="@floor2AdvertList2[0].Url" class="floorAD"><img src="@{@WorkContext.ImageCDN}/upload/advert/@floor2AdvertList2[0].Body" width="202" height="155" /></a>
@@ -533,8 +512,6 @@
                                                     @{
         List<AdvertInfo> floor2AdvertList3 = Adverts.GetAdvertList(18);
                                                     }
-                                                    <AdvertInfo>
-                                                        <AdvertInfo>
                                                             @foreach (AdvertInfo info in floor2AdvertList3)
      {
                                                             <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
@@ -551,8 +528,6 @@
                                                                     </b>
                                                                 </a></li>
      }
-                                                        </AdvertInfo>
-                                                    </AdvertInfo>
                                                 </ul>
                                             </div>
                                         </div>
@@ -562,8 +537,6 @@
                                                     @{
         List<AdvertInfo> floor2AdvertList4 = Adverts.GetAdvertList(19);
                                                     }
-                                                    <AdvertInfo>
-                                                        <AdvertInfo>
                                                             @foreach (AdvertInfo info in floor2AdvertList4)
      {
                                                             <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
@@ -580,8 +553,6 @@
                                                                     </b>
                                                                 </a></li>
      }
-                                                        </AdvertInfo>
-                                                    </AdvertInfo>
                                                 </ul>
                                             </div>
                                         </div>
@@ -591,8 +562,6 @@
                                                     @{
         List<AdvertInfo> floor2AdvertList5 = Adverts.GetAdvertList(20);
                                                     }
-                                                    <AdvertInfo>
-                                                        <AdvertInfo>
                                                             @foreach (AdvertInfo info in floor2AdvertList5)
      {
                                                             <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
@@ -607,8 +576,6 @@
                                                                 }
                                                                </b></a></li>
      }
-                                                        </AdvertInfo>
-                                                    </AdvertInfo>
                                                 </ul>
                                             </div>
                                         </div>
@@ -618,8 +585,6 @@
                                                     @{
         List<AdvertInfo> floor2AdvertList6 = Adverts.GetAdvertList(21);
                                                     }
-                                                    <AdvertInfo>
-                                                        <AdvertInfo>
                                                             @foreach (AdvertInfo info in floor2AdvertList6)
      {
                                                             <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
@@ -634,8 +599,6 @@
                                                                 }
                                                                </b></a></li>
      }
-                                                        </AdvertInfo>
-                                                    </AdvertInfo>
                                                 </ul>
                                             </div>
                                         </div>
@@ -645,12 +608,12 @@
                 <!-- 3楼 -->
                                     <div class="floor box1210">
                                         <h2 class="floorT">
-                                            <b>3F</b>打印耗材
+                                            <b>3F</b>办公打印
                                             <ul>
-                                                <li><a href="javascript:void(0)">条码打印机</a></li>
-                                                <li><a href="javascript:void(0)">条码打印机</a></li>
-                                                <li><a href="javascript:void(0)">条码打印机</a></li>
-                                                <li><a href="javascript:void(0)">碳带</a></li>
+                                                <li><a href="javascript:void(0)">耗材</a></li>
+                                                <li><a href="javascript:void(0)">复印机</a></li>
+                                                <li><a href="javascript:void(0)">打印机</a></li>
+                                                <li><a href="javascript:void(0)">待定</a></li>
                                                 <div class="clear"></div>
                                             </ul>
                                             <div class="clear"></div>
@@ -660,34 +623,19 @@
                                                 @{
                                 List<AdvertInfo> floor3AdvertList1 = Adverts.GetAdvertList(16);
                                                 }
-                                                <AdvertInfo>
-                                                    <AdvertInfo>
-                                                        <AdvertInfo>
-                                                            <AdvertInfo>
                                                                 @foreach (AdvertInfo info in floor3AdvertList1)
                                         {
                                                         <li><a href="@info.Url" class="hot">@info.Body</a></li>
                                         }
                                                                 <div class="clear"></div>
-                                                            </AdvertInfo>
-                                                        </AdvertInfo>
-                                                    </AdvertInfo>
-                                                </AdvertInfo>
                                             </ul>
                                             @{
                             List<AdvertInfo> floor3AdvertList2 = Adverts.GetAdvertList(17);
-                                            }<AdvertInfo>
-                                                <AdvertInfo>
-                                                    <AdvertInfo>
-                                                        <AdvertInfo>
+                                            }
                                                             @if (floor3AdvertList2.Count > 0)
                                     {
                                                     <a href="@floor2AdvertList2[0].Url" class="floorAD"><img src="@{@WorkContext.ImageCDN}/upload/advert/@floor2AdvertList2[0].Body" width="202" height="155" /></a>
     }
-                                                        </AdvertInfo>
-                                                    </AdvertInfo>
-                                                </AdvertInfo>
-                                            </AdvertInfo>
                                         </div>
                                         <div class="floorR right">
                                             <div class="floorCon">
@@ -695,10 +643,6 @@
                                                     @{
                                     List<AdvertInfo> floor3AdvertList3 = Adverts.GetAdvertList(18);
                                                     }
-                                                    <AdvertInfo>
-                                                        <AdvertInfo>
-                                                            <AdvertInfo>
-                                                                <AdvertInfo>
                                                                     @foreach (AdvertInfo info in floor3AdvertList3)
                                             {
                                                             <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
@@ -713,10 +657,6 @@
                                                                 }
                                                                </b></a></li>
     }
-                                                                </AdvertInfo>
-                                                            </AdvertInfo>
-                                                        </AdvertInfo>
-                                                    </AdvertInfo>
                                                 </ul>
                                             </div>
                                         </div>
@@ -726,10 +666,6 @@
                                                     @{
                                     List<AdvertInfo> floor3AdvertList4 = Adverts.GetAdvertList(19);
                                                     }
-                                                    <AdvertInfo>
-                                                        <AdvertInfo>
-                                                            <AdvertInfo>
-                                                                <AdvertInfo>
                                                                     @foreach (AdvertInfo info in floor3AdvertList4)
                                             {
                                                             <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
@@ -744,10 +680,6 @@
                                                                 }
                                                                </b></a></li>
     }
-                                                                </AdvertInfo>
-                                                            </AdvertInfo>
-                                                        </AdvertInfo>
-                                                    </AdvertInfo>
                                                 </ul>
                                             </div>
                                         </div>
@@ -757,10 +689,6 @@
                                                     @{
                                     List<AdvertInfo> floor3AdvertList5 = Adverts.GetAdvertList(20);
                                                     }
-                                                    <AdvertInfo>
-                                                        <AdvertInfo>
-                                                            <AdvertInfo>
-                                                                <AdvertInfo>
                                                                     @foreach (AdvertInfo info in floor3AdvertList5)
                                             {
                                                             <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
@@ -775,10 +703,6 @@
                                                                 }
                                                                </b></a></li>
     }
-                                                                </AdvertInfo>
-                                                            </AdvertInfo>
-                                                        </AdvertInfo>
-                                                    </AdvertInfo>
                                                 </ul>
                                             </div>
                                         </div>
@@ -788,10 +712,6 @@
                                                     @{
                                     List<AdvertInfo> floor3AdvertList6 = Adverts.GetAdvertList(21);
                                                     }
-                                                    <AdvertInfo>
-                                                        <AdvertInfo>
-                                                            <AdvertInfo>
-                                                                <AdvertInfo>
                                                                     @foreach (AdvertInfo info in floor3AdvertList6)
                                             {
                                                             <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
@@ -806,10 +726,6 @@
                                                                 }
                                                                </b></a></li>
     }
-                                                                </AdvertInfo>
-                                                            </AdvertInfo>
-                                                        </AdvertInfo>
-                                                    </AdvertInfo>
                                                 </ul>
                                             </div>
                                         </div>
@@ -820,12 +736,12 @@
                 <!-- 4楼 -->
                                     <div class="floor box1210">
                                         <h2 class="floorT">
-                                            <b>4F</b>打印耗材
+                                            <b>4F</b>计量/电子/衡器
                                             <ul>
-                                                <li><a href="javascript:void(0)">条码打印机</a></li>
-                                                <li><a href="javascript:void(0)">条码打印机</a></li>
-                                                <li><a href="javascript:void(0)">条码打印机</a></li>
-                                                <li><a href="javascript:void(0)">碳带</a></li>
+                                                <li><a href="javascript:void(0)">计数</a></li>
+                                                <li><a href="javascript:void(0)">计重</a></li>
+                                                <li><a href="javascript:void(0)">地磅</a></li>
+                                                <li><a href="javascript:void(0)">天枰</a></li>
                                                 <div class="clear"></div>
                                             </ul>
                                             <div class="clear"></div>
@@ -835,34 +751,19 @@
                                                 @{
                                 List<AdvertInfo> floor4AdvertList1 = Adverts.GetAdvertList(16);
                                                 }
-                                                <AdvertInfo>
-                                                    <AdvertInfo>
-                                                        <AdvertInfo>
-                                                            <AdvertInfo>
                                                                 @foreach (AdvertInfo info in floor4AdvertList1)
                                         {
                                                         <li><a href="@info.Url" class="hot">@info.Body</a></li>
                                         }
                                                                 <div class="clear"></div>
-                                                            </AdvertInfo>
-                                                        </AdvertInfo>
-                                                    </AdvertInfo>
-                                                </AdvertInfo>
                                             </ul>
                                             @{
                             List<AdvertInfo> floor4AdvertList2 = Adverts.GetAdvertList(17);
-                                            }<AdvertInfo>
-                                                <AdvertInfo>
-                                                    <AdvertInfo>
-                                                        <AdvertInfo>
+                                            }
                                                             @if (floor4AdvertList2.Count > 0)
                                     {
                                                     <a href="@floor2AdvertList2[0].Url" class="floorAD"><img src="@{@WorkContext.ImageCDN}/upload/advert/@floor2AdvertList2[0].Body" width="202" height="155" /></a>
     }
-                                                        </AdvertInfo>
-                                                    </AdvertInfo>
-                                                </AdvertInfo>
-                                            </AdvertInfo>
                                         </div>
                                         <div class="floorR right">
                                             <div class="floorCon">
@@ -870,10 +771,6 @@
                                                     @{
                                     List<AdvertInfo> floor4AdvertList3 = Adverts.GetAdvertList(18);
                                                     }
-                                                    <AdvertInfo>
-                                                        <AdvertInfo>
-                                                            <AdvertInfo>
-                                                                <AdvertInfo>
                                                                     @foreach (AdvertInfo info in floor4AdvertList3)
                                             {
                                                             <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
@@ -888,10 +785,6 @@
                                                                 }
                                                                </b></a></li>
     }
-                                                                </AdvertInfo>
-                                                            </AdvertInfo>
-                                                        </AdvertInfo>
-                                                    </AdvertInfo>
                                                 </ul>
                                             </div>
                                         </div>
@@ -901,10 +794,6 @@
                                                     @{
                                     List<AdvertInfo> floor4AdvertList4 = Adverts.GetAdvertList(19);
                                                     }
-                                                    <AdvertInfo>
-                                                        <AdvertInfo>
-                                                            <AdvertInfo>
-                                                                <AdvertInfo>
                                                                     @foreach (AdvertInfo info in floor4AdvertList4)
                                             {
                                                             <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
@@ -919,10 +808,6 @@
                                                                 }
                                                                </b></a></li>
     }
-                                                                </AdvertInfo>
-                                                            </AdvertInfo>
-                                                        </AdvertInfo>
-                                                    </AdvertInfo>
                                                 </ul>
                                             </div>
                                         </div>
@@ -932,10 +817,6 @@
                                                     @{
                                     List<AdvertInfo> floor4AdvertList5 = Adverts.GetAdvertList(20);
                                                     }
-                                                    <AdvertInfo>
-                                                        <AdvertInfo>
-                                                            <AdvertInfo>
-                                                                <AdvertInfo>
                                                                     @foreach (AdvertInfo info in floor4AdvertList5)
                                             {
                                                             <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
@@ -950,10 +831,6 @@
                                                                 }
                                                                </b></a></li>
     }
-                                                                </AdvertInfo>
-                                                            </AdvertInfo>
-                                                        </AdvertInfo>
-                                                    </AdvertInfo>
                                                 </ul>
                                             </div>
                                         </div>
@@ -963,10 +840,6 @@
                                                     @{
                                     List<AdvertInfo> floor4AdvertList6 = Adverts.GetAdvertList(21);
                                                     }
-                                                    <AdvertInfo>
-                                                        <AdvertInfo>
-                                                            <AdvertInfo>
-                                                                <AdvertInfo>
                                                                     @foreach (AdvertInfo info in floor4AdvertList6)
                                             {
                                                             <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="236" height="236" /><em>@info.ExtField1</em>
@@ -981,10 +854,6 @@
                                                                 }
                                                                </b></a></li>
     }
-                                                                </AdvertInfo>
-                                                            </AdvertInfo>
-                                                        </AdvertInfo>
-                                                    </AdvertInfo>
                                                 </ul>
                                             </div>
                                         </div>

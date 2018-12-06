@@ -96,6 +96,9 @@
             <div class="shortcut right">
                 <a href="@Url.Action("userinfo", "ucenter")">&nbsp;个人中心</a>
             </div>
+            <div class="shortcut right">
+                <a href="@Url.Action("orderlist", "ucenter")">&nbsp;我的订单</a>
+            </div>
             
             <div class="shopping right" onmouseenter="getCartSnap()" id="cartSnapBox" onmouseleave="closeCartSnap(event)">
                 <h2><a href="@Url.Action("index", "cart" )">我的购物车<b id="cartSnapProudctCount">@WorkContext.CartProductCount</b></a></h2>
@@ -222,7 +225,7 @@
                                     </div>
                                 </div>
                             </div>
-        <a href="#" title="返回顶部" id="goto-top">返回顶部</a>
+        <a href="#" title="返回顶部" id="goto-top"></a>
                             @Html.Raw(WorkContext.ExecuteDetail)
                             @Html.Raw(WorkContext.MallConfig.Script)
                         </body>

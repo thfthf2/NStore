@@ -95,10 +95,31 @@ html body .btRhot,body .btR:hover{background-position:right top;}
 .floorAD{ position:absolute; bottom:0px;width:205px; }
 
 
-.floorR{ width:1004px;height:320px;overflow:hidden;}
-.floorCon{ width:1004px; height:320px; position:relative; padding-top:15px; overflow:hidden;}
+.floorR{ width:1004px;height:345px;overflow:hidden;}
+.floorCon{ width:1004px; height:345px; position:relative; padding-top:15px; overflow:hidden;}
 .floorCon ul{ width:120%; position:absolute; left:0; top:15px;}
 .floorCon li{ float:left; margin-right:20px; width:236px;}
 .floorCon li em{ display:block;color:#505050;padding-top:5px; height:46px; overflow:hidden;}
 .floorCon li b{ display:block; color:#d23335; }
 .floorCon li b s{ font-weight:normal; padding-left:10px; color:#505050;}
+
+.floorCon li .btn {
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    color: #333;
+    background: -webkit-gradient(linear,0 0,0 100%,from(#f7f7f7),to(#f2f2f2));
+    /*padding: 0 10px;*/
+    height: 25px;
+    line-height: 25x;
+    font-size:14px;
+    width:75px;
+    text-align:center;
+}
+.floorCon li .addShopping {
+    float:left;
+   margin-left:10px;
+}
+.floorCon li .nowbuy {
+    float:right;
+   margin-right:20px;
+}
