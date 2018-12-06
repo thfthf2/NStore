@@ -238,7 +238,7 @@
             </div>
             @if (WorkContext.Uid > 0)
             {
-                <div class="baojia" onmouseover="changeRed(this)"  onmouseout="changeBlue(this)">
+                <div class="baojia" onmouseenter="changeRed(this)"  onmouseleave="changeBlue(this)">
                     <a href="#">直接报价</a>
                 </div>
             <div class="userinfo">
@@ -253,10 +253,10 @@
                             </td>
                         </tr>
                         <tr class="base second">
-                            <td style="width:148px" onmouseover="changeRed(this)"  onmouseout="changeBlue(this)">
+                            <td style="width:148px" onmouseenter="changeRed(this)"  onmouseleave="changeBlue(this)">
                                 <a href="@Url.Action("userinfo", "ucenter")">&nbsp;个人中心</a>
                             </td>
-                            <td style="width:152px" onmouseover="changeRed(this)"  onmouseout="changeBlue(this)">
+                            <td style="width:152px" onmouseenter="changeRed(this)"  onmouseleave="changeBlue(this)">
                                 <a href="@Url.Action("logout", "account")">退出&nbsp;</a>
                             </td>
                         </tr>
@@ -270,7 +270,7 @@
                                     <table>
                                         @for (int i = 0; i< 4; i++)
                                         {
-                                            <tr onmousemove="showorderproduct(this)" onmouseout="closeorderproduct(this)">
+                                            <tr onmouseenter="showorderproduct(this)" onmouseleave="closeorderproduct(this)">
                                                 <td class="order">
                                                     <b>图片</b>&nbsp;2018-11-21
 
@@ -305,14 +305,14 @@
                         <tbody>
                             <tr style="height:3px; background-color:aliceblue;"><td colspan="3"></td></tr>
                             <tr>
-                                <td class="enter" onmouseover="changeRed(this)"  onmouseout="changeBlue(this)"><a href="/account/login?registerType=0">个人用户</a></td>
+                                <td class="enter" onmouseenter="changeRed(this)"  onmouseleave="changeBlue(this)"><a href="/account/login?registerType=0">个人用户</a></td>
                                 <td style="width:3px;">&nbsp;</td>
-                                <td class="enter" onmouseover="changeRed(this)"  onmouseout="changeBlue(this)"><a href="/account/login?registerType=1">企业用户</a></td>
+                                <td class="enter" onmouseenter="changeRed(this)"  onmouseleave="changeBlue(this)"><a href="/account/login?registerType=1">企业用户</a></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="baojia" onmouseover="changeRed(this)"  onmouseout="changeBlue(this)">
+                <div class="baojia" onmouseenter="changeRed(this)"  onmouseleave="changeBlue(this)">
                 <a href="#">直接报价</a>
             </div>
                 <div class="indexAd">

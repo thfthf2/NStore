@@ -176,6 +176,7 @@
     <Content Include="images\userIMG-bg.png" />
     <Content Include="images\userSJ.png" />
     <Content Include="images\zoomloader.gif" />
+    <Content Include="images\goto-top.png" />
     <Content Include="robots.txt" />
     <Content Include="scripts\account.js" />
     <Content Include="scripts\ajaxfileupload.js" />

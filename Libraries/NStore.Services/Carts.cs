@@ -1487,7 +1487,7 @@ namespace NStore.Services
 
             //更新买送促销活动
             UpdateBuySendPromotionOfOrderProduct(orderProductInfo, buyCount, buyTime);
-            //更新订单商品的赠品促销活动
+            //更新订单商品的赠品促销活动 ，需要继续判断是否达到满赠活动要求，添加赠品商品到购物车，待验证
             List<OrderProductInfo> giftOrderProductList = UpdateGiftOrderProduct(orderProductList, orderProductInfo, buyCount);
 
             updateOrderProductList.Add(orderProductInfo);
@@ -1526,7 +1526,7 @@ namespace NStore.Services
             if (singlePromotionInfo != null)
                 SetSinglePromotionOfOrderProduct(mainOrderProductInfo, singlePromotionInfo);
 
-            //获得满赠促销活动
+            //获得满赠促销活动，需要继续判断是否达到满赠要求，添加赠品商品到购物车，待验证
             FullSendPromotionInfo fullSendPromotionInfo = Promotions.GetFullSendPromotionByStoreIdAndPidAndTime(partProductInfo.StoreId, partProductInfo.Pid, buyTime);
             if (fullSendPromotionInfo != null)
                 SetFullSendPromotionOfOrderProduct(mainOrderProductInfo, fullSendPromotionInfo);
@@ -1547,7 +1547,7 @@ namespace NStore.Services
                 List<ExtGiftInfo> extGiftList = Promotions.GetExtGiftList(giftPromotionInfo.PmId);
                 if (extGiftList.Count > 0)
                 {
-                    mainOrderProductInfo.ExtCode3 = giftPromotionInfo.PmId;
+                    mainOrderProductInfo.ExtCode3 = giftPromotionInfo.PmId; //注意此处是否能加入到addOrderProductList列表，待验证
                     foreach (ExtGiftInfo extGiftInfo in extGiftList)
                     {
                         OrderProductInfo giftOrderProduct = BuildOrderProduct(extGiftInfo);
