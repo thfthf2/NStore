@@ -333,7 +333,7 @@ namespace NStore.Services
                             }
                             cartFullSendInfo.IsEnough = selectedFullSendMainCartProductAmount >= fullSendPromotionInfo.LimitMoney;
 
-                            //获取商品的满赠商品
+                            //获取商品的满赠商品（仅限一个）
                             for (int j = 0; j < count; j++)
                             {
                                 OrderProductInfo item = orderProductList[j];
@@ -644,7 +644,7 @@ namespace NStore.Services
                             for (int k = 0; k < count; k++)
                             {
                                 OrderProductInfo item2 = orderProductList[k];
-                                if (item2 != null && item2.Type == 2 && item2.ExtCode1 == item.ExtCode2)
+                                if (item2 != null && item2.Type == 2 && item2.ExtCode1 == item.ExtCode2) //应该为 && item2.ExtCode1 == item.ExtCode3 待验证
                                 {
                                     giftList.Add(item2);
                                     orderProductList[k] = null;
