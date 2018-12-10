@@ -157,14 +157,14 @@
 
                         <!-- 分类导航结束 -->
                         <ul id="navItme">
-                            <li><a href="/">首页</a></li>
+                            <li><a class="globalhover" href="/">首页</a></li>
                             @{
                                 var specialList = SpecialPerformance.GetSpecialList();
                                 if (specialList != null && specialList.Count > 0)
                                 {
                                     foreach (var item in specialList)
                                     {
-                                        <li><a href="@Url.Action("categorysearch", "catalog" , new RouteValueDictionary { { "searchKeyType", 3 }, { "searchKeyId", item.Specialid } })">@item.Name</a></li>
+                                        <li><a class="globalhover" href="@Url.Action("categorysearch", "catalog" , new RouteValueDictionary { { "searchKeyType", 3 }, { "searchKeyId", item.Specialid } })">@item.Name</a></li>
                                     }
                                 }
                             }

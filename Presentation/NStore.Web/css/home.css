@@ -1,7 +1,7 @@
 /*@webSir Css*/
 
-/*index第一部分 #e4393c*/
-#centerdiv {padding:14px 0 0 220px; height:430px;overflow:hidden; width:990px;}
+/*index第一部分 #e4393c 220px 990px;*/
+#centerdiv {padding:14px 0 0 0px; height:430px;overflow:hidden; width:1210px;}
 #indexleft{width:670px;height:430px;}
 #indexright{width:302px;height:430px;}
 #index1{  height:240px;}
@@ -13,6 +13,20 @@
 #bannerNumID li{list-style:none;float:left;background:#999999; color:#FFF;-moz-border-radius: 22px;-webkit-border-radius:22px;border-radius: 22px; width:22px; height:22px; line-height:22px; text-align:center; margin-left:5px;}
 #bannerNumID li:hover,#bannerNumID li.active{background:#3883da;}
 
+/* 优惠券*/
+.couple {float:left;width:205px;height:162px;margin:254px 15px 0 0;background-color:aquamarine;}
+.couple .desc{
+    height:25px;
+    font-size:16px;
+    font-weight:bold;
+    color:black;
+    background: -webkit-linear-gradient(left, red , blue); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right, red, blue); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, red, blue); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, red , blue); /* 标准的语法（必须放在最后） */
+
+}
+.couple a {width:205px;height:142px;}
 
 /*公告*/
 .gonggao{ width:302px; height:55px; border:1px solid #e1e1e1;}
