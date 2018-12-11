@@ -39,21 +39,6 @@ html body .greenBT{padding: 1px 10px;background: #f0f9ea;color: #333;border: 1px
 html body .grayBT{padding: 1px 10px;background: #f5f5f5;color: #333;border: 1px solid #ddd;}
 
 .radio{ vertical-align:-2px;}
-/*全局背景色*/
-.globalbackcolor {
-    background-color:#3897da;
-    color:#FFF;
-}
-a.globalhover:hover,a.globalhover.hot{ background:#e13a3a;color:#FFF;}
-/*a.globalbackcolor {
-    background-color:#3897da;
-    color:#FFF;
-}
-
-.globalbackcolorhover {
-    background-color:#3897da;
-    color:#fff;
-}*/
 
 #headerBar{ height:30px; line-height:30px; background:#f4f4f4; border-bottom:1px solid #d8e1e6;}
 #headerBar a{ color:#4c4c4c;}
@@ -146,21 +131,22 @@ a.globalhover:hover,a.globalhover.hot{ background:#e13a3a;color:#FFF;}
 #categorysCon .item{}
 #categorysCon .item h3{ font-weight:normal; background:url(/images/categorys.jpg) no-repeat 95% center; height:30px; line-height:25px; border-top:1px solid #fcfcfc; border-bottom:1px solid #fcfcfc; padding-left:20px;overflow: hidden;}
 
-#categorysCon .item h3 a{ color:#545454; font-size:14px;font-weight:normal;}
+#categorysCon .item h3 a{ color:#545454; font-size:15px;font-weight:normal;}
 
 
 .itmeSon{ z-index:9; position:absolute; left:200px; width:680px; height:400px; top:0px;-moz-box-shadow: 0 0 10px #DDD;	-webkit-box-shadow: 0 0 10px #DDD;box-shadow: 0 0 10px #DDD; padding:15px; padding-left:10px; z-index:9; background:#FFF; border:1px solid #e1e1e1; display:none;}
 .itmeSon dl{ zoom:1; display:block; border-bottom:1px dotted #e1e1e1; margin-bottom:8px; padding-bottom:3px;}
-.itmeSon dt{float: left;width: 54px;line-height: 22px;text-align: right;padding: 0 6px 0 0;zoom:1;}
+.itmeSon dt{float: left;width: 70px;line-height: 22px;text-align: right;padding: 0 6px 0 0;zoom:1;}
 
-.itmeSon dt a{ font-weight:bold; color: #3893da;}
+.itmeSon dt a{ font-weight:bold; color: #3893da;font-size:14px;}
 
 .itmeSon dd{ float:left;zoom:1;}
 .itmeSon dd a{white-space: nowrap; color:#666;}
 .itmeSon dd a:hover{ color:#E4393C; text-decoration:underline;}
-.itmeSon dd em{float: left;height: 14px;margin: 4px 0;line-height: 14px;padding: 0 8px;border-left: 1px solid #ccc;font-style: normal;}
+.itmeSon dd em{float: left;height: 14px;margin: 4px 0;line-height: 14px;padding: 0 8px;border-left: 1px solid #ccc;font-style: normal;font-size:14px;}
 
-#categorysCon .hotItem .h3{ position:relative; z-index:10; background:#FFF;border-top:1px solid #e1e1e1; border-bottom:1px solid #e1e1e1;}
+/* background:#FFF;*/
+#categorysCon .hotItem .h3{ position:relative; z-index:10;border-top:1px solid #e1e1e1; border-bottom:1px solid #e1e1e1; }
 #categorysCon .hotItem .itmeSon{ display:block;}
 
 #footer{ border-top:2px solid #3893da; background:url(/images/bottomBg.jpg) repeat-x bottom #FFF; margin-top:40px;}
@@ -232,3 +218,14 @@ a.globalhover:hover,a.globalhover.hot{ background:#e13a3a;color:#FFF;}
 .buyNB a{ width:17px; height:17px; text-align:center; line-height:17px; border:1px solid #e1e1e1; font-size:12px; float:left; display:block; margin-top:3px;}
 .buyNB a:hover{ background:#e43e41; color:#FFF;}
 .buyNB input{ outline:none; width:40px; text-align:center; display:inline; height:22px; line-height:22px;float:left; margin:0 4px;border:1px solid #e1e1e1;}
+
+/*全局背景色*/
+.globalbackcolor {
+    background-color:#3897da;
+    color:#FFF;
+}
+a.globalhover:hover,a.globalhover.hot{ background:#e13a3a;color:#FFF;}
+
+/*.globalhover1{ background:#3897da;color:#FFF;}
+.globalhover1 .menufirst{ color:#FFF;}*/
+/*a.globalhover1:hover{ background:#3897da;color:#FFF;}*/
