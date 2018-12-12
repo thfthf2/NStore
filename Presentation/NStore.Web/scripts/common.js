@@ -61,22 +61,6 @@ function closeCartSnap(event) {
     cartSnap.style.display = "none";
 }
 
-//获得首页订单商品快照
-function showorderproduct(obj) {
-    var orderpro = $(obj).find(".orderproduct")
-    if (orderpro) {
-        $(orderpro).show();
-    }
-}
-
-//关闭首页订单商品快照
-function closeorderproduct(obj) {
-    var orderpro = $(obj).find(".orderproduct");
-    if (orderpro) {
-        $(orderpro).hide();
-    }
-}
-
 //添加商品到收藏夹
 function addProductToFavorite(pid) {
     if (pid < 1) {

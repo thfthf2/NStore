@@ -329,32 +329,30 @@
                         </tr>*@
                         <tr class="base">
                             <td style="width:153px">您感兴趣的商品：</td>
-                            <td style="width:147px; text-align:right"><a href="#">更多&nbsp;&nbsp;</a></td>
+                            <td></td>
                         </tr>
                         <tr class="productlist">
                             <td colspan="2">
-                                <div style="padding-left:5px;">
-                                    <table>
-                                        @for (int i = 0; i< 5; i++)
+                                <table style="width:100%;">
+                                        @for (int i = 0; i< 3; i++)
                                         {
-                                            <tr onmouseenter="showorderproduct(this)" onmouseleave="closeorderproduct(this)">
-                                                <td class="order">
-                                                    <b>图片</b>&nbsp;2018-11-21
-
-                                                    <div class="orderproduct">
-                                                        <ul>
-                                                            <li>订单商品1 @i</li>
-                                                            <li>订单商品2 @i</li>
-                                                            <li>订单商品2 @i</li>
-                                                        </ul>
-                                                    </div>
+                                            <tr>
+                                                <td class="pimg" rowspan="2">
+                                                   <img src="#" alt="图片"/>
                                                 </td>
-                                                <td class="action"><a href="#">加购</a>&nbsp;<a href="#">购买</a></td>
+                                                <td>
+                                                    &nbsp;商品名称
+                                                </td>
+                                                <td class="action"><a href="#" style="color:#3897da;" onmouseover="this.style.color='#e13a3a'"  onmouseout="this.style.color='#3897da'">加购物车</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                  &nbsp;商品价格/几天前
+                                                </td>
+                                                <td class="action"><a href="#" style="color:#3897da;" onmouseover="this.style.color='#e13a3a'"  onmouseout="this.style.color='#3897da'">立即购买</a></td>
                                             </tr>
                                         }
                                     </table>
-
-                                </div>
                             </td>
                         </tr>
                     </tbody>

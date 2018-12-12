@@ -76,17 +76,15 @@ html body .btRhot,body .btR:hover{background-position:right top;}
 /*登陆用户入口*/
 .userinfo { width:300px;margin-top:10px;border:1px solid #e1e1e1;height:287px;}
 .userinfo table{font-size:18px;width:100%; }
-.userinfo table tr{display:block;  }
-.userinfo table tr.base{line-height:50px;text-align:left; }
+/*.userinfo table tr{display:block;  }*/
+.userinfo table tr.base{line-height:47px;text-align:left; }
 .userinfo table .second td{background-color:#3897da;text-align:center;}
 .userinfo table .second td a{color:#fff; }
 
 
 .userinfo .productlist {height:100%; margin-top: -16px;}
-.userinfo .productlist table tr{position:relative;line-height:30px;}
-.userinfo .productlist table tr td.order{width:195px;}
-/*.userinfo .productlist table tr td.action{float:right;}*/
-.userinfo .productlist table tr .orderproduct{position:absolute;z-index:1000;background-color:#ccc;width:200px;left:-200px;bottom:10px;display:none;}
+.userinfo .productlist table tr{line-height:30px;font-size:16px;}
+.userinfo .productlist table tr .pimg{width:50px;}
 
 /*楼层*/
 
@@ -118,11 +116,14 @@ html body .btRhot,body .btR:hover{background-position:right top;}
 .floorCon li b{ display:block; color:#d23335; }
 .floorCon li b s{ font-weight:normal; padding-left:10px; color:#505050;}
 
+
 .floorCon li .btn {
     border: 1px solid #ddd;
     border-radius: 2px;
-    color: #333;
-    background: -webkit-gradient(linear,0 0,0 100%,from(#f7f7f7),to(#f2f2f2));
+    /*color: #333;
+    background: -webkit-gradient(linear,0 0,0 100%,from(#f7f7f7),to(#f2f2f2));*/
+    color: #fff;
+    background: #3897da;
     /*padding: 0 10px;*/
     height: 25px;
     line-height: 25x;
@@ -130,6 +131,8 @@ html body .btRhot,body .btR:hover{background-position:right top;}
     width:75px;
     text-align:center;
 }
+/*a.btn:link, a.btn:visited{ color:#fff;}*/ 
+
 .floorCon li .addShopping {
     float:left;
    margin-left:10px;
