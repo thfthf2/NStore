@@ -334,24 +334,30 @@
                         <tr class="productlist">
                             <td colspan="2">
                                 <table style="width:100%;">
-                                        @for (int i = 0; i< 3; i++)
+                                    @{
+                                      var recommendProductList= Products.GetRecommendProductList(WorkContext.Uid);
+                                       if(recommendProductList!=null&&recommendProductList.Count>0)
                                         {
-                                            <tr>
-                                                <td class="pimg" rowspan="2">
-                                                   <img src="#" alt="图片"/>
-                                                </td>
-                                                <td>
-                                                    &nbsp;商品名称
-                                                </td>
-                                                <td class="action"><a href="#" style="color:#3897da;" onmouseover="this.style.color='#e13a3a'"  onmouseout="this.style.color='#3897da'">加购物车</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                  &nbsp;商品价格/几天前
-                                                </td>
-                                                <td class="action"><a href="#" style="color:#3897da;" onmouseover="this.style.color='#e13a3a'"  onmouseout="this.style.color='#3897da'">立即购买</a></td>
-                                            </tr>
+                                            foreach (var recommendProduct in recommendProductList)
+                                            {
+                                                <tr>
+                                                    <td class="pimg" rowspan="2">
+                                                       <img src="@recommendProduct.ShowImg" alt="图片"/>
+                                                    </td>
+                                                    <td>
+                                                        &nbsp;@recommendProduct.Name
+                                                    </td>
+                                                    <td class="action"><a href="javascript:addProductToCart(@recommendProduct.Pid, 1)" style="color:#3897da;" onmouseover="this.style.color='#e13a3a'"  onmouseout="this.style.color='#3897da'">加购物车</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                      &nbsp;@recommendProduct.ShopPrice ¥/ @recommendProduct.Remark
+                                                    </td>
+                                                    <td class="action"><a href="#" style="color:#3897da;" onmouseover="this.style.color='#e13a3a'"  onmouseout="this.style.color='#3897da'">立即购买</a></td>
+                                                </tr>
+                                            }
                                         }
+                                    }
                                     </table>
                             </td>
                         </tr>

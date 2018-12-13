@@ -1853,6 +1853,17 @@ namespace NStore.RDBSStrategy.SqlServer
             return TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.Text, commandText, parms));
         }
 
+
+        /// <summary>
+        /// 获取首页推荐的感兴趣商品列表,（待完成）
+        /// </summary>
+        /// <returns></returns>
+        public IDataReader GetRecommendProductList()
+        {
+            //string sql = string.Format("select [uid],[oid],[pid],[name],[showimg],[shopprice] from [{0}orderproducts] where [addtime] >@addtime and [uid]=@uid and [oid]>0 order by [oid] desc");
+            //return RDBSHelper.ExecuteReader(CommandType.Text, sql, null);
+            return null;
+        }
         #endregion
 
         #region 商品属性

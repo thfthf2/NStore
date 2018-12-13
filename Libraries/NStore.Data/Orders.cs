@@ -441,5 +441,54 @@ namespace NStore.Data
         {
             return NStore.Core.BMAData.RDBS.GetSaleTrend(trendType, timeType, startTime, endTime);
         }
+
+        /// <summary>
+        /// 获取指定用户一年内的已购订单商品(指定数量，默认10条)
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <returns></returns>
+        public static List<RecommendProductInfo> GetOrderProductListByUid(int uid, int count = 10)
+        {
+            var recommendProductList = new List<RecommendProductInfo>();
+            IDataReader reader = NStore.Core.BMAData.RDBS.GetOrderProductListByUid(uid, count);
+            while (reader.Read())
+            {
+                RecommendProductInfo recommendProductInfo = new RecommendProductInfo();
+                recommendProductInfo.Pid = TypeHelper.ObjectToInt(reader["pid"]);
+                recommendProductInfo.Name = reader["name"].ToString();
+                recommendProductInfo.ShopPrice = TypeHelper.ObjectToDecimal(reader["shopprice"]);
+                recommendProductInfo.ShowImg = reader["showimg"].ToString();
+                recommendProductInfo.DisplayOrder = 0; //TypeHelper.ObjectToInt(reader["displayorder"]);
+                var addtime = TypeHelper.ObjectToDateTime(reader["addtime"]);
+                var nowtime = DateTime.Now;
+
+                if (addtime > nowtime.AddHours(-1))
+                {
+                    recommendProductInfo.Remark = "1小时内购买";
+                }
+                else if (addtime > nowtime.AddDays(-1))
+                {
+                    recommendProductInfo.Remark = "1天内购买";
+                }
+                else if (addtime > nowtime.AddDays(-7))
+                {
+                    recommendProductInfo.Remark = "1周内购买";
+                }
+                else if (addtime > nowtime.AddMonths(-1))
+                {
+                    recommendProductInfo.Remark = "1月内购买";
+                }
+                else if (addtime > nowtime.AddMonths(-6))
+                {
+                    recommendProductInfo.Remark = "半年内购买";
+                }
+                else recommendProductInfo.Remark = "1年内购买";
+
+               recommendProductList.Add(recommendProductInfo);
+            }
+            reader.Close();
+
+            return recommendProductList;
+        }
     }
 }

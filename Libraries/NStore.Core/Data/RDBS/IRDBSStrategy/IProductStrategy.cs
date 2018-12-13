@@ -621,6 +621,12 @@ namespace NStore.Core
         /// <returns></returns>
         int AdminGetStoreShipTemplateProductCount(int storeSTid);
 
+        /// <summary>
+        /// 获取首页推荐的感兴趣商品列表,（待完成）
+        /// </summary>
+        /// <returns></returns>
+        IDataReader GetRecommendProductList();
+
         #endregion
 
         #region 商品属性

@@ -185,6 +185,13 @@ namespace NStore.Core
         /// <returns></returns>
         DataTable GetSaleTrend(int trendType, int timeType, string startTime, string endTime);
 
+        /// <summary>
+        /// 获取指定用户一年内的已购订单商品(指定数量，默认10条)
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <returns></returns>
+        IDataReader GetOrderProductListByUid(int uid, int count = 10);
+
         #endregion
 
         #region 订单处理

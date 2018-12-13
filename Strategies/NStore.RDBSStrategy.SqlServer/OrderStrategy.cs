@@ -221,6 +221,22 @@ namespace NStore.RDBSStrategy.SqlServer
         }
 
         /// <summary>
+        /// 获取指定用户一年内的已购订单商品(指定数量，默认10条)
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <returns></returns>
+        public IDataReader GetOrderProductListByUid(int uid,int count=10)
+        {
+            DbParameter[] parms = {
+                                    GenerateInParam("@count", SqlDbType.SmallInt, 2, count),
+                                    GenerateInParam("@uid", SqlDbType.Int, 4, uid),
+                                    GenerateInParam("@addtime", SqlDbType.DateTime, 8, DateTime.Now.AddYears(-1)),
+                                   };
+            string sql = string.Format("select top @count [uid],[oid],[pid],[name],[showimg],[shopprice],[addtime] from [{0}orderproducts] where [addtime] >@addtime and [uid]=@uid and [oid]>0 order by [oid] desc");
+            return RDBSHelper.ExecuteReader(CommandType.Text, sql, parms);
+        }
+
+        /// <summary>
         /// 更新订单折扣
         /// </summary>
         /// <param name="oid">订单id</param>

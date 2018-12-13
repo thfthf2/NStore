@@ -3,6 +3,7 @@ using System.Data;
 using System.Collections.Generic;
 
 using NStore.Core;
+using System.Linq;
 
 namespace NStore.Services
 {
@@ -352,10 +353,6 @@ namespace NStore.Services
             return null;
         }
 
-
-
-
-
         /// <summary>
         /// 获得关联商品列表
         /// </summary>
@@ -364,6 +361,37 @@ namespace NStore.Services
         public static List<PartProductInfo> GetRelateProductList(int pid)
         {
             return NStore.Data.Products.GetRelateProductList(pid);
+        }
+
+        /// <summary>
+        /// 获取感兴趣的商品（订单或推荐商品）
+        /// </summary>
+        /// <returns></returns>
+        public static List<RecommendProductInfo> GetRecommendProductList(int uid)
+        {
+            if (uid < 0)
+            {
+                return NStore.Data.Products.GetRecommendProductList();
+            }
+
+            var recommendProductList = NStore.Data.Orders.GetOrderProductListByUid(uid, 3);
+            if (recommendProductList == null)
+            {
+                return NStore.Data.Products.GetRecommendProductList();
+            }
+
+            if (recommendProductList.Count >= 3)
+            {
+                return recommendProductList;
+            }
+
+            var _recommendProductList = NStore.Data.Products.GetRecommendProductList();
+            if (_recommendProductList != null && _recommendProductList.Count > 0)
+            {
+               return recommendProductList.Union(_recommendProductList.Take(3 - recommendProductList.Count)).ToList();
+            }
+
+            return recommendProductList;
         }
     }
 }

@@ -1440,12 +1440,7 @@ namespace NStore.Data
 
             return partProductList;
         }
-
-
-
-
-
-
+        
         /// <summary>
         /// 获得定时商品列表
         /// </summary>
@@ -1543,5 +1538,30 @@ namespace NStore.Data
         {
             NStore.Core.BMAData.RDBS.DeleteTimeProductByRecordId(recordId);
         }
+
+        /// <summary>
+        /// 获取首页推荐的感兴趣商品
+        /// </summary>
+        /// <param name="recordId"></param>
+        public static List<RecommendProductInfo> GetRecommendProductList()
+        {
+            var recommendProductList = new List<RecommendProductInfo>();
+            IDataReader reader = NStore.Core.BMAData.RDBS.GetRecommendProductList();
+            while (reader.Read())
+            {
+                RecommendProductInfo recommendProductInfo = new RecommendProductInfo();
+                recommendProductInfo.Pid = TypeHelper.ObjectToInt(reader["pid"]);
+                recommendProductInfo.Name = reader["name"].ToString();
+                recommendProductInfo.ShopPrice = TypeHelper.ObjectToDecimal(reader["shopprice"]);
+                recommendProductInfo.ShowImg = reader["showimg"].ToString();
+                recommendProductInfo.DisplayOrder = TypeHelper.ObjectToInt(reader["displayorder"]);
+                recommendProductInfo.Remark = "";
+                recommendProductList.Add(recommendProductInfo);
+            }
+            reader.Close();
+
+            return recommendProductList;
+        }
+
     }
 }
