@@ -1547,18 +1547,21 @@ namespace NStore.Data
         {
             var recommendProductList = new List<RecommendProductInfo>();
             IDataReader reader = NStore.Core.BMAData.RDBS.GetRecommendProductList();
-            while (reader.Read())
+            if (reader != null)
             {
-                RecommendProductInfo recommendProductInfo = new RecommendProductInfo();
-                recommendProductInfo.Pid = TypeHelper.ObjectToInt(reader["pid"]);
-                recommendProductInfo.Name = reader["name"].ToString();
-                recommendProductInfo.ShopPrice = TypeHelper.ObjectToDecimal(reader["shopprice"]);
-                recommendProductInfo.ShowImg = reader["showimg"].ToString();
-                recommendProductInfo.DisplayOrder = TypeHelper.ObjectToInt(reader["displayorder"]);
-                recommendProductInfo.Remark = "";
-                recommendProductList.Add(recommendProductInfo);
+                while (reader.Read())
+                {
+                    RecommendProductInfo recommendProductInfo = new RecommendProductInfo();
+                    recommendProductInfo.Pid = TypeHelper.ObjectToInt(reader["pid"]);
+                    recommendProductInfo.Name = reader["name"].ToString();
+                    recommendProductInfo.ShopPrice = TypeHelper.ObjectToDecimal(reader["shopprice"]);
+                    recommendProductInfo.ShowImg = reader["showimg"].ToString();
+                    recommendProductInfo.DisplayOrder = TypeHelper.ObjectToInt(reader["displayorder"]);
+                    recommendProductInfo.Remark = "";
+                    recommendProductList.Add(recommendProductInfo);
+                }
+                reader.Close();
             }
-            reader.Close();
 
             return recommendProductList;
         }

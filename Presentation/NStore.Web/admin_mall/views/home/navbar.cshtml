@@ -25,6 +25,7 @@
         .top{ padding:0px 20px 0px 0px;background:url(/admin_mall/content/images/top_bg.jpg) repeat-x 0px 26px #19597d; height:70px;}
         .top_info{ padding-left:10px; height:30px; line-height:30px; color:#FFF;}
         .top_info .left{ background:url(/admin_mall/content/images/ico1.jpg) no-repeat left 8px; padding-left:17px;}
+        .title{float:left;color:#d9e6ed;font-size:16px;text-align:center;height:38px;line-height:38px;padding-left:10px}
         .top a img{ margin-top:1px;}
         
         #nav li{ float:left; padding-left:20px;}
@@ -42,8 +43,11 @@
             <div class="clear">
             </div>
         </div>
-        <a id="logo" class="left">
-            <img src="/admin_mall/content/images/logo.jpg" height="36" /></a>
+        @*<a id="logo" class="left">
+            <img src="/admin_mall/content/images/logo.jpg" height="36" /></a>*@
+        <div class="title">
+            牛工汇网上商城后台管理系统
+        </div>
         <ul class="right" id="nav">
             <li><a href="/" target="_top">返回前台</a></li>
             <li><a href="@Url.Action("logout", "account", new { area = "" })" target="_top">退出系统</a></li>

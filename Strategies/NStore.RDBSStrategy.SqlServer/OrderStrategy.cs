@@ -228,7 +228,6 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetOrderProductListByUid(int uid, int count = 10)
         {
             DbParameter[] parms = {
-                                    GenerateInParam("@count", SqlDbType.SmallInt, 2, count),
                                     GenerateInParam("@uid", SqlDbType.Int, 4, uid),
                                     GenerateInParam("@addtime", SqlDbType.DateTime, 8, DateTime.Now.AddYears(-1)),
                                    };
