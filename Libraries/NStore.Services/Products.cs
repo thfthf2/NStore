@@ -373,14 +373,14 @@ namespace NStore.Services
             {
                 return NStore.Data.Products.GetRecommendProductList();
             }
-
-            var recommendProductList = NStore.Data.Orders.GetOrderProductListByUid(uid, 3);
+            int limitCount=4;
+            var recommendProductList = NStore.Data.Orders.GetOrderProductListByUid(uid, limitCount);
             if (recommendProductList == null)
             {
                 return NStore.Data.Products.GetRecommendProductList();
             }
 
-            if (recommendProductList.Count >= 3)
+            if (recommendProductList.Count >= limitCount)
             {
                 return recommendProductList;
             }
@@ -388,7 +388,7 @@ namespace NStore.Services
             var _recommendProductList = NStore.Data.Products.GetRecommendProductList();
             if (_recommendProductList != null && _recommendProductList.Count > 0)
             {
-               return recommendProductList.Union(_recommendProductList.Take(3 - recommendProductList.Count)).ToList();
+               return recommendProductList.Union(_recommendProductList.Take(limitCount - recommendProductList.Count)).ToList();
             }
 
             return recommendProductList;

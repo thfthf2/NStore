@@ -22,7 +22,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetOrderByOid(int oid)
         {
             DbParameter[] parms = {
-	                                 GenerateInParam("@oid", SqlDbType.Int,4,oid)
+                                     GenerateInParam("@oid", SqlDbType.Int,4,oid)
                                     };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
                                             string.Format("{0}getorderbyoid", RDBSHelper.RDBSTablePre),
@@ -37,7 +37,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetOrderByOSN(string osn)
         {
             DbParameter[] parms = {
-	                                 GenerateInParam("@osn", SqlDbType.Char,30,osn)
+                                     GenerateInParam("@osn", SqlDbType.Char,30,osn)
                                     };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
                                             string.Format("{0}getorderbyosn", RDBSHelper.RDBSTablePre),
@@ -198,7 +198,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetOrderProductList(int oid)
         {
             DbParameter[] parms = {
-                                    GenerateInParam("@oid", SqlDbType.Int, 4, oid)    
+                                    GenerateInParam("@oid", SqlDbType.Int, 4, oid)
                                    };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
                                             string.Format("{0}getorderproductlistbyoid", RDBSHelper.RDBSTablePre),
@@ -213,7 +213,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetOrderProductList(string oidList)
         {
             DbParameter[] parms = {
-                                    GenerateInParam("@oidlist", SqlDbType.NVarChar, 1000, oidList)    
+                                    GenerateInParam("@oidlist", SqlDbType.NVarChar, 1000, oidList)
                                    };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
                                             string.Format("{0}getorderproductlistbyoidlist", RDBSHelper.RDBSTablePre),
@@ -225,14 +225,14 @@ namespace NStore.RDBSStrategy.SqlServer
         /// </summary>
         /// <param name="uid"></param>
         /// <returns></returns>
-        public IDataReader GetOrderProductListByUid(int uid,int count=10)
+        public IDataReader GetOrderProductListByUid(int uid, int count = 10)
         {
             DbParameter[] parms = {
                                     GenerateInParam("@count", SqlDbType.SmallInt, 2, count),
                                     GenerateInParam("@uid", SqlDbType.Int, 4, uid),
                                     GenerateInParam("@addtime", SqlDbType.DateTime, 8, DateTime.Now.AddYears(-1)),
                                    };
-            string sql = string.Format("select top @count [uid],[oid],[pid],[name],[showimg],[shopprice],[addtime] from [{0}orderproducts] where [addtime] >@addtime and [uid]=@uid and [oid]>0 order by [oid] desc");
+            string sql = string.Format("select top {1} [uid],[oid],[pid],[name],[showimg],[shopprice],[addtime] from [{0}orderproducts] where [addtime] >@addtime and [uid]=@uid and [oid]>0 order by [oid] desc", RDBSHelper.RDBSTablePre, count);
             return RDBSHelper.ExecuteReader(CommandType.Text, sql, parms);
         }
 
@@ -245,8 +245,8 @@ namespace NStore.RDBSStrategy.SqlServer
         public void UpdateOrderDiscount(int oid, decimal discount, decimal surplusMoney)
         {
             DbParameter[] parms = {
-                                    GenerateInParam("@oid", SqlDbType.Int, 4, oid), 
-                                    GenerateInParam("@discount", SqlDbType.Decimal, 8, discount), 
+                                    GenerateInParam("@oid", SqlDbType.Int, 4, oid),
+                                    GenerateInParam("@discount", SqlDbType.Decimal, 8, discount),
                                     GenerateInParam("@surplusmoney", SqlDbType.Decimal, 8, surplusMoney)
                                    };
             RDBSHelper.ExecuteNonQuery(CommandType.StoredProcedure,
@@ -264,8 +264,8 @@ namespace NStore.RDBSStrategy.SqlServer
         public void UpdateOrderShipFee(int oid, decimal shipFee, decimal orderAmount, decimal surplusMoney)
         {
             DbParameter[] parms = {
-                                    GenerateInParam("@oid", SqlDbType.Int, 4, oid), 
-                                    GenerateInParam("@shipfee", SqlDbType.Decimal, 8, shipFee), 
+                                    GenerateInParam("@oid", SqlDbType.Int, 4, oid),
+                                    GenerateInParam("@shipfee", SqlDbType.Decimal, 8, shipFee),
                                     GenerateInParam("@orderamount", SqlDbType.Decimal, 8, orderAmount),
                                     GenerateInParam("@surplusmoney", SqlDbType.Decimal, 8, surplusMoney)
                                    };
@@ -282,7 +282,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public void UpdateOrderState(int oid, OrderState orderState)
         {
             DbParameter[] parms = {
-                                    GenerateInParam("@oid", SqlDbType.Int, 4, oid), 
+                                    GenerateInParam("@oid", SqlDbType.Int, 4, oid),
                                     GenerateInParam("@orderstate", SqlDbType.TinyInt, 1, (int)orderState)
                                    };
             RDBSHelper.ExecuteNonQuery(CommandType.StoredProcedure,
@@ -302,11 +302,11 @@ namespace NStore.RDBSStrategy.SqlServer
         public void SendOrderProduct(int oid, OrderState orderState, string shipSN, int shipCoId, string shipCoName, DateTime shipTime)
         {
             DbParameter[] parms = {
-                                    GenerateInParam("@oid", SqlDbType.Int, 4, oid), 
+                                    GenerateInParam("@oid", SqlDbType.Int, 4, oid),
                                     GenerateInParam("@orderstate", SqlDbType.TinyInt, 1, (int)orderState),
                                     GenerateInParam("@shipsn", SqlDbType.Char, 30, shipSN),
-                                    GenerateInParam("@shipcoid", SqlDbType.SmallInt, 2, shipCoId), 
-                                    GenerateInParam("@shipconame", SqlDbType.NChar, 30, shipCoName), 
+                                    GenerateInParam("@shipcoid", SqlDbType.SmallInt, 2, shipCoId),
+                                    GenerateInParam("@shipconame", SqlDbType.NChar, 30, shipCoName),
                                     GenerateInParam("@shiptime", SqlDbType.DateTime, 8, shipTime)
                                    };
             RDBSHelper.ExecuteNonQuery(CommandType.StoredProcedure,
@@ -324,7 +324,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public void PayOrder(int oid, OrderState orderState, string paySN, DateTime payTime)
         {
             DbParameter[] parms = {
-                                    GenerateInParam("@oid", SqlDbType.Int, 4, oid), 
+                                    GenerateInParam("@oid", SqlDbType.Int, 4, oid),
                                     GenerateInParam("@orderstate", SqlDbType.TinyInt, 1, (int)orderState),
                                     GenerateInParam("@paysn", SqlDbType.Char, 30, paySN),
                                     GenerateInParam("@paytime", SqlDbType.DateTime, 8, payTime)
@@ -342,7 +342,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public void UpdateOrderIsReview(int oid, int isReview)
         {
             DbParameter[] parms = {
-                                    GenerateInParam("@oid", SqlDbType.Int, 4, oid), 
+                                    GenerateInParam("@oid", SqlDbType.Int, 4, oid),
                                     GenerateInParam("@isreview", SqlDbType.TinyInt, 1, isReview)
                                    };
             RDBSHelper.ExecuteNonQuery(CommandType.StoredProcedure,
@@ -363,9 +363,9 @@ namespace NStore.RDBSStrategy.SqlServer
         public DataTable GetUserOrderList(int uid, int pageSize, int pageNumber, string startAddTime, string endAddTime, int orderState)
         {
             DbParameter[] parms = {
-                                    GenerateInParam("@uid", SqlDbType.Int, 4, uid), 
-                                    GenerateInParam("@pagesize", SqlDbType.Int, 4, pageSize), 
-                                    GenerateInParam("@pagenumber", SqlDbType.Int, 4, pageNumber), 
+                                    GenerateInParam("@uid", SqlDbType.Int, 4, uid),
+                                    GenerateInParam("@pagesize", SqlDbType.Int, 4, pageSize),
+                                    GenerateInParam("@pagenumber", SqlDbType.Int, 4, pageNumber),
                                     GenerateInParam("@startaddtime", SqlDbType.VarChar, 30, startAddTime.Length > 0? TypeHelper.StringToDateTime(startAddTime).ToString("yyyy-MM-dd HH:mm:ss") : ""),
                                     GenerateInParam("@endaddtime", SqlDbType.VarChar, 30, endAddTime.Length > 0? TypeHelper.StringToDateTime(endAddTime).ToString("yyyy-MM-dd HH:mm:ss") : ""),
                                     GenerateInParam("@orderstate", SqlDbType.TinyInt, 1, orderState)
@@ -386,7 +386,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public int GetUserOrderCount(int uid, string startAddTime, string endAddTime, int orderState)
         {
             DbParameter[] parms = {
-                                    GenerateInParam("@uid", SqlDbType.Int, 4, uid), 
+                                    GenerateInParam("@uid", SqlDbType.Int, 4, uid),
                                     GenerateInParam("@startaddtime", SqlDbType.VarChar, 30, startAddTime.Length > 0? TypeHelper.StringToDateTime(startAddTime).ToString("yyyy-MM-dd HH:mm:ss") : ""),
                                     GenerateInParam("@endaddtime", SqlDbType.VarChar, 30, endAddTime.Length > 0? TypeHelper.StringToDateTime(endAddTime).ToString("yyyy-MM-dd HH:mm:ss") : ""),
                                     GenerateInParam("@orderstate", SqlDbType.TinyInt, 1, orderState)
@@ -529,10 +529,10 @@ namespace NStore.RDBSStrategy.SqlServer
         public void CreateOrderAction(OrderActionInfo orderActionInfo)
         {
             DbParameter[] parms = {
-	                                    GenerateInParam("@oid", SqlDbType.Int,4,orderActionInfo.Oid),
-	                                    GenerateInParam("@uid", SqlDbType.Int,4 ,orderActionInfo.Uid),
-	                                    GenerateInParam("@realname", SqlDbType.NVarChar,10,orderActionInfo.RealName),
-	                                    GenerateInParam("@actiontype", SqlDbType.TinyInt,1 ,orderActionInfo.ActionType),
+                                        GenerateInParam("@oid", SqlDbType.Int,4,orderActionInfo.Oid),
+                                        GenerateInParam("@uid", SqlDbType.Int,4 ,orderActionInfo.Uid),
+                                        GenerateInParam("@realname", SqlDbType.NVarChar,10,orderActionInfo.RealName),
+                                        GenerateInParam("@actiontype", SqlDbType.TinyInt,1 ,orderActionInfo.ActionType),
                                         GenerateInParam("@actiontime", SqlDbType.DateTime, 8,orderActionInfo.ActionTime),
                                         GenerateInParam("@actiondes", SqlDbType.NVarChar, 250,orderActionInfo.ActionDes)
                                     };
@@ -549,7 +549,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetOrderActionList(int oid)
         {
             DbParameter[] parms = {
-	                                    GenerateInParam("@oid", SqlDbType.Int,4,oid)
+                                        GenerateInParam("@oid", SqlDbType.Int,4,oid)
                                     };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
                                             string.Format("{0}getorderactionlist", RDBSHelper.RDBSTablePre),
@@ -586,15 +586,15 @@ namespace NStore.RDBSStrategy.SqlServer
         public void ApplyRefund(OrderRefundInfo orderRefundInfo)
         {
             DbParameter[] parms = {
-	                                GenerateInParam("@storeid", SqlDbType.Int, 4, orderRefundInfo.StoreId),
-	                                GenerateInParam("@storename", SqlDbType.NVarChar,60,orderRefundInfo.StoreName),
-	                                GenerateInParam("@oid", SqlDbType.Int, 4, orderRefundInfo.Oid),
-	                                GenerateInParam("@osn", SqlDbType.VarChar,30,orderRefundInfo.OSN),
-	                                GenerateInParam("@uid", SqlDbType.Int,4 ,orderRefundInfo.Uid),
-	                                GenerateInParam("@state", SqlDbType.TinyInt,1 ,orderRefundInfo.State),
-	                                GenerateInParam("@applytime", SqlDbType.DateTime,8,orderRefundInfo.ApplyTime),
-	                                GenerateInParam("@paymoney", SqlDbType.Decimal,8,orderRefundInfo.PayMoney),
-	                                GenerateInParam("@refundmoney", SqlDbType.Decimal,8,orderRefundInfo.RefundMoney),
+                                    GenerateInParam("@storeid", SqlDbType.Int, 4, orderRefundInfo.StoreId),
+                                    GenerateInParam("@storename", SqlDbType.NVarChar,60,orderRefundInfo.StoreName),
+                                    GenerateInParam("@oid", SqlDbType.Int, 4, orderRefundInfo.Oid),
+                                    GenerateInParam("@osn", SqlDbType.VarChar,30,orderRefundInfo.OSN),
+                                    GenerateInParam("@uid", SqlDbType.Int,4 ,orderRefundInfo.Uid),
+                                    GenerateInParam("@state", SqlDbType.TinyInt,1 ,orderRefundInfo.State),
+                                    GenerateInParam("@applytime", SqlDbType.DateTime,8,orderRefundInfo.ApplyTime),
+                                    GenerateInParam("@paymoney", SqlDbType.Decimal,8,orderRefundInfo.PayMoney),
+                                    GenerateInParam("@refundmoney", SqlDbType.Decimal,8,orderRefundInfo.RefundMoney),
                                     GenerateInParam("@refundsn", SqlDbType.VarChar,30 ,orderRefundInfo.RefundSN),
                                     GenerateInParam("@refundsystemname", SqlDbType.VarChar,20 ,orderRefundInfo.RefundSystemName),
                                     GenerateInParam("@refundfriendname", SqlDbType.NVarChar,30 ,orderRefundInfo.RefundFriendName),
@@ -619,7 +619,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public void RefundOrder(int refundId, string refundSN, string refundSystemName, string refundFriendName, DateTime refundTime)
         {
             DbParameter[] parms = {
-	                                GenerateInParam("@refundid", SqlDbType.Int, 4, refundId),
+                                    GenerateInParam("@refundid", SqlDbType.Int, 4, refundId),
                                     GenerateInParam("@refundsn", SqlDbType.VarChar,30 ,refundSN),
                                     GenerateInParam("@refundsystemname", SqlDbType.VarChar,20 ,refundSystemName),
                                     GenerateInParam("@refundfriendname", SqlDbType.NVarChar,30 ,refundFriendName),

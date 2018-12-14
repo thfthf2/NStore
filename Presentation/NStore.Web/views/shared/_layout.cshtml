@@ -68,7 +68,7 @@
     @if (homeTopAdvertList != null && homeTopAdvertList.Count > 0)
     {
         <div class="headerAD box1210" onmousemove="javascript:document.getElementById('closeheadAD').style.display='block'" onmouseout="javascript:document.getElementById('closeheadAD').style.display='none'">
-            <a href="@homeTopAdvertList[0].Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@homeTopAdvertList[0].Body" width="1210" height="70" /></a>
+            <a href="@homeTopAdvertList[0].Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@homeTopAdvertList[0].Body" width="1210" height="120" /></a>
             <a id="closeheadAD" href="javascript:;" class="close" onclick="this.parentNode.style.display='none'">x</a>
         </div>
     }
@@ -77,7 +77,7 @@
             <a href="/" class="logo left"><img src="@{@WorkContext.ImageCDN}/images/logo.jpg" /></a>
             <div class="search left">
                 <div class="searchCon">
-                    <input type="text" id="keyword" name="keyword" class="Stext" autocomplete="off" onkeydown="javascript:if(event.keyCode==13) mallSearch(document.getElementById('keyword').value);" value="@WorkContext.SearchWord" />
+                    <input type="text" id="keyword" name="keyword" placeholder="亲，输入关键词后才能搜索哦！" class="Stext" autocomplete="off" onkeydown="javascript:if(event.keyCode==13) mallSearch(document.getElementById('keyword').value);" value="@WorkContext.SearchWord" />
                     <input name="" type="button" value="搜索" class="Sbutton" onclick="mallSearch(document.getElementById('keyword').value)" />
                     <div class="clear"></div>
                 </div>
@@ -93,7 +93,7 @@
              @if (WorkContext.Uid > 0)
             {
                 <div class="shortcut right">
-                    <a href="@Url.Action("logout", "account")">退出登陆&nbsp;</a>
+                    <a href="@Url.Action("logout", "account")">退出登录&nbsp;</a>
                 </div>
                 <div class="shortcut right">
                     <a href="@Url.Action("userinfo", "ucenter")">&nbsp;个人中心</a>

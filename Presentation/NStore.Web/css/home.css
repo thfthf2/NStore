@@ -83,8 +83,10 @@ html body .btRhot,body .btR:hover{background-position:right top;}
 
 
 .userinfo .productlist {height:100%; margin-top: -16px;}
-.userinfo .productlist table tr{line-height:30px;font-size:16px;}
+.userinfo .productlist table{table-layout:fixed;width: 100%;}
+.userinfo .productlist table tr{line-height:20px;font-size:15px;}
 .userinfo .productlist table tr .pimg{width:50px;}
+.userinfo .productlist table tr .centerdes{width:170px;text-overflow: ellipsis; white-space: nowrap;overflow: hidden; }
 
 /*楼层*/
 

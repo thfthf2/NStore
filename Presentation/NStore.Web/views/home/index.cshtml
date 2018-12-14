@@ -333,7 +333,7 @@
                         </tr>
                         <tr class="productlist">
                             <td colspan="2">
-                                <table style="width:100%;">
+                                <table>
                                     @{
                                       var recommendProductList= Products.GetRecommendProductList(WorkContext.Uid);
                                        if(recommendProductList!=null&&recommendProductList.Count>0)
@@ -344,17 +344,22 @@
                                                     <td class="pimg" rowspan="2">
                                                        <img src="@recommendProduct.ShowImg" alt="图片"/>
                                                     </td>
-                                                    <td>
-                                                        &nbsp;@recommendProduct.Name
+                                                    <td class="centerdes">
+                                                       &nbsp;@recommendProduct.Name&nbsp;
                                                     </td>
                                                     <td class="action"><a href="javascript:addProductToCart(@recommendProduct.Pid, 1)" style="color:#3897da;" onmouseover="this.style.color='#e13a3a'"  onmouseout="this.style.color='#3897da'">加购物车</a></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>
-                                                      &nbsp;@recommendProduct.ShopPrice ¥/ @recommendProduct.Remark
+                                                    <td class="centerdes">
+                                                         &nbsp;@recommendProduct.ShopPrice ¥
+                                                            @if (!string.IsNullOrEmpty(recommendProduct.Remark))
+                                                            {
+                                                                @:/ recommendProduct.Remark
+                                                            }&nbsp;
                                                     </td>
                                                     <td class="action"><a href="#" style="color:#3897da;" onmouseover="this.style.color='#e13a3a'"  onmouseout="this.style.color='#3897da'">立即购买</a></td>
                                                 </tr>
+                                                <tr height="1px;"></tr>
                                             }
                                         }
                                     }

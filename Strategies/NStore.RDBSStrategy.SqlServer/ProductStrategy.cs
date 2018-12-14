@@ -1855,14 +1855,13 @@ namespace NStore.RDBSStrategy.SqlServer
 
 
         /// <summary>
-        /// 获取首页推荐的感兴趣商品列表,（待完成）
+        /// 获取首页推荐的感兴趣商品列表
         /// </summary>
         /// <returns></returns>
         public IDataReader GetRecommendProductList()
         {
-            //string sql = string.Format("select [uid],[oid],[pid],[name],[showimg],[shopprice] from [{0}orderproducts] where [addtime] >@addtime and [uid]=@uid and [oid]>0 order by [oid] desc");
-            //return RDBSHelper.ExecuteReader(CommandType.Text, sql, null);
-            return null;
+            string sql = string.Format("select [pid],[name],[showimg],[shopprice],[displayorder] from [{0}homerecommend]  order by [displayorder] desc", RDBSHelper.RDBSTablePre);
+            return RDBSHelper.ExecuteReader(CommandType.Text, sql, null);
         }
         #endregion
 
