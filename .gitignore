@@ -85,3 +85,4 @@ Presentation/NStore.Web/App_Data/rdbs.config
 .vs/NStoreSln/v15/Server/sqlite3/storage.ide-shm
 .vs/NStoreSln/v15/Server/sqlite3/storage.ide-wal
 Presentation/NStore.Web/App_Data/rdbs.config
+/Presentation/NStore.Web/upload/store

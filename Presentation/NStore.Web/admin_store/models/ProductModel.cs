@@ -207,6 +207,12 @@ namespace NStore.Web.StoreAdmin.Models
         public string Description { get; set; }
 
         /// <summary>
+        /// 商品属性
+        /// </summary>
+        [AllowHtml]
+        public string Attribute { get; set; }
+
+        /// <summary>
         /// 属性id列表
         /// </summary>
         public int[] AttrIdList { get; set; }

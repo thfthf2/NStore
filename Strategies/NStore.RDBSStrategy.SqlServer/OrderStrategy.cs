@@ -232,7 +232,7 @@ namespace NStore.RDBSStrategy.SqlServer
                                     GenerateInParam("@uid", SqlDbType.Int, 4, uid),
                                     GenerateInParam("@addtime", SqlDbType.DateTime, 8, DateTime.Now.AddYears(-1)),
                                    };
-            string sql = string.Format("select top @count [uid],[oid],[pid],[name],[showimg],[shopprice],[addtime] from [{0}orderproducts] where [addtime] >@addtime and [uid]=@uid and [oid]>0 order by [oid] desc");
+            string sql = string.Format("select top (@count) [uid],[oid],[pid],[name],[showimg],[shopprice],[addtime] from [{0}orderproducts] where [addtime] >@addtime and [uid]=@uid and [oid]>0 order by [oid] desc", RDBSHelper.RDBSTablePre);
             return RDBSHelper.ExecuteReader(CommandType.Text, sql, parms);
         }
 
