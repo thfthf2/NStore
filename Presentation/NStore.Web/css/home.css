@@ -96,7 +96,7 @@ html body .btRhot,body .btR:hover{background-position:right top;}
 .floorT ul{ position:absolute; left:205px; bottom:-2px;}
 .floorT ul li{ float:left;}
 .floorT ul li a{ font-size:14px; display:block; width:240px; text-align:center;height:35px; overflow:hidden;_float:left;}
-.floorT ul li a:hover,.floorT ul li a.hot{ background:url(/images/itab3.gif) no-repeat bottom;}
+.floorT ul li a:hover,.floorT ul li a.hot{ background:url(/images/itab3.gif) no-repeat bottom;color:#d23335;}
 
 .floorBt{ position:absolute; right:0; top:5px;}
 
@@ -116,7 +116,7 @@ html body .btRhot,body .btR:hover{background-position:right top;}
 .floorCon li{ float:left; margin-right:20px; width:236px;}
 .floorCon li em{ display:block;color:#505050;padding-top:5px; height:46px; overflow:hidden;}
 .floorCon li b{ display:block; color:#d23335; }
-.floorCon li b s{ font-weight:normal; padding-left:10px; color:#505050;}
+.floorCon li b s{ font-weight:normal; padding-left:10px; color:#505050;text-decoration:line-through;}
 
 
 .floorCon li .btn {

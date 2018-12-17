@@ -47,6 +47,13 @@
             $(obj).css({"background":"#fff"});
             $(obj).find("h3").css({"background":"url(/images/categorys.jpg) no-repeat 95% center"});
         }
+
+        function showproduct(obj)
+        {
+            var selectid=$(obj).attr("toobj");
+            $(obj).parents(".floor").find(".floorR").hide();
+            $(obj).parents(".floor").find("."+selectid).show();
+        }
     </script>
 }
 
@@ -205,14 +212,10 @@
                                         @{
                         List<AdvertInfo> bannerBottomAdvertList = Adverts.GetAdvertList(8);
                                         }
-                                        <AdvertInfo>
-                                            <AdvertInfo>
                                                 @foreach (AdvertInfo info in bannerBottomAdvertList)
                                                 {
                                                                         <li><a href="@info.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@info.Body" width="200" height="160" /></a></li>
-    }
-                                                                    </AdvertInfo>
-                                                                </AdvertInfo>
+                                                }
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -411,10 +414,10 @@
                                         <h2 class="floorT">
                                             <b>1F</b>条码设备/耗材
                                             <ul>
-                                                <li><a href="javascript:void(0)">待&nbsp;&nbsp;定</a></li>
-                                                <li><a href="javascript:void(0)">待&nbsp;&nbsp;定</a></li>
-                                                <li><a href="javascript:void(0)">扫&nbsp;&nbsp;描</a></li>
-                                                <li><a href="javascript:void(0)">碳&nbsp;&nbsp;带</a></li>
+                                                <li onmouseover="showproduct(this)" toobj="plist1"><a href="javascript:void(0)">待&nbsp;&nbsp;定</a></li>
+                                                <li onmouseover="showproduct(this)" toobj="plist2"><a href="javascript:void(0)">待&nbsp;&nbsp;定</a></li>
+                                                <li onmouseover="showproduct(this)" toobj="plist3"><a href="javascript:void(0)">扫&nbsp;&nbsp;描</a></li>
+                                                <li onmouseover="showproduct(this)" toobj="plist4"><a href="javascript:void(0)">碳&nbsp;&nbsp;带</a></li>
                                                 <div class="clear"></div>
                                             </ul>
                                             <div class="clear"></div>
@@ -438,7 +441,7 @@
                                                 <a href="@floor1AdvertList2[0].Url" class="floorAD"><img src="@{@WorkContext.ImageCDN}/upload/advert/@floor1AdvertList2[0].Body" width="202" height="155" /></a>
     }
                                     </div>
-                                    <div class="floorR right">
+                                    <div class="floorR right plist1">
                                         <div class="floorCon">
                                             <ul>
                                                 @{
@@ -464,11 +467,11 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="floorR right hide">
+                                    <div class="floorR right hide plist2">
                                         <div class="floorCon">
                                             <ul>
                                                 @{
-    List<AdvertInfo> floor1AdvertList4 = Adverts.GetAdvertList(13);
+    List<AdvertInfo> floor1AdvertList4 = Adverts.GetAdvertList(18);
                                                 }
                                                         @foreach (AdvertInfo info in floor1AdvertList4)
     {
@@ -488,7 +491,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                        <div class="floorR right hide">
+                                        <div class="floorR right hide plist3">
                                             <div class="floorCon">
                                                 <ul>
                                                     @{
@@ -512,7 +515,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div class="floorR right hide">
+                                        <div class="floorR right hide plist4">
                                             <div class="floorCon">
                                                 <ul>
                                                     @{
@@ -544,10 +547,10 @@
                                         <h2 class="floorT">
                                             <b>2F</b>组装电脑/配件
                                             <ul>
-                                                <li><a href="javascript:void(0)">家用</a></li>
-                                                <li><a href="javascript:void(0)">办公</a></li>
-                                                <li><a href="javascript:void(0)">游戏</a></li>
-                                                <li><a href="javascript:void(0)">待定</a></li>
+                                                <li onmouseover="showproduct(this)" toobj="plist1"><a href="javascript:void(0)">家用</a></li>
+                                                <li onmouseover="showproduct(this)" toobj="plist2"><a href="javascript:void(0)">办公</a></li>
+                                                <li onmouseover="showproduct(this)" toobj="plist3"><a href="javascript:void(0)">游戏</a></li>
+                                                <li onmouseover="showproduct(this)" toobj="plist4"><a href="javascript:void(0)">待定</a></li>
                                                 <div class="clear"></div>
                                             </ul><div class="clear"></div>
                                         </h2>
@@ -572,7 +575,7 @@
                                                 </AdvertInfo>
                                             </AdvertInfo>
                                         </div>
-                                        <div class="floorR right">
+                                        <div class="floorR right plist1">
                                             <div class="floorCon">
                                                 <ul>
                                                     @{
@@ -597,11 +600,11 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div class="floorR right hide">
+                                        <div class="floorR right hide plist2">
                                             <div class="floorCon">
                                                 <ul>
                                                     @{
-        List<AdvertInfo> floor2AdvertList4 = Adverts.GetAdvertList(19);
+        List<AdvertInfo> floor2AdvertList4 = Adverts.GetAdvertList(12);
                                                     }
                                                             @foreach (AdvertInfo info in floor2AdvertList4)
      {
@@ -622,7 +625,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div class="floorR right hide">
+                                        <div class="floorR right hide plist3">
                                             <div class="floorCon">
                                                 <ul>
                                                     @{
@@ -645,7 +648,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div class="floorR right hide">
+                                        <div class="floorR right hide plist4">
                                             <div class="floorCon">
                                                 <ul>
                                                     @{
@@ -676,10 +679,10 @@
                                         <h2 class="floorT">
                                             <b>3F</b>办公打印
                                             <ul>
-                                                <li><a href="javascript:void(0)">耗材</a></li>
-                                                <li><a href="javascript:void(0)">复印机</a></li>
-                                                <li><a href="javascript:void(0)">打印机</a></li>
-                                                <li><a href="javascript:void(0)">待定</a></li>
+                                                <li onmouseover="showproduct(this)" toobj="plist1"><a href="javascript:void(0)">耗材</a></li>
+                                                <li onmouseover="showproduct(this)" toobj="plist2"><a href="javascript:void(0)">复印机</a></li>
+                                                <li onmouseover="showproduct(this)" toobj="plist3"><a href="javascript:void(0)">打印机</a></li>
+                                                <li onmouseover="showproduct(this)" toobj="plist4"><a href="javascript:void(0)">待定</a></li>
                                                 <div class="clear"></div>
                                             </ul>
                                             <div class="clear"></div>
@@ -703,7 +706,7 @@
                                                     <a href="@floor2AdvertList2[0].Url" class="floorAD"><img src="@{@WorkContext.ImageCDN}/upload/advert/@floor2AdvertList2[0].Body" width="202" height="155" /></a>
     }
                                         </div>
-                                        <div class="floorR right">
+                                        <div class="floorR right plist1">
                                             <div class="floorCon">
                                                 <ul>
                                                     @{
@@ -726,7 +729,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div class="floorR right hide">
+                                        <div class="floorR right hide plist2">
                                             <div class="floorCon">
                                                 <ul>
                                                     @{
@@ -749,7 +752,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div class="floorR right hide">
+                                        <div class="floorR right hide plist3">
                                             <div class="floorCon">
                                                 <ul>
                                                     @{
@@ -772,7 +775,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div class="floorR right hide">
+                                        <div class="floorR right hide plist4">
                                             <div class="floorCon">
                                                 <ul>
                                                     @{
@@ -804,10 +807,10 @@
                                         <h2 class="floorT">
                                             <b>4F</b>计量/电子/衡器
                                             <ul>
-                                                <li><a href="javascript:void(0)">计数</a></li>
-                                                <li><a href="javascript:void(0)">计重</a></li>
-                                                <li><a href="javascript:void(0)">地磅</a></li>
-                                                <li><a href="javascript:void(0)">天枰</a></li>
+                                                <li onmouseover="showproduct(this)" toobj="plist1"><a href="javascript:void(0)">计数</a></li>
+                                                <li onmouseover="showproduct(this)" toobj="plist2"><a href="javascript:void(0)">计重</a></li>
+                                                <li onmouseover="showproduct(this)" toobj="plist3"><a href="javascript:void(0)">地磅</a></li>
+                                                <li onmouseover="showproduct(this)" toobj="plist4"><a href="javascript:void(0)">天枰</a></li>
                                                 <div class="clear"></div>
                                             </ul>
                                             <div class="clear"></div>
@@ -831,7 +834,7 @@
                                                     <a href="@floor2AdvertList2[0].Url" class="floorAD"><img src="@{@WorkContext.ImageCDN}/upload/advert/@floor2AdvertList2[0].Body" width="202" height="155" /></a>
     }
                                         </div>
-                                        <div class="floorR right">
+                                        <div class="floorR right plist1">
                                             <div class="floorCon">
                                                 <ul>
                                                     @{
@@ -854,7 +857,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div class="floorR right hide">
+                                        <div class="floorR right hide plist2">
                                             <div class="floorCon">
                                                 <ul>
                                                     @{
@@ -877,7 +880,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div class="floorR right hide">
+                                        <div class="floorR right hide plist3">
                                             <div class="floorCon">
                                                 <ul>
                                                     @{
@@ -900,7 +903,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div class="floorR right hide">
+                                        <div class="floorR right hide plist4">
                                             <div class="floorCon">
                                                 <ul>
                                                     @{
