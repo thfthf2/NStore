@@ -130,7 +130,7 @@
                 <!-- baner+商品推荐层-->
                 <div id="centerdiv" class="box1210">
                     <div class="couple" >
-                        <div class="desc"><a href="#">优惠专区</a>：</div>
+                        <div class="desc"><a href="#">&nbsp;优惠专区</a>：</div>
                         <div>
                             <ul>
                            @{
@@ -942,36 +942,40 @@
                                 var brandList = Brands.GetBrandList(20, 1, "");
                                 if (brandList != null && brandList.Count > 0)
                                 {
-                                    var inite_count = 6;
-                                    @if(brandList.Count >= inite_count)
+                                    var inite_count = 5;
+                                    if(brandList.Count >= inite_count)
                                     { 
-                                        <li><a href="#" onclick="moveL" style="background:url(/images/to-left-blue.png)"></a></li>
+                                        <li style="display:inline-block;line-height:50px;margin:5px 10px;" onclick="moveL()">
+                                            <img src="\images\to-left-blue.png"/>
+                                        </li>
                                     }
-                                    for(var i=0;i< brandList.Count;i++)
+                                    for (var i = 0; i < brandList.Count; i++)
                                     {
-                                        var item=brandList[i];
-                                        @if(i < inite_count)
+                                        var item = brandList[i];
+                                        if (i < inite_count)
                                         {
-                                            <li>
-                                                <a style="display:block;line-height:50px;background-color:#ccc;float:left;margin:10px 8px;" href="@Url.Action('categorysearch', 'catalog', new RouteValueDictionary { { 'searchKeyType', 2 }, { 'searchKeyId', item.BrandId } })">
+                                            <li style="display:inline-block;line-height:50px;margin:10px 8px;width:178px;overflow:hidden;">
+                                                <a href='@Url.Action("categorysearch", "catalog", new RouteValueDictionary { { "searchKeyType", 2 }, { "searchKeyId", item.BrandId } })'>
                                                 <img  src="\upload\brand\thumb100_100\@item.Logo" alt="@item.Name"/>
                                                 </a>
                                             </li>
                                         }
                                         else
                                         {
-                                            <li style="display:none;">
-                                                <a style="display:block;line-height:50px;background-color:#ccc;float:left;margin:10px 8px;" href="@Url.Action('categorysearch', 'catalog', new RouteValueDictionary { { 'searchKeyType', 2 }, { 'searchKeyId', item.BrandId } })">
+                                            <li style="display:none;line-height:50px;margin:10px 8px;width:178px;overflow:hidden;">
+                                                <a href='@Url.Action("categorysearch", "catalog", new RouteValueDictionary { { "searchKeyType", 2 }, { "searchKeyId", item.BrandId } })'>
                                                 <img  src="\upload\brand\thumb100_100\@item.Logo" alt="@item.Name"/>
                                                 </a>
                                             </li>
                                         } 
                                     }
-                                    @if(brandList.Count >= inite_count)
+                                    if(brandList.Count >= inite_count)
                                     { 
-                                        <li><a href="#" onclick="moveR" style="background:url(/images/to-right-blue.png)"></a></li>
+                                        <li style="display:inline-block;line-height:50px;margin:5px 10px;" onclick="moveR()">
+                                            <img src="\images\to-right-blue.png" />
+                                        </li>
                                     }
-                                    
+
                                 }
                             }
                     </ul>
@@ -979,20 +983,21 @@
                     <script type="text/javascript">
                         var inBox = document.getElementById("brands");
                         var liList = inBox.getElementsByTagName("li");
+                        var _inite_count = 5;
                         var step = 0;
-                        var maxStep = liList.length - 6;
-                        function moveL() {
+                        var maxStep = liList.length - 2 - _inite_count;
+                        function moveR() {
                             if (step < maxStep) {
-                                $(liList).eq(step).css("display","none"); 
-                                $(liList).eq(6+step).css("display","block"); 
+                                $(liList).eq(step+1).css("display","none"); 
+                                $(liList).eq(_inite_count+1+step).css("display","inline-block"); 
                                 step = step + 1;
                             }
                         }
-                        function moveR() {
+                        function moveL() {
                             if (step > 0) {
                                 step = step - 1;
-                                $(liList).eq(6+step).css("display","none"); 
-                                $(liList).eq(step).css("display","block"); 
+                                $(liList).eq(_inite_count+1+step).css("display","none"); 
+                                $(liList).eq(step+1).css("display","inline-block"); 
                             }
                         }
                     </script>

@@ -10,7 +10,7 @@ namespace NStore.Core
         /// <summary>
         /// NStore版本号
         /// </summary>
-        public const string MALL_VERSION = "2.1.662";
+        public const string MALL_VERSION = "1.0.0";
 
         /// <summary>
         /// NStore主版本号
@@ -35,11 +35,11 @@ namespace NStore.Core
         /// <summary>
         /// 此版本NStore发布时间
         /// </summary>
-        public const string MALL_DATETIME = "2015.01.19";
+        public const string MALL_DATETIME = "2019.01.01";
 
         /// <summary>
         /// NStore版权
         /// </summary>
-        public const string MALL_COPYRIGHT = "@2015, NStore.com Inc.";
+        public const string MALL_COPYRIGHT = "@2018, NStore.com Inc.";
     }
 }
