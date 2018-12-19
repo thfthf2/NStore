@@ -127,6 +127,7 @@
     <Content Include="css\account.css" />
     <Content Include="css\ucenter.css" />
     <Content Include="Global.asax" />
+    <Content Include="images\111.png" />
     <Content Include="images\buy1.png" />
     <Content Include="images\d.png" />
     <Content Include="images\floorB.gif" />
@@ -139,9 +140,7 @@
     <Content Include="images\shoppingNone.gif" />
     <Content Include="images\tj.jpg" />
     <Content Include="images\to-left-blue.png" />
-    <Content Include="images\to-left-red.png" />
     <Content Include="images\to-right-blue.png" />
-    <Content Include="images\to-right-red.png" />
     <Content Include="images\u.png" />
     <Content Include="images\user-avatar.gif" />
     <Content Include="images\power_jy.gif" />

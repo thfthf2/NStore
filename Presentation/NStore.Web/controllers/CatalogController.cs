@@ -92,9 +92,17 @@ namespace NStore.Web.Controllers
 
             //关联商品列表
             model.RelateProductList = Products.GetRelateProductList(pid);
+            if (model.RelateProductList != null && model.RelateProductList.Count > 3)
+            {
+                 model.RelateProductList= model.RelateProductList.Take(3).ToList();
+            }
 
             //用户浏览历史
             model.UserBrowseHistory = BrowseHistories.GetUserBrowseHistory(WorkContext.Uid, pid);
+            if (model.UserBrowseHistory != null && model.UserBrowseHistory.Count > 3)
+            {
+                 model.UserBrowseHistory= model.UserBrowseHistory.Take(3).ToList();
+            }
 
             //商品咨询类型列表
             model.ProductConsultTypeList = ProductConsults.GetProductConsultTypeList();
