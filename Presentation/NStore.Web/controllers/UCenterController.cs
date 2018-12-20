@@ -944,10 +944,10 @@ namespace NStore.Web.Controllers
         /// <returns></returns>
         public ActionResult ShipAddressList()
         {
-            ShipAddressListModel model = new ShipAddressListModel();
+            InvoiceListModel model = new InvoiceListModel();
 
-            model.ShipAddressList = ShipAddresses.GetFullShipAddressList(WorkContext.Uid);
-            model.ShipAddressCount = model.ShipAddressList.Count;
+            model.InvoiceList = ShipAddresses.GetFullShipAddressList(WorkContext.Uid);
+            model.InvoiceCount = model.InvoiceList.Count;
 
             return View(model);
         }
@@ -1137,6 +1137,19 @@ namespace NStore.Web.Controllers
                 return errorList.Remove(errorList.Length - 1, 1).Append("]").ToString();
             else
                 return "";
+        }
+
+        #endregion
+
+        #region 发票
+        public ActionResult InvoiceList()
+        {
+            ShipAddressListModel model = new ShipAddressListModel();
+
+            model.ShipAddressList = ShipAddresses.GetFullShipAddressList(WorkContext.Uid);
+            model.ShipAddressCount = model.ShipAddressList.Count;
+
+            return View(model);
         }
 
         #endregion

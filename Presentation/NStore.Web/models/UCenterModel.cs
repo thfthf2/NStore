@@ -171,6 +171,18 @@ namespace NStore.Web.Models
         public int ShipAddressCount { get; set; }
     }
 
+    public class InvoiceListModel
+    {
+        /// <summary>
+        /// 发票信息列表
+        /// </summary>
+        public List<InvoiceInfo> InvoiceList { get; set; }
+        /// <summary>
+        /// 发票信息数量
+        /// </summary>
+        public int InvoiceCount { get; set; }
+    }
+
     /// <summary>
     /// 支付积分日志列表模型类
     /// </summary>
