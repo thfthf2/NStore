@@ -20,13 +20,13 @@ namespace NStore.RDBSStrategy.SqlServer
         public int CreateOnlineUser(OnlineUserInfo onlineUserInfo)
         {
             DbParameter[] parms = {
-									   GenerateInParam("@uid",SqlDbType.Int,4,onlineUserInfo.Uid),
-									   GenerateInParam("@sid",SqlDbType.Char,16,onlineUserInfo.Sid),
-                                       GenerateInParam("@nickname",SqlDbType.NChar,20,onlineUserInfo.NickName),	
-                                       GenerateInParam("@ip",SqlDbType.Char,15,onlineUserInfo.IP),	
-                                       GenerateInParam("@regionid",SqlDbType.SmallInt,2,onlineUserInfo.RegionId),	
-									   GenerateInParam("@updatetime",SqlDbType.DateTime,8,onlineUserInfo.UpdateTime)
-								   };
+                                       GenerateInParam("@uid",SqlDbType.Int,4,onlineUserInfo.Uid),
+                                       GenerateInParam("@sid",SqlDbType.Char,16,onlineUserInfo.Sid),
+                                       GenerateInParam("@nickname",SqlDbType.NChar,20,onlineUserInfo.NickName),
+                                       GenerateInParam("@ip",SqlDbType.Char,15,onlineUserInfo.IP),
+                                       GenerateInParam("@regionid",SqlDbType.SmallInt,2,onlineUserInfo.RegionId),
+                                       GenerateInParam("@updatetime",SqlDbType.DateTime,8,onlineUserInfo.UpdateTime)
+                                   };
             return TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.StoredProcedure,
                                                                    string.Format("{0}createonlineuser", RDBSHelper.RDBSTablePre),
                                                                    parms));
@@ -40,9 +40,9 @@ namespace NStore.RDBSStrategy.SqlServer
         public void UpdateOnlineUserIP(int olId, string ip)
         {
             DbParameter[] parms = {
-									   GenerateInParam("@ip",SqlDbType.Char,15,ip),
-									   GenerateInParam("@olid",SqlDbType.Int,4,olId)
-								   };
+                                       GenerateInParam("@ip",SqlDbType.Char,15,ip),
+                                       GenerateInParam("@olid",SqlDbType.Int,4,olId)
+                                   };
             RDBSHelper.ExecuteNonQuery(CommandType.StoredProcedure,
                                        string.Format("{}updateonlineuserip", RDBSHelper.RDBSTablePre),
                                        parms);
@@ -56,9 +56,9 @@ namespace NStore.RDBSStrategy.SqlServer
         public void UpdateOnlineUserUid(int olId, int uid)
         {
             DbParameter[] parms = {
-									   GenerateInParam("@uid",SqlDbType.Int,4,uid),
-									   GenerateInParam("@olid",SqlDbType.Int,4,olId)
-								   };
+                                       GenerateInParam("@uid",SqlDbType.Int,4,uid),
+                                       GenerateInParam("@olid",SqlDbType.Int,4,olId)
+                                   };
             RDBSHelper.ExecuteNonQuery(CommandType.StoredProcedure,
                                        string.Format("{0}updateonlineuseruid", RDBSHelper.RDBSTablePre),
                                        parms);
@@ -101,7 +101,7 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <param name="sid">sessionId</param>
         public void DeleteOnlineUserBySid(string sid)
         {
-            DbParameter[] parms = { 
+            DbParameter[] parms = {
                                         GenerateInParam("@sid", SqlDbType.Char, 16, sid)
                                     };
             RDBSHelper.ExecuteNonQuery(CommandType.StoredProcedure,
@@ -115,7 +115,7 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <param name="onlineUserExpire">过期时间</param>
         public void DeleteExpiredOnlineUser(int onlineUserExpire)
         {
-            DbParameter[] parms = { 
+            DbParameter[] parms = {
                                     GenerateInParam("@expiretime", SqlDbType.DateTime, 8, DateTime.Now.AddMinutes(onlineUserExpire * -1))
                                   };
             RDBSHelper.ExecuteNonQuery(CommandType.StoredProcedure,
@@ -258,10 +258,10 @@ namespace NStore.RDBSStrategy.SqlServer
         public bool CreateOAuthUser(OAuthInfo oauthInfo)
         {
             DbParameter[] parms = {
-									GenerateInParam("@uid",SqlDbType.Int,4,oauthInfo.Uid),
-									GenerateInParam("@openid",SqlDbType.Char,50,oauthInfo.OpenId),
-                                    GenerateInParam("@server",SqlDbType.Char,10,oauthInfo.Server)	
-								   };
+                                    GenerateInParam("@uid",SqlDbType.Int,4,oauthInfo.Uid),
+                                    GenerateInParam("@openid",SqlDbType.Char,50,oauthInfo.OpenId),
+                                    GenerateInParam("@server",SqlDbType.Char,10,oauthInfo.Server)
+                                   };
             return RDBSHelper.ExecuteNonQuery(CommandType.StoredProcedure,
                                               string.Format("{0}createoauthuser", RDBSHelper.RDBSTablePre),
                                               parms) > 0;
@@ -276,9 +276,9 @@ namespace NStore.RDBSStrategy.SqlServer
         public int GetUidByOpenIdAndServer(string openId, string server)
         {
             DbParameter[] parms = {
-									GenerateInParam("@openid",SqlDbType.Char,50,openId),
-                                    GenerateInParam("@server",SqlDbType.Char,10,server)	
-								   };
+                                    GenerateInParam("@openid",SqlDbType.Char,50,openId),
+                                    GenerateInParam("@server",SqlDbType.Char,10,server)
+                                   };
             return TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.StoredProcedure,
                                                                    string.Format("{0}getuidbyopenidandserver", RDBSHelper.RDBSTablePre),
                                                                    parms));
@@ -292,8 +292,8 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetOAuthUserByUid(int uid)
         {
             DbParameter[] parms = {
-									GenerateInParam("@uid",SqlDbType.Int,4,uid)	
-								   };
+                                    GenerateInParam("@uid",SqlDbType.Int,4,uid)
+                                   };
             string commandText = string.Format("SELECT {1} FROM [{0}oauth] WHERE [uid]=@uid",
                                                 RDBSHelper.RDBSTablePre,
                                                 RDBSFields.OAUTH);
@@ -326,8 +326,8 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetPartUserById(int uid)
         {
             DbParameter[] parms = {
-									   GenerateInParam("@uid",SqlDbType.Int,4, uid)
-								   };
+                                       GenerateInParam("@uid",SqlDbType.Int,4, uid)
+                                   };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
                                             string.Format("{0}getpartuserbyid", RDBSHelper.RDBSTablePre),
                                             parms);
@@ -341,8 +341,8 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetUserById(int uid)
         {
             DbParameter[] parms = {
-									   GenerateInParam("@uid",SqlDbType.Int,4, uid)
-								   };
+                                       GenerateInParam("@uid",SqlDbType.Int,4, uid)
+                                   };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
                                             string.Format("{0}getuserbyid", RDBSHelper.RDBSTablePre),
                                             parms);
@@ -356,8 +356,8 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetUserDetailById(int uid)
         {
             DbParameter[] parms = {
-									   GenerateInParam("@uid",SqlDbType.Int,4, uid)
-								   };
+                                       GenerateInParam("@uid",SqlDbType.Int,4, uid)
+                                   };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
                                             string.Format("{0}getuserdetailbyid", RDBSHelper.RDBSTablePre),
                                             parms);
@@ -371,8 +371,8 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetPartUserByName(string userName)
         {
             DbParameter[] parms = {
-									   GenerateInParam("@username",SqlDbType.NChar,20, userName)
-								   };
+                                       GenerateInParam("@username",SqlDbType.NChar,20, userName)
+                                   };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
                                             string.Format("{0}getpartuserbyname", RDBSHelper.RDBSTablePre),
                                             parms);
@@ -386,8 +386,8 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetPartUserByEmail(string email)
         {
             DbParameter[] parms = {
-									   GenerateInParam("@email",SqlDbType.Char,50, email)
-								   };
+                                       GenerateInParam("@email",SqlDbType.Char,50, email)
+                                   };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
                                             string.Format("{0}getpartuserbyemail", RDBSHelper.RDBSTablePre),
                                             parms);
@@ -401,8 +401,8 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetPartUserByMobile(string mobile)
         {
             DbParameter[] parms = {
-									   GenerateInParam("@mobile",SqlDbType.Char,15, mobile)
-								   };
+                                       GenerateInParam("@mobile",SqlDbType.Char,15, mobile)
+                                   };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
                                             string.Format("{0}getpartuserbymobile", RDBSHelper.RDBSTablePre),
                                             parms);
@@ -416,8 +416,8 @@ namespace NStore.RDBSStrategy.SqlServer
         public int GetUidByUserName(string userName)
         {
             DbParameter[] parms = {
-									   GenerateInParam("@username",SqlDbType.NChar,20, userName)
-								   };
+                                       GenerateInParam("@username",SqlDbType.NChar,20, userName)
+                                   };
             return TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.StoredProcedure,
                                                                    string.Format("{0}getuidbyusername", RDBSHelper.RDBSTablePre),
                                                                    parms), -1);
@@ -431,8 +431,8 @@ namespace NStore.RDBSStrategy.SqlServer
         public int GetUidByEmail(string email)
         {
             DbParameter[] parms = {
-									   GenerateInParam("@email",SqlDbType.Char,50, email)
-								   };
+                                       GenerateInParam("@email",SqlDbType.Char,50, email)
+                                   };
             return TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.StoredProcedure,
                                                                    string.Format("{0}getuidbyemail", RDBSHelper.RDBSTablePre),
                                                                    parms), -1);
@@ -446,8 +446,8 @@ namespace NStore.RDBSStrategy.SqlServer
         public int GetUidByMobile(string mobile)
         {
             DbParameter[] parms = {
-									   GenerateInParam("@mobile",SqlDbType.Char,15, mobile)
-								   };
+                                       GenerateInParam("@mobile",SqlDbType.Char,15, mobile)
+                                   };
             return TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.StoredProcedure,
                                                                    string.Format("{0}getuidbymobile", RDBSHelper.RDBSTablePre),
                                                                    parms), -1);
@@ -460,20 +460,20 @@ namespace NStore.RDBSStrategy.SqlServer
         public int CreateUser(UserInfo userInfo)
         {
             DbParameter[] parms = {
-									   GenerateInParam("@username",SqlDbType.NChar,20,userInfo.UserName),
-									   GenerateInParam("@email",SqlDbType.Char,50,userInfo.Email),
+                                       GenerateInParam("@username",SqlDbType.NChar,20,userInfo.UserName),
+                                       GenerateInParam("@email",SqlDbType.Char,50,userInfo.Email),
                                        GenerateInParam("@mobile",SqlDbType.Char,15,userInfo.Mobile),
-									   GenerateInParam("@password",SqlDbType.Char,32,userInfo.Password),
-									   GenerateInParam("@userrid",SqlDbType.SmallInt,2,userInfo.UserRid),
-									   GenerateInParam("@storeid",SqlDbType.Int,4,userInfo.StoreId),
+                                       GenerateInParam("@password",SqlDbType.Char,32,userInfo.Password),
+                                       GenerateInParam("@userrid",SqlDbType.SmallInt,2,userInfo.UserRid),
+                                       GenerateInParam("@storeid",SqlDbType.Int,4,userInfo.StoreId),
                                        GenerateInParam("@mallagid",SqlDbType.SmallInt,2,userInfo.MallAGid),
-									   GenerateInParam("@nickname",SqlDbType.NChar,20,userInfo.NickName),
-									   GenerateInParam("@avatar",SqlDbType.Char,40,userInfo.Avatar),
-									   GenerateInParam("@paycredits",SqlDbType.Int,4,userInfo.PayCredits),
-									   GenerateInParam("@rankcredits",SqlDbType.Int,4,userInfo.RankCredits),
-									   GenerateInParam("@verifyemail",SqlDbType.TinyInt,1,userInfo.VerifyEmail),
-									   GenerateInParam("@verifymobile",SqlDbType.TinyInt,1,userInfo.VerifyMobile),
-									   GenerateInParam("@liftbantime",SqlDbType.DateTime,8,userInfo.LiftBanTime),
+                                       GenerateInParam("@nickname",SqlDbType.NChar,20,userInfo.NickName),
+                                       GenerateInParam("@avatar",SqlDbType.Char,40,userInfo.Avatar),
+                                       GenerateInParam("@paycredits",SqlDbType.Int,4,userInfo.PayCredits),
+                                       GenerateInParam("@rankcredits",SqlDbType.Int,4,userInfo.RankCredits),
+                                       GenerateInParam("@verifyemail",SqlDbType.TinyInt,1,userInfo.VerifyEmail),
+                                       GenerateInParam("@verifymobile",SqlDbType.TinyInt,1,userInfo.VerifyMobile),
+                                       GenerateInParam("@liftbantime",SqlDbType.DateTime,8,userInfo.LiftBanTime),
                                        GenerateInParam("@salt",SqlDbType.NChar,6,userInfo.Salt),
                                        GenerateInParam("@usertype",SqlDbType.TinyInt,1,userInfo.UserType),
                                        GenerateInParam("@verifyrank",SqlDbType.TinyInt,1,userInfo.VerifyRank),
@@ -481,16 +481,16 @@ namespace NStore.RDBSStrategy.SqlServer
                                        GenerateInParam("@lastvisittime",SqlDbType.DateTime,8,userInfo.LastVisitTime),
                                        GenerateInParam("@lastvisitip",SqlDbType.Char,15,userInfo.LastVisitIP),
                                        GenerateInParam("@lastvisitrgid",SqlDbType.SmallInt,2,userInfo.LastVisitRgId),
-									   GenerateInParam("@registertime",SqlDbType.DateTime,8,userInfo.RegisterTime),
+                                       GenerateInParam("@registertime",SqlDbType.DateTime,8,userInfo.RegisterTime),
                                        GenerateInParam("@registerip",SqlDbType.Char,15,userInfo.RegisterIP),
                                        GenerateInParam("@registerrgid",SqlDbType.SmallInt,2,userInfo.RegisterRgId),
-									   GenerateInParam("@gender",SqlDbType.TinyInt,1,userInfo.Gender),
+                                       GenerateInParam("@gender",SqlDbType.TinyInt,1,userInfo.Gender),
                                        GenerateInParam("@realname",SqlDbType.NVarChar,10,userInfo.RealName),
-									   GenerateInParam("@bday",SqlDbType.DateTime,8,userInfo.Bday),
+                                       GenerateInParam("@bday",SqlDbType.DateTime,8,userInfo.Bday),
                                        GenerateInParam("@idcard",SqlDbType.VarChar,18,userInfo.IdCard),
-									   GenerateInParam("@regionid",SqlDbType.SmallInt,2,userInfo.RegionId),
-									   GenerateInParam("@address",SqlDbType.NVarChar,150,userInfo.Address),
-									   GenerateInParam("@bio",SqlDbType.NVarChar,300,userInfo.Bio),
+                                       GenerateInParam("@regionid",SqlDbType.SmallInt,2,userInfo.RegionId),
+                                       GenerateInParam("@address",SqlDbType.NVarChar,150,userInfo.Address),
+                                       GenerateInParam("@bio",SqlDbType.NVarChar,300,userInfo.Bio),
                                        GenerateInParam("@linkname",SqlDbType.NVarChar,300,userInfo.LinkName),
                                        GenerateInParam("@company",SqlDbType.NVarChar,300,userInfo.Company),
                                        GenerateInParam("@creditcode",SqlDbType.NVarChar,300,userInfo.CreditCode),
@@ -509,20 +509,20 @@ namespace NStore.RDBSStrategy.SqlServer
         public void UpdateUser(UserInfo userInfo)
         {
             DbParameter[] parms = {
-									   GenerateInParam("@username",SqlDbType.NChar,20,userInfo.UserName),
-									   GenerateInParam("@email",SqlDbType.Char,50,userInfo.Email),
+                                       GenerateInParam("@username",SqlDbType.NChar,20,userInfo.UserName),
+                                       GenerateInParam("@email",SqlDbType.Char,50,userInfo.Email),
                                        GenerateInParam("@mobile",SqlDbType.Char,15,userInfo.Mobile),
-									   GenerateInParam("@password",SqlDbType.Char,32,userInfo.Password),
-									   GenerateInParam("@userrid",SqlDbType.SmallInt,2,userInfo.UserRid),
-									   GenerateInParam("@storeid",SqlDbType.Int,4,userInfo.StoreId),
+                                       GenerateInParam("@password",SqlDbType.Char,32,userInfo.Password),
+                                       GenerateInParam("@userrid",SqlDbType.SmallInt,2,userInfo.UserRid),
+                                       GenerateInParam("@storeid",SqlDbType.Int,4,userInfo.StoreId),
                                        GenerateInParam("@mallagid",SqlDbType.SmallInt,2,userInfo.MallAGid),
-									   GenerateInParam("@nickname",SqlDbType.NChar,20,userInfo.NickName),
-									   GenerateInParam("@avatar",SqlDbType.Char,40,userInfo.Avatar),
-									   GenerateInParam("@paycredits",SqlDbType.Int,4,userInfo.PayCredits),
-									   GenerateInParam("@rankcredits",SqlDbType.Int,4,userInfo.RankCredits),
-									   GenerateInParam("@verifyemail",SqlDbType.TinyInt,1,userInfo.VerifyEmail),
-									   GenerateInParam("@verifymobile",SqlDbType.TinyInt,1,userInfo.VerifyMobile),
-									   GenerateInParam("@liftbantime",SqlDbType.DateTime,8,userInfo.LiftBanTime),
+                                       GenerateInParam("@nickname",SqlDbType.NChar,20,userInfo.NickName),
+                                       GenerateInParam("@avatar",SqlDbType.Char,40,userInfo.Avatar),
+                                       GenerateInParam("@paycredits",SqlDbType.Int,4,userInfo.PayCredits),
+                                       GenerateInParam("@rankcredits",SqlDbType.Int,4,userInfo.RankCredits),
+                                       GenerateInParam("@verifyemail",SqlDbType.TinyInt,1,userInfo.VerifyEmail),
+                                       GenerateInParam("@verifymobile",SqlDbType.TinyInt,1,userInfo.VerifyMobile),
+                                       GenerateInParam("@liftbantime",SqlDbType.DateTime,8,userInfo.LiftBanTime),
                                        GenerateInParam("@salt",SqlDbType.NChar,6,userInfo.Salt),
                                        GenerateInParam("@usertype",SqlDbType.TinyInt,1,userInfo.UserType),
                                        GenerateInParam("@verifyrank",SqlDbType.TinyInt,1,userInfo.VerifyRank),
@@ -530,22 +530,22 @@ namespace NStore.RDBSStrategy.SqlServer
                                        GenerateInParam("@lastvisittime",SqlDbType.DateTime,8,userInfo.LastVisitTime),
                                        GenerateInParam("@lastvisitip",SqlDbType.Char,15,userInfo.LastVisitIP),
                                        GenerateInParam("@lastvisitrgid",SqlDbType.SmallInt,2,userInfo.LastVisitRgId),
-									   GenerateInParam("@registertime",SqlDbType.DateTime,8,userInfo.RegisterTime),
+                                       GenerateInParam("@registertime",SqlDbType.DateTime,8,userInfo.RegisterTime),
                                        GenerateInParam("@registerip",SqlDbType.Char,15,userInfo.RegisterIP),
                                        GenerateInParam("@registerrgid",SqlDbType.SmallInt,2,userInfo.RegisterRgId),
-									   GenerateInParam("@gender",SqlDbType.TinyInt,1,userInfo.Gender),
+                                       GenerateInParam("@gender",SqlDbType.TinyInt,1,userInfo.Gender),
                                        GenerateInParam("@realname",SqlDbType.NVarChar,10,userInfo.RealName),
-									   GenerateInParam("@bday",SqlDbType.DateTime,8,userInfo.Bday),
+                                       GenerateInParam("@bday",SqlDbType.DateTime,8,userInfo.Bday),
                                        GenerateInParam("@idcard",SqlDbType.VarChar,18,userInfo.IdCard),
-									   GenerateInParam("@regionid",SqlDbType.SmallInt,2,userInfo.RegionId),
-									   GenerateInParam("@address",SqlDbType.NVarChar,150,userInfo.Address),
-									   GenerateInParam("@bio",SqlDbType.NVarChar,300,userInfo.Bio),
+                                       GenerateInParam("@regionid",SqlDbType.SmallInt,2,userInfo.RegionId),
+                                       GenerateInParam("@address",SqlDbType.NVarChar,150,userInfo.Address),
+                                       GenerateInParam("@bio",SqlDbType.NVarChar,300,userInfo.Bio),
                                        GenerateInParam("@linkname",SqlDbType.NVarChar,300,userInfo.LinkName),
                                        GenerateInParam("@company",SqlDbType.NVarChar,300,userInfo.Company),
                                        GenerateInParam("@creditcode",SqlDbType.NVarChar,300,userInfo.CreditCode),
                                        GenerateInParam("@businesslicense",SqlDbType.NVarChar,300,userInfo.BusinessLicense),
-									   GenerateInParam("@uid",SqlDbType.Int,4,userInfo.Uid)
-								   };
+                                       GenerateInParam("@uid",SqlDbType.Int,4,userInfo.Uid)
+                                   };
 
             RDBSHelper.ExecuteScalar(CommandType.StoredProcedure,
                                      string.Format("{0}updateuser", RDBSHelper.RDBSTablePre),
@@ -559,26 +559,26 @@ namespace NStore.RDBSStrategy.SqlServer
         public void UpdatePartUser(PartUserInfo partUserInfo)
         {
             DbParameter[] parms = {
-									   GenerateInParam("@username",SqlDbType.NChar,20,partUserInfo.UserName),
-									   GenerateInParam("@email",SqlDbType.Char,50,partUserInfo.Email),
+                                       GenerateInParam("@username",SqlDbType.NChar,20,partUserInfo.UserName),
+                                       GenerateInParam("@email",SqlDbType.Char,50,partUserInfo.Email),
                                        GenerateInParam("@mobile",SqlDbType.Char,15,partUserInfo.Mobile),
-									   GenerateInParam("@password",SqlDbType.Char,32,partUserInfo.Password),
-									   GenerateInParam("@userrid",SqlDbType.SmallInt,2,partUserInfo.UserRid),
-									   GenerateInParam("@storeid",SqlDbType.Int,4,partUserInfo.StoreId),
+                                       GenerateInParam("@password",SqlDbType.Char,32,partUserInfo.Password),
+                                       GenerateInParam("@userrid",SqlDbType.SmallInt,2,partUserInfo.UserRid),
+                                       GenerateInParam("@storeid",SqlDbType.Int,4,partUserInfo.StoreId),
                                        GenerateInParam("@mallagid",SqlDbType.SmallInt,2,partUserInfo.MallAGid),
-									   GenerateInParam("@nickname",SqlDbType.NChar,20,partUserInfo.NickName),
-									   GenerateInParam("@avatar",SqlDbType.Char,40,partUserInfo.Avatar),
-									   GenerateInParam("@paycredits",SqlDbType.Int,4,partUserInfo.PayCredits),
-									   GenerateInParam("@rankcredits",SqlDbType.Int,4,partUserInfo.RankCredits),
-									   GenerateInParam("@verifyemail",SqlDbType.TinyInt,1,partUserInfo.VerifyEmail),
-									   GenerateInParam("@verifymobile",SqlDbType.TinyInt,1,partUserInfo.VerifyMobile),
-									   GenerateInParam("@liftbantime",SqlDbType.DateTime,8,partUserInfo.LiftBanTime),
+                                       GenerateInParam("@nickname",SqlDbType.NChar,20,partUserInfo.NickName),
+                                       GenerateInParam("@avatar",SqlDbType.Char,40,partUserInfo.Avatar),
+                                       GenerateInParam("@paycredits",SqlDbType.Int,4,partUserInfo.PayCredits),
+                                       GenerateInParam("@rankcredits",SqlDbType.Int,4,partUserInfo.RankCredits),
+                                       GenerateInParam("@verifyemail",SqlDbType.TinyInt,1,partUserInfo.VerifyEmail),
+                                       GenerateInParam("@verifymobile",SqlDbType.TinyInt,1,partUserInfo.VerifyMobile),
+                                       GenerateInParam("@liftbantime",SqlDbType.DateTime,8,partUserInfo.LiftBanTime),
                                        GenerateInParam("@salt",SqlDbType.NChar,6,partUserInfo.Salt),
                                        GenerateInParam("@usertype",SqlDbType.TinyInt,1,partUserInfo.UserType),
                                        GenerateInParam("@verifyrank",SqlDbType.TinyInt,1,partUserInfo.VerifyRank),
                                        //GenerateInParam("@forbidtype",SqlDbType.TinyInt,1,partUserInfo.ForbidType),
                                        GenerateInParam("@uid",SqlDbType.Int,4,partUserInfo.Uid)
-								   };
+                                   };
 
             RDBSHelper.ExecuteScalar(CommandType.StoredProcedure,
                                      string.Format("{0}updatepartuser", RDBSHelper.RDBSTablePre),
@@ -595,22 +595,22 @@ namespace NStore.RDBSStrategy.SqlServer
                                        GenerateInParam("@lastvisittime",SqlDbType.DateTime,8,userDetailInfo.LastVisitTime),
                                        GenerateInParam("@lastvisitip",SqlDbType.Char,15,userDetailInfo.LastVisitIP),
                                        GenerateInParam("@lastvisitrgid",SqlDbType.SmallInt,2,userDetailInfo.LastVisitRgId),
-									   GenerateInParam("@registertime",SqlDbType.DateTime,8,userDetailInfo.RegisterTime),
+                                       GenerateInParam("@registertime",SqlDbType.DateTime,8,userDetailInfo.RegisterTime),
                                        GenerateInParam("@registerip",SqlDbType.Char,15,userDetailInfo.RegisterIP),
                                        GenerateInParam("@registerrgid",SqlDbType.SmallInt,2,userDetailInfo.RegisterRgId),
-									   GenerateInParam("@gender",SqlDbType.TinyInt,1,userDetailInfo.Gender),
+                                       GenerateInParam("@gender",SqlDbType.TinyInt,1,userDetailInfo.Gender),
                                        GenerateInParam("@realname",SqlDbType.NVarChar,10,userDetailInfo.RealName),
-									   GenerateInParam("@bday",SqlDbType.DateTime,8,userDetailInfo.Bday),
+                                       GenerateInParam("@bday",SqlDbType.DateTime,8,userDetailInfo.Bday),
                                        GenerateInParam("@idcard",SqlDbType.VarChar,18,userDetailInfo.IdCard),
-									   GenerateInParam("@regionid",SqlDbType.SmallInt,2,userDetailInfo.RegionId),
-									   GenerateInParam("@address",SqlDbType.NVarChar,150,userDetailInfo.Address),
-									   GenerateInParam("@bio",SqlDbType.NVarChar,300,userDetailInfo.Bio),
+                                       GenerateInParam("@regionid",SqlDbType.SmallInt,2,userDetailInfo.RegionId),
+                                       GenerateInParam("@address",SqlDbType.NVarChar,150,userDetailInfo.Address),
+                                       GenerateInParam("@bio",SqlDbType.NVarChar,300,userDetailInfo.Bio),
                                        GenerateInParam("@linkname",SqlDbType.NVarChar,300,userDetailInfo.LinkName),
                                        GenerateInParam("@company",SqlDbType.NVarChar,300,userDetailInfo.Company),
                                        GenerateInParam("@creditcode",SqlDbType.NVarChar,300,userDetailInfo.CreditCode),
                                        GenerateInParam("@businesslicense",SqlDbType.NVarChar,300,userDetailInfo.BusinessLicense),
                                        GenerateInParam("@uid",SqlDbType.Int,4,userDetailInfo.Uid)
-								   };
+                                   };
 
             RDBSHelper.ExecuteScalar(CommandType.StoredProcedure,
                                      string.Format("{0}updateuserdetail", RDBSHelper.RDBSTablePre),
@@ -627,11 +627,11 @@ namespace NStore.RDBSStrategy.SqlServer
         public void UpdateUserLastVisit(int uid, DateTime visitTime, string ip, int regionId)
         {
             DbParameter[] parms = {
-									   GenerateInParam("@uid",SqlDbType.Int,4,uid),
-									   GenerateInParam("@visittime",SqlDbType.DateTime,8,visitTime),
+                                       GenerateInParam("@uid",SqlDbType.Int,4,uid),
+                                       GenerateInParam("@visittime",SqlDbType.DateTime,8,visitTime),
                                        GenerateInParam("@ip",SqlDbType.Char,15,ip),
-									   GenerateInParam("@regionid",SqlDbType.SmallInt,2,regionId)
-								   };
+                                       GenerateInParam("@regionid",SqlDbType.SmallInt,2,regionId)
+                                   };
             RDBSHelper.ExecuteNonQuery(CommandType.StoredProcedure,
                                        string.Format("{0}updateuserlastvisit", RDBSHelper.RDBSTablePre),
                                        parms);
@@ -770,7 +770,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public int GetUserCountByUserRid(int userRid)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@userrid", SqlDbType.SmallInt, 2, userRid)    
+                                        GenerateInParam("@userrid", SqlDbType.SmallInt, 2, userRid)
                                     };
             string commandText = string.Format("SELECT COUNT([uid]) FROM [{0}users] WHERE [userrid]=@userrid",
                                                 RDBSHelper.RDBSTablePre);
@@ -785,7 +785,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public int GetUserCountByMallAGid(int mallAGid)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@mallagid", SqlDbType.SmallInt, 2, mallAGid)    
+                                        GenerateInParam("@mallagid", SqlDbType.SmallInt, 2, mallAGid)
                                     };
             string commandText = string.Format("SELECT COUNT([uid]) FROM [{0}users] WHERE [mallagid]=@mallagid",
                                                 RDBSHelper.RDBSTablePre);
@@ -810,18 +810,18 @@ namespace NStore.RDBSStrategy.SqlServer
         public bool UpdateUser(int uid, string userName, string nickName, string avatar, int gender, string realName, DateTime bday, string idCard, int regionId, string address, string bio)
         {
             DbParameter[] parms = {
-									   GenerateInParam("@username",SqlDbType.NChar,20,userName),
-									   GenerateInParam("@nickname",SqlDbType.NChar,20,nickName),
-									   GenerateInParam("@avatar",SqlDbType.Char,40,avatar),
-									   GenerateInParam("@gender",SqlDbType.TinyInt,1,gender),
+                                       GenerateInParam("@username",SqlDbType.NChar,20,userName),
+                                       GenerateInParam("@nickname",SqlDbType.NChar,20,nickName),
+                                       GenerateInParam("@avatar",SqlDbType.Char,40,avatar),
+                                       GenerateInParam("@gender",SqlDbType.TinyInt,1,gender),
                                        GenerateInParam("@realname",SqlDbType.NVarChar,10,realName),
-									   GenerateInParam("@bday",SqlDbType.DateTime,8,bday),
-									   GenerateInParam("@idcard",SqlDbType.VarChar,18,idCard),
-									   GenerateInParam("@regionid",SqlDbType.SmallInt,2,regionId),
-									   GenerateInParam("@address",SqlDbType.NVarChar,150,address),
-									   GenerateInParam("@bio",SqlDbType.NVarChar,300,bio),
-									   GenerateInParam("@uid",SqlDbType.Int,4,uid),
-								   };
+                                       GenerateInParam("@bday",SqlDbType.DateTime,8,bday),
+                                       GenerateInParam("@idcard",SqlDbType.VarChar,18,idCard),
+                                       GenerateInParam("@regionid",SqlDbType.SmallInt,2,regionId),
+                                       GenerateInParam("@address",SqlDbType.NVarChar,150,address),
+                                       GenerateInParam("@bio",SqlDbType.NVarChar,300,bio),
+                                       GenerateInParam("@uid",SqlDbType.Int,4,uid),
+                                   };
 
             return RDBSHelper.ExecuteNonQuery(CommandType.StoredProcedure,
                                               string.Format("{0}updateucenteruser", RDBSHelper.RDBSTablePre),
@@ -836,9 +836,9 @@ namespace NStore.RDBSStrategy.SqlServer
         public void UpdateUserEmailByUid(int uid, string email)
         {
             DbParameter[] parms = {
-									   GenerateInParam("@uid",SqlDbType.Int,4, uid),
-									   GenerateInParam("@email",SqlDbType.Char,50, email)
-								   };
+                                       GenerateInParam("@uid",SqlDbType.Int,4, uid),
+                                       GenerateInParam("@email",SqlDbType.Char,50, email)
+                                   };
             RDBSHelper.ExecuteNonQuery(CommandType.StoredProcedure,
                                        string.Format("{0}updateuseremailbyuid", RDBSHelper.RDBSTablePre),
                                        parms);
@@ -852,9 +852,9 @@ namespace NStore.RDBSStrategy.SqlServer
         public void UpdateUserMobileByUid(int uid, string mobile)
         {
             DbParameter[] parms = {
-									   GenerateInParam("@uid",SqlDbType.Int,4, uid),
-									   GenerateInParam("@mobile",SqlDbType.Char,15, mobile)
-								   };
+                                       GenerateInParam("@uid",SqlDbType.Int,4, uid),
+                                       GenerateInParam("@mobile",SqlDbType.Char,15, mobile)
+                                   };
             RDBSHelper.ExecuteNonQuery(CommandType.StoredProcedure,
                                        string.Format("{0}updateusermobilebyuid", RDBSHelper.RDBSTablePre),
                                        parms);
@@ -868,9 +868,9 @@ namespace NStore.RDBSStrategy.SqlServer
         public void UpdateUserPasswordByUid(int uid, string password)
         {
             DbParameter[] parms = {
-									   GenerateInParam("@uid",SqlDbType.Int,4, uid),
-									   GenerateInParam("@password",SqlDbType.Char,32, password)
-								   };
+                                       GenerateInParam("@uid",SqlDbType.Int,4, uid),
+                                       GenerateInParam("@password",SqlDbType.Char,32, password)
+                                   };
             RDBSHelper.ExecuteNonQuery(CommandType.StoredProcedure,
                                        string.Format("{0}updateuserpasswordbyuid", RDBSHelper.RDBSTablePre),
                                        parms);
@@ -884,9 +884,9 @@ namespace NStore.RDBSStrategy.SqlServer
         public void UpdateUserLiftBanTimeByUid(int uid, DateTime liftBanTime)
         {
             DbParameter[] parms = {
-									   GenerateInParam("@uid",SqlDbType.Int,4, uid),
-									   GenerateInParam("@liftbantime",SqlDbType.DateTime,8, liftBanTime)
-								   };
+                                       GenerateInParam("@uid",SqlDbType.Int,4, uid),
+                                       GenerateInParam("@liftbantime",SqlDbType.DateTime,8, liftBanTime)
+                                   };
             RDBSHelper.ExecuteNonQuery(CommandType.StoredProcedure,
                                        string.Format("{0}updateuserliftbantimebyuid", RDBSHelper.RDBSTablePre),
                                        parms);
@@ -900,9 +900,9 @@ namespace NStore.RDBSStrategy.SqlServer
         public void UpdateUserRankByUid(int uid, int userRid)
         {
             DbParameter[] parms = {
-									   GenerateInParam("@uid",SqlDbType.Int,4, uid),
-									   GenerateInParam("@userrid",SqlDbType.SmallInt,2, userRid)
-								   };
+                                       GenerateInParam("@uid",SqlDbType.Int,4, uid),
+                                       GenerateInParam("@userrid",SqlDbType.SmallInt,2, userRid)
+                                   };
             RDBSHelper.ExecuteNonQuery(CommandType.StoredProcedure,
                                        string.Format("{0}updateuserrankbyuid", RDBSHelper.RDBSTablePre),
                                        parms);
@@ -934,8 +934,8 @@ namespace NStore.RDBSStrategy.SqlServer
         public DateTime GetRegisterTimeByRegisterIP(string registerIP)
         {
             DbParameter[] parms = {
-									GenerateInParam("@registerip",SqlDbType.Char,15, registerIP)
-								   };
+                                    GenerateInParam("@registerip",SqlDbType.Char,15, registerIP)
+                                   };
             return TypeHelper.ObjectToDateTime(RDBSHelper.ExecuteScalar(CommandType.StoredProcedure,
                                                                         string.Format("{0}getregistertimebyregisterip", RDBSHelper.RDBSTablePre),
                                                                         parms), DateTime.Now.AddDays(-1));
@@ -949,8 +949,8 @@ namespace NStore.RDBSStrategy.SqlServer
         public DateTime GetUserLastVisitTimeByUid(int uid)
         {
             DbParameter[] parms = {
-									GenerateInParam("@uid",SqlDbType.Int,4, uid)
-								   };
+                                    GenerateInParam("@uid",SqlDbType.Int,4, uid)
+                                   };
             return TypeHelper.ObjectToDateTime(RDBSHelper.ExecuteScalar(CommandType.StoredProcedure,
                                                                         string.Format("{0}getuserlastvisittimebyuid", RDBSHelper.RDBSTablePre),
                                                                         parms));
@@ -980,8 +980,8 @@ namespace NStore.RDBSStrategy.SqlServer
         public int GetStoreAdminerIdByStoreId(int storeId)
         {
             DbParameter[] parms = {
-									GenerateInParam("@storeid",SqlDbType.Int,4, storeId)
-								   };
+                                    GenerateInParam("@storeid",SqlDbType.Int,4, storeId)
+                                   };
             string commandText = string.Format("SELECT [uid] FROM [{0}users] WHERE [storeid]=@storeid",
                                                 RDBSHelper.RDBSTablePre);
             return TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.Text, commandText, parms));
@@ -1028,7 +1028,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public void DeleteUserRankById(int userRid)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@userrid", SqlDbType.SmallInt, 2, userRid)    
+                                        GenerateInParam("@userrid", SqlDbType.SmallInt, 2, userRid)
                                     };
             string commandText = string.Format("DELETE FROM [{0}userranks] WHERE [userrid]=@userrid",
                                                 RDBSHelper.RDBSTablePre);
@@ -1047,7 +1047,7 @@ namespace NStore.RDBSStrategy.SqlServer
                                         GenerateInParam("@creditslower", SqlDbType.Int, 4, userRankInfo.CreditsLower),
                                         GenerateInParam("@creditsupper", SqlDbType.Int,4,userRankInfo.CreditsUpper),
                                         GenerateInParam("@limitdays", SqlDbType.Int,4,userRankInfo.LimitDays),
-                                        GenerateInParam("@userrid", SqlDbType.SmallInt, 2, userRankInfo.UserRid)    
+                                        GenerateInParam("@userrid", SqlDbType.SmallInt, 2, userRankInfo.UserRid)
                                     };
 
             string commandText = string.Format("UPDATE [{0}userranks] SET [system]=@system,[title]=@title,[avatar]=@avatar,[creditslower]=@creditslower,[creditsupper]=@creditsupper,[limitdays]=@limitdays WHERE [userrid]=@userrid",
@@ -1094,7 +1094,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public void DeleteMallAdminGroupById(int mallAGid)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@mallagid", SqlDbType.SmallInt, 2, mallAGid)    
+                                        GenerateInParam("@mallagid", SqlDbType.SmallInt, 2, mallAGid)
                                     };
             string commandText = string.Format("DELETE FROM [{0}malladmingroups] WHERE [mallagid]=@mallagid",
                                                 RDBSHelper.RDBSTablePre);
@@ -1109,7 +1109,7 @@ namespace NStore.RDBSStrategy.SqlServer
             DbParameter[] parms = {
                                         GenerateInParam("@title", SqlDbType.NChar,50,mallAdminGroupInfo.Title),
                                         GenerateInParam("@actionlist", SqlDbType.Text, 0, mallAdminGroupInfo.ActionList),
-                                        GenerateInParam("@mallagid", SqlDbType.SmallInt, 2, mallAdminGroupInfo.MallAGid)    
+                                        GenerateInParam("@mallagid", SqlDbType.SmallInt, 2, mallAdminGroupInfo.MallAGid)
                                     };
             string commandText = string.Format("UPDATE [{0}malladmingroups] SET [title]=@title,[actionlist]=@actionlist WHERE [mallagid]=@mallagid",
                                                 RDBSHelper.RDBSTablePre);
@@ -1189,7 +1189,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetFullShipAddressList(int uid)
         {
             DbParameter[] parms = {
-                                     GenerateInParam("@uid", SqlDbType.Int, 4, uid)    
+                                     GenerateInParam("@uid", SqlDbType.Int, 4, uid)
                                    };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
                                             string.Format("{0}getfullshipaddresslist", RDBSHelper.RDBSTablePre),
@@ -1204,7 +1204,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public int GetShipAddressCount(int uid)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@uid", SqlDbType.Int, 4, uid)    
+                                        GenerateInParam("@uid", SqlDbType.Int, 4, uid)
                                     };
             return TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.StoredProcedure,
                                                                    string.Format("{0}getshipaddresscount", RDBSHelper.RDBSTablePre),
@@ -1219,7 +1219,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetDefaultFullShipAddress(int uid)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@uid", SqlDbType.Int, 4, uid)    
+                                        GenerateInParam("@uid", SqlDbType.Int, 4, uid)
                                     };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
                                             string.Format("{0}getdefaultfullshipaddress", RDBSHelper.RDBSTablePre),
@@ -1234,7 +1234,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public IDataReader GetFullShipAddressBySAId(int saId)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@said", SqlDbType.Int, 4, saId)   
+                                        GenerateInParam("@said", SqlDbType.Int, 4, saId)
                                     };
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
                                             string.Format("{0}getfullshipaddressbysaid", RDBSHelper.RDBSTablePre),
@@ -1264,8 +1264,8 @@ namespace NStore.RDBSStrategy.SqlServer
         public bool DeleteShipAddress(int saId, int uid)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@said", SqlDbType.Int, 4, saId), 
-                                        GenerateInParam("@uid", SqlDbType.Int, 4, uid) 
+                                        GenerateInParam("@said", SqlDbType.Int, 4, saId),
+                                        GenerateInParam("@uid", SqlDbType.Int, 4, uid)
                                     };
             return RDBSHelper.ExecuteNonQuery(CommandType.StoredProcedure,
                                               string.Format("{0}deleteshipaddress", RDBSHelper.RDBSTablePre),
@@ -1282,13 +1282,32 @@ namespace NStore.RDBSStrategy.SqlServer
         public bool UpdateShipAddressIsDefault(int saId, int uid, int isDefault)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@said", SqlDbType.Int, 4, saId), 
+                                        GenerateInParam("@said", SqlDbType.Int, 4, saId),
                                         GenerateInParam("@uid", SqlDbType.Int, 4, uid),
-                                        GenerateInParam("@isdefault", SqlDbType.TinyInt, 1, isDefault) 
+                                        GenerateInParam("@isdefault", SqlDbType.TinyInt, 1, isDefault)
                                     };
             return RDBSHelper.ExecuteNonQuery(CommandType.StoredProcedure,
                                               string.Format("{0}updateshipaddressisdefault", RDBSHelper.RDBSTablePre),
                                               parms) > 0;
+        }
+
+        #endregion
+
+        #region 发票
+
+        /// <summary>
+        /// 获得发票信息列表
+        /// </summary>
+        /// <param name="uid">用户id</param>
+        /// <returns></returns>
+        public IDataReader GetInvoiceList(int uid)
+        {
+            var sql = string.Format("select * from {0}invoice where uid=@uid", RDBSHelper.RDBSTablePre);
+
+            DbParameter[] parms = {
+                                     GenerateInParam("@uid", SqlDbType.Int, 4, uid)
+                                   };
+            return RDBSHelper.ExecuteReader(CommandType.Text, sql, parms);
         }
 
         #endregion
@@ -1302,10 +1321,10 @@ namespace NStore.RDBSStrategy.SqlServer
         public bool AddProductToFavorite(int uid, int pid, int state, DateTime addTime)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@uid", SqlDbType.Int, 4, uid),    
-                                        GenerateInParam("@pid", SqlDbType.Int, 4, pid),    
+                                        GenerateInParam("@uid", SqlDbType.Int, 4, uid),
+                                        GenerateInParam("@pid", SqlDbType.Int, 4, pid),
                                         GenerateInParam("@state", SqlDbType.TinyInt, 1, state),
-                                        GenerateInParam("@addtime", SqlDbType.DateTime, 8, addTime)  
+                                        GenerateInParam("@addtime", SqlDbType.DateTime, 8, addTime)
                                     };
             return RDBSHelper.ExecuteNonQuery(CommandType.StoredProcedure,
                                               string.Format("{0}addproducttofavorite", RDBSHelper.RDBSTablePre),
@@ -1337,7 +1356,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public bool IsExistFavoriteProduct(int uid, int pid)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@uid", SqlDbType.Int, 4, uid),    
+                                        GenerateInParam("@uid", SqlDbType.Int, 4, uid),
                                         GenerateInParam("@pid", SqlDbType.Int, 4, pid)
                                     };
             return TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.StoredProcedure,
@@ -1357,7 +1376,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public DataTable GetFavoriteProductList(int pageSize, int pageNumber, int uid, string storeName, string productName)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@pagesize", SqlDbType.Int, 4, pageSize),    
+                                        GenerateInParam("@pagesize", SqlDbType.Int, 4, pageSize),
                                         GenerateInParam("@pagenumber", SqlDbType.Int, 4, pageNumber),
                                         GenerateInParam("@uid", SqlDbType.Int, 4, uid),
                                         GenerateInParam("@storename", SqlDbType.NChar, 60, storeName),
@@ -1378,7 +1397,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public DataTable GetFavoriteProductList(int pageSize, int pageNumber, int uid)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@pagesize", SqlDbType.Int, 4, pageSize),    
+                                        GenerateInParam("@pagesize", SqlDbType.Int, 4, pageSize),
                                         GenerateInParam("@pagenumber", SqlDbType.Int, 4, pageNumber),
                                         GenerateInParam("@uid", SqlDbType.Int, 4, uid)
                                     };
@@ -1431,8 +1450,8 @@ namespace NStore.RDBSStrategy.SqlServer
         public bool SetFavoriteProductState(int uid, int pid, int state)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@uid", SqlDbType.Int, 4, uid),    
-                                        GenerateInParam("@pid", SqlDbType.Int, 4, pid),    
+                                        GenerateInParam("@uid", SqlDbType.Int, 4, uid),
+                                        GenerateInParam("@pid", SqlDbType.Int, 4, pid),
                                         GenerateInParam("@state", SqlDbType.TinyInt, 1, state)
                                     };
             return RDBSHelper.ExecuteNonQuery(CommandType.StoredProcedure,
@@ -1454,9 +1473,9 @@ namespace NStore.RDBSStrategy.SqlServer
         public bool AddStoreToFavorite(int uid, int storeId, DateTime addTime)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@uid", SqlDbType.Int, 4, uid),    
-                                        GenerateInParam("@storeid", SqlDbType.Int, 4, storeId),    
-                                        GenerateInParam("@addtime", SqlDbType.DateTime, 8, addTime)  
+                                        GenerateInParam("@uid", SqlDbType.Int, 4, uid),
+                                        GenerateInParam("@storeid", SqlDbType.Int, 4, storeId),
+                                        GenerateInParam("@addtime", SqlDbType.DateTime, 8, addTime)
                                     };
             return RDBSHelper.ExecuteNonQuery(CommandType.StoredProcedure,
                                               string.Format("{0}addstoretofavorite", RDBSHelper.RDBSTablePre),
@@ -1489,7 +1508,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public bool IsExistFavoriteStore(int uid, int storeId)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@uid", SqlDbType.Int, 4, uid),    
+                                        GenerateInParam("@uid", SqlDbType.Int, 4, uid),
                                         GenerateInParam("@storeid", SqlDbType.Int, 4, storeId)
                                     };
             return TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.StoredProcedure,
@@ -1507,7 +1526,7 @@ namespace NStore.RDBSStrategy.SqlServer
         public DataTable GetFavoriteStoreList(int pageSize, int pageNumber, int uid)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@pagesize", SqlDbType.Int, 4, pageSize),    
+                                        GenerateInParam("@pagesize", SqlDbType.Int, 4, pageSize),
                                         GenerateInParam("@pagenumber", SqlDbType.Int, 4, pageNumber),
                                         GenerateInParam("@uid", SqlDbType.Int, 4, uid)
                                     };

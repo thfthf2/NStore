@@ -43,6 +43,7 @@
     <Compile Include="Credits.cs" />
     <Compile Include="FavoriteProducts.cs" />
     <Compile Include="FavoriteStores.cs" />
+    <Compile Include="Invoice.cs" />
     <Compile Include="MallAdminActions.cs" />
     <Compile Include="MallAdminGroups.cs" />
     <Compile Include="MallAdminLogs.cs" />

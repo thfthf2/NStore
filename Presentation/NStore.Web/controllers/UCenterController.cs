@@ -946,7 +946,7 @@ namespace NStore.Web.Controllers
         {
             InvoiceListModel model = new InvoiceListModel();
 
-            model.InvoiceList = ShipAddresses.GetFullShipAddressList(WorkContext.Uid);
+            model.InvoiceList = Invoice.GetInvoiceList(WorkContext.Uid);
             model.InvoiceCount = model.InvoiceList.Count;
 
             return View(model);
@@ -1150,6 +1150,114 @@ namespace NStore.Web.Controllers
             model.ShipAddressCount = model.ShipAddressList.Count;
 
             return View(model);
+        }
+
+        /// <summary>
+        /// 添加配送地址
+        /// </summary>
+        public ActionResult AddInvoice()
+        {
+            int isDefault = WebHelper.GetFormInt("isDefault");
+            string alias = WebHelper.GetFormString("alias");
+            string rise = WebHelper.GetFormString("rise");
+            string address = WebHelper.GetFormString("address");
+            string mobile = WebHelper.GetFormString("mobile");
+            string account = WebHelper.GetFormString("account");
+            string bank = WebHelper.GetFormString("bank");
+            string taxid = WebHelper.GetFormString("taxid");
+            int type = WebHelper.GetFormInt("type");
+
+            string verifyResult = VerifyInvoice(type, alias, rise, address, mobile, account, bank, taxid);
+
+            if (verifyResult.Length == 0)
+            {
+                //检查配送地址数量是否达到系统所允许的最大值
+                int shipAddressCount = ShipAddresses.GetShipAddressCount(WorkContext.Uid);
+                if (shipAddressCount >= WorkContext.MallConfig.MaxShipAddress)
+                    return AjaxResult("full", "配送地址的数量已经达到系统所允许的最大值");
+
+                ShipAddressInfo shipAddressInfo = new ShipAddressInfo();
+                //shipAddressInfo.Uid = WorkContext.Uid;
+                //shipAddressInfo.RegionId = regionId;
+                //shipAddressInfo.IsDefault = isDefault == 0 ? 0 : 1;
+                //shipAddressInfo.Alias = WebHelper.HtmlEncode(alias);
+                //shipAddressInfo.Consignee = WebHelper.HtmlEncode(consignee);
+                //shipAddressInfo.Mobile = mobile;
+                //shipAddressInfo.Phone = phone;
+                //shipAddressInfo.Email = email;
+                //shipAddressInfo.ZipCode = zipcode;
+                //shipAddressInfo.Address = WebHelper.HtmlEncode(address);
+                int saId = ShipAddresses.CreateShipAddress(shipAddressInfo);
+                return AjaxResult("success", saId.ToString());
+            }
+            else
+            {
+                return AjaxResult("error", verifyResult, true);
+            }
+        }
+
+        private string VerifyInvoice(int type, string alias, string rise, string address, string mobile, string account, string bank, string taxid)
+        {
+            StringBuilder errorList = new StringBuilder("[");
+
+            //检查抬头
+            if (string.IsNullOrWhiteSpace(rise))
+                errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "alias", "别名不能为空", "}");
+            //else if (rise.Length > 25)
+            //    errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "alias", "最多只能输入25个字", "}");
+
+            //检查地址别名
+            if (string.IsNullOrWhiteSpace(alias))
+                errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "alias", "别名不能为空", "}");
+            else if (alias.Length > 25)
+                errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "alias", "最多只能输入25个字", "}");
+            
+            //个人发票验证结束
+            if (type==0)
+            {
+                if (errorList.Length > 1)
+                    return errorList.Remove(errorList.Length - 1, 1).Append("]").ToString();
+                else
+                    return "";
+            }
+
+            ////检查收货人
+            //if (string.IsNullOrWhiteSpace(consignee))
+            //    errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "consignee", "收货人不能为空", "}");
+            //else if (consignee.Length > 10)
+            //    errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "consignee", "最多只能输入10个字", "}");
+
+            ////检查手机号和固话号
+            //if (string.IsNullOrWhiteSpace(mobile))
+            //{
+            //    errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "mobile", "手机号和固话号必填一项", "}");
+            //}
+            //else
+            //{
+            //    if (!ValidateHelper.IsMobile(mobile))
+            //        errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "mobile", "手机号格式不正确", "}");
+            //    if (!ValidateHelper.IsPhone(phone))
+            //        errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "phone", "固话号格式不正确", "}");
+            //}
+
+            ////检查邮箱
+            //if (!ValidateHelper.IsEmail(email))
+            //    errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "email", "邮箱格式不正确", "}");
+
+            ////检查邮编
+            //if (!ValidateHelper.IsZipCode(zipcode))
+            //    errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "zipcode", "邮编格式不正确", "}");
+
+            ////检查详细地址
+            //if (string.IsNullOrWhiteSpace(address))
+            //    errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "address", "详细地址不能为空", "}");
+            //else if (address.Length > 75)
+            //    errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "address", "最多只能输入75个字", "}");
+
+            if (errorList.Length > 1)
+                return errorList.Remove(errorList.Length - 1, 1).Append("]").ToString();
+            else
+                return "";
         }
 
         #endregion

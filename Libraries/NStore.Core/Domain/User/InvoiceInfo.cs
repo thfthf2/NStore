@@ -11,6 +11,7 @@ namespace NStore.Core
         private int _invoiceid;//发票信息id
         private int _uid;//用户id
         private int _isdefault;//是否是默认发票信息
+        private string _alias;//别名
         private string _rise;//抬头
         private string _address;//地址
         private string _mobile;//电话
@@ -44,6 +45,15 @@ namespace NStore.Core
         {
             get { return _isdefault; }
             set { _isdefault = value; }
+        }
+
+        /// <summary>
+        /// 别名
+        /// </summary>
+        public string Alias
+        {
+            get { return _alias; }
+            set { _alias = value; }
         }
 
         /// <summary>

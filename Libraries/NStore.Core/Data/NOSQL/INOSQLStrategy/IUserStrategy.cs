@@ -195,5 +195,22 @@ namespace NStore.Core
         void UpdateShipAddressIsDefault(int saId, int uid, int isDefault);
 
         #endregion
+
+        #region 用户发票
+
+        /// <summary>
+        /// 获得用户发票信息列表
+        /// </summary>
+        /// <param name="uid">用户id</param>
+        /// <returns></returns>
+        List<InvoiceInfo> GetInvoiceList(int uid);
+
+        /// <summary>
+        /// 创建用户发票信息列表
+        /// </summary>
+        /// <param name="uid">用户id</param>
+        /// <param name="invoiceList">用户发票信息列表</param>
+        void CreateInvoiceList(int uid, List<InvoiceInfo> invoiceList);
+        #endregion
     }
 }

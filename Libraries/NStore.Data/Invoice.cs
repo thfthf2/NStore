@@ -1,6 +1,7 @@
 ﻿using NStore.Core;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,32 +24,54 @@ namespace NStore.Data
             if (_usernosql != null)
             {
                 invoiceList = _usernosql.GetInvoiceList(uid);
-                if (fullShipAddressList == null)
+                if (invoiceList == null)
                 {
-                    fullShipAddressList = new List<FullShipAddressInfo>();
-                    IDataReader reader = NStore.Core.BMAData.RDBS.GetFullShipAddressList(uid);
+                    invoiceList = new List<InvoiceInfo>();
+                    IDataReader reader = NStore.Core.BMAData.RDBS.GetInvoiceList(uid);
                     while (reader.Read())
                     {
-                        FullShipAddressInfo fullShipAddressInfo = BuildFullShipAddressFromReader(reader);
-                        fullShipAddressList.Add(fullShipAddressInfo);
+                        InvoiceInfo invoiceInfo = BuildInvoiceInfoFromReader(reader);
+                        invoiceList.Add(invoiceInfo);
                     }
                     reader.Close();
-                    _usernosql.CreateFullShipAddressList(uid, fullShipAddressList);
+                    _usernosql.CreateInvoiceList(uid, invoiceList);
                 }
             }
             else
             {
-                fullShipAddressList = new List<FullShipAddressInfo>();
-                IDataReader reader = NStore.Core.BMAData.RDBS.GetFullShipAddressList(uid);
+                invoiceList = new List<InvoiceInfo>();
+                IDataReader reader = NStore.Core.BMAData.RDBS.GetInvoiceList(uid);
                 while (reader.Read())
                 {
-                    FullShipAddressInfo fullShipAddressInfo = BuildFullShipAddressFromReader(reader);
-                    fullShipAddressList.Add(fullShipAddressInfo);
+                    InvoiceInfo invoiceInfo = BuildInvoiceInfoFromReader(reader);
+                    invoiceList.Add(invoiceInfo);
                 }
                 reader.Close();
             }
 
-            return fullShipAddressList;
+            return invoiceList;
+        }
+
+      
+        /// <summary>
+        /// 构建发票信息对象
+        /// </summary>
+        public static InvoiceInfo BuildInvoiceInfoFromReader(IDataReader reader)
+        {
+            InvoiceInfo invoiceInfo = new InvoiceInfo();
+
+            invoiceInfo.InvoiceId = TypeHelper.ObjectToInt(reader["invoiceid"]);
+            invoiceInfo.Uid = TypeHelper.ObjectToInt(reader["uid"]);
+            invoiceInfo.IsDefault = TypeHelper.ObjectToInt(reader["isdefault"]);
+            invoiceInfo.Alias = reader["alias"].ToString();
+            invoiceInfo.Rise = reader["rise"].ToString();
+            invoiceInfo.Address = reader["address"].ToString();
+            invoiceInfo.Mobile = reader["mobile"].ToString();
+            invoiceInfo.Account = reader["account"].ToString();
+            invoiceInfo.Bank = reader["bank"].ToString();
+            invoiceInfo.TaxId = reader["taxid"].ToString();
+            invoiceInfo.Type = TypeHelper.ObjectToInt(reader["type"]);
+            return invoiceInfo;
         }
     }
 }

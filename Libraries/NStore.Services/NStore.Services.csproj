@@ -99,6 +99,7 @@
     <Compile Include="Helps.cs" />
     <Compile Include="HttpHelper.cs" />
     <Compile Include="HttpManager.cs" />
+    <Compile Include="Invoice.cs" />
     <Compile Include="IPSearch.cs" />
     <Compile Include="LoginFailLogs.cs" />
     <Compile Include="MallUtils.cs" />

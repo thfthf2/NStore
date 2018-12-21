@@ -122,6 +122,7 @@
     <Compile Include="Domain\Product\RecommendProductInfo.cs" />
     <Compile Include="Domain\Product\SpecialPerformanceInfo.cs" />
     <Compile Include="Domain\Store\StoreReviewInfo.cs" />
+    <Compile Include="Domain\User\InvoiceInfo.cs" />
     <Compile Include="Domain\User\ShipAddressInfo.cs" />
     <Compile Include="Domain\Product\TimeProductInfo.cs" />
     <Compile Include="Domain\Promotion\ExtGiftInfo.cs" />

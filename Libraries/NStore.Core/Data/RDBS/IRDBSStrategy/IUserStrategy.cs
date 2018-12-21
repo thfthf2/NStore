@@ -565,6 +565,16 @@ namespace NStore.Core
 
         #endregion
 
+        #region 发票
+
+        /// <summary>
+        /// 获得发票信息列表
+        /// </summary>
+        /// <param name="uid">用户id</param>
+        /// <returns></returns>
+        IDataReader GetInvoiceList(int uid);
+        #endregion
+
         #region 店铺收藏夹
 
         /// <summary>
