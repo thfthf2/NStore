@@ -13,7 +13,7 @@ namespace NStore.Data
         private static IUserNOSQLStrategy _usernosql = BMAData.UserNOSQL;//用户非关系型数据库
 
         /// <summary>
-        /// 获得完整用户配送地址列表
+        /// 获得发票信息列表
         /// </summary>
         /// <param name="uid">用户id</param>
         /// <returns></returns>
@@ -52,7 +52,102 @@ namespace NStore.Data
             return invoiceList;
         }
 
-      
+        /// <summary>
+        /// 获得用户发票信息数量
+        /// </summary>
+        /// <param name="uid">用户id</param>
+        /// <returns></returns>
+        public static int GetInvoiceCount(int uid)
+        {
+            if (_usernosql != null)
+                return GetInvoiceList(uid).Count;
+            return NStore.Core.BMAData.RDBS.GetInvoiceCount(uid);
+        }
+
+        /// <summary>
+        /// 创建用户发票信息
+        /// </summary>
+        public static int CreateInvoice(InvoiceInfo invoiceInfo)
+        {
+            int invoiceId = NStore.Core.BMAData.RDBS.CreateInvoice(invoiceInfo);
+            if (_usernosql != null)
+                _usernosql.DeleteInvoiceList(invoiceInfo.Uid);
+            return invoiceId;
+        }
+
+
+        /// <summary>
+        /// 获得用户发票信息
+        /// </summary>
+        /// <param name="invoiceId">发票id</param>
+        /// <param name="uid">用户id</param>
+        /// <returns></returns>
+        public static InvoiceInfo GetInvoicById(int invoiceId, int uid)
+        {
+            InvoiceInfo ivoiceInfo = null;
+
+            if (_usernosql != null)
+            {
+                foreach (InvoiceInfo tempivoiceInfo in GetInvoiceList(uid))
+                {
+                    if (tempivoiceInfo.InvoiceId == invoiceId)
+                    {
+                        ivoiceInfo = tempivoiceInfo;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                IDataReader reader = NStore.Core.BMAData.RDBS.GetShipAddressBySAId(invoiceId);
+                if (reader.Read())
+                {
+                    ivoiceInfo = BuildInvoiceInfoFromReader(reader);
+                }
+                reader.Close();
+            }
+
+            return ivoiceInfo;
+        }
+
+        /// <summary>
+        /// 更新用户发票信息
+        /// </summary>
+        public static void UpdateInvoic(InvoiceInfo invoiceInfo)
+        {
+            NStore.Core.BMAData.RDBS.UpdateInvoic(invoiceInfo);
+            if (_usernosql != null)
+                _usernosql.DeleteInvoiceList(invoiceInfo.Uid);
+        }
+        
+        /// <summary>
+        /// 删除用户发票信息
+        /// </summary>
+        /// <param name="invoiceId">发票id</param>
+        /// <param name="uid">用户id</param>
+        public static bool DeleteInvoic(int invoiceId, int uid)
+        {
+            bool result = NStore.Core.BMAData.RDBS.DeleteInvoic(invoiceId, uid);
+            if (_usernosql != null)
+                _usernosql.DeleteInvoice(invoiceId, uid);
+            return result;
+        }
+
+        /// <summary>
+        /// 更新用户发票信息的默认状态
+        /// </summary>
+        /// <param name="invoiceId">发票id</param>
+        /// <param name="uid">用户id</param>
+        /// <param name="isDefault">状态</param>
+        /// <returns></returns>
+        public static bool UpdateInvoicIsDefault(int invoiceId, int uid, int isDefault)
+        {
+            bool result = NStore.Core.BMAData.RDBS.UpdateInvoicIsDefault(invoiceId, uid, isDefault);
+            if (_usernosql != null)
+                _usernosql.UpdateInvoiceIsDefault(invoiceId, uid, isDefault);
+            return result;
+        }
+
         /// <summary>
         /// 构建发票信息对象
         /// </summary>

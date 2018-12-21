@@ -1310,6 +1310,119 @@ namespace NStore.RDBSStrategy.SqlServer
             return RDBSHelper.ExecuteReader(CommandType.Text, sql, parms);
         }
 
+
+        /// <summary>
+        /// 获得用户发票信息数量
+        /// </summary>
+        /// <param name="uid">用户id</param>
+        /// <returns></returns>
+        public int GetInvoiceCount(int uid)
+        {
+            var sql = string.Format("select count(1) from {0}invoice where uid=@uid", RDBSHelper.RDBSTablePre);
+
+            DbParameter[] parms = {
+                                        GenerateInParam("@uid", SqlDbType.Int, 4, uid)
+                                    };
+            return TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.Text, sql, parms));
+        }
+
+        /// <summary>
+        /// 创建用户发票信息
+        /// </summary>
+        public int CreateInvoice(InvoiceInfo invoiceInfo)
+        {
+            var sql = string.Format(@"INSERT INTO [dbo].[{0}invoice] ([uid],[isdefault],[alias],[rise],[address],[mobile],[account],[bank],[taxid],[type])
+        VALUES( @uid,@isdefault,@alias,@rise,@address,@mobile,@account,@bank,@taxid,@type );SELECT SCOPE_IDENTITY();", RDBSHelper.RDBSTablePre);
+
+            DbParameter[] parms = {
+                                        GenerateInParam("@uid", SqlDbType.Int, 4, invoiceInfo.Uid),
+                                        GenerateInParam("@isdefault", SqlDbType.TinyInt, 1, invoiceInfo.IsDefault),
+                                        GenerateInParam("@alias", SqlDbType.NVarChar, 50, invoiceInfo.Alias),
+                                        GenerateInParam("@rise", SqlDbType.NVarChar, 50, invoiceInfo.Rise),
+                                        GenerateInParam("@address", SqlDbType.NVarChar, 200, invoiceInfo.Address),
+                                        GenerateInParam("@mobile", SqlDbType.NVarChar, 15, invoiceInfo.Mobile),
+                                        GenerateInParam("@account", SqlDbType.NVarChar, 15, invoiceInfo.Account),
+                                        GenerateInParam("@bank", SqlDbType.NVarChar, 15, invoiceInfo.Bank),
+                                        GenerateInParam("@taxid", SqlDbType.NVarChar, 15, invoiceInfo.TaxId),
+                                        GenerateInParam("@type", SqlDbType.Int, 4, invoiceInfo.Type)
+                                    };
+            return TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.Text, sql, parms));
+        }
+
+
+        /// <summary>
+        /// 获得用户发票信息
+        /// </summary>
+        /// <param name="invoiceId">发票id</param>
+        /// <returns></returns>
+        public IDataReader GetInvoicById(int invoiceId)
+        {
+            var sql = string.Format("select * from {0}invoice where invoiceid=@invoiceid", RDBSHelper.RDBSTablePre);
+
+            DbParameter[] parms = {
+                                        GenerateInParam("@invoiceid", SqlDbType.SmallInt, 2, invoiceId)
+                                    };
+            return RDBSHelper.ExecuteReader(CommandType.Text, sql, parms);
+        }
+
+        /// <summary>
+        /// 更新用户发票信息
+        /// </summary>
+        public void UpdateInvoic(InvoiceInfo invoiceInfo)
+        {
+            var sql = string.Format(@"UPDATE [dbo].[{0}invoice] SET uid=@uid,isdefault=@isdefault,alias=@alias,rise=@rise,address=@address,mobile=@mobile,account=@account,bank=@bank,taxid=@taxid,type=@type where invoiceid=@invoiceid", RDBSHelper.RDBSTablePre);
+
+            DbParameter[] parms = {
+
+                                        GenerateInParam("@invoiceid", SqlDbType.SmallInt, 2, invoiceInfo.InvoiceId),
+                                        GenerateInParam("@uid", SqlDbType.Int, 4, invoiceInfo.Uid),
+                                        GenerateInParam("@isdefault", SqlDbType.TinyInt, 1, invoiceInfo.IsDefault),
+                                        GenerateInParam("@alias", SqlDbType.NVarChar, 50, invoiceInfo.Alias),
+                                        GenerateInParam("@rise", SqlDbType.NVarChar, 50, invoiceInfo.Rise),
+                                        GenerateInParam("@address", SqlDbType.NVarChar, 200, invoiceInfo.Address),
+                                        GenerateInParam("@mobile", SqlDbType.NVarChar, 15, invoiceInfo.Mobile),
+                                        GenerateInParam("@account", SqlDbType.NVarChar, 15, invoiceInfo.Account),
+                                        GenerateInParam("@bank", SqlDbType.NVarChar, 15, invoiceInfo.Bank),
+                                        GenerateInParam("@taxid", SqlDbType.NVarChar, 15, invoiceInfo.TaxId),
+                                        GenerateInParam("@type", SqlDbType.Int, 4, invoiceInfo.Type)
+                                    };
+            RDBSHelper.ExecuteNonQuery(CommandType.Text, sql, parms);
+        }
+
+        /// <summary>
+        /// 删除用户发票信息
+        /// </summary>
+        /// <param name="invoiceId">发票id</param>
+        /// <param name="uid">用户id</param>
+        public bool DeleteInvoic(int invoiceId, int uid)
+        {
+            var sql = string.Format(@"DELETE FROM [dbo].[{0}invoice] where invoiceid=@invoiceid AND uid=@uid", RDBSHelper.RDBSTablePre);
+
+            DbParameter[] parms = {
+                                        GenerateInParam("@invoiceId", SqlDbType.SmallInt, 2, invoiceId),
+                                        GenerateInParam("@uid", SqlDbType.Int, 4, uid)
+                                    };
+            return RDBSHelper.ExecuteNonQuery(CommandType.Text, sql, parms) > 0;
+        }
+
+        /// <summary>
+        /// 更新用户发票信息的默认状态
+        /// </summary>
+        /// <param name="invoiceId">发票id</param>
+        /// <param name="uid">用户id</param>
+        /// <param name="isDefault">状态</param>
+        /// <returns></returns>
+        public bool UpdateInvoicIsDefault(int invoiceId, int uid, int isDefault)
+        {
+            var sql = string.Format(@"UPDATE [dbo].[{0}invoice] SET isdefault=@isdefault where invoiceid=@invoiceid AND uid=@uid", RDBSHelper.RDBSTablePre);
+
+            DbParameter[] parms = {
+                                        GenerateInParam("@invoiceId", SqlDbType.SmallInt, 2, invoiceId),
+                                        GenerateInParam("@uid", SqlDbType.Int, 4, uid),
+                                        GenerateInParam("@isdefault", SqlDbType.TinyInt, 1, isDefault)
+                                    };
+            return RDBSHelper.ExecuteNonQuery(CommandType.Text, sql, parms) > 0;
+        }
         #endregion
 
         #region 商品收藏夹

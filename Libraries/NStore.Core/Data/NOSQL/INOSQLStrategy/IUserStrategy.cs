@@ -211,6 +211,28 @@ namespace NStore.Core
         /// <param name="uid">用户id</param>
         /// <param name="invoiceList">用户发票信息列表</param>
         void CreateInvoiceList(int uid, List<InvoiceInfo> invoiceList);
+        
+        /// <summary>
+        /// 删除用户发票信息列表
+        /// </summary>
+        /// <param name="uid">用户id</param>
+        void DeleteInvoiceList(int uid);
+        
+        /// <summary>
+        /// 删除用户发票信息
+        /// </summary>
+        /// <param name="invoiceId">发票id</param>
+        /// <param name="uid">用户id</param>
+        void DeleteInvoice(int invoiceId, int uid);
+
+        /// <summary>
+        /// 更新用户发票信息的默认状态
+        /// </summary>
+        /// <param name="invoiceId">发票id</param>
+        /// <param name="uid">用户id</param>
+        /// <param name="isDefault">状态</param>
+        /// <returns></returns>
+        void UpdateInvoiceIsDefault(int invoiceId, int uid, int isDefault);
         #endregion
     }
 }

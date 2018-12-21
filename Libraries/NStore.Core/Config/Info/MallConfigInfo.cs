@@ -609,6 +609,7 @@ namespace NStore.Core
         private int _offlinepayexpire = 7;//线下支付过期时间(单位为天)
         private int _brohiscount = 8;//浏览历史数量
         private int _maxshipaddress = 12;//最大配送地址
+        private int _maxinvoice = 6;//最大配送地址
         private int _favoriteproductcount = 20;//商品收藏夹最大容量
         private int _favoritestorecount = 20;//店铺收藏夹最大容量
 
@@ -691,6 +692,14 @@ namespace NStore.Core
         {
             get { return _maxshipaddress; }
             set { _maxshipaddress = value; }
+        }
+        /// <summary>
+        /// 最大发票信息数量
+        /// </summary>
+        public int MaxInvoice
+        {
+            get { return _maxinvoice; }
+            set { _maxinvoice = value; }
         }
         /// <summary>
         /// 商品收藏夹最大容量

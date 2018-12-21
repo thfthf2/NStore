@@ -573,6 +573,46 @@ namespace NStore.Core
         /// <param name="uid">用户id</param>
         /// <returns></returns>
         IDataReader GetInvoiceList(int uid);
+
+        /// <summary>
+        /// 获得用户发票信息数量
+        /// </summary>
+        /// <param name="uid">用户id</param>
+        /// <returns></returns>
+        int GetInvoiceCount(int uid);
+
+        /// <summary>
+        /// 创建用户发票信息
+        /// </summary>
+        int CreateInvoice(InvoiceInfo invoiceInfo);
+
+        /// <summary>
+        /// 获得用户发票信息
+        /// </summary>
+        /// <param name="invoiceId">发票id</param>
+        /// <returns></returns>
+        IDataReader GetInvoicById(int invoiceId);
+
+        /// <summary>
+        /// 更新用户发票信息
+        /// </summary>
+        void UpdateInvoic(InvoiceInfo invoiceInfo);
+
+        /// <summary>
+        /// 删除用户发票信息
+        /// </summary>
+        /// <param name="invoiceId">发票id</param>
+        /// <param name="uid">用户id</param>
+        bool DeleteInvoic(int invoiceId, int uid);
+
+        /// <summary>
+        /// 更新用户发票信息的默认状态
+        /// </summary>
+        /// <param name="invoiceId">发票id</param>
+        /// <param name="uid">用户id</param>
+        /// <param name="isDefault">状态</param>
+        /// <returns></returns>
+        bool UpdateInvoicIsDefault(int invoiceId, int uid, int isDefault);
         #endregion
 
         #region 店铺收藏夹
