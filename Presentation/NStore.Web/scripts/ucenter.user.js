@@ -49,6 +49,7 @@ function openAddShipAddressBlock() {
     document.getElementById("editShipAddressBut").style.display = "none";
     document.getElementById("addShipAddressBut").style.display = "";
     document.getElementById("shipAddressBlock").style.display = "";
+    document.getElementById("coverlayer").style.display = "";
 }
 
 //打开编辑配送地址层
@@ -87,6 +88,7 @@ function openEditShipAddressBlockResponse(data) {
         document.getElementById("addShipAddressBut").style.display = "none";
         document.getElementById("editShipAddressBut").style.display = "";
         document.getElementById("shipAddressBlock").style.display = "";
+        document.getElementById("coverlayer").style.display = "";
     }
     else {
         alert(result.content)
@@ -111,6 +113,7 @@ function closeShipAddressBlock() {
     document.getElementById("addShipAddressBut").style.display = "none";
     document.getElementById("editShipAddressBut").style.display = "none";
     document.getElementById("shipAddressBlock").style.display = "none";
+    document.getElementById("coverlayer").style.display = "none";
 }
 
 //验证配送地址
@@ -264,6 +267,16 @@ function setDefaultShipAddressResponse(data, obj) {
         }
         obj.style.display = "none";
         obj.id = "defaultShipAddress";
+
+        var defaultShipAddressVisa = document.getElementById("defaultShipAddressVisa");
+        if (defaultShipAddressVisa != undefined) {
+            defaultShipAddressVisa.style.display = "none";
+            defaultShipAddressVisa.id = "";
+        }
+
+        obj.previousElementSibling.style.display = "";
+        obj.previousElementSibling.id = "defaultShipAddressVisa";
+
     }
     else {
         alert(result.content);

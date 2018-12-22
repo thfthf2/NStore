@@ -944,10 +944,10 @@ namespace NStore.Web.Controllers
         /// <returns></returns>
         public ActionResult ShipAddressList()
         {
-            InvoiceListModel model = new InvoiceListModel();
+            ShipAddressListModel model = new ShipAddressListModel();
 
-            model.InvoiceList = Invoice.GetInvoiceList(WorkContext.Uid);
-            model.InvoiceCount = model.InvoiceList.Count;
+            model.ShipAddressList = ShipAddresses.GetFullShipAddressList(WorkContext.Uid);
+            model.ShipAddressCount = model.ShipAddressList.Count;
 
             return View(model);
         }
@@ -1249,7 +1249,7 @@ namespace NStore.Web.Controllers
         /// <summary>
         /// 删除配送地址
         /// </summary>
-        public ActionResult DeInvoice()
+        public ActionResult DelInvoice()
         {
             int invoiceId = WebHelper.GetQueryInt("invoiceId");
             bool result = Invoice.DeleteInvoic(invoiceId, WorkContext.Uid);

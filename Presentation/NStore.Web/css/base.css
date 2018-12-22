@@ -191,6 +191,8 @@ html body .grayBT{padding: 1px 10px;background: #f5f5f5;color: #333;border: 1px 
         background:url(/images/goto-top.png) no-repeat 0 -32px;
     }*/
 
+#coverlayer{position: fixed;top: 0%;left: 0%; width: 100%;height: 100%; background-color:rgba(0,0,0,0.2);z-index:1000;-moz-opacity: 0.7;opacity:.70;filter: alpha(opacity=70);}
+
 /*通用产品列表*/
 
 .proList li{}

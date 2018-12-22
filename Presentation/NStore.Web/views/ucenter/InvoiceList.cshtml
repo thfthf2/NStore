@@ -1,10 +1,10 @@
-﻿@model NStore.Web.Models.ShipAddressListModel
+﻿@model NStore.Web.Models.InvoiceListModel
 @{
     Layout = "~/Views/Shared/_layout.cshtml";
 }
 @section header{
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>收货地址-@{@WorkContext.MallConfig.SiteTitle}</title>
+    <title>发票信息-@{@WorkContext.MallConfig.SiteTitle}</title>
     @Html.Raw(WorkContext.MallConfig.SEOKeyword)
     @Html.Raw(WorkContext.MallConfig.SEODescription)
     <link href="@{@WorkContext.CSSCDN}/css/base.css" rel="stylesheet" type="text/css" />
@@ -21,6 +21,7 @@
 }
 
 @section body{
+    
 <div class="bigBox" id="member">
 <div class="box">
 <div id="memberL">
@@ -41,12 +42,12 @@
 
 </div>
 <div id="memberR">
-<div class="SHtitle"><a href="javascript:openAddShipAddressBlock()" class="greenBT">新增收获地址</a> &nbsp; 您已创建<b>@Model.ShipAddressCount</b> 个收货地址，最多可创建<b>@WorkContext.MallConfig.MaxShipAddress</b>个</div>
+<div class="SHtitle"><a href="javascript:openAddShipAddressBlock()" class="greenBT">新增发票信息</a> &nbsp; 您已创建<b>@Model.InvoiceCount</b> 个发票信息，最多可创建<b>@WorkContext.MallConfig.MaxInvoice</b>个</div>
 
-    @foreach (FullShipAddressInfo info in Model.ShipAddressList)
+    @foreach (InvoiceInfo info in Model.InvoiceList)
     {
-    <div class="SHadress" id="shipAddress@{@info.SAId}">
-        <h4>@info.Alias<div class="SHedit">
+    <div class="SHadress" id="shipAddress@{@info.InvoiceId}">
+        @*<h4>@info.Alias<div class="SHedit">
             @if (info.IsDefault == 0)
             {
                 <span id="" style="display:none;color:#3893da;">默认&nbsp;</span>
@@ -67,7 +68,7 @@
             <li><b>手机：</b><em>@info.Mobile</em><div class="clear"></div></li>
             <li><b>固定电话：</b><em>@info.Phone</em><div class="clear"></div></li>
             <li><b>电子邮箱：</b><em>@info.Email</em><div class="clear"></div></li>
-        </ul>
+        </ul>*@
     </div>
     }
 <div id="shipAddressBlock" style="display:none; ">
@@ -122,31 +123,7 @@
         </div>
     </form>
     <script type="text/javascript">
-        //绑定省列表的改变事件
-        Event.addHandler(document.getElementById("provinceId"), "change", function (event) {
-            var selectedProvinceId = getSelectedOption(this).value;
-            if (selectedProvinceId > 0) {
-                document.getElementById("regionId").innerHTML = "<option value='-1'>请选择</option>";
-                bindCityList(selectedProvinceId, document.getElementById("cityId"));
-            }
-        })
 
-
-        //绑定市列表的改变事件
-        Event.addHandler(document.getElementById("cityId"), "change", function (event) {
-            var selectedCityId = getSelectedOption(this).value;
-            if (selectedCityId > 0) {
-                bindCityList(selectedCityId, document.getElementById("regionId"));
-            }
-        })
-
-        //绑定省列表
-        bindProvinceList(document.getElementById("provinceId"), provinceId);
-
-        if (cityId > 0) {
-            bindCityList(provinceId, document.getElementById("cityId"), cityId);
-            bindCountyList(cityId, document.getElementById("regionId"), countyId);
-        }
 </script>
 </div>
 
@@ -157,3 +134,4 @@
 <div class="clear"></div>
 </div>
 }
+

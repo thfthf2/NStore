@@ -434,6 +434,7 @@
     <None Include="Properties\PublishProfiles\TestPublish.pubxml" />
     <Content Include="views\account\authentication.cshtml" />
     <Content Include="views\shared\_layoutbase.cshtml" />
+    <Content Include="views\ucenter\InvoiceList.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
