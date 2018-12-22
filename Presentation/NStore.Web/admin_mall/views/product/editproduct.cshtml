@@ -206,7 +206,7 @@
         </div>
         
         <div class="addTable hide">
-            <table width="100%">
+            @*<table width="100%">
                 @{
                     DataTable productSKUItemList = (DataTable)ViewData["productSKUItemList"];
                     if (productSKUItemList == null || productSKUItemList.Rows.Count < 1)
@@ -246,6 +246,42 @@
                     <td>
                         <a href="" class="addBt submit">
                             <img src="/admin_mall/content/images/submit.jpg" /></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+            </table>*@
+            <table width="100%">
+                <tr>
+                    <td width="0px" align="right">
+                        <div style="margin-left: 15px;">
+                        </div>
+                    </td>
+                    <td>
+                        <div style="margin-top: 5px;">
+                        </div>
+                        <script name="Spec" id="bmaAttrEditor" type="text/plain">
+                            @Html.Raw(Model.Spec)
+                        </script>
+                        <script type="text/javascript">
+                                UE.getEditor('bmaAttrEditor');
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        &nbsp;
+                    </td>
+                    <td>
+                        <a href="" class="addBt submit">
+                            <img src="/admin_mall/content/images/submit.jpg" />
+                        </a>
                     </td>
                 </tr>
                 <tr>

@@ -357,6 +357,12 @@ namespace NStore.Web.StoreAdmin.Models
         public bool IsNew { get; set; }
 
         /// <summary>
+        /// 商品规格
+        /// </summary>
+        [AllowHtml]
+        public string Spec { get; set; }
+
+        /// <summary>
         /// 商品描述
         /// </summary>
         [AllowHtml]

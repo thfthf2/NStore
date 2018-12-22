@@ -1017,13 +1017,14 @@ namespace NStore.RDBSStrategy.SqlServer
                                     GenerateInParam("@star5",SqlDbType.Int,4,productInfo.Star5),
                                     GenerateInParam("@addtime",SqlDbType.DateTime,8,productInfo.AddTime),
                                     GenerateInParam("@description",SqlDbType.NText,0,productInfo.Description),
-                                    GenerateInParam("@pid",SqlDbType.Int,4,productInfo.Pid)
+                                    GenerateInParam("@pid",SqlDbType.Int,4,productInfo.Pid),
+                                    GenerateInParam("@spec",SqlDbType.NText,0,productInfo.Spec)
                                    };
 
             string commandText = string.Format(@"UPDATE [{0}products] SET [psn]=@psn,[cateid]=@cateid,[brandid]=@brandid,[storeid]=@storeid,[storecid]=@storecid,[storestid]=@storestid,[skugid]=@skugid,[name]=@name,[shopprice]=@shopprice,[marketprice]=@marketprice,[costprice]=@costprice,
                                                  [state]=@state,[isbest]=@isbest,[ishot]=@ishot,[isnew]=@isnew,[displayorder]=@displayorder,[weight]=@weight,[showimg]=@showimg,[salecount]=@salecount,[visitcount]=@visitcount,[reviewcount]=@reviewcount,
                                                  [star1]=@star1,[star2]=@star2,[star3]=@star3,[star4]=@star4,[star5]=@star5,[addtime]=@addtime,[description]=@description
-                                                 WHERE [pid]=@pid",
+                                                 WHERE [pid]=@pid update {0}productintroduction set detail=@description,spec=@spec where pid=@pid",
                                                  RDBSHelper.RDBSTablePre);
 
             RDBSHelper.ExecuteNonQuery(CommandType.Text, commandText, parms);
@@ -1064,13 +1065,19 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <returns></returns>
         public IDataReader AdminGetProductById(int pid)
         {
+            //DbParameter[] parms =  {
+            //                            GenerateInParam("@pid", SqlDbType.Int, 4, pid)
+            //                        };
+            //string commandText = string.Format("SELECT {0} FROM [{1}products] WHERE [pid]=@pid",
+            //                                    RDBSFields.PRODUCTS,
+            //                                    RDBSHelper.RDBSTablePre);
+            //return RDBSHelper.ExecuteReader(CommandType.Text, commandText, parms);
             DbParameter[] parms =  {
                                         GenerateInParam("@pid", SqlDbType.Int, 4, pid)
                                     };
-            string commandText = string.Format("SELECT {0} FROM [{1}products] WHERE [pid]=@pid",
-                                                RDBSFields.PRODUCTS,
-                                                RDBSHelper.RDBSTablePre);
-            return RDBSHelper.ExecuteReader(CommandType.Text, commandText, parms);
+            return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
+                                            string.Format("{0}getproductbyid", RDBSHelper.RDBSTablePre),
+                                            parms);
         }
 
         /// <summary>
@@ -1102,6 +1109,18 @@ namespace NStore.RDBSStrategy.SqlServer
             return RDBSHelper.ExecuteReader(CommandType.StoredProcedure,
                                             string.Format("{0}getproductbyid", RDBSHelper.RDBSTablePre),
                                             parms);
+        }
+
+        /// <summary>
+        /// 后台获得商品详情和规格
+        /// </summary>
+        /// <param name="pid">商品id</param>
+        /// <returns></returns>
+        public IDataReader AdminGetProductExById(int pid)
+        {
+            return RDBSHelper.ExecuteReader(CommandType.Text,
+                                            string.Format("select * from {0}productintroduction where pid={1}", RDBSHelper.RDBSTablePre, pid),
+                                            null);
         }
 
         /// <summary>
@@ -1879,6 +1898,21 @@ namespace NStore.RDBSStrategy.SqlServer
                                      GenerateInParam("@inputvalue", SqlDbType.NVarChar, 100, productAttributeInfo.InputValue)
                                    };
             string commandText = string.Format("INSERT INTO [{0}productattributes]([pid],[attrid],[attrvalueid],[inputvalue]) VALUES(@pid,@attrid,@attrvalueid,@inputvalue)",
+                                                RDBSHelper.RDBSTablePre);
+            return RDBSHelper.ExecuteNonQuery(CommandType.Text, commandText, parms) > 0;
+        }
+
+        /// <summary>
+        /// 创建商品属性
+        /// </summary>
+        public bool CreateProductIntroduction(int pid, string spec, string desc)
+        {
+            DbParameter[] parms =  {
+                                     GenerateInParam("@pid", SqlDbType.Int, 4, pid),
+                                     GenerateInParam("@spec", SqlDbType.Text,8000, spec),
+                                     GenerateInParam("@desc", SqlDbType.Text, 80000, desc)
+                                   };
+            string commandText = string.Format("INSERT INTO [{0}productintroduction]([pid],[spec],[detail]) VALUES(@pid,@spec,@desc)",
                                                 RDBSHelper.RDBSTablePre);
             return RDBSHelper.ExecuteNonQuery(CommandType.Text, commandText, parms) > 0;
         }

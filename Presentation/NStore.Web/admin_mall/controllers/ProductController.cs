@@ -250,7 +250,7 @@ namespace NStore.Web.MallAdmin.Controllers
                     }
                 }
 
-                AdminProducts.AddProduct(productInfo, model.StockNumber, model.StockLimit, productAttributeList);
+                AdminProducts.AddProduct(productInfo, model.StockNumber, model.StockLimit, productAttributeList, model.Attribute, model.Description);
                 AddMallAdminLog("添加普通商品", "添加普通商品,商品为:" + model.ProductName);
 
                 string backUrl = null;
@@ -291,9 +291,9 @@ namespace NStore.Web.MallAdmin.Controllers
             model.DisplayOrder = productInfo.DisplayOrder;
             model.Weight = productInfo.Weight;
             model.Description = productInfo.Description;
+            model.Spec = productInfo.Spec;
 
             model.BrandName = AdminBrands.GetBrandById(productInfo.BrandId).Name;
-
 
             //库存信息
             ProductStockInfo productStockInfo = AdminProducts.GetProductStockByPid(pid);
@@ -349,6 +349,7 @@ namespace NStore.Web.MallAdmin.Controllers
                 productInfo.DisplayOrder = model.DisplayOrder;
                 productInfo.Weight = model.Weight;
                 productInfo.Description = model.Description ?? "";
+                productInfo.Spec = model.Spec ?? "";
 
                 AdminProducts.UpdateProduct(productInfo, model.StockNumber, model.StockLimit);
                 AddMallAdminLog("修改商品", "修改商品,商品ID为:" + pid);

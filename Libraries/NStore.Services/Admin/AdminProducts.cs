@@ -20,7 +20,7 @@ namespace NStore.Services
         /// <param name="stockLimit">库存警戒线</param>
         /// <param name="productAttributeList">商品属性列表</param>
         /// <returns></returns>
-        public static int AddProduct(ProductInfo productInfo, int stockNumber, int stockLimit, List<ProductAttributeInfo> productAttributeList)
+        public static int AddProduct(ProductInfo productInfo, int stockNumber, int stockLimit, List<ProductAttributeInfo> productAttributeList, string spec, string desc)
         {
             //创建商品
             int pid = CreateProduct(productInfo);
@@ -37,6 +37,31 @@ namespace NStore.Services
                         CreateProductAttribute(productAttributeInfo);
                     }
                 }
+
+                //创建商品描述和规格
+                CreateProductIntroduction(pid, spec, desc);
+            }
+            return pid;
+        }
+
+        /// <summary>
+        /// 添加商品
+        /// </summary>
+        /// <param name="productInfo">商品信息</param>
+        /// <param name="stockNumber">库存数量</param>
+        /// <param name="stockLimit">库存警戒线</param>
+        /// <param name="productAttributeList">商品属性列表</param>
+        /// <returns></returns>
+        public static int AddProduct(ProductInfo productInfo, int stockNumber, int stockLimit, string spec, string desc)
+        {
+            //创建商品
+            int pid = CreateProduct(productInfo);
+            if (pid > 0)
+            {
+                //创建商品库存
+                CreateProductStock(pid, stockNumber, stockLimit);
+                //创建商品描述和规格
+                CreateProductIntroduction(pid, spec, desc);
             }
             return pid;
         }
@@ -99,7 +124,7 @@ namespace NStore.Services
                         pName.AppendFormat(" {0}", productSKUItemList[j].InputValue);
                 }
                 productInfo.Name = pName.ToString();
-                int pid = AddProduct(productInfo, 0, 0, null);//创建商品及其属性
+                int pid = AddProduct(productInfo, 0, 0, null, string.Empty, string.Empty);//创建商品及其属性
                 if (pid > 0)
                 {
                     //创建商品sku项
@@ -202,6 +227,17 @@ namespace NStore.Services
         {
             if (pid < 1) return null;
             return NStore.Data.Products.AdminGetProductById(pid);
+        }
+
+        /// <summary>
+        /// 后台获得商品详情和规格
+        /// </summary>
+        /// <param name="pid">商品id</param>
+        /// <returns></returns>
+        public static ProductInfo AdminGetProductExById(ProductInfo product)
+        {
+            if (product.Pid < 1) return null;
+            return NStore.Data.Products.AdminGetProductExById(product);
         }
 
         /// <summary>
@@ -449,6 +485,14 @@ namespace NStore.Services
         public static bool CreateProductAttribute(ProductAttributeInfo productAttributeInfo)
         {
             return NStore.Data.Products.CreateProductAttribute(productAttributeInfo);
+        }
+
+        /// <summary>
+        /// 创建商品属性
+        /// </summary>
+        public static bool CreateProductIntroduction(int pid, string spec, string desc)
+        {
+            return NStore.Data.Products.CreateProductIntroduction(pid, spec, desc);
         }
 
         /// <summary>

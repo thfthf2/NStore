@@ -51,9 +51,10 @@
     </h1>
     <ul class="addTag">
         <li class="hot"><a href="javascript:;">基本信息</a></li>
-        <li><a href="javascript:;">属性信息</a></li>
+        <li><a href="javascript:;">属性信息</a></li>        
+        <li id="specLi"><a href="javascript:;">规格参数</a></li>
         <li><a href="javascript:;">辅助信息</a></li>
-        <li id="descriptionLi" style=" display:none;"><a href="javascript:;">详细描述</a></li>
+        <li id="descriptionLi"><a href="javascript:;">详细描述</a></li>
         <div class="clear">
         </div>
     </ul>
@@ -184,30 +185,69 @@
 
         <div class="addTable hide">
             <table width="100%" id="commonAttributeTable">
-                <tr>
-                    <td width="110px;" align="right">请先选择分类</td>
-                    <td></td>
-                </tr>
-                <tr class="keepTr">
-                    <td align="right">
-                        &nbsp;
-                    </td>
-                    <td>
-                        <a href="" class="addBt submit">
-                            <img src="/admin_mall/content/images/submit.jpg" /></a>
-                    </td>
-                </tr>
-                <tr class="keepTr">
-                    <td align="right">
-                        &nbsp;
-                    </td>
-                    <td>
-                        &nbsp;
-                    </td>
-                </tr>
-            </table>
+                    <tr>
+                        <td width="110px;" align="right">请先选择分类</td>
+                        <td></td>
+                    </tr>
+                    <tr class="keepTr">
+                        <td align="right">
+                            &nbsp;
+                        </td>
+                        <td>
+                            <a href="" class="addBt submit">
+                                <img src="/admin_mall/content/images/submit.jpg" /></a>
+                        </td>
+                    </tr>
+                    <tr class="keepTr">
+                        <td align="right">
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
+                </table>
         </div>
-        
+
+            <div class="addTable hide">
+                <table width="100%">
+                    <tr>
+                        <td width="0px" align="right">
+                            <div style="margin-left: 15px;">
+                            </div>
+                        </td>
+                        <td>
+                            <div style="margin-top: 5px;">
+                            </div>
+                            <script name="Attribute" id="bmaAttrEditor" type="text/plain">
+                                @Html.Raw(Model.Attribute)
+                            </script>
+                            <script type="text/javascript">
+                                UE.getEditor('bmaAttrEditor');
+                            </script>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            &nbsp;
+                        </td>
+                        <td>
+                            <a href="" class="addBt submit">
+                                <img src="/admin_mall/content/images/submit.jpg" />
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
         <div class="addTable hide">
             <table width="100%">
                 <tr>

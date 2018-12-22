@@ -50,7 +50,8 @@ namespace NStore.Data
             productInfo.Star4 = TypeHelper.ObjectToInt(reader["star4"]);
             productInfo.Star5 = TypeHelper.ObjectToInt(reader["star5"]);
             productInfo.AddTime = TypeHelper.ObjectToDateTime(reader["addtime"]);
-            productInfo.Description = reader["description"].ToString();
+            productInfo.Description = Convert.ToString(reader["detail"]);
+            productInfo.Spec = Convert.ToString(reader["spec"]);
 
             return productInfo;
         }
@@ -364,6 +365,24 @@ namespace NStore.Data
         }
 
         /// <summary>
+        /// 后台获得商品详情信息
+        /// </summary>
+        /// <param name="pid">商品id</param>
+        /// <returns></returns>
+        public static ProductInfo AdminGetProductExById(ProductInfo productInfo)
+        {
+            IDataReader reader = NStore.Core.BMAData.RDBS.AdminGetProductExById(productInfo.Pid);
+            if (reader.Read())
+            {
+                productInfo.Spec = Convert.ToString(reader["spec"]);
+                productInfo.Description = Convert.ToString(reader["detail"]);
+            }
+
+            reader.Close();
+            return productInfo;
+        }
+
+        /// <summary>
         /// 后台获得部分商品
         /// </summary>
         /// <param name="pid">商品id</param>
@@ -482,6 +501,12 @@ namespace NStore.Data
             bool result = NStore.Core.BMAData.RDBS.ChangeProductIsHot(pidList, isHot);
             if (_productnosql != null)
                 _productnosql.ChangeProductIsHot(pidList, isHot);
+            return result;
+        }
+
+        public static bool CreateProductIntroduction(int pid, string spec, string desc)
+        {
+            bool result = NStore.Core.BMAData.RDBS.CreateProductIntroduction(pid, spec, desc);
             return result;
         }
 

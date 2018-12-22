@@ -285,7 +285,7 @@ namespace NStore.Web.StoreAdmin.Controllers
                     }
                 }
 
-                AdminProducts.AddProduct(productInfo, model.StockNumber, model.StockLimit, productAttributeList);
+                AdminProducts.AddProduct(productInfo, model.StockNumber, model.StockLimit, productAttributeList,model.Attribute, model.Description);
                 AddStoreAdminLog("添加普通商品", "添加普通商品,商品为:" + model.ProductName);
 
                 string backUrl = null;
@@ -329,7 +329,7 @@ namespace NStore.Web.StoreAdmin.Controllers
             model.DisplayOrder = productInfo.DisplayOrder;
             model.Weight = productInfo.Weight;
             model.Description = productInfo.Description;
-
+            model.Spec = productInfo.Spec;
             model.BrandName = AdminBrands.GetBrandById(productInfo.BrandId).Name;
 
 

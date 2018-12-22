@@ -225,6 +225,12 @@ namespace NStore.Web.MallAdmin.Models
         public string Description { get; set; }
 
         /// <summary>
+        /// 规格说明
+        /// </summary>
+        [AllowHtml]
+        public string Attribute { get; set; }
+
+        /// <summary>
         /// 属性id列表
         /// </summary>
         public int[] AttrIdList { get; set; }
@@ -367,6 +373,12 @@ namespace NStore.Web.MallAdmin.Models
         /// 是否为新品
         /// </summary>
         public bool IsNew { get; set; }
+
+        /// <summary>
+        /// 商品规格
+        /// </summary>
+        [AllowHtml]
+        public string Spec { get; set; }
 
         /// <summary>
         /// 商品描述

@@ -287,6 +287,11 @@ namespace NStore.Core
             set { _description = value; }
             get { return _description; }
         }
+
+        /// <summary>
+        /// 商品规格
+        /// </summary>
+        public string Spec { get; set; }
     }
 
     /// <summary>

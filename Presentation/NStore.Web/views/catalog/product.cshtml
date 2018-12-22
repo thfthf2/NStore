@@ -423,7 +423,8 @@
 </div>
 
 <div class="infoRCon hide" id="productInfo2">
-    <table cellpadding="0" cellspacing="1" width="100%" border="0" class="Ptable">
+    @Html.Raw(Model.ProductInfo.Spec)
+    @*<table cellpadding="0" cellspacing="1" width="100%" border="0" class="Ptable">
         <tbody>
         @{
             int tempAttrGroupId = 0;
@@ -440,14 +441,14 @@
                 else
                 {
 				    <tr><td class="tdTitle">@info.AttrName</td><td>@info.InputValue</td></tr>
-                }*@
+                }
             
                 <tr><td class="tdTitle">@info.AttrName</td><td>@info.AttrValue</td></tr>
                 tempAttrGroupId = info.AttrGroupId;
             }
             }
         </tbody>
-    </table>
+    </table>*@
 </div>
 
 <div class="infoRCon hide" id="productInfo3">

@@ -385,6 +385,13 @@ namespace NStore.Core
         IDataReader AdminGetProductById(int pid);
 
         /// <summary>
+        /// 后台获得商品详情和规格
+        /// </summary>
+        /// <param name="pid">商品id</param>
+        /// <returns></returns>
+        IDataReader AdminGetProductExById(int pid);
+
+        /// <summary>
         /// 后台获得部分商品
         /// </summary>
         /// <param name="pid">商品id</param>
@@ -635,6 +642,15 @@ namespace NStore.Core
         /// 创建商品属性
         /// </summary>
         bool CreateProductAttribute(ProductAttributeInfo productAttributeInfo);
+
+        /// <summary>
+        /// 创建商品详情和描述
+        /// </summary>
+        /// <param name="pid"></param>
+        /// <param name="spec"></param>
+        /// <param name="desc"></param>
+        /// <returns></returns>
+        bool CreateProductIntroduction(int pid, string spec, string desc);
 
         /// <summary>
         /// 更新商品属性
