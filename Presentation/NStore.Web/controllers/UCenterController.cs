@@ -1203,7 +1203,7 @@ namespace NStore.Web.Controllers
 
         
         /// <summary>
-        /// 编辑配送地址
+        /// 编辑发票信息
         /// </summary>
         public ActionResult EditInvoice()
         {
@@ -1247,7 +1247,7 @@ namespace NStore.Web.Controllers
         }
 
         /// <summary>
-        /// 删除配送地址
+        /// 删除发票信息
         /// </summary>
         public ActionResult DelInvoice()
         {
@@ -1258,9 +1258,27 @@ namespace NStore.Web.Controllers
             else//删除失败
                 return AjaxResult("error", "删除失败");
         }
+        
+        /// <summary>
+        /// 发票信息
+        /// </summary>
+        public ActionResult InvoiceInfo()
+        {
+            int invoiceId = WebHelper.GetQueryInt("invoiceId");
+            InvoiceInfo invoiceInfo = Invoice.GetInvoicById(invoiceId, WorkContext.Uid);
+            //检查地址
+            if (invoiceInfo == null)
+                return AjaxResult("noexist", "地址不存在");
+
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("{0}\"invoiceId\":\"{1}\",\"uid\":\"{2}\",\"rise\":\"{3}\",\"isDefault\":\"{4}\",\"alias\":\"{5}\",\"account\":\"{6}\",\"mobile\":\"{7}\",\"bank\":\"{8}\",\"taxid\":\"{9}\",\"type\":\"{10}\",\"address\":\"{11}\"{12}", "{",
+                invoiceInfo.InvoiceId, invoiceInfo.Uid, invoiceInfo.Rise, invoiceInfo.IsDefault, invoiceInfo.Alias, invoiceInfo.Account, invoiceInfo.Mobile, invoiceInfo.Bank, invoiceInfo.TaxId, invoiceInfo.Type, invoiceInfo.Address, "}");
+
+            return AjaxResult("success", sb.ToString(), true);
+        }
 
         /// <summary>
-        /// 设置默认配送地址
+        /// 设置默认发票信息
         /// </summary>
         public ActionResult SetDefaultInvoice()
         {

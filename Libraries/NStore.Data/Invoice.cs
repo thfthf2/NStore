@@ -99,7 +99,7 @@ namespace NStore.Data
             }
             else
             {
-                IDataReader reader = NStore.Core.BMAData.RDBS.GetShipAddressBySAId(invoiceId);
+                IDataReader reader = NStore.Core.BMAData.RDBS.GetInvoicById(invoiceId);
                 if (reader.Read())
                 {
                     ivoiceInfo = BuildInvoiceInfoFromReader(reader);

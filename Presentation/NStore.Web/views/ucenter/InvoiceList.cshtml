@@ -30,8 +30,8 @@
     <li><a href="@Url.Action("userinfo")"><s>&gt;</s>账户信息</a></li>
     <li><a href="@Url.Action("safeinfo")"><s>&gt;</s>账户安全</a></li>
     <li><a href="@Url.Action("orderlist")"><s>&gt;</s>我的订单</a></li>
-    <li><a href="@Url.Action("shipaddresslist")" class="hot"><s>&gt;</s>收货地址</a></li>
-    <li><a href="@Url.Action("InvoiceList")"><s>&gt;</s>发票信息</a></li>
+    <li><a href="@Url.Action("shipaddresslist")"><s>&gt;</s>收货地址</a></li>
+    <li><a href="@Url.Action("InvoiceList")" class="hot"><s>&gt;</s>发票信息</a></li>
     <li><a href="@Url.Action("favoriteproductlist")"><s>&gt;</s>收藏商品</a></li>
     <li><a href="@Url.Action("favoritestorelist")"><s>&gt;</s>收藏店铺</a></li>
     <li><a href="@Url.Action("paycreditloglist")"><s>&gt;</s>我的@{@WorkContext.PayCreditName}</a></li>
@@ -42,88 +42,109 @@
 
 </div>
 <div id="memberR">
-<div class="SHtitle"><a href="javascript:openAddShipAddressBlock()" class="greenBT">新增发票信息</a> &nbsp; 您已创建<b>@Model.InvoiceCount</b> 个发票信息，最多可创建<b>@WorkContext.MallConfig.MaxInvoice</b>个</div>
+<div class="SHtitle"><a href="javascript:openAddInvoiceBlock()" class="greenBT">新增发票信息</a> &nbsp; 您已创建<b>@Model.InvoiceCount</b> 个发票信息，最多可创建<b>@WorkContext.MallConfig.MaxInvoice</b>个</div>
 
     @foreach (InvoiceInfo info in Model.InvoiceList)
     {
-    <div class="SHadress" id="shipAddress@{@info.InvoiceId}">
-        @*<h4>@info.Alias<div class="SHedit">
+    <div class="SHadress" id="invoice@{@info.InvoiceId}">
+        <h4>@info.Alias<div class="SHedit">
             @if (info.IsDefault == 0)
             {
                 <span id="" style="display:none;color:#3893da;">默认&nbsp;</span>
-                <a href="javascript:void(0)" onclick="setDefaultShipAddress(@info.SAId,this)" id="" class="grayBT">设为默认</a>
+                <a href="javascript:void(0)" onclick="setDefaultInvoice(@info.InvoiceId,this)" id="" class="grayBT">设为默认</a>
             }
             else
             {
-                <span id="defaultShipAddressVisa" style="color:#3893da;">默认&nbsp;</span>
-                <a href="javascript:void(0)" onclick="setDefaultShipAddress(@info.SAId,this)" id="defaultShipAddress" style="display:none;" class="grayBT">设为默认</a>
+                <span id="defaultInvoiceVisa" style="color:#3893da;">默认&nbsp;</span>
+                <a href="javascript:void(0)" onclick="setDefaultInvoice(@info.InvoiceId,this)" id="defaultInvoice" style="display:none;" class="grayBT">设为默认</a>
             }
-            <a href="javascript:void(0)" onclick="openEditShipAddressBlock(@info.SAId)" class="grayBT">编辑</a>&nbsp;
-            <a href="javascript:void(0)" onclick="delShipAddress(@info.SAId)" class="grayBT">删除</a>
+            <a href="javascript:void(0)" onclick="openEditInvoiceBlock(@info.InvoiceId)" class="grayBT">编辑</a>&nbsp;
+            <a href="javascript:void(0)" onclick="delInvoice(@info.InvoiceId)" class="grayBT">删除</a>
         </div></h4>
         <ul>
-            <li><b>收货人：</b><em>@info.Consignee</em><div class="clear"></div></li>
-            <li><b>所在地区：</b><em>@info.ProvinceName@info.CityName@info.CountyName</em><div class="clear"></div></li>
-            <li><b>地址：</b><em>@info.Address</em><div class="clear"></div></li>
-            <li><b>手机：</b><em>@info.Mobile</em><div class="clear"></div></li>
-            <li><b>固定电话：</b><em>@info.Phone</em><div class="clear"></div></li>
-            <li><b>电子邮箱：</b><em>@info.Email</em><div class="clear"></div></li>
-        </ul>*@
+            <li><b>发票类型：</b>
+            <em>
+                @if (info.Type > 0)
+                {
+                   <text>企业</text>
+                }
+                else
+                {
+                    <text>个人</text>
+                }
+                </em>
+            <div class="clear"></div></li>
+            <li><b>发票抬头：</b><em>@info.Rise</em><div class="clear"></div></li>
+            @if (info.Type>0)
+            {
+                <li><b>电话：</b><em>@info.Mobile</em><div class="clear"></div></li>
+                <li><b>公司地址：</b><em>@info.Address</em><div class="clear"></div></li>
+                <li><b>开户行：</b><em>@info.Bank</em><div class="clear"></div></li>
+                <li><b>开户行账号：</b><em>@info.Account</em><div class="clear"></div></li>
+                <li><b>税务登记号：</b><em>@info.TaxId</em><div class="clear"></div></li>
+            }
+        </ul>
     </div>
     }
-<div id="shipAddressBlock" style="display:none; ">
-    <form name="shipAddressForm" action="">
-        <input type="hidden" name="saId" value=""/> 
+<div id="invoiceBlock" class="frontlayer" style="display:none; ">
+    <form name="invoiceForm" action="">
+        <input type="hidden" name="invoiceId" value=""/> 
         <div class="SHtable">
-        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <table style="width:500px;" border="0" cellpadding="0" cellspacing="0">
+            
+          <tr><th><em>*</em>发票类型：</th></tr>
+          <tr><td>个人：<input type="radio" name="type" onclick="changedisplay(this)" value="0" checked />&nbsp;&nbsp;&nbsp;企业：<input type="radio" name="type" onclick="changedisplay(this)" value="1" /></td></tr>
+             
           <tr><th><em>*</em>别名：</th></tr>
-          <tr><td><input type="text" name="alias" value="" class="text" maxlength="15" style="width:200px" /></td></tr>
+          <tr><td><input type="text" name="alias" value="" class="text" maxlength="15" style="width:300px" /></td></tr>
 
-          <tr><th><em>*</em>收货人：</th></tr>
-          <tr><td><input type="text" name="consignee" value="" class="text" maxlength="15" style="width:200px" /></td></tr>
+          <tr><th><em>*</em>发票抬头：</th></tr>
+          <tr><td><input type="text" name="rise" value="" class="text" maxlength="15" style="width:300px" /></td></tr>
+           
+          <tr class="company" style="display:none"><th><em>*</em>电话：</th></tr>
+          <tr class="company" style="display:none"><td><input type="text" id="mobile" name="mobile" value="" class="text" maxlength="15" style="width:300px" /></td></tr>
 
-          <tr><th><em>*</em>所在地区：</th></tr>
-          <tr>
-            <td>
-                <select id="provinceId" name="provinceId">
-                <option selected="selected" value="-1">请选择</option>
-                </select>
-                <select id="cityId" name="cityId">
-                <option selected="selected" value="-1">请选择</option>
-                </select>
-                <select id="regionId" name="regionId">
-                <option selected="selected" value="-1">请选择</option>
-                </select>
-            </td>
-          </tr>
-  
-          <tr><th><em>*</em>详细地址：</th></tr>
-          <tr><td><input type="text" name="address" value="" class="text" style="width:480px" /></td></tr>
+          <tr class="company" style="display:none"><th><em>*</em>公司地址：</th></tr>
+          <tr class="company" style="display:none"><td><input type="text" id="address" name="address" value="" class="text" style="width:300px" /></td></tr>
 
-          <tr><th><em>*</em>手机号：</th></tr>
-          <tr><td><input type="text" name="mobile" value="" class="text" maxlength="15" style="width:200px" />&nbsp;&nbsp;或固定电话<input type="text" name="phone" value="" class="text" maxlength="15" style="width:200px" /></td></tr>
+          <tr class="company" style="display:none"><th><em>*</em>开户行：</th></tr>
+          <tr class="company" style="display:none"><td><input type="text" id="bank" name="bank" value="" class="text" maxlength="15" style="width:300px" /></td></tr>
 
-          <tr><th>电子邮箱：</th></tr>
-          <tr><td><input type="text" name="email" value="" class="text" maxlength="15" style="width:200px" /></td></tr>
+          <tr class="company" style="display:none"><th><em>*</em>开户行账号：</th></tr>
+          <tr class="company" style="display:none"td><td><input type="text" id="account" name="account" value="" class="text" maxlength="18" style="width:300px" /></td></tr>
 
-          <tr><th>邮政编码：</th></tr>
-          <tr><td><input type="text" name="zipcode" value="" class="text" maxlength="15" style="width:200px" /></td></tr>
+          <tr class="company" style="display:none"><th><em>*</em>税务登记号：</th></tr>
+          <tr class="company" style="display:none"><td><input type="text" id="taxid" name="taxid" value="" class="text" maxlength="18" style="width:300px" /></td></tr>
 
           <tr><th>默认地址：</th></tr>
           <tr><td><input type="checkbox" name="isDefault" checked="checked"/></td></tr>
   
           <tr>
             <td height="80">
-            <a href="javascript:addShipAddress()" id="addShipAddressBut" style="display:none;" class="greenBT">新增</a>
-            <a href="javascript:editShipAddress()" id="editShipAddressBut" style="display:none;" class="greenBT">编辑</a>
-            <a href="javascript:closeShipAddressBlock()"  id="addShipAddressBut" class="greenBT">取消</a>
+            <a href="javascript:addInvoice()" id="addInvoiceBut" style="display:none;" class="greenBT">新增</a>
+            <a href="javascript:editInvoice()" id="editInvoiceBut" style="display:none;" class="greenBT">编辑</a>
+            <a href="javascript:closeInvoiceBlock()"  id="addInvoiceBut" class="greenBT">取消</a>
             </td>
           </tr>
         </table>
         </div>
     </form>
     <script type="text/javascript">
-
+        function changedisplay(obj)
+        {
+            if (obj.value==1) {
+                $(".company").show();
+            }
+            else 
+            {
+                $(".company").hide();
+                document.getElementById("mobile").value="";
+                document.getElementById("address").value="";
+                document.getElementById("bank").value="";
+                document.getElementById("account").value="";
+                document.getElementById("taxid").value="";
+            }
+        }
 </script>
 </div>
 

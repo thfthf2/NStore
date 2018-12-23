@@ -119,7 +119,7 @@ function closeShipAddressBlock() {
 //验证配送地址
 function verifyShipAddress(alias, consignee, mobile, phone, regionId, address) {
     if (alias == "") {
-        alert("请填写昵称");
+        alert("请填写别名");
         return false;
     }
     if (consignee == "") {
@@ -281,6 +281,274 @@ function setDefaultShipAddressResponse(data, obj) {
     else {
         alert(result.content);
     }
+}
+
+
+//打开添加发票信息层
+function openAddInvoiceBlock() {
+    var invoiceForm = document.forms["invoiceForm"];
+
+    invoiceForm.elements["invoiceId"].value = "";
+    invoiceForm.elements["alias"].value = "";
+    invoiceForm.elements["rise"].value = "";
+    invoiceForm.elements["mobile"].value = "";
+    invoiceForm.elements["account"].value = "";
+    invoiceForm.elements["bank"].value = "";
+    invoiceForm.elements["taxid"].value = "";
+    invoiceForm.elements["type"].value = "";
+    invoiceForm.elements["address"].value = "";
+    invoiceForm.elements["isDefault"].checked = true;
+
+    document.getElementById("editInvoiceBut").style.display = "none";
+    document.getElementById("addInvoiceBut").style.display = "";
+    document.getElementById("invoiceBlock").style.display = "";
+    document.getElementById("coverlayer").style.display = "";
+}
+
+//关闭发票信息层
+function closeInvoiceBlock() {
+
+    var invoiceForm = document.forms["invoiceForm"];
+
+    invoiceForm.elements["invoiceId"].value = "";
+    invoiceForm.elements["alias"].value = "";
+    invoiceForm.elements["rise"].value = "";
+    invoiceForm.elements["mobile"].value = "";
+    invoiceForm.elements["account"].value = "";
+    invoiceForm.elements["bank"].value = "";
+    invoiceForm.elements["taxid"].value = "";
+    invoiceForm.elements["type"].value = "";
+    invoiceForm.elements["address"].value = "";
+    invoiceForm.elements["isDefault"].checked = true;
+
+    document.getElementById("addInvoiceBut").style.display = "none";
+    document.getElementById("editInvoiceBut").style.display = "none";
+    document.getElementById("invoiceBlock").style.display = "none";
+    document.getElementById("coverlayer").style.display = "none";
+}
+
+//添加发票信息
+function addInvoice() {
+
+    var invoiceForm = document.forms["invoiceForm"];
+
+    var invoiceId = invoiceForm.elements["invoiceId"].value;
+    var alias = invoiceForm.elements["alias"].value;
+    var rise = invoiceForm.elements["rise"].value;
+    var mobile = invoiceForm.elements["mobile"].value;
+    var account = invoiceForm.elements["account"].value;
+    var bank = invoiceForm.elements["bank"].value;
+    var taxid = invoiceForm.elements["taxid"].value;
+    var type = invoiceForm.elements["type"].value;
+    var address = invoiceForm.elements["address"].value;
+    var isDefault = invoiceForm.elements["isDefault"].checked == true ? 1 : 0;
+
+    if (!verifyInvoice(type, alias, rise, mobile, account, bank, taxid, address)) {
+        return;
+    }
+
+    Ajax.post("/ucenter/addinvoice",
+            { 'alias': alias, 'rise': rise, 'mobile': mobile, 'account': account, 'bank': bank, 'taxid': taxid, 'type': type, 'address': address, 'isDefault': isDefault },
+            false,
+            addInvoiceResponse)
+}
+
+//处理添加发票信息的反馈信息
+function addInvoiceResponse(data) {
+    var result = eval("(" + data + ")");
+    if (result.state == "success") {
+        closeInvoiceBlock();
+        window.location.href = "/ucenter/InvoiceList";
+    }
+    else if (result.state == "full") {
+        alert("发票信息数量已经达到系统所允许的最大值")
+    }
+    else if (result.state == "error") {
+        var msg = "";
+        for (var i = 0; i < result.content.length; i++) {
+            msg += result.content[i].msg + "\n";
+        }
+        alert(msg)
+    }
+}
+
+//打开编辑发票信息层
+function openEditInvoiceBlock(invoiceId) {
+    Ajax.get("/ucenter/invoiceinfo?invoiceId=" + invoiceId, false, openEditInvoiceBlockResponse)
+}
+
+//处理打开编辑发票信息层的反馈信息
+function openEditInvoiceBlockResponse(data) {
+    var result = eval("(" + data + ")");
+    if (result.state == "success") {
+
+        var shipAddressForm = document.forms["shipAddressForm"];
+
+        var info = result.content;
+        invoiceForm.elements["invoiceId"].value = info.invoiceId;
+        invoiceForm.elements["alias"].value = info.alias;
+        invoiceForm.elements["rise"].value = info.rise;
+        invoiceForm.elements["mobile"].value = info.mobile;
+        invoiceForm.elements["account"].value = info.account;
+        invoiceForm.elements["bank"].value = info.bank;
+        invoiceForm.elements["taxid"].value = info.taxid;
+        invoiceForm.elements["type"].value = info.type;
+        invoiceForm.elements["address"].value = info.address;
+
+        if (info.isDefault == 1) {
+            invoiceForm.elements["isDefault"].checked = true;
+        }
+        else {
+            invoiceForm.elements["isDefault"].checked = false;
+        }
+
+        document.getElementById("addInvoiceBut").style.display = "none";
+        document.getElementById("editInvoiceBut").style.display = "";
+        document.getElementById("invoiceBlock").style.display = "";
+        document.getElementById("coverlayer").style.display = "";
+    }
+    else {
+        alert(result.content)
+    }
+}
+
+//编辑发票信息
+function editInvoice() {
+
+    var invoiceForm = document.forms["invoiceForm"];
+
+    var invoiceId = invoiceForm.elements["invoiceId"].value;
+    var alias = invoiceForm.elements["alias"].value;
+    var rise = invoiceForm.elements["rise"].value;
+    var mobile = invoiceForm.elements["mobile"].value;
+    var account = invoiceForm.elements["account"].value;
+    var bank = invoiceForm.elements["bank"].value;
+    var taxid = invoiceForm.elements["taxid"].value;
+    var type = invoiceForm.elements["type"].value;
+    var address = invoiceForm.elements["address"].value;
+    var isDefault = invoiceForm.elements["isDefault"].checked == true ? 1 : 0;
+
+    if (invoiceId < 1) {
+        alert("请选择发票信息");
+        return;
+    }
+    if (!verifyInvoice(type, alias, rise, mobile, account, bank, taxid, address)) {
+        return;
+    }
+
+    Ajax.post("/ucenter/editinvoice?invoiceId=" + invoiceId,
+            { 'alias': alias, 'rise': rise, 'mobile': mobile, 'account': account, 'bank': bank, 'taxid': taxid, 'type': type, 'address': address, 'isDefault': isDefault },
+            false,
+            editInvoiceResponse)
+}
+
+//处理编辑发票信息的反馈信息
+function editInvoiceResponse(data) {
+    var result = eval("(" + data + ")");
+    if (result.state == "success") {
+        closeInvoiceBlock();
+        window.location.href = "/ucenter/InvoiceList";
+    }
+    else if (result.state == "noexist") {
+        alert("配送地址不存在");
+    }
+    else if (result.state == "error") {
+        var msg = "";
+        for (var i = 0; i < result.content.length; i++) {
+            msg += result.content[i].msg + "\n";
+        }
+        alert(msg)
+    }
+}
+
+//删除发票信息
+function delInvoice(invoiceId) {
+    Ajax.get("/ucenter/delinvoice?invoiceId=" + invoiceId, false, delInvoiceResponse)
+}
+
+//处理删除发票信息的反馈信息
+function delInvoiceResponse(data) {
+    var result = eval("(" + data + ")");
+    if (result.state == "success") {
+        removeNode(document.getElementById("invoice" + result.content));
+        alert("删除成功");
+    }
+    else {
+        alert(result.content);
+    }
+}
+
+//设置默认发票信息
+function setDefaultInvoice(invoiceId, obj) {
+    Ajax.get("/ucenter/setdefaultinvoice?invoiceId=" + invoiceId, false, function (data) {
+        setDefaultInvoiceResponse(data, obj);
+    })
+}
+
+//处理设置默认发票信息的反馈信息
+function setDefaultInvoiceResponse(data, obj) {
+    var result = eval("(" + data + ")");
+    if (result.state == "success") {
+        var defaultInvoice = document.getElementById("defaultInvoice");
+        if (defaultInvoice != undefined) {
+            defaultInvoice.style.display = "";
+            defaultInvoice.id = "";
+        }
+        obj.style.display = "none";
+        obj.id = "defaultInvoice";
+
+        var defaultInvoiceVisa = document.getElementById("defaultInvoiceVisa");
+        if (defaultInvoiceVisa != undefined) {
+            defaultInvoiceVisa.style.display = "none";
+            defaultInvoiceVisa.id = "";
+        }
+
+        obj.previousElementSibling.style.display = "";
+        obj.previousElementSibling.id = "defaultInvoiceVisa";
+
+    }
+    else {
+        alert(result.content);
+    }
+}
+
+
+//验证发票信息
+function verifyInvoice(type, alias, rise, mobile, account, bank, taxid, address) {
+    if (alias == "") {
+        alert("请填写别名");
+        return false;
+    }
+    if (rise == "") {
+        alert("请填写发票抬头");
+        return false;
+    }
+    //个人发票类型
+    if (type == 0) {
+        return true;
+    }
+
+    if (mobile == "") {
+        alert("请填写电话");
+        return false;
+    }
+    if (account == "") {
+        alert("请填写开户行账号");
+        return false;
+    }
+    if (bank == "") {
+        alert("请填写开户行");
+        return false;
+    }
+    if (taxid == "") {
+        alert("请填写税务登记号");
+        return false;
+    }
+    if (address == "") {
+        alert("请填写公司地址");
+        return false;
+    }
+    return true;
 }
 
 //编辑用户

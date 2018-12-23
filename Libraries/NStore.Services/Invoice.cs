@@ -37,7 +37,7 @@ namespace NStore.Services
         {
             return NStore.Data.Invoice.CreateInvoice(invoiceInfo);
         }
-        
+
         /// <summary>
         /// 获得用户发票信息
         /// </summary>
@@ -49,7 +49,7 @@ namespace NStore.Services
             if (invoiceId < 1)
                 return null;
 
-            InvoiceInfo ivoiceInfo = NStore.Data.Invoice.GetInvoicById(uid, invoiceId);
+            InvoiceInfo ivoiceInfo = NStore.Data.Invoice.GetInvoicById(invoiceId, uid);
             if (ivoiceInfo == null || ivoiceInfo.Uid != uid)
                 return null;
             else
@@ -63,7 +63,7 @@ namespace NStore.Services
         {
             NStore.Data.Invoice.UpdateInvoic(ivoiceInfo);
         }
-        
+
         /// <summary>
         /// 删除用户发票信息
         /// </summary>

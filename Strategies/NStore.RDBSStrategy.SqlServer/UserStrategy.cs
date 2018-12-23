@@ -1331,7 +1331,12 @@ namespace NStore.RDBSStrategy.SqlServer
         /// </summary>
         public int CreateInvoice(InvoiceInfo invoiceInfo)
         {
-            var sql = string.Format(@"INSERT INTO [dbo].[{0}invoice] ([uid],[isdefault],[alias],[rise],[address],[mobile],[account],[bank],[taxid],[type])
+            StringBuilder sb = new StringBuilder();
+            if (invoiceInfo.IsDefault > 0)
+            {
+                sb.AppendFormat("UPDATE  [dbo].[{0}invoice] SET [isdefault]=0 WHERE [uid]=@uid AND [isdefault]=1;", RDBSHelper.RDBSTablePre);
+            }
+            sb.AppendFormat(@"INSERT INTO [dbo].[{0}invoice] ([uid],[isdefault],[alias],[rise],[address],[mobile],[account],[bank],[taxid],[type])
         VALUES( @uid,@isdefault,@alias,@rise,@address,@mobile,@account,@bank,@taxid,@type );SELECT SCOPE_IDENTITY();", RDBSHelper.RDBSTablePre);
 
             DbParameter[] parms = {
@@ -1346,7 +1351,7 @@ namespace NStore.RDBSStrategy.SqlServer
                                         GenerateInParam("@taxid", SqlDbType.NVarChar, 15, invoiceInfo.TaxId),
                                         GenerateInParam("@type", SqlDbType.Int, 4, invoiceInfo.Type)
                                     };
-            return TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.Text, sql, parms));
+            return TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.Text, sb.ToString(), parms));
         }
 
 
@@ -1370,7 +1375,12 @@ namespace NStore.RDBSStrategy.SqlServer
         /// </summary>
         public void UpdateInvoic(InvoiceInfo invoiceInfo)
         {
-            var sql = string.Format(@"UPDATE [dbo].[{0}invoice] SET uid=@uid,isdefault=@isdefault,alias=@alias,rise=@rise,address=@address,mobile=@mobile,account=@account,bank=@bank,taxid=@taxid,type=@type where invoiceid=@invoiceid", RDBSHelper.RDBSTablePre);
+            StringBuilder sb = new StringBuilder();
+            if (invoiceInfo.IsDefault > 0)
+            {
+                sb.AppendFormat("UPDATE  [dbo].[{0}invoice] SET [isdefault]=0 WHERE [uid]=@uid AND [isdefault]=1;", RDBSHelper.RDBSTablePre);
+            }
+            sb.AppendFormat(@"UPDATE [dbo].[{0}invoice] SET uid=@uid,isdefault=@isdefault,alias=@alias,rise=@rise,address=@address,mobile=@mobile,account=@account,bank=@bank,taxid=@taxid,type=@type where invoiceid=@invoiceid", RDBSHelper.RDBSTablePre);
 
             DbParameter[] parms = {
 
@@ -1386,7 +1396,7 @@ namespace NStore.RDBSStrategy.SqlServer
                                         GenerateInParam("@taxid", SqlDbType.NVarChar, 15, invoiceInfo.TaxId),
                                         GenerateInParam("@type", SqlDbType.Int, 4, invoiceInfo.Type)
                                     };
-            RDBSHelper.ExecuteNonQuery(CommandType.Text, sql, parms);
+            RDBSHelper.ExecuteNonQuery(CommandType.Text, sb.ToString(), parms);
         }
 
         /// <summary>
@@ -1414,7 +1424,7 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <returns></returns>
         public bool UpdateInvoicIsDefault(int invoiceId, int uid, int isDefault)
         {
-            var sql = string.Format(@"UPDATE [dbo].[{0}invoice] SET isdefault=@isdefault where invoiceid=@invoiceid AND uid=@uid", RDBSHelper.RDBSTablePre);
+            var sql = string.Format(@"UPDATE  [dbo].[{0}invoice] SET [isdefault]=0 WHERE [uid]=@uid AND [isdefault]=1;UPDATE [dbo].[{0}invoice] SET isdefault=@isdefault where invoiceid=@invoiceid AND uid=@uid", RDBSHelper.RDBSTablePre);
 
             DbParameter[] parms = {
                                         GenerateInParam("@invoiceId", SqlDbType.SmallInt, 2, invoiceId),

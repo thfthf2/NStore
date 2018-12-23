@@ -89,10 +89,10 @@ html body .proList .memberStar a{ float:left;color:#005ea7;}
 .SHedit a{ font-size:12px; font-weight:normal;}
 .SHadress ul{ padding-top:10px;}
 .SHadress ul li{ line-height:22px;}
-.SHadress ul li b{ float:left; display:block; width:70px; text-align:right; font-weight:normal; color:#999;}
+.SHadress ul li b{ float:left; display:block; width:75px; text-align:right; font-weight:normal; color:#999;}
 .SHadress ul li em{ float:left; width:600px;}
 
-#shipAddressBlock {position:fixed;top: 50%;left: 50%;margin-top: -230px;margin-left: -250px;z-index: 1001;}
+.frontlayer {position:fixed;top: 50%;left: 50%;margin-top: -230px;margin-left: -250px;z-index: 1001;}
 
 .SHtable td{ padding:5px 0;}
 .SHtable td .text{ height:20px; line-height:20px; padding:5px; border:1px solid #ddd; width:500px;}
