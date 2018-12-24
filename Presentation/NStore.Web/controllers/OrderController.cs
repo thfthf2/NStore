@@ -28,6 +28,8 @@ namespace NStore.Web.Controllers
             string selectedCartItemKeyList = WebHelper.GetRequestString("selectedCartItemKeyList");
             //配送地址id
             int saId = WebHelper.GetFormInt("saId");
+            //发票信息id
+            int invoiceId = WebHelper.GetFormInt("invoiceId");
             //支付插件名称
             string payName = WebHelper.GetFormString("payName");
 
@@ -49,6 +51,11 @@ namespace NStore.Web.Controllers
                 model.DefaultFullShipAddressInfo = ShipAddresses.GetFullShipAddressBySAId(saId, WorkContext.Uid);
             if (model.DefaultFullShipAddressInfo == null)
                 model.DefaultFullShipAddressInfo = ShipAddresses.GetDefaultFullShipAddress(WorkContext.Uid);
+
+            if (invoiceId > 0)
+                model.DefaultInvoiceInfo = Invoice.GetInvoicById(invoiceId, WorkContext.Uid);
+            //if (model.DefaultInvoiceInfo == null)
+            //    model.DefaultInvoiceInfo = Invoice.GetDefaultInvoic(WorkContext.Uid);
 
             if (payName.Length > 0)
                 model.DefaultPayPluginInfo = Plugins.GetPayPluginBySystemName(payName);
@@ -199,6 +206,7 @@ namespace NStore.Web.Controllers
             {
                 string selectedCartItemKeyList = WebHelper.GetFormString("selectedCartItemKeyList");//选中的购物车项键列表
                 int saId = WebHelper.GetFormInt("saId");//配送地址id
+                int invoiceId = WebHelper.GetFormInt("invoiceId");//发票信息id
                 string payName = WebHelper.GetFormString("payName");//支付方式名称
                 int payCreditCount = WebHelper.GetFormInt("payCreditCount");//支付积分
                 string[] couponIdList = StringHelper.SplitString(WebHelper.GetFormString("couponIdList"));//客户已经激活的优惠劵

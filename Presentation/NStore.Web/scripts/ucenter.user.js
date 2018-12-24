@@ -325,6 +325,7 @@ function closeInvoiceBlock() {
     document.getElementById("editInvoiceBut").style.display = "none";
     document.getElementById("invoiceBlock").style.display = "none";
     document.getElementById("coverlayer").style.display = "none";
+    $(".company").hide(); //隐藏企业专属信息
 }
 
 //添加发票信息
@@ -400,6 +401,10 @@ function openEditInvoiceBlockResponse(data) {
         }
         else {
             invoiceForm.elements["isDefault"].checked = false;
+        }
+
+        if (info.type > 0) {
+            $(".company").show(); //显示企业发票专属信息
         }
 
         document.getElementById("addInvoiceBut").style.display = "none";

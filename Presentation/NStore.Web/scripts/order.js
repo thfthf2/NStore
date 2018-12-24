@@ -98,6 +98,128 @@ function addShipAddressResponse(data) {
     }
 }
 
+//获得发票信息列表
+function getInvoiceList() {
+    Ajax.get("/ucenter/ajaxinvoicelist", false, getInvoiceListResponse);
+}
+
+//处理获得发票信息列表的反馈信息
+function getInvoiceListResponse(data) {
+    var result = eval("(" + data + ")");
+    if (result.state == "success") {
+        var invoiceList = "<ul class='orderList'>";
+        for (var i = 0; i < result.content.count; i++) {
+            var typeName = "个人";
+            if (result.content.list[i].type == 1) {
+                typeName = "企业";
+            }
+            invoiceList += "<li><label><b><input type='radio' class='radio' name='invoiceItem' value='" + result.content.list[i].invoiceId + "' onclick='selectInvoice(" + result.content.list[i].invoiceId + ")' />" + result.content.list[i].rise + "(" + typeName + ")</b>";
+            if (result.content.list[i].type == 1) {
+                invoiceList += "<i>" + result.content.list[i].mobile +"&nbsp;&nbsp;&nbsp;"+ result.content.list[i].address + "&nbsp;&nbsp;&nbsp;"+ result.content.list[i].bank + "</i>";
+            }
+            invoiceList += "</label></li>";
+        }
+        invoiceList += "<li id='newInvoice'><label><input type='radio' class='radio' name='invoiceItem' onclick='openAddInvoiceBlock()' />使用新发票</label></li></ul>";
+        document.getElementById("invoiceShowBlock").style.display = "none";
+        document.getElementById("invoiceListBlock").style.display = "";
+        document.getElementById("invoiceListBlock").innerHTML = invoiceList;
+    }
+    else {
+        alert(result.content);
+    }
+}
+
+//选择发票信息
+function selectInvoice(invoiceId) {
+    document.getElementById("invoiceId").value = invoiceId;
+    document.getElementById("confirmOrderForm").submit();
+}
+
+
+//打开添加发票信息块
+function openAddInvoiceBlock() {
+    document.getElementById("addInvoiceBlock").style.display = "";
+}
+
+//添加发票信息
+function addInvoice() {
+
+    var addInvoiceForm = document.forms["addInvoiceForm"];
+    var alias = addInvoiceForm.elements["alias"].value;
+    var rise = addInvoiceForm.elements["rise"].value;
+    var mobile = addInvoiceForm.elements["mobile"].value;
+    var account = addInvoiceForm.elements["account"].value;
+    var bank = addInvoiceForm.elements["bank"].value;
+    var taxid = addInvoiceForm.elements["taxid"].value;
+    var type = addInvoiceForm.elements["type"].value;
+    var address = addInvoiceForm.elements["address"].value;
+    var isDefault = 1;
+
+    if (!verifyAddInvoice(type, alias, rise, mobile, account, bank, taxid, address)) {
+        return;
+    }
+
+    Ajax.post("/ucenter/addinvoice",
+        { 'alias': alias, 'rise': rise, 'mobile': mobile, 'account': account, 'bank': bank, 'taxid': taxid, 'type': type, 'address': address, 'isDefault': isDefault },
+        false,
+        addInvoiceResponse)
+}
+
+
+//处理添加发票信息的反馈信息
+function addInvoiceResponse(data) {
+    var result = eval("(" + data + ")");
+    if (result.state == "success") {
+        document.getElementById("invoiceId").value = result.content;
+        document.getElementById("confirmOrderForm").submit();
+    }
+    else {
+        var msg = "";
+        for (var i = 0; i < result.content.length; i++) {
+            msg += result.content[i].msg + "\n";
+        }
+        alert(msg)
+    }
+}
+
+//验证发票信息
+function verifyAddInvoice(type, alias, rise, mobile, account, bank, taxid, address) {
+    if (alias == "") {
+        alert("请填写别名");
+        return false;
+    }
+    if (rise == "") {
+        alert("请填写发票抬头");
+        return false;
+    }
+    //个人发票类型
+    if (type == 0) {
+        return true;
+    }
+
+    if (mobile == "") {
+        alert("请填写电话");
+        return false;
+    }
+    if (account == "") {
+        alert("请填写开户行账号");
+        return false;
+    }
+    if (bank == "") {
+        alert("请填写开户行");
+        return false;
+    }
+    if (taxid == "") {
+        alert("请填写税务登记号");
+        return false;
+    }
+    if (address == "") {
+        alert("请填写公司地址");
+        return false;
+    }
+    return true;
+}
+
 //展示支付插件列表
 function showPayPluginList() {
     document.getElementById("payPluginShowBlock").style.display = "none";
@@ -194,6 +316,7 @@ function verifyCouponSNResponse(data) {
 function submitOrder() {
     var selectedCartItemKeyList = document.getElementById("selectedCartItemKeyList").value
     var saId = document.getElementById("saId").value;
+    var invoiceId = document.getElementById("invoiceId").value;
     var payName = document.getElementById("payName").value;
     var payCreditCount = document.getElementById("payCreditCount") ? document.getElementById("payCreditCount").value : 0;
 
@@ -218,7 +341,7 @@ function submitOrder() {
     }
 
     Ajax.post("/order/submitorder",
-            { 'selectedCartItemKeyList': selectedCartItemKeyList, 'saId': saId, 'payName': payName, 'payCreditCount': payCreditCount, 'couponIdList': couponIdList, 'couponSNList': couponSN, 'fullCut': allFullCut, 'bestTime': bestTime, 'buyerRemark': buyerRemark, 'verifyCode': verifyCode },
+            { 'selectedCartItemKeyList': selectedCartItemKeyList, 'saId': saId,  'invoiceId': invoiceId, 'payName': payName, 'payCreditCount': payCreditCount, 'couponIdList': couponIdList, 'couponSNList': couponSN, 'fullCut': allFullCut, 'bestTime': bestTime, 'buyerRemark': buyerRemark, 'verifyCode': verifyCode },
             false,
             submitOrderResponse)
 }

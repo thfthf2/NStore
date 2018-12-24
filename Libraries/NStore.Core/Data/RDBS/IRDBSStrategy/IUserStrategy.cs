@@ -594,6 +594,13 @@ namespace NStore.Core
         IDataReader GetInvoicById(int invoiceId);
 
         /// <summary>
+        /// 获得默认用户发票信息
+        /// </summary>
+        /// <param name="uid">用户id</param>
+        /// <returns></returns>
+        IDataReader GetDefaultInvoic(int uid);
+
+        /// <summary>
         /// 更新用户发票信息
         /// </summary>
         void UpdateInvoic(InvoiceInfo invoiceInfo);

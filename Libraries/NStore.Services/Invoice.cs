@@ -55,6 +55,16 @@ namespace NStore.Services
             else
                 return ivoiceInfo;
         }
+        
+        /// <summary>
+        /// 获得默认用户发票信息
+        /// </summary>
+        /// <param name="uid">用户id</param>
+        /// <returns></returns>
+        public static InvoiceInfo GetDefaultInvoic(int uid)
+        {
+            return NStore.Data.Invoice.GetDefaultInvoic(uid);
+        }
 
         /// <summary>
         /// 更新用户发票信息

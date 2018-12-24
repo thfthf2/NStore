@@ -19,6 +19,11 @@ namespace NStore.Web.Models
         /// 默认完整用户配送地址
         /// </summary>
         public FullShipAddressInfo DefaultFullShipAddressInfo { get; set; }
+        
+        /// <summary>
+        /// 默认用户发票信息
+        /// </summary>
+        public InvoiceInfo DefaultInvoiceInfo{ get; set; }
 
         /// <summary>
         /// 默认支付插件

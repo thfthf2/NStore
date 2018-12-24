@@ -1142,6 +1142,30 @@ namespace NStore.Web.Controllers
         #endregion
 
         #region 发票
+        
+        /// <summary>
+        /// 发票信息列表
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult AjaxInvoiceList()
+        {
+            List<InvoiceInfo> invoiceList = Invoice.GetInvoiceList(WorkContext.Uid);
+            int invoiceCount = invoiceList.Count;
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("{\"count\":");
+            sb.AppendFormat("\"{0}\",\"list\":[", invoiceCount);
+            foreach (InvoiceInfo invoiceInfo in invoiceList)
+            {
+                sb.AppendFormat("{0}\"invoiceId\":\"{1}\",\"uid\":\"{2}\",\"rise\":\"{3}\",\"isDefault\":\"{4}\",\"alias\":\"{5}\",\"account\":\"{6}\",\"mobile\":\"{7}\",\"bank\":\"{8}\",\"taxid\":\"{9}\",\"type\":\"{10}\",\"address\":\"{11}\"{12},", "{",
+                invoiceInfo.InvoiceId, invoiceInfo.Uid, invoiceInfo.Rise, invoiceInfo.IsDefault, invoiceInfo.Alias, invoiceInfo.Account, invoiceInfo.Mobile, invoiceInfo.Bank, invoiceInfo.TaxId, invoiceInfo.Type, invoiceInfo.Address, "}");
+            }
+            if (invoiceCount > 0)
+                sb.Remove(sb.Length - 1, 1);
+            sb.Append("]}");
+
+            return AjaxResult("success", sb.ToString(), true);
+        }
 
         /// <summary>
         /// 获取发票信息列表

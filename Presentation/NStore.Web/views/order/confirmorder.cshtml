@@ -104,7 +104,6 @@
 </div>
 </form>
 </dl>
-
 <dl class="orderItme">
 <dt>支付方式<a href="javascript:void(0)" onclick="showPayPluginList()" class="shrSelectBt">[修改]</a></dt>
 <dd class="showOrder" id="payPluginShowBlock">
@@ -126,7 +125,78 @@
 </ul>
 </dd>
 </dl>
+<dl class="orderItme">
+<dt>发票信息（选填）<a href="javascript:getInvoiceList()" class="shrSelectBt">[修改]</a></dt>
+<dd class="showOrder" id="invoiceShowBlock">
+    @if (Model.DefaultInvoiceInfo != null)
+    {
+    <p> @Model.DefaultInvoiceInfo.Rise 
+        @if (@Model.DefaultInvoiceInfo.Type==1)
+        {
+            <text>(企业)&nbsp;@Model.DefaultInvoiceInfo.Mobile</text>
+        }
+        else
+        {
+            <text>(个人)</text>
+        }
+    </p>
+    <p> @Model.DefaultInvoiceInfo.Bank  @Model.DefaultInvoiceInfo.Address </p>
+    }
+    @*else
+    { 
+       <text><p>您还没有发票信息，请先添加。<a href="javascript:void(0)" onclick="getInvoiceList()">点击添加</a><p></text>
+    }*@
+</dd>
+<dd class="shrSelect" id="invoiceListBlock"></dd>
+<form name="addInvoiceForm" action="">
+<div id="addInvoiceBlock" style="display:none;">
+<dd class="shrEdit">
 
+<div class="shrCell">
+<span><em>*</em>发票类型：</span>
+<div class="cellCon">个人：<input type="radio" name="type" onclick="changedisplay(this)" value="0" checked />&nbsp;&nbsp;&nbsp;企业：<input type="radio" name="type" onclick="changedisplay(this)" value="1" /></div>
+</div>
+<div class="shrCell">
+<span><em>*</em>别名：</span>
+<div class="cellCon"><input type="text" name="alias" value="" class="text" /></div>
+</div>
+
+<div class="shrCell">
+<span><em>*</em>发票抬头：</span>
+<div class="cellCon"><input type="text" name="rise" value="" class="text" /></div>
+</div>
+
+<div class="shrCell company" style="display:none">
+<span><em>*</em>电话：</span>
+<div class="cellCon"><input type="text" id="mobile" name="mobile" value="" class="text" /></div>
+</div>
+
+<div class="shrCell company" style="display:none">
+<span><em>*</em>公司地址：</span>
+<div class="cellCon"><input type="text" id="address" name="address" value="" class="text" /></div>
+</div>
+<div class="shrCell company" style="display:none">
+<span><em>*</em>开户行：</span>
+<div class="cellCon company"><input type="text" id="bank" name="bank" value="" class="text" /></div>
+</div>
+<div class="shrCell company" style="display:none">
+<span><em>*</em>开户行账号：</span>
+<div class="cellCon"><input type="text" id="account" name="account" value="" class="text" /></div>
+</div>
+<div class="shrCell company" style="display:none">
+<span><em>*</em>税务登记号：</span>
+<div class="cellCon"><input type="text" id="taxid" name="taxid" value="" class="text" /></div>
+</div>
+
+</dd>
+<dd>
+<div class="shrBT">
+<a href="javascript:void(0)" onclick="javascript:addInvoice()" class="redBT">保存发票信息</a>
+</div>
+</dd>
+</div>
+</form>
+</dl>
 <dl class="orderItme">
 <dt><div class="left">商品清单</div><div class="right"><a href="@Url.Action("index", "cart")">返回修改购物车</a></div><div class="clear"></div></dt>
 <dd style="padding-left:0;">
@@ -431,6 +501,14 @@
         { 
         <input type="hidden" value="0" name="saId" id="saId" />
         }
+        @if (Model.DefaultInvoiceInfo != null)
+        {
+        <input type="hidden" value="@Model.DefaultInvoiceInfo.InvoiceId" name="invoiceId" id="invoiceId" />
+        }
+        else
+        { 
+        <input type="hidden" value="0" name="invoiceId" id="invoiceId" />
+        }
         @if (Model.DefaultPayPluginInfo != null)
         {
             <input type="hidden" value="@Model.DefaultPayPluginInfo.SystemName" name="payName" id="payName" />
@@ -467,6 +545,18 @@
         if (cityId > 0) {
             bindCityList(provinceId, document.getElementById("cityId"), cityId);
             bindCountyList(cityId, document.getElementById("regionId"), countyId);
+        }
+
+        //发票企业信息展示
+        function changedisplay(obj)
+        {
+            if (obj.value==1) {
+                $(".company").show();
+            }
+            else 
+            {
+                $(".company").hide();
+            }
         }
     </script>
 }

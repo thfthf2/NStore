@@ -109,6 +109,40 @@ namespace NStore.Data
 
             return ivoiceInfo;
         }
+        
+        /// <summary>
+        /// 获得默认用户发票信息
+        /// </summary>
+        /// <param name="uid">用户id</param>
+        /// <returns></returns>
+        public static InvoiceInfo GetDefaultInvoic(int uid)
+        {
+            InvoiceInfo ivoiceInfo = null;
+
+            if (_usernosql != null)
+            {
+                foreach (InvoiceInfo tempivoiceInfo in GetInvoiceList(uid))
+                {
+                    if (tempivoiceInfo.IsDefault == 1)
+                    {
+                        ivoiceInfo = tempivoiceInfo;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                IDataReader reader = NStore.Core.BMAData.RDBS.GetDefaultInvoic(uid);
+                if (reader.Read())
+                {
+                    ivoiceInfo = BuildInvoiceInfoFromReader(reader);
+                }
+                reader.Close();
+            }
+
+            return ivoiceInfo;
+        }
+
 
         /// <summary>
         /// 更新用户发票信息

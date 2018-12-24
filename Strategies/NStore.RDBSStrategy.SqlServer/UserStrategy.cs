@@ -1369,6 +1369,21 @@ namespace NStore.RDBSStrategy.SqlServer
                                     };
             return RDBSHelper.ExecuteReader(CommandType.Text, sql, parms);
         }
+        
+        /// <summary>
+        /// 获得默认用户发票信息
+        /// </summary>
+        /// <param name="uid">用户id</param>
+        /// <returns></returns>
+        public IDataReader GetDefaultInvoic(int uid)
+        {
+            var sql = string.Format("select * from {0}invoice WHERE [uid]=@uid AND [isdefault]=1;", RDBSHelper.RDBSTablePre);
+
+            DbParameter[] parms = {
+                                        GenerateInParam("@uid", SqlDbType.Int, 4, uid)
+                                    };
+            return RDBSHelper.ExecuteReader(CommandType.Text, sql, parms);
+        }
 
         /// <summary>
         /// 更新用户发票信息
