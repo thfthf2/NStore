@@ -204,6 +204,7 @@ namespace NStore.Services
         /// <param name="orderProductList">订单商品列表</param>
         /// <param name="singlePromotionList">单品促销活动列表</param>
         /// <param name="fullShipAddressInfo">配送地址</param>
+        /// <param name="invoiceInfo">配送地址</param>
         /// <param name="payPluginInfo">支付方式</param>
         /// <param name="payCreditCount">支付积分数</param>
         /// <param name="couponList">优惠劵列表</param>
@@ -212,7 +213,7 @@ namespace NStore.Services
         /// <param name="bestTime">最佳配送时间</param>
         /// <param name="ip">ip地址</param>
         /// <returns>订单信息</returns>
-        public static OrderInfo CreateOrder(PartUserInfo partUserInfo, StoreInfo storeInfo, List<OrderProductInfo> orderProductList, List<SinglePromotionInfo> singlePromotionList, FullShipAddressInfo fullShipAddressInfo, PluginInfo payPluginInfo, ref int payCreditCount, List<CouponInfo> couponList, int fullCut, string buyerRemark, DateTime bestTime, string ip)
+        public static OrderInfo CreateOrder(PartUserInfo partUserInfo, StoreInfo storeInfo, List<OrderProductInfo> orderProductList, List<SinglePromotionInfo> singlePromotionList, FullShipAddressInfo fullShipAddressInfo, InvoiceInfo invoiceInfo, PluginInfo payPluginInfo, ref int payCreditCount, List<CouponInfo> couponList, int fullCut, string buyerRemark, DateTime bestTime, string ip)
         {
             DateTime nowTime = DateTime.Now;
             IPayPlugin payPlugin = (IPayPlugin)payPluginInfo.Instance;
@@ -266,6 +267,17 @@ namespace NStore.Services
             orderInfo.ZipCode = fullShipAddressInfo.ZipCode;
             orderInfo.Address = fullShipAddressInfo.Address;
             orderInfo.BestTime = bestTime;
+
+            if (invoiceInfo != null)
+            {
+                //发票信息
+                orderInfo.InvoiceRise = invoiceInfo.Rise;
+                orderInfo.InvoiceAddress = invoiceInfo.Address;
+                orderInfo.InvoiceMobile = invoiceInfo.Mobile;
+                orderInfo.InvoiceBank = invoiceInfo.Bank;
+                orderInfo.InvoiceAccount = invoiceInfo.Account;
+                orderInfo.InvoiceTaxId = invoiceInfo.TaxId;
+            }
 
             orderInfo.BuyerRemark = buyerRemark;
             orderInfo.IP = ip;

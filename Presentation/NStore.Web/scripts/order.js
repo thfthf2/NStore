@@ -115,7 +115,7 @@ function getInvoiceListResponse(data) {
             }
             invoiceList += "<li><label><b><input type='radio' class='radio' name='invoiceItem' value='" + result.content.list[i].invoiceId + "' onclick='selectInvoice(" + result.content.list[i].invoiceId + ")' />" + result.content.list[i].rise + "(" + typeName + ")</b>";
             if (result.content.list[i].type == 1) {
-                invoiceList += "<i>" + result.content.list[i].mobile +"&nbsp;&nbsp;&nbsp;"+ result.content.list[i].address + "&nbsp;&nbsp;&nbsp;"+ result.content.list[i].bank + "</i>";
+                invoiceList += "<i>" + result.content.list[i].mobile + "&nbsp;&nbsp;&nbsp;" + result.content.list[i].address + "&nbsp;&nbsp;&nbsp;" + result.content.list[i].bank + "</i>";
             }
             invoiceList += "</label></li>";
         }
@@ -314,6 +314,7 @@ function verifyCouponSNResponse(data) {
 
 //提交订单
 function submitOrder() {
+
     var selectedCartItemKeyList = document.getElementById("selectedCartItemKeyList").value
     var saId = document.getElementById("saId").value;
     var invoiceId = document.getElementById("invoiceId").value;
@@ -341,7 +342,7 @@ function submitOrder() {
     }
 
     Ajax.post("/order/submitorder",
-            { 'selectedCartItemKeyList': selectedCartItemKeyList, 'saId': saId,  'invoiceId': invoiceId, 'payName': payName, 'payCreditCount': payCreditCount, 'couponIdList': couponIdList, 'couponSNList': couponSN, 'fullCut': allFullCut, 'bestTime': bestTime, 'buyerRemark': buyerRemark, 'verifyCode': verifyCode },
+            { 'selectedCartItemKeyList': selectedCartItemKeyList, 'saId': saId, 'invoiceId': invoiceId, 'payName': payName, 'payCreditCount': payCreditCount, 'couponIdList': couponIdList, 'couponSNList': couponSN, 'fullCut': allFullCut, 'bestTime': bestTime, 'buyerRemark': buyerRemark, 'verifyCode': verifyCode },
             false,
             submitOrderResponse)
 }

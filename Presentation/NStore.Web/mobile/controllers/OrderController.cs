@@ -1250,7 +1250,7 @@ namespace NStore.Web.Mobile.Controllers
                     List<SinglePromotionInfo> storeSinglePromotionList = singlePromotionList.FindAll(x => x.StoreId == storeCartInfo.StoreInfo.StoreId);
                     List<CouponInfo> storeCouponList = couponList.FindAll(x => x.StoreId == storeCartInfo.StoreInfo.StoreId);
                     int storeFullCut = Carts.SumFullCut(storeCartInfo.CartItemList);
-                    OrderInfo orderInfo = Orders.CreateOrder(WorkContext.PartUserInfo, storeCartInfo.StoreInfo, storeCartInfo.SelectedOrderProductList, storeSinglePromotionList, fullShipAddressInfo, payPluginInfo, ref payCreditCount, storeCouponList, storeFullCut, "", new DateTime(1970, 1, 1), WorkContext.IP);
+                    OrderInfo orderInfo = Orders.CreateOrder(WorkContext.PartUserInfo, storeCartInfo.StoreInfo, storeCartInfo.SelectedOrderProductList, storeSinglePromotionList, fullShipAddressInfo, null, payPluginInfo, ref payCreditCount, storeCouponList, storeFullCut, "", new DateTime(1970, 1, 1), WorkContext.IP);
                     if (orderInfo != null)
                     {
                         oidList += orderInfo.Oid + ",";

@@ -52,6 +52,13 @@ namespace NStore.Core
 
         private string _buyerremark;//买家备注
         private string _ip;//ip地址
+        
+        private string _invoicerise;//发票抬头
+        private string _invoiceaddress;//发票公司地址
+        private string _invoicemobile;//发票公司电话
+        private string _invoiceaccount;//发票公司开户行账号
+        private string _invoicebank;//发票公司开户行
+        private string _invoicetaxid;//发票公司税务登记号
 
         public OrderInfo()
         {
@@ -385,6 +392,62 @@ namespace NStore.Core
             get { return _ip; }
             set { _ip = value; }
         }
+
+        
+        /// <summary>
+        /// 发票抬头
+        /// </summary>
+        public string InvoiceRise
+        {
+            get { return _invoicerise; }
+            set { _invoicerise = value; }
+        }
+
+        /// <summary>
+        /// 发票公司地址
+        /// </summary>
+        public string InvoiceAddress
+        {
+            get { return _invoiceaddress; }
+            set { _invoiceaddress = value; }
+        }
+
+        /// <summary>
+        /// 发票公司电话
+        /// </summary>
+        public string InvoiceMobile
+        {
+            get { return _invoicemobile; }
+            set { _invoicemobile = value; }
+        }
+
+        /// <summary>
+        /// 发票公司开户行账号
+        /// </summary>
+        public string InvoiceAccount
+        {
+            get { return _invoiceaccount; }
+            set { _invoiceaccount = value; }
+        }
+
+        /// <summary>
+        /// 发票公司开户行
+        /// </summary>
+        public string InvoiceBank
+        {
+            get { return _invoicebank; }
+            set { _invoicebank = value; }
+        }
+
+        /// <summary>
+        /// 发票公司税务登记号
+        /// </summary>
+        public string InvoiceTaxId
+        {
+            get { return _invoicetaxid; }
+            set { _invoicetaxid = value; }
+        }
+
     }
 }
 

@@ -243,6 +243,9 @@ namespace NStore.Web.Controllers
                 if (fullShipAddressInfo == null)
                     return AjaxResult("emptysaid", "请选择配送地址");
 
+                //获取发票信息
+                InvoiceInfo invoiceInfo = Invoice.GetInvoicById(invoiceId, WorkContext.Uid);
+
                 //购物车商品列表
                 List<OrderProductInfo> orderProductList = Carts.GetCartProductList(WorkContext.Uid);
                 if (orderProductList.Count < 1)
@@ -1306,7 +1309,7 @@ namespace NStore.Web.Controllers
                     List<SinglePromotionInfo> storeSinglePromotionList = singlePromotionList.FindAll(x => x.StoreId == storeCartInfo.StoreInfo.StoreId);
                     List<CouponInfo> storeCouponList = couponList.FindAll(x => x.StoreId == storeCartInfo.StoreInfo.StoreId);
                     int storeFullCut = Carts.SumFullCut(storeCartInfo.CartItemList);
-                    OrderInfo orderInfo = Orders.CreateOrder(WorkContext.PartUserInfo, storeCartInfo.StoreInfo, storeCartInfo.SelectedOrderProductList, storeSinglePromotionList, fullShipAddressInfo, payPluginInfo, ref payCreditCount, storeCouponList, storeFullCut, buyerRemark, bestTime, WorkContext.IP);
+                    OrderInfo orderInfo = Orders.CreateOrder(WorkContext.PartUserInfo, storeCartInfo.StoreInfo, storeCartInfo.SelectedOrderProductList, storeSinglePromotionList, fullShipAddressInfo, invoiceInfo, payPluginInfo, ref payCreditCount, storeCouponList, storeFullCut, buyerRemark, bestTime, WorkContext.IP);
                     if (orderInfo != null)
                     {
                         oidList += orderInfo.Oid + ",";
@@ -1458,6 +1461,14 @@ namespace NStore.Web.Controllers
                     filterContext.Result = AjaxResult("nologin", "请先登录");
                 else//如果为普通请求
                     filterContext.Result = RedirectToAction("login", "account", new RouteValueDictionary { { "returnUrl", WorkContext.Url } });
+            }
+
+            if (WorkContext.VerifyRank <= 0)
+            {
+                if (WorkContext.IsHttpAjax)//如果为ajax请求
+                    filterContext.Result = AjaxResult("noauth", "请先认证");
+                else//如果为普通请求
+                    filterContext.Result = RedirectToAction("authentication", "account", new RouteValueDictionary { { "returnUrl", WorkContext.Url } });
             }
         }
     }
