@@ -27,7 +27,7 @@
                     var img = $(td).children(".img");
                     var path = $(img).attr("src");
 
-                    if (path.indexOf("images/user-avatar")>0) path = "";
+                    if (path.indexOf("images/upload_img")>0) path = "";
 
                     $.ajaxFileUpload(
                     {
@@ -112,7 +112,7 @@
                                 @*<td width="275"><input type="text" name="businesslicense" value="" class="text" /></td>*@
                                 <td> 
                                 <input type="hidden" id="businesslicense" name="businesslicense" value="" />
-                                <img id="img" name="img"  src="~/images/user-avatar.gif" class="img" onclick="javascript:$(this).next('.file').click();" />
+                                <img id="img" name="img"  src="~/images/upload_img.png" class="img" onclick="javascript:$(this).next('.file').click();" />
                                 <input type="file" onchange="ajaxFileUploads(this)" style="display: none;" class="file" id="fup" name="fup" />
                                 </td>
                                 <td>&nbsp;</td>
