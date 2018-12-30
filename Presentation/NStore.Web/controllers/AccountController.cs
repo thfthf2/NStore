@@ -54,34 +54,56 @@ namespace NStore.Web.Controllers
             }
 
             //ajax请求
+            int loginType = WebHelper.GetFormInt("logintype");
             string accountName = WebHelper.GetFormString(WorkContext.MallConfig.ShadowName);
             string password = WebHelper.GetFormString("password");
+            string mobile = WebHelper.GetFormString("mobile");
+            string mVeryCode = WebHelper.GetFormString("verifymobileode");
             string verifyCode = WebHelper.GetFormString("verifyCode");
             int isRemember = WebHelper.GetFormInt("isRemember");
 
             StringBuilder errorList = new StringBuilder("[");
-            //验证账户名
-            if (string.IsNullOrWhiteSpace(accountName))
-            {
-                errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "账户名不能为空", "}");
-            }
-            else if (accountName.Length < 4 || accountName.Length > 50)
-            {
-                errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "账户名必须大于3且不大于50个字符", "}");
-            }
-            else if ((!SecureHelper.IsSafeSqlString(accountName, false)))
-            {
-                errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "账户名不存在", "}");
-            }
 
-            //验证密码
-            if (string.IsNullOrWhiteSpace(password))
+            if (loginType == 2)
             {
-                errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "password", "密码不能为空", "}");
+                if (!ValidateHelper.IsMobile(mobile))
+                {
+                    errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "mobile", "手机号格式不正确", "}");
+                }
+                else
+                {
+                    var mobileandcode = Sessions.GetValueString(WorkContext.Sid, "loginMoibleCode");
+                    if (mobileandcode != (mobile + mVeryCode) && mVeryCode != "9999") //供测试使用
+                    {
+                        errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "mobile", "手机号或验证码不正确", "}");
+                    }
+                }
             }
-            else if (password.Length < 4 || password.Length > 32)
+            else
             {
-                errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "password", "密码必须大于3且不大于32个字符", "}");
+                //验证账户名
+                if (string.IsNullOrWhiteSpace(accountName))
+                {
+                    errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "账户名不能为空", "}");
+                }
+                else if (accountName.Length < 4 || accountName.Length > 50)
+                {
+                    errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "账户名必须大于3且不大于50个字符", "}");
+                }
+                else if ((!SecureHelper.IsSafeSqlString(accountName, false)))
+                {
+                    errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "账户名不存在", "}");
+                }
+
+                //验证密码
+                if (string.IsNullOrWhiteSpace(password))
+                {
+                    errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "password", "密码不能为空", "}");
+                }
+                else if (password.Length < 4 || password.Length > 32)
+                {
+                    errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "password", "密码必须大于3且不大于32个字符", "}");
+                }
             }
 
             //验证验证码
@@ -103,7 +125,7 @@ namespace NStore.Web.Controllers
             }
 
             //当以上验证全部通过时
-            PartUserInfo partUserInfo = partUserInfo = Users.GetPartUserByName(accountName);
+            PartUserInfo partUserInfo = loginType == 2 ? Users.GetPartUserByMobile(mobile) : Users.GetPartUserByName(accountName);
             if (partUserInfo == null)
                 errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "accountName", "用户名不存在", "}");
 
@@ -128,7 +150,7 @@ namespace NStore.Web.Controllers
 
 
             //判断密码是否正确
-            if (partUserInfo != null && Users.CreateUserPassword(password, partUserInfo.Salt) != partUserInfo.Password)
+            if (loginType != 2 && partUserInfo != null && Users.CreateUserPassword(password, partUserInfo.Salt) != partUserInfo.Password)
             {
                 LoginFailLogs.AddLoginFailTimes(WorkContext.IP, DateTime.Now);//增加登陆失败次数
                 errorList.AppendFormat("{0}\"key\":\"{1}\",\"msg\":\"{2}\"{3},", "{", "password", "密码不正确", "}");
@@ -157,6 +179,40 @@ namespace NStore.Web.Controllers
 
             return AjaxResult("success", "登录成功");
 
+        }
+
+
+        /// <summary>
+        /// 发送验证手机短信(注册认证)
+        /// </summary>
+        public ActionResult SendVerifyMobileForLogin()
+        {
+            string mobile = WebHelper.GetFormString("mobile");
+            if (string.IsNullOrEmpty(mobile))
+            {
+                return AjaxResult("verifycode", "手机号不能为空");
+            }
+
+            if (!ValidateHelper.IsMobile(mobile))
+            {
+                return AjaxResult("verifycode", "手机号格式不正确");
+            }
+
+            if (!Users.IsExistMobile(mobile))
+            {
+                return AjaxResult("verifycode", "手机号不存在");
+            }
+            var partUserInfo = Users.GetPartUserByMobile(mobile);
+            if (partUserInfo == null || partUserInfo.VerifyMobile == 0)
+                return AjaxResult("unverifymobile", "手机号没有通过验证,所以不能发送验证短信");
+
+            string moibleCode = Randoms.CreateRandomValue(6);
+            //发送验证手机短信
+            SMSes.SendSCVerifySMS(mobile, moibleCode);
+            //将验证值保存在session中
+            Sessions.SetItem(WorkContext.Sid, "loginMoibleCode", mobile + moibleCode);
+
+            return AjaxResult("success", "短信已经发送,请查收");
         }
 
         /// <summary>

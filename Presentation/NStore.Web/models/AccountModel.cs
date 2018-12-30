@@ -14,10 +14,22 @@ namespace NStore.Web.Models
         /// 返回地址
         /// </summary>
         public string ReturnUrl { get; set; }
+    
+        /// <summary>
+        /// 登陆类型
+        /// </summary>
+        public int LoginType { get; set; }
+
         /// <summary>
         /// 影子账号名
         /// </summary>
         public string ShadowName { get; set; }
+
+        /// <summary>
+        /// 登陆手机号
+        /// </summary>
+        public string Mobile { get; set; }
+
         /// <summary>
         /// 是否允许记住用户
         /// </summary>

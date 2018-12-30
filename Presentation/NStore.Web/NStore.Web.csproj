@@ -127,7 +127,6 @@
     <Content Include="css\account.css" />
     <Content Include="css\ucenter.css" />
     <Content Include="Global.asax" />
-    <Content Include="images\111.png" />
     <Content Include="images\buy1.png" />
     <Content Include="images\d.png" />
     <Content Include="images\floorB.gif" />
@@ -179,7 +178,6 @@
     <Content Include="images\userIMG-bg.png" />
     <Content Include="images\userSJ.png" />
     <Content Include="images\zoomloader.gif" />
-    <Content Include="images\goto-top.png" />
     <Content Include="robots.txt" />
     <Content Include="scripts\account.js" />
     <Content Include="scripts\ajaxfileupload.js" />

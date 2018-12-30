@@ -13,6 +13,7 @@
     <link href="@{@WorkContext.CSSCDN}/css/account.css" rel="stylesheet" type="text/css" />
     <script src="@{@WorkContext.ScriptCDN}/scripts/utils.js" type="text/javascript"></script>
     <script src="@{@WorkContext.ScriptCDN}/scripts/account.js" type="text/javascript"></script>
+    <script src="@{@WorkContext.ScriptCDN}/scripts/jquery.js" type="text/javascript"></script>
     <script type="text/javascript">
         returnUrl = "@Model.ReturnUrl";
         shadowName = "@Model.ShadowName";
@@ -38,25 +39,107 @@
 
 <div class="right">
   <form name="loginForm" action="">
-
-  <dl>
+  <div class="logintypeselect">
+      <input type="hidden" id="logintype" name="logintype" value="1"/>
+      <span class="left hot" onclick="tranfer(1)">账号登陆</span>
+      <span class="right"  onclick="tranfer(2)">手机登陆</span>
+      <div class="clear"></div>
+  </div>
+    <script type="text/javascript">
+        function tranfer(index)
+        {
+            var nindex = $("#logintype").val();
+            if (nindex==index) {
+                return;
+            }
+            if (index==1) {
+                $(".logintypeselect .right").removeClass("hot");
+                $(".logintypeselect .left").addClass("hot");
+                $("#logintype").val(1);
+                
+                $(".accountlogin").removeClass("loginhide");
+                $(".mobilelogin").addClass("loginhide");
+            }
+            if (index==2) {
+                $(".logintypeselect .left").removeClass("hot");
+                $(".logintypeselect .right").addClass("hot");
+                $("#logintype").val(2);
+                
+                $(".mobilelogin").removeClass("loginhide");
+                $(".accountlogin").addClass("loginhide");
+            }
+        }
+    </script>
+ <div class="accountlogin">
+   <dl>
       <dt>用户名</dt>
       <dd><input type="text" name="@Model.ShadowName" class="userName text" value=""/></dd>
   </dl>
-  
   <dl>
       <dt>密码</dt>
       <dd><input type="password" name="password" class="passWord text" value=""/></dd>
   </dl>
+ </div>
+ <div class="mobilelogin loginhide">
+    <dl>
+      <dt>手机号</dt>
+      <dd><input type="text" name="mobile" class="userName text" value=""/></dd>
+  </dl>
+   <dl>
+      <dt>短信动态码</dt>
+      <dd><input type="text" name="verifymobileode" class="userName text" style="width:165px;" value=""/>
+       <a href="#" class="grayBT right" style="height:24px; line-height:24px;margin-right:33px; padding:4px 12px;" id="dd" onclick="setmsg(this)">获取短信校验码</a>
+       </dd>
+   </dl>
+ </div>
+<script type="text/javascript"> 
+    var countdown = 10;
+    function setmsg(obj)
+    {
+        if (countdown==10) {
+            var loginForm = document.forms["loginForm"];
+            var mobile = loginForm.elements["mobile"].value;
+            if (mobile.length == 0) {
+                alert("请输入手机号");
+                return false;
+            }
+
+            var parms = new Object();
+            parms["mobile"] = mobile;
+            Ajax.post("/account/sendverifymobileforlogin", parms, false, function (data) {
+                var result = eval("(" + data + ")");
+                alert(result.content); 
+                if(result.state=="success") 
+                {
+                    settime(obj);
+                }
+            })
+        }
+    }
+    function settime(obj) { //发送验证码倒计时
+        if (countdown == 0) { 
+            obj.removeAttribute("disabled");    
+            $(obj).html("获取短信校验码");
+            countdown = 10; 
+            return;
+        } else { 
+            obj.setAttribute("disabled", true); 
+            $(obj).html("重新发送(" + countdown + ")");
+            countdown--; 
+        } 
+    setTimeout(function() { 
+        settime(obj) }
+        ,1000) 
+    }
+</script>
 
   @if (Model.IsVerifyCode)
   { 
   <dl>
       <dt>验证码</dt>
-      <dd><input type="text" name="verifyCode" autocomplete="off" class="YZM text left" /><img id="verifyImage" style="cursor:hand" title="点击刷新验证码" onclick="this.src='/tool/verifyimage?time=' + new Date()" src="/tool/verifyimage" height="34" class="left" /><div class="clear"></div></dd>
+      <dd><input type="text" name="verifyCode" autocomplete="off" class="YZM text left"  style="width:60px;"/><img id="verifyImage" style="cursor:hand" title="点击刷新验证码" onclick="this.src='/tool/verifyimage?time=' + new Date()" src="/tool/verifyimage" height="34" class="left" /><div class="clear"></div></dd>
   </dl>
   }
-  
   <div class="loginBt">
     @if (Model.IsRemember)
     {

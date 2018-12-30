@@ -16,16 +16,22 @@ function showVerifyError(verifyErrorList) {
 function login() {
     var loginForm = document.forms["loginForm"];
 
+    var logintype = loginForm.elements["logintype"].value;
+    var mobile = loginForm.elements["mobile"].value;
+    var verifymobileode = loginForm.elements["verifymobileode"].value;
     var accountName = loginForm.elements[shadowName].value;
     var password = loginForm.elements["password"].value;
     var verifyCode = loginForm.elements["verifyCode"] ? loginForm.elements["verifyCode"].value : undefined;
     var isRemember = loginForm.elements["isRemember"] ? loginForm.elements["isRemember"].checked ? 1 : 0 : 0;
 
-    if (!verifyLogin(accountName, password, verifyCode)) {
+    if (!verifyLogin(logintype, mobile, verifymobileode, accountName, password, verifyCode)) {
         return;
     }
 
-    var parms = new Object();
+    var parms = new Object
+    parms["logintype"] = logintype;
+    parms["mobile"] = mobile;
+    parms["verifymobileode"] = verifymobileode;
     parms[shadowName] = accountName;
     parms["password"] = password;
     parms["verifyCode"] = verifyCode;
@@ -34,14 +40,27 @@ function login() {
 }
 
 //验证登录
-function verifyLogin(accountName, password, verifyCode) {
-    if (accountName.length == 0) {
-        alert("请输入帐号名");
-        return false;
+function verifyLogin(logintype, mobile, verifymobileode, accountName, password, verifyCode) {
+
+    if (logintype == 2) {
+        if (mobile.length == 0) {
+            alert("请输入手机号");
+            return false;
+        }
+        if (verifymobileode.length == 0) {
+            alert("请输入短信验证码");
+            return false;
+        }
     }
-    if (password.length == 0) {
-        alert("请输入密码");
-        return false;
+    else {
+        if (accountName.length == 0) {
+            alert("请输入帐号名");
+            return false;
+        }
+        if (password.length == 0) {
+            alert("请输入密码");
+            return false;
+        }
     }
     if (verifyCode != undefined && verifyCode.length == 0) {
         alert("请输入验证码");
@@ -121,8 +140,7 @@ function registerResponse(data) {
 }
 
 //认证用户
-function authuser(isenterprise)
-{
+function authuser(isenterprise) {
     var registerForm = document.forms["authuserForm"];
 
     var linkname = registerForm.elements["linkname"].value;
@@ -148,7 +166,7 @@ function authuser(isenterprise)
     var creditcode = registerForm.elements["creditcode"] ? registerForm.elements["creditcode"].value : "";;
     var businesslicense = registerForm.elements["businesslicense"] ? registerForm.elements["businesslicense"].value : "";;
 
-    if (isenterprise==1) {
+    if (isenterprise == 1) {
 
         if (company.length == 0) {
             alert("请输入公司名称");
@@ -184,7 +202,7 @@ function authuser(isenterprise)
 function authResponse(data) {
     var result = eval("(" + data + ")");
     if (result.state == "success") {
-        window.location.href =  returnUrl;
+        window.location.href = returnUrl;
     }
     else if (result.state == "exception") {
         alert(result.content);

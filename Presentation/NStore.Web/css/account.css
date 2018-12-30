@@ -2,9 +2,9 @@ body{ background:#f2f2f2; }
 #loginTop{ padding:30px 0; margin-top:10px; width:900px;}
 #loginTop h2{ float:left; height:42px; line-height:42px; border-left:1px solid #e3e3e3; padding-left:15px; margin-left:15px;font-size:24px; font-weight:normal; color:#333;}
 
-.login{ width:900px; margin:20px auto; margin-bottom:50px;border:5px solid #e8e8e8; background:#FFF; height:355px; position:relative;}
+.login{ width:900px; margin:20px auto; margin-bottom:50px;border:5px solid #e8e8e8; background:#FFF; height:360px; position:relative;}
 
-.login div.right{ width:340px; padding:20px;}
+.login div.right{ width:340px; padding:0 20px 20px 20px;}
 .login .text{width: 282px;height: 24px;line-height: 24px;padding: 4px 20px 4px 3px;border: 1px solid #cccccc;font-size: 14px;}
 .login dl{ padding-bottom:5px;}
 .login .userName{ background:url(/images/p.jpg) no-repeat 285px center;}
@@ -12,6 +12,11 @@ body{ background:#f2f2f2; }
 .login .YZMbox{ visibility:hidden;}
 .login .YZM{ width:145px; margin-right:10px;}
 
+.logintypeselect{line-height: 50px;font-size: 18px;}
+.logintypeselect .left{margin-left: 35px;cursor:pointer;}
+.logintypeselect .right{float: right;margin-right: 65px;cursor:pointer;}
+.logintypeselect .hot{color:#3897da;}
+.loginhide{display:none}
 
 .loginBt{}
 .loginBt .loginIn{ font-size:18px; font-weight:bold; color:#FFF; display:block; text-align:center; width:307px; padding:7px 0; font-weight:normal; margin-top:10px;}
