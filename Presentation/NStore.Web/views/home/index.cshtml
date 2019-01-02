@@ -360,7 +360,7 @@
                                                                 @:/ recommendProduct.Remark
                                                             }&nbsp;
                                                     </td>
-                                                    <td class="action"><a href="#" style="color:#3897da;" onmouseover="this.style.color='#e13a3a'"  onmouseout="this.style.color='#3897da'">立即购买</a></td>
+                                                    <td class="action"><a href="javascript:directBuyProduct(@recommendProduct.Pid, 1)" style="color:#3897da;" onmouseover="this.style.color='#e13a3a'"  onmouseout="this.style.color='#3897da'">立即购买</a></td>
                                                 </tr>
                                                 <tr height="1px;"></tr>
                                             }
@@ -461,7 +461,7 @@
                                                             }
                                                             </b>
                                                            </a>
-                                                           <div><a class="btn addShopping" href="javascript:addProductToCart(@info.Url.Replace(".html","").TrimStart('/'), 1)">加入购物车</a><a href="javascript:addProductToCart(@info.Url.Replace(".html","").TrimStart('/'), 1)" class="btn nowbuy">立即购买</a></div>
+                                                           <div><a class="btn addShopping" href="javascript:addProductToCart(@info.Url.Replace(".html","").TrimStart('/'), 1)">加入购物车</a><a href="javascript:directBuyProduct(@info.Url.Replace(".html","").TrimStart('/'), 1)" class="btn nowbuy">立即购买</a></div>
                                                         </li>
     }
                                             </ul>
@@ -486,7 +486,9 @@
                                                                     @info.ExtField3<s>¥@info.ExtField2</s>
                                                                 }
                                                                 </b>
-                                                            </a></li>
+                                                           </a>
+                                                           <div><a class="btn addShopping" href="javascript:addProductToCart(@info.Url.Replace(".html","").TrimStart('/'), 1)">加入购物车</a><a href="javascript:directBuyProduct(@info.Url.Replace(".html","").TrimStart('/'), 1)" class="btn nowbuy">立即购买</a></div>
+                                                        </li>
     }
                                             </ul>
                                         </div>
@@ -510,7 +512,9 @@
                                                                         @info.ExtField3<s>¥@info.ExtField2</s>
                                                                     }
                                                                     </b>
-                                                                </a></li>
+                                                           </a>
+                                                           <div><a class="btn addShopping" href="javascript:addProductToCart(@info.Url.Replace(".html","").TrimStart('/'), 1)">加入购物车</a><a href="javascript:directBuyProduct(@info.Url.Replace(".html","").TrimStart('/'), 1)" class="btn nowbuy">立即购买</a></div>
+                                                        </li>
      }
                                                 </ul>
                                             </div>
@@ -534,7 +538,9 @@
                                                                         @info.ExtField3<s>¥@info.ExtField2</s>
                                                                     }
                                                                     </b>
-                                                                </a></li>
+                                                           </a>
+                                                           <div><a class="btn addShopping" href="javascript:addProductToCart(@info.Url.Replace(".html","").TrimStart('/'), 1)">加入购物车</a><a href="javascript:directBuyProduct(@info.Url.Replace(".html","").TrimStart('/'), 1)" class="btn nowbuy">立即购买</a></div>
+                                                        </li>
      }
                                                 </ul>
                                             </div>
@@ -595,7 +601,9 @@
                                                                             @info.ExtField3<s>¥@info.ExtField2</s>
                                                                         }
                                                                     </b>
-                                                                </a></li>
+                                                           </a>
+                                                           <div><a class="btn addShopping" href="javascript:addProductToCart(@info.Url.Replace(".html","").TrimStart('/'), 1)">加入购物车</a><a href="javascript:directBuyProduct(@info.Url.Replace(".html","").TrimStart('/'), 1)" class="btn nowbuy">立即购买</a></div>
+                                                        </li>
      }
                                                 </ul>
                                             </div>
@@ -620,7 +628,9 @@
                                                                             @info.ExtField3<s>¥@info.ExtField2</s>
                                                                         }
                                                                     </b>
-                                                                </a></li>
+                                                           </a>
+                                                           <div><a class="btn addShopping" href="javascript:addProductToCart(@info.Url.Replace(".html","").TrimStart('/'), 1)">加入购物车</a><a href="javascript:directBuyProduct(@info.Url.Replace(".html","").TrimStart('/'), 1)" class="btn nowbuy">立即购买</a></div>
+                                                        </li>
      }
                                                 </ul>
                                             </div>
@@ -643,7 +653,10 @@
                                                                 {
                                                                     @info.ExtField3<s>¥@info.ExtField2</s>
                                                                 }
-                                                               </b></a></li>
+                                                               </b>
+                                                           </a>
+                                                           <div><a class="btn addShopping" href="javascript:addProductToCart(@info.Url.Replace(".html","").TrimStart('/'), 1)">加入购物车</a><a href="javascript:directBuyProduct(@info.Url.Replace(".html","").TrimStart('/'), 1)" class="btn nowbuy">立即购买</a></div>
+                                                        </li>
      }
                                                 </ul>
                                             </div>
@@ -666,7 +679,10 @@
                                                                 {
                                                                     @info.ExtField3<s>¥@info.ExtField2</s>
                                                                 }
-                                                               </b></a></li>
+                                                               </b>
+                                                           </a>
+                                                           <div><a class="btn addShopping" href="javascript:addProductToCart(@info.Url.Replace(".html","").TrimStart('/'), 1)">加入购物车</a><a href="javascript:directBuyProduct(@info.Url.Replace(".html","").TrimStart('/'), 1)" class="btn nowbuy">立即购买</a></div>
+                                                        </li>
      }
                                                 </ul>
                                             </div>
@@ -724,7 +740,10 @@
                                                                 {
                                                                     @info.ExtField3<s>¥@info.ExtField2</s>
                                                                 }
-                                                               </b></a></li>
+                                                               </b>
+                                                           </a>
+                                                           <div><a class="btn addShopping" href="javascript:addProductToCart(@info.Url.Replace(".html","").TrimStart('/'), 1)">加入购物车</a><a href="javascript:directBuyProduct(@info.Url.Replace(".html","").TrimStart('/'), 1)" class="btn nowbuy">立即购买</a></div>
+                                                        </li>
     }
                                                 </ul>
                                             </div>
@@ -747,7 +766,10 @@
                                                                 {
                                                                     @info.ExtField3<s>¥@info.ExtField2</s>
                                                                 }
-                                                               </b></a></li>
+                                                               </b>
+                                                           </a>
+                                                           <div><a class="btn addShopping" href="javascript:addProductToCart(@info.Url.Replace(".html","").TrimStart('/'), 1)">加入购物车</a><a href="javascript:directBuyProduct(@info.Url.Replace(".html","").TrimStart('/'), 1)" class="btn nowbuy">立即购买</a></div>
+                                                        </li>
     }
                                                 </ul>
                                             </div>
@@ -770,7 +792,10 @@
                                                                 {
                                                                     @info.ExtField3<s>¥@info.ExtField2</s>
                                                                 }
-                                                               </b></a></li>
+                                                               </b>
+                                                           </a>
+                                                           <div><a class="btn addShopping" href="javascript:addProductToCart(@info.Url.Replace(".html","").TrimStart('/'), 1)">加入购物车</a><a href="javascript:directBuyProduct(@info.Url.Replace(".html","").TrimStart('/'), 1)" class="btn nowbuy">立即购买</a></div>
+                                                        </li>
     }
                                                 </ul>
                                             </div>
@@ -793,7 +818,10 @@
                                                                 {
                                                                     @info.ExtField3<s>¥@info.ExtField2</s>
                                                                 }
-                                                               </b></a></li>
+                                                               </b>
+                                                           </a>
+                                                           <div><a class="btn addShopping" href="javascript:addProductToCart(@info.Url.Replace(".html","").TrimStart('/'), 1)">加入购物车</a><a href="javascript:directBuyProduct(@info.Url.Replace(".html","").TrimStart('/'), 1)" class="btn nowbuy">立即购买</a></div>
+                                                        </li>
     }
                                                 </ul>
                                             </div>
@@ -852,7 +880,10 @@
                                                                 {
                                                                     @info.ExtField3<s>¥@info.ExtField2</s>
                                                                 }
-                                                               </b></a></li>
+                                                               </b>
+                                                           </a>
+                                                           <div><a class="btn addShopping" href="javascript:addProductToCart(@info.Url.Replace(".html","").TrimStart('/'), 1)">加入购物车</a><a href="javascript:directBuyProduct(@info.Url.Replace(".html","").TrimStart('/'), 1)" class="btn nowbuy">立即购买</a></div>
+                                                        </li>
     }
                                                 </ul>
                                             </div>
@@ -875,7 +906,10 @@
                                                                 {
                                                                     @info.ExtField3<s>¥@info.ExtField2</s>
                                                                 }
-                                                               </b></a></li>
+                                                               </b>
+                                                           </a>
+                                                           <div><a class="btn addShopping" href="javascript:addProductToCart(@info.Url.Replace(".html","").TrimStart('/'), 1)">加入购物车</a><a href="javascript:directBuyProduct(@info.Url.Replace(".html","").TrimStart('/'), 1)" class="btn nowbuy">立即购买</a></div>
+                                                        </li>
     }
                                                 </ul>
                                             </div>
@@ -898,7 +932,10 @@
                                                                 {
                                                                     @info.ExtField3<s>¥@info.ExtField2</s>
                                                                 }
-                                                               </b></a></li>
+                                                               </b>
+                                                           </a>
+                                                           <div><a class="btn addShopping" href="javascript:addProductToCart(@info.Url.Replace(".html","").TrimStart('/'), 1)">加入购物车</a><a href="javascript:directBuyProduct(@info.Url.Replace(".html","").TrimStart('/'), 1)" class="btn nowbuy">立即购买</a></div>
+                                                        </li>
     }
                                                 </ul>
                                             </div>
@@ -921,7 +958,10 @@
                                                                 {
                                                                     @info.ExtField3<s>¥@info.ExtField2</s>
                                                                 }
-                                                               </b></a></li>
+                                                               </b>
+                                                           </a>
+                                                           <div><a class="btn addShopping" href="javascript:addProductToCart(@info.Url.Replace(".html","").TrimStart('/'), 1)">加入购物车</a><a href="javascript:directBuyProduct(@info.Url.Replace(".html","").TrimStart('/'), 1)" class="btn nowbuy">立即购买</a></div>
+                                                        </li>
     }
                                                 </ul>
                                             </div>

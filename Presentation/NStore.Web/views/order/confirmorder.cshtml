@@ -211,193 +211,200 @@
 </div>
     @foreach (StoreOrder storeOrder in Model.StoreOrderList)
     {
-    <div class="buyItme">
-    <h2><label>@storeOrder.StoreCartInfo.StoreInfo.Name</label></h2>
-    @foreach (CartItemInfo cartItemInfo in storeOrder.StoreCartInfo.CartItemList)
-    {
-        if (cartItemInfo.Type == 0)
+        if(storeOrder.StoreCartInfo.SelectedOrderProductList.Count>0)
         {
-            CartProductInfo cartProductInfo = (CartProductInfo)cartItemInfo.Item;
-            <div class="buyItmeC">
-            <div class="cell checkC">&nbsp;</div>
-            <div class="cell productC">
-            <div class="productC1">
-                <img src="@{@WorkContext.ImageCDN}/upload/store/@cartProductInfo.OrderProductInfo.StoreId/product/show/thumb60_60/@cartProductInfo.OrderProductInfo.ShowImg" width="50" height="50" />
-                <a href="@Url.Action("product", "catalog", new RouteValueDictionary { { "pid", cartProductInfo.OrderProductInfo.Pid } })">@cartProductInfo.OrderProductInfo.Name</a>
-                <div class="clear"></div>
-            </div>
-            @if (cartProductInfo.GiftList.Count > 0)
+            <div class="buyItme">
+            <h2><label>@storeOrder.StoreCartInfo.StoreInfo.Name</label></h2>
+            @foreach (CartItemInfo cartItemInfo in storeOrder.StoreCartInfo.CartItemList)
             {
-            <div class="productC2">
-            @foreach (OrderProductInfo gift in cartProductInfo.GiftList)
+                if (cartItemInfo.Type == 0)
+                {
+                    CartProductInfo cartProductInfo = (CartProductInfo)cartItemInfo.Item;
+                    if (cartProductInfo.Selected)
+                    {
+                        <div class="buyItmeC">
+                            <div class="cell checkC">&nbsp;</div>
+                            <div class="cell productC">
+                                <div class="productC1">
+                                    <img src="@{@WorkContext.ImageCDN}/upload/store/@cartProductInfo.OrderProductInfo.StoreId/product/show/thumb60_60/@cartProductInfo.OrderProductInfo.ShowImg" width="50" height="50" />
+                                    <a href="@Url.Action(" product", "catalog" , new RouteValueDictionary { { "pid" , cartProductInfo.OrderProductInfo.Pid } })">@cartProductInfo.OrderProductInfo.Name</a>
+                                    <div class="clear"></div>
+                                </div>
+                                @if (cartProductInfo.GiftList.Count > 0)
+                                {
+                                    <div class="productC2">
+                                        @foreach (OrderProductInfo gift in cartProductInfo.GiftList)
+                                        {
+                                            <p>[赠品] @gift.Name</p>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                            <div class="cell priceC">¥@cartProductInfo.OrderProductInfo.DiscountPrice</div>
+                            @if (cartProductInfo.OrderProductInfo.PayCredits > 0 && cartProductInfo.OrderProductInfo.CouponTypeId == 0)
+                            {
+                                <div class="priceC1 ">赠积分：<em>@cartProductInfo.OrderProductInfo.PayCredits</em></div>
+                            }
+                            else if (cartProductInfo.OrderProductInfo.PayCredits == 0 && cartProductInfo.OrderProductInfo.CouponTypeId > 0)
+                            {
+                                <div class="priceC1 ">赠优惠劵</div>
+                            }
+                            else if (cartProductInfo.OrderProductInfo.PayCredits > 0 && cartProductInfo.OrderProductInfo.CouponTypeId > 0)
+                            {
+                                <div class="priceC1 ">赠京豆(@cartProductInfo.OrderProductInfo.PayCredits)和优惠劵</div>
+                            }
+                            else
+                            {
+                                <div class="nopriceC1"></div>
+                            }
+                            <div class="cell numberC">@cartProductInfo.OrderProductInfo.RealCount</div>
+                            <div class="clear"></div>
+                        </div>
+                    }
+
+            }
+            else if (cartItemInfo.Type == 1)
             {
-            <p>[赠品] @gift.Name</p>
+                CartSuitInfo cartSuitInfo = (CartSuitInfo)cartItemInfo.Item;
+                    <div class="buyItmeC">
+                    <div class="cell checkC">&nbsp;</div>
+                    <div class="cell productC">
+                    @foreach (CartProductInfo cartProductInfo in cartSuitInfo.CartProductList)
+                    {
+                    <div class="cartSuitItem">                                    
+                    <div class="productC1">
+                        <img src="@{@WorkContext.ImageCDN}/upload/store/@cartProductInfo.OrderProductInfo.StoreId/product/show/thumb60_60/@cartProductInfo.OrderProductInfo.ShowImg" width="50" height="50" />
+                        <a href="@Url.Action("product", "catalog", new RouteValueDictionary { { "pid", cartProductInfo.OrderProductInfo.Pid } })">@cartProductInfo.OrderProductInfo.Name</a>
+                        <div class="clear"></div>
+                    </div>
+                    @if (cartProductInfo.GiftList.Count > 0)
+                    {
+                    <div class="productC2">
+                    @foreach (OrderProductInfo gift in cartProductInfo.GiftList)
+                    {
+                    <p>[赠品] @gift.Name</p>
+                    }
+                    </div>
+                    }
+                    </div>
+                    }
+                    </div>
+                    <div class="cell priceC">¥@cartSuitInfo.SuitPrice</div>
+                    <div class="nopriceC1"></div> 
+                    <div class="cell numberC">@cartSuitInfo.BuyCount</div>
+                    <div class="clear"></div>
+                    </div> 
+                }
+                else if (cartItemInfo.Type == 2)
+                {
+                    CartFullSendInfo cartFullSendInfo = (CartFullSendInfo)cartItemInfo.Item;
+                    if (cartFullSendInfo.FullSendMinorOrderProductInfo != null)
+                    {
+                       <div class="buyItme_header"><div class="info"><s>满赠</s>活动商品已购满 @cartFullSendInfo.FullSendPromotionInfo.LimitMoney 元,您已经换购了商品</div></div>
+                       <div class="buyItme_header fullSendProductTitle"><div class="info">[换购商品]@cartFullSendInfo.FullSendMinorOrderProductInfo.Name</div></div>
+                    }
+                    else if (cartFullSendInfo.FullSendPromotionInfo != null)
+                    {
+                       <div class="buyItme_header"><div class="info"><s>满赠</s>活动商品已购满 @cartFullSendInfo.FullSendPromotionInfo.LimitMoney 元,再加 @cartFullSendInfo.FullSendPromotionInfo.AddMoney 元换购</div></div>
+                    }
+                    foreach (CartProductInfo cartProductInfo in cartFullSendInfo.FullSendMainCartProductList)
+                    {
+                    <div class="buyItmeC">
+                    <div class="cell checkC">&nbsp;</div>
+                    <div class="cell productC">
+                    <div class="productC1">
+                        <img src="@{@WorkContext.ImageCDN}/upload/store/@cartProductInfo.OrderProductInfo.StoreId/product/show/thumb60_60/@cartProductInfo.OrderProductInfo.ShowImg" width="50" height="50" />
+                        <a href="@Url.Action("product", "catalog", new RouteValueDictionary { { "pid", cartProductInfo.OrderProductInfo.Pid } })">@cartProductInfo.OrderProductInfo.Name</a>
+                        <div class="clear"></div>
+                    </div>
+                    @if (cartProductInfo.GiftList.Count > 0)
+                    {
+                    <div class="productC2">
+                    @foreach (OrderProductInfo gift in cartProductInfo.GiftList)
+                    {
+                    <p>[赠品] @gift.Name</p>
+                    }
+                    </div>
+                    }
+                    </div>
+                    <div class="cell priceC">¥@cartProductInfo.OrderProductInfo.DiscountPrice</div>
+                    @if (cartProductInfo.OrderProductInfo.PayCredits > 0 && cartProductInfo.OrderProductInfo.CouponTypeId == 0)
+                    {
+                        <div class="priceC1 ">赠积分：<em>@cartProductInfo.OrderProductInfo.PayCredits</em></div>
+                    }
+                    else if (cartProductInfo.OrderProductInfo.PayCredits == 0 && cartProductInfo.OrderProductInfo.CouponTypeId > 0)
+                    {
+                        <div class="priceC1 ">赠优惠劵</div>
+                    }
+                    else if (cartProductInfo.OrderProductInfo.PayCredits > 0 && cartProductInfo.OrderProductInfo.CouponTypeId > 0)
+                    {
+                        <div class="priceC1 ">赠京豆(@cartProductInfo.OrderProductInfo.PayCredits)和优惠劵</div>
+                    }
+                    else
+                    {
+                        <div class="nopriceC1"></div> 
+                    }
+                    <div class="cell numberC">@cartProductInfo.OrderProductInfo.RealCount</div>
+                    <div class="clear"></div>
+                    </div> 
+                    }
+                }
+                else if (cartItemInfo.Type == 3)
+                {
+                    CartFullCutInfo cartFullCutInfo = (CartFullCutInfo)cartItemInfo.Item;
+                    if (cartFullCutInfo.IsEnough)
+                    {
+                       <div class="buyItme_header"><div class="info"><s>满减</s>活动商品已购满 @cartFullCutInfo.LimitMoney 元,优惠 @cartFullCutInfo.CutMoney 元</div><div class="price">&nbsp;</div><s>返现：¥@cartFullCutInfo.CutMoney</s></div>
+                    }
+                    else
+                    {
+                       <div class="buyItme_header"><div class="info"><s>满减</s>活动商品购满 @cartFullCutInfo.LimitMoney 元,即可享受满减 @cartFullCutInfo.CutMoney 元</div></div>
+                    }
+                    foreach (CartProductInfo cartProductInfo in cartFullCutInfo.FullCutCartProductList)
+                    {
+                    <div class="buyItmeC">
+                    <div class="cell checkC">&nbsp;</div>
+                    <div class="cell productC">
+                    <div class="productC1">
+                        <img src="@{@WorkContext.ImageCDN}/upload/store/@cartProductInfo.OrderProductInfo.StoreId/product/show/thumb60_60/@cartProductInfo.OrderProductInfo.ShowImg" width="50" height="50" />
+                        <a href="@Url.Action("product", "catalog", new RouteValueDictionary { { "pid", cartProductInfo.OrderProductInfo.Pid } })">@cartProductInfo.OrderProductInfo.Name</a>
+                        <div class="clear"></div>
+                    </div>
+                    @if (cartProductInfo.GiftList.Count > 0)
+                    {
+                    <div class="productC2">
+                    @foreach (OrderProductInfo gift in cartProductInfo.GiftList)
+                    {
+                    <p>[赠品] @gift.Name</p>
+                    }
+                    </div>
+                    }
+                    </div>
+                    <div class="cell priceC">¥@cartProductInfo.OrderProductInfo.DiscountPrice</div>
+                    @if (cartProductInfo.OrderProductInfo.PayCredits > 0 && cartProductInfo.OrderProductInfo.CouponTypeId == 0)
+                    {
+                        <div class="priceC1 ">赠积分：<em>@cartProductInfo.OrderProductInfo.PayCredits</em></div>
+                    }
+                    else if (cartProductInfo.OrderProductInfo.PayCredits == 0 && cartProductInfo.OrderProductInfo.CouponTypeId > 0)
+                    {
+                        <div class="priceC1 ">赠优惠劵</div>
+                    }
+                    else if (cartProductInfo.OrderProductInfo.PayCredits > 0 && cartProductInfo.OrderProductInfo.CouponTypeId > 0)
+                    {
+                        <div class="priceC1 ">赠京豆(@cartProductInfo.OrderProductInfo.PayCredits)和优惠劵</div>
+                    }
+                    else
+                    {
+                        <div class="nopriceC1"></div> 
+                    }
+                    <div class="cell numberC">@cartProductInfo.OrderProductInfo.RealCount</div>
+                    <div class="clear"></div>
+                    </div> 
+                    }
+                }
             }
-            </div>
-            }
-            </div>
-            <div class="cell priceC">¥@cartProductInfo.OrderProductInfo.DiscountPrice</div>
-            @if (cartProductInfo.OrderProductInfo.PayCredits > 0 && cartProductInfo.OrderProductInfo.CouponTypeId == 0)
-            {
-                <div class="priceC1 ">赠积分：<em>@cartProductInfo.OrderProductInfo.PayCredits</em></div>
-            }
-            else if (cartProductInfo.OrderProductInfo.PayCredits == 0 && cartProductInfo.OrderProductInfo.CouponTypeId > 0)
-            {
-                <div class="priceC1 ">赠优惠劵</div>
-            }
-            else if (cartProductInfo.OrderProductInfo.PayCredits > 0 && cartProductInfo.OrderProductInfo.CouponTypeId > 0)
-            {
-                <div class="priceC1 ">赠京豆(@cartProductInfo.OrderProductInfo.PayCredits)和优惠劵</div>
-            }
-            else
-            {
-                <div class="nopriceC1"></div> 
-            }
-            <div class="cell numberC">@cartProductInfo.OrderProductInfo.RealCount</div>
-            <div class="clear"></div>
             </div>
         }
-        else if (cartItemInfo.Type == 1)
-        {
-            CartSuitInfo cartSuitInfo = (CartSuitInfo)cartItemInfo.Item;
-            <div class="buyItmeC">
-            <div class="cell checkC">&nbsp;</div>
-            <div class="cell productC">
-            @foreach (CartProductInfo cartProductInfo in cartSuitInfo.CartProductList)
-            {
-            <div class="cartSuitItem">                                    
-            <div class="productC1">
-                <img src="@{@WorkContext.ImageCDN}/upload/store/@cartProductInfo.OrderProductInfo.StoreId/product/show/thumb60_60/@cartProductInfo.OrderProductInfo.ShowImg" width="50" height="50" />
-                <a href="@Url.Action("product", "catalog", new RouteValueDictionary { { "pid", cartProductInfo.OrderProductInfo.Pid } })">@cartProductInfo.OrderProductInfo.Name</a>
-                <div class="clear"></div>
-            </div>
-            @if (cartProductInfo.GiftList.Count > 0)
-            {
-            <div class="productC2">
-            @foreach (OrderProductInfo gift in cartProductInfo.GiftList)
-            {
-            <p>[赠品] @gift.Name</p>
-            }
-            </div>
-            }
-            </div>
-            }
-            </div>
-            <div class="cell priceC">¥@cartSuitInfo.SuitPrice</div>
-            <div class="nopriceC1"></div> 
-            <div class="cell numberC">@cartSuitInfo.BuyCount</div>
-            <div class="clear"></div>
-            </div> 
-        }
-        else if (cartItemInfo.Type == 2)
-        {
-            CartFullSendInfo cartFullSendInfo = (CartFullSendInfo)cartItemInfo.Item;
-            if (cartFullSendInfo.FullSendMinorOrderProductInfo != null)
-            {
-               <div class="buyItme_header"><div class="info"><s>满赠</s>活动商品已购满 @cartFullSendInfo.FullSendPromotionInfo.LimitMoney 元,您已经换购了商品</div></div>
-               <div class="buyItme_header fullSendProductTitle"><div class="info">[换购商品]@cartFullSendInfo.FullSendMinorOrderProductInfo.Name</div></div>
-            }
-            else if (cartFullSendInfo.FullSendPromotionInfo != null)
-            {
-               <div class="buyItme_header"><div class="info"><s>满赠</s>活动商品已购满 @cartFullSendInfo.FullSendPromotionInfo.LimitMoney 元,再加 @cartFullSendInfo.FullSendPromotionInfo.AddMoney 元换购</div></div>
-            }
-            foreach (CartProductInfo cartProductInfo in cartFullSendInfo.FullSendMainCartProductList)
-            {
-            <div class="buyItmeC">
-            <div class="cell checkC">&nbsp;</div>
-            <div class="cell productC">
-            <div class="productC1">
-                <img src="@{@WorkContext.ImageCDN}/upload/store/@cartProductInfo.OrderProductInfo.StoreId/product/show/thumb60_60/@cartProductInfo.OrderProductInfo.ShowImg" width="50" height="50" />
-                <a href="@Url.Action("product", "catalog", new RouteValueDictionary { { "pid", cartProductInfo.OrderProductInfo.Pid } })">@cartProductInfo.OrderProductInfo.Name</a>
-                <div class="clear"></div>
-            </div>
-            @if (cartProductInfo.GiftList.Count > 0)
-            {
-            <div class="productC2">
-            @foreach (OrderProductInfo gift in cartProductInfo.GiftList)
-            {
-            <p>[赠品] @gift.Name</p>
-            }
-            </div>
-            }
-            </div>
-            <div class="cell priceC">¥@cartProductInfo.OrderProductInfo.DiscountPrice</div>
-            @if (cartProductInfo.OrderProductInfo.PayCredits > 0 && cartProductInfo.OrderProductInfo.CouponTypeId == 0)
-            {
-                <div class="priceC1 ">赠积分：<em>@cartProductInfo.OrderProductInfo.PayCredits</em></div>
-            }
-            else if (cartProductInfo.OrderProductInfo.PayCredits == 0 && cartProductInfo.OrderProductInfo.CouponTypeId > 0)
-            {
-                <div class="priceC1 ">赠优惠劵</div>
-            }
-            else if (cartProductInfo.OrderProductInfo.PayCredits > 0 && cartProductInfo.OrderProductInfo.CouponTypeId > 0)
-            {
-                <div class="priceC1 ">赠京豆(@cartProductInfo.OrderProductInfo.PayCredits)和优惠劵</div>
-            }
-            else
-            {
-                <div class="nopriceC1"></div> 
-            }
-            <div class="cell numberC">@cartProductInfo.OrderProductInfo.RealCount</div>
-            <div class="clear"></div>
-            </div> 
-            }
-        }
-        else if (cartItemInfo.Type == 3)
-        {
-            CartFullCutInfo cartFullCutInfo = (CartFullCutInfo)cartItemInfo.Item;
-            if (cartFullCutInfo.IsEnough)
-            {
-               <div class="buyItme_header"><div class="info"><s>满减</s>活动商品已购满 @cartFullCutInfo.LimitMoney 元,优惠 @cartFullCutInfo.CutMoney 元</div><div class="price">&nbsp;</div><s>返现：¥@cartFullCutInfo.CutMoney</s></div>
-            }
-            else
-            {
-               <div class="buyItme_header"><div class="info"><s>满减</s>活动商品购满 @cartFullCutInfo.LimitMoney 元,即可享受满减 @cartFullCutInfo.CutMoney 元</div></div>
-            }
-            foreach (CartProductInfo cartProductInfo in cartFullCutInfo.FullCutCartProductList)
-            {
-            <div class="buyItmeC">
-            <div class="cell checkC">&nbsp;</div>
-            <div class="cell productC">
-            <div class="productC1">
-                <img src="@{@WorkContext.ImageCDN}/upload/store/@cartProductInfo.OrderProductInfo.StoreId/product/show/thumb60_60/@cartProductInfo.OrderProductInfo.ShowImg" width="50" height="50" />
-                <a href="@Url.Action("product", "catalog", new RouteValueDictionary { { "pid", cartProductInfo.OrderProductInfo.Pid } })">@cartProductInfo.OrderProductInfo.Name</a>
-                <div class="clear"></div>
-            </div>
-            @if (cartProductInfo.GiftList.Count > 0)
-            {
-            <div class="productC2">
-            @foreach (OrderProductInfo gift in cartProductInfo.GiftList)
-            {
-            <p>[赠品] @gift.Name</p>
-            }
-            </div>
-            }
-            </div>
-            <div class="cell priceC">¥@cartProductInfo.OrderProductInfo.DiscountPrice</div>
-            @if (cartProductInfo.OrderProductInfo.PayCredits > 0 && cartProductInfo.OrderProductInfo.CouponTypeId == 0)
-            {
-                <div class="priceC1 ">赠积分：<em>@cartProductInfo.OrderProductInfo.PayCredits</em></div>
-            }
-            else if (cartProductInfo.OrderProductInfo.PayCredits == 0 && cartProductInfo.OrderProductInfo.CouponTypeId > 0)
-            {
-                <div class="priceC1 ">赠优惠劵</div>
-            }
-            else if (cartProductInfo.OrderProductInfo.PayCredits > 0 && cartProductInfo.OrderProductInfo.CouponTypeId > 0)
-            {
-                <div class="priceC1 ">赠京豆(@cartProductInfo.OrderProductInfo.PayCredits)和优惠劵</div>
-            }
-            else
-            {
-                <div class="nopriceC1"></div> 
-            }
-            <div class="cell numberC">@cartProductInfo.OrderProductInfo.RealCount</div>
-            <div class="clear"></div>
-            </div> 
-            }
-        }
-    }
-    </div>
     }
     <div style="border-top:1px solid #ddd;"></div>
 </dd>
