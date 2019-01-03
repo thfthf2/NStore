@@ -140,16 +140,9 @@
                                    var isSelect=false;
                                    foreach (var item in floor1AdvertList01)
                                    {
-                                       if (!isSelect)
-                                       {
-                                          isSelect = true;
-                                          <text><li></text>
-                                       }
-                                       else
-                                       {
-                                          <text><li style="display:none;"></text>
-                                       }
-                                       @:<a href="@item.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@item.Body" style="width:203px;height:135px;padding:1px;" /></a></li>
+                                       <li style="display:none;">
+                                        <a href="@item.Url"><img src="@{@WorkContext.ImageCDN}/upload/advert/@item.Body" style="width:203px;height:135px;padding:1px;" /></a>
+                                       </li>
 
                                     }
                                 }
@@ -258,22 +251,29 @@
                                                 <h2>通知公告<a href="@Url.Action("list", "news")" class="more">更多公告></a></h2>
                                                 <ul class="textList">
                                                     @{
-                    DataTable homeNewsList = News.GetHomeNewsList(0, 10);
+                                                        DataTable homeNewsList = News.GetHomeNewsList(0, 10);
                                                     }
                                                     @foreach (DataRow row in homeNewsList.Rows)
-                {
-                            <li style="list-style-type:square;" class="hidegongao">
-                                <a href="@Url.Action("details", "news", new RouteValueDictionary { { "newsId", row["newsid"] } })">@row["title"]</a>
-                            </li>
-                        }
+                                                    {
+                                                        <li style="list-style-type:square;" class="hidegongao">
+                                                            <a href="@Url.Action("details", "news", new RouteValueDictionary { { "newsId", row["newsid"] } })">@row["title"]</a>
+                                                        </li>
+                                                    }
                 </ul>
 
                 <script type="text/javascript">
                     var showindex=1;
                     var lidivs=  $(".textList").find("li");
                     if (lidivs.length>0) {
-                        $(lidivs[showindex]).removeClass("hidegongao");
+                        $(lidivs[0]).removeClass("hidegongao");
                     }
+
+                    var coupons=  $(".couple").find("li");
+                    var coupon_showindex=1;
+                    if (coupons.length>0) {
+                        $(coupons[0]).css({"display":"block"});
+                    }
+
                     var timer = setInterval(function() {
                         //广告轮询
                         if (lidivs.length>1) {
@@ -289,8 +289,6 @@
                         }
 
                         //优惠专区轮询
-                        var coupons=  $(".couple").find("li");
-                        var coupon_showindex=1;
                         if (coupons.length > 1) {
                               var beforeindex=coupon_showindex-1;
                             if (coupon_showindex>coupons.length-1) {
@@ -300,9 +298,9 @@
 
                             $(coupons[beforeindex]).css({"display":"none"});
                             $(coupons[coupon_showindex]).css({"display":"block"});
-                            showindex=showindex+1;
+                            coupon_showindex=coupon_showindex+1;
                         }
-                    }, 2000);
+                    }, 2500);
 
                 </script>
             </div>

@@ -86,9 +86,49 @@
                             <th width="190"><em>*</em>短信验证码：</th>
                              <td width="275">
                                  <input type="text" style="width:100px;" class="YZM text" name="verifyCode">
-                                 <a href="javascript:sendVerifyMobile()" class="grayBT right" style="height:30px; line-height:30px; margin-left:10px;margin-right:5px; padding:4px 15px;">获取短信校验码</a>
+                                 <a href="#" class="grayBT right" style="height:30px; line-height:30px; margin-left:10px;margin-right:5px; padding:4px 15px;"  onclick="setmsg(this)">获取短信校验码</a>
                              </td>
                              <td>&nbsp;</td>
+                             <script type="text/javascript"> 
+                                var countdown = 10;
+                                function setmsg(obj)
+                                {
+                                    if (countdown==10) {
+                                        var authuserForm = document.forms["authuserForm"];
+                                        var mobile = authuserForm.elements["mobile"].value;
+                                        if (mobile.length == 0) {
+                                            alert("请输入手机号");
+                                            return false;
+                                        }
+
+                                        var parms = new Object();
+                                        parms["mobile"] = mobile;
+                                        Ajax.post("/account/sendverifymobileforauth", parms, false, function (data) {
+                                            var result = eval("(" + data + ")");
+                                            alert(result.content); 
+                                            if(result.state=="success") 
+                                            {
+                                                settime(obj);
+                                            }
+                                        })
+                                    }
+                                }
+                                function settime(obj) { //发送验证码倒计时
+                                    if (countdown == 0) { 
+                                        obj.removeAttribute("disabled");    
+                                        $(obj).html("获取短信校验码");
+                                        countdown = 10; 
+                                        return;
+                                    } else { 
+                                        obj.setAttribute("disabled", true); 
+                                        $(obj).html("重新发送(" + countdown + ")");
+                                        countdown--; 
+                                    } 
+                                setTimeout(function() { 
+                                    settime(obj) }
+                                    ,1000) 
+                                }
+                            </script>
                          </tr>
                         <tr>
                             <th width="190">邮箱（选填）：</th>

@@ -212,22 +212,22 @@ function authResponse(data) {
     }
 }
 
-//发送验证手机短信
-function sendVerifyMobile() {
-    var registerForm = document.forms["authuserForm"];
-    var mobile = registerForm.elements["mobile"].value;
-    if (mobile.length == 0) {
-        alert("请输入手机号");
-        return false;
-    }
+////发送验证手机短信
+//function sendVerifyMobile() {
+//    var registerForm = document.forms["authuserForm"];
+//    var mobile = registerForm.elements["mobile"].value;
+//    if (mobile.length == 0) {
+//        alert("请输入手机号");
+//        return false;
+//    }
 
-    var parms = new Object();
-    parms["mobile"] = mobile;
-    Ajax.post("/account/sendverifymobileforauth", parms, false, function (data) {
-        var result = eval("(" + data + ")");
-        alert(result.content)
-    })
-}
+//    var parms = new Object();
+//    parms["mobile"] = mobile;
+//    Ajax.post("/account/sendverifymobileforauth", parms, false, function (data) {
+//        var result = eval("(" + data + ")");
+//        alert(result.content)
+//    })
+//}
 
 //找回密码
 function findPwd() {
