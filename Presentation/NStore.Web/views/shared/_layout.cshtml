@@ -35,33 +35,35 @@
         </script>
 </head>
 <body>
-    <div id="headerBar" class="bigBox">
-        <div class="box1210">
-            欢迎访问 @WorkContext.MallConfig.MallName
-            <div class="headerLink">
-                @*@if (WorkContext.Uid < 1)
-                {
-                    <a href="@Url.Action("login", "account", new RouteValueDictionary { { "returnUrl", WorkContext.Url } })">[登录]</a>
-                    <a href="@Url.Action("register", "account")" class="A_b">[注册]</a>
-                }
-                else*@
-                @if (WorkContext.Uid > 0 && (WorkContext.PartUserInfo.StoreId > 1 || WorkContext.MallAGid > 1))
-                {
-                    @:您好: @WorkContext.NickName
-                    <a href="@Url.Action("logout", "account")">[退出]</a>
-                    if (WorkContext.PartUserInfo.StoreId > 1)
+    @if (WorkContext.Uid > 0 && (WorkContext.PartUserInfo.StoreId > 1 || WorkContext.MallAGid > 1))
+    {
+        <div id="headerBar" class="bigBox">
+            <div class="box1210">
+                欢迎访问 @WorkContext.MallConfig.MallName
+                <div class="headerLink">
+                    *@if (WorkContext.Uid < 1)
                     {
-                        <a href="@Url.Action("index", "home", new RouteValueDictionary { { "area", "storeadmin" } })">[店铺管理]</a>
+                        <a href="@Url.Action("login", "account", new RouteValueDictionary { { "returnUrl", WorkContext.Url } })">[登录]</a>
+                        <a href="@Url.Action("register", "account")" class="A_b">[注册]</a>
                     }
-                    if (WorkContext.MallAGid > 1)
+                    else
                     {
-                        <a href="@Url.Action("index", "home", new RouteValueDictionary { { "area", "malladmin" } })">[商城管理]</a>
+                        @:您好: @WorkContext.NickName
+                        <a href="@Url.Action("logout", "account")">[退出]</a>
+                        if (WorkContext.PartUserInfo.StoreId > 1)
+                        {
+                            <a href="@Url.Action("index", "home", new RouteValueDictionary { { "area", "storeadmin" } })">[店铺管理]</a>
+                        }
+                        if (WorkContext.MallAGid > 1)
+                        {
+                            <a href="@Url.Action("index", "home", new RouteValueDictionary { { "area", "malladmin" } })">[商城管理]</a>
+                        }
+                        <a href="@Url.Action("orderlist", "ucenter")">[我的订单]</a>
                     }
-                    <a href="@Url.Action("orderlist", "ucenter")">[我的订单]</a>
-                }
+                </div>
             </div>
         </div>
-    </div>
+    }
     @{
         List<AdvertInfo> homeTopAdvertList = Adverts.GetAdvertList(6);
     }

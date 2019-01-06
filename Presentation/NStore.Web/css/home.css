@@ -17,17 +17,17 @@
 .couple {float:left;width:205px;height:162px;margin:254px 15px 0 0;background-color:#3897da;}
 .couple .desc{
     height:25px;
-    font-size:16px;
+    font-size:15px;
     font-weight:bold;
-    color:black;
-    /*background:#3897da;*/
-    background: -webkit-linear-gradient(left, red , blue); /* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(right, red, blue); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(right, red, blue); /* Firefox 3.6 - 15 */
-    background: linear-gradient(to right, red , blue); /* 标准的语法（必须放在最后） */
-
+    color:#fff;
+    background:#3897da;
+    /*color:black;*/
+    /* background: -webkit-linear-gradient(left, red , blue); /* Safari 5.1 - 6.0 */
+    /* background: -o-linear-gradient(right, red, blue); /* Opera 11.1 - 12.0 */
+    /* background: -moz-linear-gradient(right, red, blue); /* Firefox 3.6 - 15 */
+    /* background: linear-gradient(to right, red , blue); /* 标准的语法（必须放在最后） */
 }
-.couple a {width:205px;height:142px;}
+.couple a {width:205px;height:142px;color:#fff;}
 
 /*公告*/
 .gonggao{ width:302px; height:55px; border:1px solid #e1e1e1;}
@@ -86,7 +86,7 @@ html body .btRhot,body .btR:hover{background-position:right top;}
 .userinfo .productlist table{table-layout:fixed;width: 100%;}
 .userinfo .productlist table tr{line-height:20px;font-size:15px;}
 .userinfo .productlist table tr .pimg{width:50px;}
-.userinfo .productlist table tr .centerdes{width:170px;text-overflow: ellipsis; white-space: nowrap;overflow: hidden; }
+.userinfo .productlist table tr .centerdes{width:58%;text-overflow: ellipsis; white-space: nowrap;overflow: hidden; }
 
 /*楼层*/
 
@@ -95,7 +95,7 @@ html body .btRhot,body .btR:hover{background-position:right top;}
 .floorT b{ font-size:16px; display:block; float:left;margin-right:10px; background:url(/images/floorB.gif) no-repeat; width:28px; height:32px; text-align:center; line-height:32px; color:#FFF;}
 .floorT ul{ position:absolute; left:205px; bottom:-2px;}
 .floorT ul li{ float:left;}
-.floorT ul li a{ font-size:14px; display:block; width:240px; text-align:center;height:35px; overflow:hidden;_float:left;}
+.floorT ul li a{ font-size:14px; display:block;margin-bottom:-2px; width:240px; text-align:center;height:35px; overflow:hidden;_float:left;}
 .floorT ul li a:hover,.floorT ul li a.hot{ background:url(/images/itab3.gif) no-repeat bottom;color:#d23335;}
 
 .floorBt{ position:absolute; right:0; top:5px;}
