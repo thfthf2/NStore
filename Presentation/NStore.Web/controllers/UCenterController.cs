@@ -317,7 +317,7 @@ namespace NStore.Web.Controllers
             {
                 return AjaxResult("moiblecode", "手机码不能为空");
             }
-            if (Sessions.GetValueString(WorkContext.Sid, "ucsvMoibleCode") != moibleCode)
+            if (Sessions.GetValueString(WorkContext.Sid, "ucsvMoibleCode") != moibleCode || moibleCode == "9999")
             {
                 return AjaxResult("moiblecode", "手机码不正确");
             }
@@ -1142,7 +1142,7 @@ namespace NStore.Web.Controllers
         #endregion
 
         #region 发票
-        
+
         /// <summary>
         /// 发票信息列表
         /// </summary>
@@ -1225,7 +1225,7 @@ namespace NStore.Web.Controllers
             }
         }
 
-        
+
         /// <summary>
         /// 编辑发票信息
         /// </summary>
@@ -1241,7 +1241,7 @@ namespace NStore.Web.Controllers
             string bank = WebHelper.GetFormString("bank");
             string taxid = WebHelper.GetFormString("taxid");
             int type = WebHelper.GetFormInt("type");
-            
+
             string verifyResult = VerifyInvoice(type, alias, rise, address, mobile, account, bank, taxid);
             if (verifyResult.Length == 0)
             {
@@ -1249,7 +1249,7 @@ namespace NStore.Web.Controllers
                 //检查地址
                 if (invoiceInfo == null)
                     return AjaxResult("noexist", "发票信息不存在");
-                
+
                 invoiceInfo.Uid = WorkContext.Uid;
                 invoiceInfo.IsDefault = isDefault;
                 invoiceInfo.Alias = alias;
@@ -1260,7 +1260,7 @@ namespace NStore.Web.Controllers
                 invoiceInfo.Bank = bank;
                 invoiceInfo.TaxId = taxid;
                 invoiceInfo.Type = type;
-                
+
                 Invoice.UpdateInvoic(invoiceInfo);
                 return AjaxResult("success", "编辑成功");
             }
@@ -1282,7 +1282,7 @@ namespace NStore.Web.Controllers
             else//删除失败
                 return AjaxResult("error", "删除失败");
         }
-        
+
         /// <summary>
         /// 发票信息
         /// </summary>

@@ -8,22 +8,22 @@
     <script type="text/javascript" src="/admin_mall/scripts/jquery.validate.unobtrusive.js"></script>
     <script type="text/javascript">
 
-        var regType = "@CommonHelper.IntArrayToString(Model.RegType,"")";
+        @*var regType = "@CommonHelper.IntArrayToString(Model.RegType,"")";*@
         var loginType = "@CommonHelper.IntArrayToString(Model.LoginType,"")";
 
         $(function () {
 
-            if (regType != null && regType != "" && regType.length > 0) {
-                for (var i = 0; i < regType.length; i++) {
-                    $("input[name=RegType][value="+regType[i]+"]").attr("checked", true);
-                }
-            }
+            //if (regType != null && regType != "" && regType.length > 0) {
+            //    for (var i = 0; i < regType.length; i++) {
+            //        $("input[name=RegType][value="+regType[i]+"]").attr("checked", true);
+            //    }
+            //}
 
-            if (loginType != null && loginType != "" && loginType.length > 0) {
-                for (var i = 0; i < loginType.length; i++) {
-                    $("input[name=LoginType][value=" + loginType[i] + "]").attr("checked", true);
-                }
-            }
+            //if (loginType != null && loginType != "" && loginType.length > 0) {
+            //    for (var i = 0; i < loginType.length; i++) {
+            //        $("input[name=LoginType][value=" + loginType[i] + "]").attr("checked", true);
+            //    }
+            //}
 
             if ($("input:radio[name='IsWebcomeMsg']:checked").val() == "1") {
                 $("#WebcomeMsgTr").show();
@@ -55,7 +55,7 @@
 <div class="addTable">
 <table width="100%">
 
-   <tr>
+   @*<tr>
     <td width="110px" align="right">注册名类型：</td>
     <td>
     <p>
@@ -77,10 +77,10 @@
     <br />
     </p>
     </td>
-    </tr>
-
-              <tr>
-    <td align="right">保留用户名：</td>
+    </tr>*@
+    
+            <br/><tr>
+    <td width="110px" align="right">保留用户名：</td>
     <td>@Html.TextAreaFor(x => x.ReservedName, new { cols = "20", rows = "10" })每一行代表一个用户名</td>
     </tr>
 

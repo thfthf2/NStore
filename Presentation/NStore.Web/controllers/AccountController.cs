@@ -25,8 +25,8 @@ namespace NStore.Web.Controllers
             if (returnUrl.Length == 0)
                 returnUrl = "/";
 
-            if (WorkContext.MallConfig.LoginType == "")
-                return PromptView(returnUrl, "商城目前已经关闭登陆功能!");
+            //if (WorkContext.MallConfig.LoginType == "")
+            //    return PromptView(returnUrl, "商城目前已经关闭登陆功能!");
             if (WorkContext.Uid > 0)
                 return PromptView(returnUrl, "您已经登录，无须重复登录!");
             if (WorkContext.MallConfig.LoginFailTimes != 0 && LoginFailLogs.GetLoginFailTimesByIp(WorkContext.IP) >= WorkContext.MallConfig.LoginFailTimes)
@@ -64,7 +64,7 @@ namespace NStore.Web.Controllers
 
             StringBuilder errorList = new StringBuilder("[");
 
-            if (loginType == 2)
+            if (loginType == 2) //手机号登陆
             {
                 if (!ValidateHelper.IsMobile(mobile))
                 {
@@ -516,7 +516,7 @@ namespace NStore.Web.Controllers
                 //        SMSes.SendWebcomeSMS(userInfo.Mobile);
                 //}
 
-                ////同步上下午
+                ////同步上下文
                 //WorkContext.Uid = userInfo.Uid;
                 //WorkContext.UserType = userInfo.UserType;
                 //WorkContext.VerifyRank = userInfo.VerifyRank;
