@@ -1,0 +1,77 @@
+﻿@model NStore.Web.MallAdmin.models.SpecialListModel
+@section header{
+    <title>品牌列表</title>
+    <link type="text/css" rel="stylesheet" href="/admin_mall/content/css/site.css" />
+    <script type="text/javascript" src="/admin_mall/scripts/jquery.js"></script>
+    <script type="text/javascript" src="/admin_mall/scripts/showlist.js"></script>
+}
+@section body{
+    <h1 class="rightH1">
+        专场管理 &gt;&gt; 专场列表
+        <div class="right">
+            <a href="@Url.Action("add")" class="menuBT"><img src="/admin_mall/content/images/add.jpg" />添加</a>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </h1>
+    @using (Html.BeginForm("list", "special"))
+    {
+
+        <input type="hidden" value="@Model.SortColumn" id="sortColumn" name="sortColumn" />
+        <input type="hidden" value="@Model.SortDirection" id="sortDirection" name="sortDirection" />
+        @*<div class="dataListSearch">
+                <table height="32">
+                    <tbody>
+                        <tr>
+                            <td width="35"><img id="searchImg" src="/admin_mall/content/images/search1.gif" /></td>
+                            <td>
+                                专场名称：
+                            </td>
+                            <td width="130">
+                                @Html.TextBox("SpecialName", Model.SpecialName, new { height = "18" })
+                            </td>
+                            <td>
+                                <input id="SearchBrand" name="SearchBrand" type="image" class="searchBut submit" src="/admin_mall/content/images/s.jpg" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>*@
+
+        <div class="dataList">
+            <table width="100%">
+                <thead>
+                    <tr>
+                        <th width="40" align="center"><input type="checkbox" id="allSelect" /></th>
+                        <th width="100" align="left" name="sortTitle" column="specialid" direction="DESC">编号</th>
+                        <th align="left" name="sortTitle" column="name" direction="DESC">名称</th>
+                        <th width="80" align="left" name="sortTitle" column="displayorder" direction="ASC">排序</th>
+                        <th width="80" align="left" name="sortTitle" column="state" direction="ASC">状态</th>
+                        <th width="76" align="left">管理操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (DataRow row in Model.SpecialList.Rows)
+                    {
+                        <tr>
+                            <td align="center"><input type="checkbox" value="@row["specialid"]" selectItem="true" name="specialId" /></td>
+                            <td>@row["specialid"]</td>
+                            <td>@row["name"]</td>
+                            <td>@row["displayorder"]</td>
+                            <td>@(Convert.ToInt16(row["state"]) == 0 ? "上线" : "下线")</td>
+                            <td>
+                                @Html.ActionLink("[编辑]", "edit", new { brandId = row["specialid"] }, new { @class = "editOperate" })
+                                @Html.ActionLink("[删除]", "del", new { brandId = row["specialid"] }, new { @class = "deleteOperate" })
+                            </td>
+                        </tr>
+                                }
+                </tbody>
+            </table>
+        </div>
+        <div class="dataListEdit">
+            <div class="page">
+                @Html.MallAdminPager(Model.PageModel)
+            </div>
+        </div>
+                                }
+}

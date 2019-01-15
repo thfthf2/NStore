@@ -295,6 +295,79 @@ namespace NStore.RDBSStrategy.SqlServer
             return RDBSHelper.ExecuteReader(CommandType.Text, commandText);
         }
 
+
+        /// <summary>
+        /// 后台获得专场列表
+        /// </summary>
+        /// <param name="pageSize">每页数</param>
+        /// <param name="pageNumber">当前页数</param>
+        /// <param name="sort">排序</param>
+        /// <returns></returns>
+        public DataTable AdminGetSpecialList(int pageSize, int pageNumber, string sort)
+        {
+            string commandText;
+            if (pageNumber == 1)
+            {
+                commandText = string.Format("SELECT TOP {0} {2} FROM [{1}specialperformance] ORDER BY {3}",
+                                            pageSize,
+                                            RDBSHelper.RDBSTablePre,
+                                            RDBSFields.PRODUCT_SPECIAL,
+                                            sort);
+            }
+            else
+            {
+                commandText = string.Format("SELECT TOP {0} {3} FROM [{1}specialperformance] WHERE [specialid] NOT IN (SELECT TOP {2} [specialid] FROM [{1}specialperformance] ORDER BY {4}) ORDER BY {4}",
+                                            pageSize,
+                                            RDBSHelper.RDBSTablePre,
+                                            (pageNumber - 1) * pageSize,
+                                            RDBSFields.PRODUCT_SPECIAL,
+                                            sort);
+            }
+
+            return RDBSHelper.ExecuteDataset(CommandType.Text, commandText).Tables[0];
+        }
+
+        /// <summary>
+        /// 后台获得专场数量
+        /// </summary>
+        /// <returns></returns>
+        public int AdminGetSpecialCount()
+        {
+            string commandText = string.Format("SELECT COUNT(specialid) FROM [{0}specialperformance]", RDBSHelper.RDBSTablePre);
+
+            return TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.Text, commandText));
+        }
+        
+        /// <summary>
+        /// 根据专场名称得到专场id
+        /// </summary>
+        /// <param name="specialName">品牌名称</param>
+        /// <returns></returns>
+        public int GetSpecialIdByName(string specialName)
+        {
+            string commandText = string.Format("SELECT specialid FROM [{0}specialperformance] where name=@name", RDBSHelper.RDBSTablePre);
+            DbParameter[] parms = {
+                                        GenerateInParam("@name", SqlDbType.NChar, 20, specialName)
+                                    };
+            return TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.Text,commandText,  parms));
+        }
+        /// <summary>
+        /// 创建专场
+        /// </summary>
+        /// <param name="brandInfo"></param>
+        public void CreateSpecial(SpecialPerformanceInfo specialInfo)
+        {
+            DbParameter[] parms = {
+                                        GenerateInParam("@displayorder", SqlDbType.Int,4,specialInfo.DisplayOrder),
+                                        GenerateInParam("@name", SqlDbType.NChar, 20, specialInfo.Name),
+                                        GenerateInParam("@state", SqlDbType.NChar,2,specialInfo.State)
+                                    };
+            string commandText = string.Format("INSERT INTO [{0}specialperformance]([displayorder],[name],[state]) VALUES(@displayorder,@name,@state)",
+                                                RDBSHelper.RDBSTablePre);
+            RDBSHelper.ExecuteNonQuery(CommandType.Text, commandText, parms);
+        }
+
+
         #endregion
 
         #region 分类

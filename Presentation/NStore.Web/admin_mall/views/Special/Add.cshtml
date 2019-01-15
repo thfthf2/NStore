@@ -1,0 +1,61 @@
+﻿@model NStore.Web.MallAdmin.models.SpecialModel
+
+
+@section header{
+    <title>添加专场</title>
+    <link type="text/css" rel="stylesheet" href="/admin_mall/content/css/site.css"/>
+    <script type="text/javascript" src="/admin_mall/scripts/jquery.js"></script>
+    <link href="/admin_mall/content/css/uploadify.css" rel="stylesheet" type="text/css" />
+}
+
+@section body{
+<h1 class="rightH1">
+专场管理 &gt;&gt; 添加专场
+<div class="right">
+<a href="@Html.Raw(ViewData["referer"].ToString())" class="menuBT"><img src="/admin_mall/content/images/goback.jpg"/>返回列表</a>
+<div class="clear"></div>
+</div>
+<div class="clear"></div>
+</h1>
+
+@using (Html.BeginForm())
+{
+<div class="addTable">
+<table width="100%">
+  <tr>
+    <td width="76px" align="right">专场名称：</td>
+    <td>@Html.TextBoxFor(x => x.SpecialName, new { @class = "input", size = "35" })@Html.ValidationMessageFor(x => x.SpecialName)</td>
+    </tr>
+      <tr>
+    <td align="right">排序：</td>
+    <td>@Html.TextBoxFor(x => x.DisplayOrder, new { @class = "input", size = "3" })@Html.ValidationMessageFor(x => x.DisplayOrder)</td>
+    </tr>
+      <tr>
+    <td align="right">状态：</td>
+    <td><select id="state" name="state">
+        <option value="1" selected>下线</option>
+        <option value="0">上线</option>
+        </select></td>
+    </tr>
+  <tr>
+    <td align="right">&nbsp;</td>
+    <td>
+    <a href="" class="addBt" id="sumbitBut" ><img src="/admin_mall/content/images/submit.jpg" /></a>
+            <script type="text/javascript">
+                $(function () {
+                    $("#sumbitBut").click(function () {
+                        $("form:first").submit();
+                        return false;
+                    })
+                });
+        </script>
+    </td>
+    </tr>
+  <tr>
+    <td align="right">&nbsp;</td>
+    <td>&nbsp;</td>
+    </tr>
+</table>
+</div>
+}
+}

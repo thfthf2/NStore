@@ -53,6 +53,7 @@
     <Compile Include="Admin\AdminPlugins.cs" />
     <Compile Include="Admin\AdminSearchHistories.cs" />
     <Compile Include="Admin\AdminShipCompanies.cs" />
+    <Compile Include="Admin\AdminSpecial.cs" />
     <Compile Include="Admin\AdminStoreIndustries.cs" />
     <Compile Include="Admin\AdminStoreRanks.cs" />
     <Compile Include="Admin\AdminTopic.cs" />

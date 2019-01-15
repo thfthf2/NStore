@@ -115,6 +115,33 @@ namespace NStore.Core
         /// <returns></returns>
         IDataReader GetSpecialList();
 
+        /// <summary>
+        /// 后台获得专场列表
+        /// </summary>
+        /// <param name="pageSize">每页数</param>
+        /// <param name="pageNumber">当前页数</param>
+        /// <param name="sort">排序</param>
+        /// <returns></returns>
+        DataTable AdminGetSpecialList(int pageSize, int pageNumber, string sort);
+        
+        /// <summary>
+        /// 后台获得专场数量
+        /// </summary>
+        /// <returns></returns>
+        int AdminGetSpecialCount();
+        
+        /// <summary>
+        /// 根据专场名称得到专场id
+        /// </summary>
+        /// <param name="specialName">品牌名称</param>
+        /// <returns></returns>
+        int GetSpecialIdByName(string specialName);
+        
+        /// <summary>
+        /// 创建专场
+        /// </summary>
+        /// <param name="brandInfo"></param>
+        void CreateSpecial(SpecialPerformanceInfo specialInfo);
         #endregion
 
         #region 分类
@@ -825,7 +852,7 @@ namespace NStore.Core
         /// <param name="pidList">商品id列表</param>
         /// <returns></returns>
         IDataReader GetProductStockList(string pidList);
-        
+
         /// <summary>
         /// 获得库存商品id列表
         /// </summary>

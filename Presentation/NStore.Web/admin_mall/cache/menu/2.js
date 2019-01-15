@@ -52,7 +52,8 @@ var menuList = [
     },
     { "title": "商品性质", "subMenuList": [
       { "title": "商品品牌", "url": "/MallAdmin/brand/list" },
-      { "title": "分类管理", "url": "/MallAdmin/category/categorylist" }]
+      { "title": "分类管理", "url": "/MallAdmin/category/categorylist" },
+      { "title": "专场管理", "url": "/MallAdmin/special/list" }]
     },
     { "title": "报表统计", "subMenuList": [
       { "title": "在线用户", "url": "/MallAdmin/stat/onlineuserlist" },
