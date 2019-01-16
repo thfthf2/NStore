@@ -91,5 +91,41 @@ namespace NStore.Data
         {
             NStore.Core.BMAData.RDBS.CreateSpecial(specialInfo);
         }
+        
+        /// <summary>
+        /// 获得专场
+        /// </summary>
+        /// <param name="specialId">专场id</param>
+        /// <returns></returns>
+        public static SpecialPerformanceInfo GetSpecialById(int specialId)
+        {
+            SpecialPerformanceInfo specialInfo = null;
+            IDataReader reader = NStore.Core.BMAData.RDBS.GetSpecialById(specialId);
+            if (reader.Read())
+            {
+                specialInfo = BuildSpecialFromReader(reader);
+            }
+
+            reader.Close();
+            return specialInfo;
+        }
+        
+        /// <summary>
+        /// 更新专场
+        /// </summary>
+        /// <param name="specialInfo"></param>
+        public static void UpdateSpecial(SpecialPerformanceInfo specialInfo)
+        {
+            NStore.Core.BMAData.RDBS.UpdateSpecial(specialInfo);
+        }
+
+        /// <summary>
+        /// 删除专场
+        /// </summary>
+        /// <param name="specialId">品牌id</param>
+        public static void DeleteSpecialById(int specialId)
+        {
+            NStore.Core.BMAData.RDBS.DeleteSpecialById(specialId);
+        }
     }
 }

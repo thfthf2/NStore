@@ -142,6 +142,24 @@ namespace NStore.Core
         /// </summary>
         /// <param name="brandInfo"></param>
         void CreateSpecial(SpecialPerformanceInfo specialInfo);
+        
+        /// <summary>
+        /// 获得专场
+        /// </summary>
+        /// <param name="specialId">专场id</param>
+        /// <returns></returns>
+        IDataReader GetSpecialById(int specialId);
+        
+        /// <summary>
+        /// 删除专场
+        /// </summary>
+        /// <param name="specialId">专场id</param>
+        void DeleteSpecialById(int specialId);
+
+        /// <summary>
+        /// 更新专场
+        /// </summary>
+        void UpdateSpecial(SpecialPerformanceInfo specialInfo);
         #endregion
 
         #region 分类

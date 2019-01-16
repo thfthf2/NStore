@@ -60,8 +60,8 @@
                             <td>@row["displayorder"]</td>
                             <td>@(Convert.ToInt16(row["state"]) == 0 ? "上线" : "下线")</td>
                             <td>
-                                @Html.ActionLink("[编辑]", "edit", new { brandId = row["specialid"] }, new { @class = "editOperate" })
-                                @Html.ActionLink("[删除]", "del", new { brandId = row["specialid"] }, new { @class = "deleteOperate" })
+                                @Html.ActionLink("[编辑]", "edit", new { specialid = row["specialid"] }, new { @class = "editOperate" })
+                                @Html.ActionLink("[删除]", "del", new { specialid = row["specialid"] }, new { @class = "deleteOperate" })
                             </td>
                         </tr>
                                 }

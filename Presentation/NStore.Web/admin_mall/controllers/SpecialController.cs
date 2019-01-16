@@ -76,54 +76,65 @@ namespace NStore.Web.MallAdmin.controllers
             return View(model);
         }
 
+
+        /// <summary>
+        /// 编辑专场
+        /// </summary>
+        [HttpGet]
+        public ActionResult Edit(int specialId = -1)
+        {
+            SpecialPerformanceInfo specialInfo = AdminSpecial.GetSpecialById(specialId);
+            if (specialInfo == null)
+                return PromptView("专场不存在");
+
+            SpecialModel model = new SpecialModel();
+            model.DisplayOrder = specialInfo.DisplayOrder;
+            model.SpecialName = specialInfo.Name;
+            model.State = specialInfo.State;
+         
+            ViewData["referer"] = MallUtils.GetMallAdminRefererCookie();
+
+            return View(model);
+        }
+
+        /// <summary>
+        /// 编辑专场
+        /// </summary>
+        [HttpPost]
+        public ActionResult Edit(SpecialModel model, int specialId = -1)
+        {
+            SpecialPerformanceInfo specialInfo = AdminSpecial.GetSpecialById(specialId);
+           if (specialInfo == null)
+                return PromptView("专场不存在");
+
+            int specialId2 = AdminSpecial.GetSpecialIdByName(model.SpecialName);
+            if (specialId2 > 0 && specialId2 != specialId)
+                ModelState.AddModelError("SpecialName", "名称已经存在");
+
+            if (ModelState.IsValid)
+            {
+                specialInfo.DisplayOrder = model.DisplayOrder;
+                specialInfo.Name = model.SpecialName;
+                specialInfo.State = model.State;
+
+                AdminSpecial.UpdateSpecial(specialInfo);
+                AddMallAdminLog("修改专场", "修改专场,专场ID为:" + specialId);
+                return PromptView("专场修改成功");
+            }
+            
+            ViewData["referer"] = MallUtils.GetMallAdminRefererCookie();
+            return View(model);
+        }
         
-        ///// <summary>
-        ///// 编辑专场
-        ///// </summary>
-        //[HttpGet]
-        //public ActionResult Edit(int specialId = -1)
-        //{
-        //    BrandInfo brandInfo = AdminBrands.GetBrandById(brandId);
-        //    if (brandInfo == null)
-        //        return PromptView("品牌不存在");
-
-        //    BrandModel model = new BrandModel();
-        //    model.DisplayOrder = brandInfo.DisplayOrder;
-        //    model.BrandName = brandInfo.Name;
-        //    model.Logo = brandInfo.Logo;
-        //    Load();
-
-        //    return View(model);
-        //}
-
-        ///// <summary>
-        ///// 编辑专场
-        ///// </summary>
-        //[HttpPost]
-        //public ActionResult Edit(BrandModel model, int brandId = -1)
-        //{
-        //    BrandInfo brandInfo = AdminBrands.GetBrandById(brandId);
-        //    if (brandInfo == null)
-        //        return PromptView("品牌不存在");
-
-        //    int brandId2 = AdminBrands.GetBrandIdByName(model.BrandName);
-        //    if (brandId2 > 0 && brandId2 != brandId)
-        //        ModelState.AddModelError("BrandName", "名称已经存在");
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        brandInfo.DisplayOrder = model.DisplayOrder;
-        //        brandInfo.Name = model.BrandName;
-        //        brandInfo.Logo = model.Logo;
-
-        //        AdminBrands.UpdateBrand(brandInfo);
-        //        AddMallAdminLog("修改品牌", "修改品牌,品牌ID为:" + brandId);
-        //        return PromptView("品牌修改成功");
-        //    }
-
-        //    Load();
-        //    return View(model);
-        //}
+        /// <summary>
+        /// 删除专场
+        /// </summary>
+        public ActionResult Del(int specialId = -1)
+        {
+            AdminSpecial.DeleteSpecialById(specialId);
+            AddMallAdminLog("删除专场", "删除专场,专场ID为:" + specialId);
+            return PromptView("专场删除成功");
+        }
 
     }
 }

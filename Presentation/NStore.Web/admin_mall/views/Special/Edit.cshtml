@@ -1,15 +1,13 @@
 ﻿@model NStore.Web.MallAdmin.models.SpecialModel
-
-
 @section header{
-    <title>添加专场</title>
+    <title>修改专场</title>
     <link type="text/css" rel="stylesheet" href="/admin_mall/content/css/site.css" />
     <script type="text/javascript" src="/admin_mall/scripts/jquery.js"></script>
     <link href="/admin_mall/content/css/uploadify.css" rel="stylesheet" type="text/css" />
 }
 @section body{
     <h1 class="rightH1">
-        专场管理 &gt;&gt; 添加专场
+        专场管理 &gt;&gt; 修改专场
         <div class="right">
             <a href="@Html.Raw(ViewData["referer"].ToString())" class="menuBT"><img src="/admin_mall/content/images/goback.jpg" />返回列表</a>
             <div class="clear"></div>
@@ -32,8 +30,8 @@
                     <td align="right">状态：</td>
                     <td>
                         <p>
-                            <label>@Html.RadioButton("State", 0, new { @class = "checkbox" }) 上线</label>
-                            <label>@Html.RadioButton("State", 1, true, new { @class = "checkbox" }) 下线</label>
+                            <label>@Html.RadioButtonFor(x => x.State, 0, new { @class = "checkbox" }) 上线</label>
+                            <label>@Html.RadioButtonFor(x => x.State, 1, new { @class = "checkbox" }) 下线</label>
                             <br />
                         </p>
                     </td>
@@ -43,12 +41,12 @@
                     <td>
                         <a href="" class="addBt" id="sumbitBut"><img src="/admin_mall/content/images/submit.jpg" /></a>
                         <script type="text/javascript">
-                            $(function () {
-                                $("#sumbitBut").click(function () {
-                                    $("form:first").submit();
-                                    return false;
-                                })
-                            });
+                $(function () {
+                    $("#sumbitBut").click(function () {
+                        $("form:first").submit();
+                        return false;
+                    })
+                });
                         </script>
                     </td>
                 </tr>

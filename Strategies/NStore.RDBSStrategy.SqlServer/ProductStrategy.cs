@@ -337,7 +337,7 @@ namespace NStore.RDBSStrategy.SqlServer
 
             return TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.Text, commandText));
         }
-        
+
         /// <summary>
         /// 根据专场名称得到专场id
         /// </summary>
@@ -347,9 +347,9 @@ namespace NStore.RDBSStrategy.SqlServer
         {
             string commandText = string.Format("SELECT specialid FROM [{0}specialperformance] where name=@name", RDBSHelper.RDBSTablePre);
             DbParameter[] parms = {
-                                        GenerateInParam("@name", SqlDbType.NChar, 20, specialName)
+                                        GenerateInParam("@name", SqlDbType.NVarChar, 20, specialName)
                                     };
-            return TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.Text,commandText,  parms));
+            return TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.Text, commandText, parms));
         }
         /// <summary>
         /// 创建专场
@@ -358,16 +358,60 @@ namespace NStore.RDBSStrategy.SqlServer
         public void CreateSpecial(SpecialPerformanceInfo specialInfo)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@displayorder", SqlDbType.Int,4,specialInfo.DisplayOrder),
-                                        GenerateInParam("@name", SqlDbType.NChar, 20, specialInfo.Name),
-                                        GenerateInParam("@state", SqlDbType.NChar,2,specialInfo.State)
+                                        GenerateInParam("@displayorder", SqlDbType.SmallInt, 2,specialInfo.DisplayOrder),
+                                        GenerateInParam("@name", SqlDbType.NVarChar, 20, specialInfo.Name),
+                                        GenerateInParam("@state", SqlDbType.TinyInt,1,specialInfo.State)
                                     };
             string commandText = string.Format("INSERT INTO [{0}specialperformance]([displayorder],[name],[state]) VALUES(@displayorder,@name,@state)",
                                                 RDBSHelper.RDBSTablePre);
             RDBSHelper.ExecuteNonQuery(CommandType.Text, commandText, parms);
         }
 
+        /// <summary>
+        /// 获得专场
+        /// </summary>
+        /// <param name="specialId">专场id</param>
+        /// <returns></returns>
+        public IDataReader GetSpecialById(int specialId)
+        {
+            string commandText = string.Format("SELECT {1} FROM [{0}specialperformance] where specialid=@specialid", RDBSHelper.RDBSTablePre, RDBSFields.PRODUCT_SPECIAL);
+            DbParameter[] parms = {
+                                        GenerateInParam("@specialid", SqlDbType.SmallInt, 2, specialId)
+                                    };
+            return RDBSHelper.ExecuteReader(CommandType.Text, commandText, parms);
+        }
 
+        /// <summary>
+        /// 删除专场
+        /// </summary>
+        /// <param name="specialId">专场d</param>
+        public void DeleteSpecialById(int specialId)
+        {
+            DbParameter[] parms = {
+                                        GenerateInParam("@specialid", SqlDbType.SmallInt, 2, specialId)
+                                    };
+            string commandText = string.Format("DELETE FROM [{0}specialperformance] WHERE [specialid]=@specialid",
+                                                RDBSHelper.RDBSTablePre);
+            RDBSHelper.ExecuteNonQuery(CommandType.Text, commandText, parms);
+        }
+
+        /// <summary>
+        /// 更新专场
+        /// </summary>
+        /// <param name="specialInfo"></param>
+        public void UpdateSpecial(SpecialPerformanceInfo specialInfo)
+        {
+            DbParameter[] parms = {
+                                        GenerateInParam("@displayorder", SqlDbType.SmallInt, 2,specialInfo.DisplayOrder),
+                                        GenerateInParam("@name", SqlDbType.NVarChar, 20, specialInfo.Name),
+                                        GenerateInParam("@state", SqlDbType.TinyInt,1,specialInfo.State),
+                                        GenerateInParam("@specialid", SqlDbType.SmallInt, 2, specialInfo.Specialid)
+                                    };
+
+            string commandText = string.Format("UPDATE [{0}specialperformance] SET [displayorder]=@displayorder,[name]=@name,[state]=@state WHERE [specialid]=@specialid",
+                                                RDBSHelper.RDBSTablePre);
+            RDBSHelper.ExecuteNonQuery(CommandType.Text, commandText, parms);
+        }
         #endregion
 
         #region 分类
