@@ -198,7 +198,7 @@ namespace NStore.Services
         public static List<CategoryInfo> GetChildCategoryList(int cateId, int layer, bool isAllChildren)
         {
             return GetChildCategoryList(cateId, layer, isAllChildren, GetCategoryList());
-         
+
         }
 
         /// <summary>
@@ -330,11 +330,11 @@ namespace NStore.Services
         /// </summary>
         /// <param name="cateId">分类id</param>
         /// <returns></returns>
-        public static List<KeyValuePair<AttributeInfo, List<AttributeValueInfo>>> GetCategoryAAndVList(int cateId)
+        public static List<KeyValuePair<AttributeInfo, List<AttributeValueInfo>>> GetProductAAndVList()
         {
             List<KeyValuePair<AttributeInfo, List<AttributeValueInfo>>> itemList = new List<KeyValuePair<AttributeInfo, List<AttributeValueInfo>>>();
 
-            List<AttributeInfo> attributeList = GetAttributeListByCateId(cateId);
+            List<AttributeInfo> attributeList = GetAttributeList();
             foreach (AttributeInfo attributeInfo in attributeList)
             {
                 List<AttributeValueInfo> attributeValueList = GetAttributeValueListByAttrId(attributeInfo.AttrId);
@@ -349,14 +349,14 @@ namespace NStore.Services
         /// </summary>
         /// <param name="cateId">分类id</param>
         /// <returns></returns>
-        public static string GetCategoryAAndVListJsonCache(int cateId)
+        public static string GetAAndVListJsonCache()
         {
-            string jsonCache = NStore.Core.BMACache.Get(CacheKeys.MALL_CATEGORY_AANDVLISTJSONCACHE + cateId) as string;
+            string jsonCache = NStore.Core.BMACache.Get(CacheKeys.MALL_CATEGORY_AANDVLISTJSONCACHE) as string;
             if (jsonCache == null)
             {
                 StringBuilder json = new StringBuilder("[");
 
-                List<KeyValuePair<AttributeInfo, List<AttributeValueInfo>>> itemList = GetCategoryAAndVList(cateId);
+                List<KeyValuePair<AttributeInfo, List<AttributeValueInfo>>> itemList = GetProductAAndVList();
                 foreach (KeyValuePair<AttributeInfo, List<AttributeValueInfo>> item in itemList)
                 {
                     AttributeInfo attributeInfo = item.Key;
@@ -376,7 +376,7 @@ namespace NStore.Services
                 json.Append("]");
 
                 jsonCache = json.ToString();
-                NStore.Core.BMACache.Insert(CacheKeys.MALL_CATEGORY_AANDVLISTJSONCACHE + cateId, jsonCache);
+                NStore.Core.BMACache.Insert(CacheKeys.MALL_CATEGORY_AANDVLISTJSONCACHE , jsonCache);
             }
 
             return jsonCache;
@@ -436,26 +436,24 @@ namespace NStore.Services
         }
 
         /// <summary>
-        /// 通过分类id和属性名称获得属性id
+        /// 通过属性名称获得属性id
         /// </summary>
-        /// <param name="cateId">分类id</param>
         /// <param name="attributeName">属性名称</param>
         /// <returns></returns>
-        public static int GetAttrIdByCateIdAndName(int cateId, string attributeName)
+        public static int GetAttrIdByName(string attributeName)
         {
-            if (cateId < 1 || string.IsNullOrWhiteSpace(attributeName))
+            if (string.IsNullOrWhiteSpace(attributeName))
                 return 0;
-            return NStore.Data.Categories.GetAttrIdByCateIdAndName(cateId, attributeName);
+            return NStore.Data.Categories.GetAttrIdByName(attributeName);
         }
 
         /// <summary>
         /// 获得属性列表
         /// </summary>
-        /// <param name="cateId">分类id</param>
         /// <returns></returns>
-        public static List<AttributeInfo> GetAttributeListByCateId(int cateId)
+        public static List<AttributeInfo> GetAttributeList()
         {
-            return NStore.Data.Categories.GetAttributeListByCateId(cateId);
+            return NStore.Data.Categories.GetAttributeList();
         }
 
         /// <summary>
@@ -511,10 +509,10 @@ namespace NStore.Services
         public static List<AttributeValueInfo> GetAttributeSelectValueListByAttrId(int attrId)
         {
             List<AttributeValueInfo> attributeValueList1 = GetAttributeValueListByAttrId(attrId);
-            if (attributeValueList1.Count < 2)
+            if (attributeValueList1 == null || attributeValueList1.Count == 0)
                 return new List<AttributeValueInfo>();
 
-            List<AttributeValueInfo> attributeValueList2 = new List<AttributeValueInfo>(attributeValueList1.Count - 1);
+            List<AttributeValueInfo> attributeValueList2 = new List<AttributeValueInfo>(attributeValueList1.Count);
             foreach (AttributeValueInfo attributeValueInfo in attributeValueList1)
             {
                 //if (attributeValueInfo.IsInput == 0)

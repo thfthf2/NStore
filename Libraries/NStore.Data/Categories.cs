@@ -233,12 +233,11 @@ namespace NStore.Data
         /// <summary>
         /// 获得属性列表
         /// </summary>
-        /// <param name="cateId">分类id</param>
         /// <returns></returns>
-        public static List<AttributeInfo> GetAttributeListByCateId(int cateId)
+        public static List<AttributeInfo> GetAttributeList()
         {
             List<AttributeInfo> attributeList = new List<AttributeInfo>();
-            IDataReader reader = NStore.Core.BMAData.RDBS.GetAttributeListByCateId(cateId);
+            IDataReader reader = NStore.Core.BMAData.RDBS.GetAttributeList();
             while (reader.Read())
             {
                 AttributeInfo attributeInfo = BuildAttributeFromReader(reader);
@@ -269,12 +268,11 @@ namespace NStore.Data
         /// <summary>
         /// 后台获得属性列表
         /// </summary>
-        /// <param name="cateId">分类id</param>
         /// <param name="sort">排序</param>
         /// <returns></returns>
-        public static DataTable AdminGetAttributeList(int cateId, string sort)
+        public static DataTable AdminGetAttributeList(string sort)
         {
-            return NStore.Core.BMAData.RDBS.AdminGetAttributeList(cateId, sort);
+            return NStore.Core.BMAData.RDBS.AdminGetAttributeList(sort);
         }
 
         /// <summary>
@@ -389,14 +387,13 @@ namespace NStore.Data
         }
 
         /// <summary>
-        /// 通过分类id和属性名称获得属性id
+        /// 通过属性名称获得属性id
         /// </summary>
-        /// <param name="cateId">分类id</param>
         /// <param name="attributeName">属性名称</param>
         /// <returns></returns>
-        public static int GetAttrIdByCateIdAndName(int cateId, string attributeName)
+        public static int GetAttrIdByName(string attributeName)
         {
-            return NStore.Core.BMAData.RDBS.GetAttrIdByCateIdAndName(cateId, attributeName);
+            return NStore.Core.BMAData.RDBS.GetAttrIdByName( attributeName);
         }
 
 

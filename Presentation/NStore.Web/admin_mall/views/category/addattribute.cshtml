@@ -23,7 +23,7 @@
             {
     <div class="addTable">
             <table width="100%">
-                <tr>
+                @*<tr>
                     <td width="76px" align="right">
                         所属分类：
                     </td>
@@ -31,7 +31,7 @@
                     <input type="hidden" name="CateId" value="@ViewData["cateId"]" />
                     <input type="text" name="CategoryName" disabled="disabled" size = "35" class = "input" value="@ViewData["categoryName"]" />
                     </td>
-                </tr>
+                </tr>*@
                 <tr>
                     <td align="right">
                         属性名称：
@@ -39,7 +39,7 @@
                     <td>@Html.TextBoxFor(x => x.AttributName, new { @class = "input", size = "35" })@Html.ValidationMessageFor(x => x.AttributName)
                     </td>
                 </tr>
-                <tr id="attrGroupTr">
+                @*<tr id="attrGroupTr">
                     <td align="right">
                         属性分组：
                     </td>
@@ -47,7 +47,7 @@
                         @Html.DropDownListFor(x => x.AttrGroupId, ViewData["attributeGroupList"] as List<SelectListItem>)
                         @Html.ValidationMessageFor(x => x.AttrGroupId)
                     </td>
-                </tr>
+                </tr>*@
                 <tr>
                     <td align="right">
                         展示类型：
@@ -61,7 +61,7 @@
                         </p>
                     </td>
                 </tr>
-                <tr>
+                @*<tr>
                     <td align="right">
                         筛选属性：
                     </td>
@@ -73,7 +73,7 @@
                             <br />
                         </p>
                     </td>
-                </tr>
+                </tr>*@
                 <tr>
                     <td align="right">
                         排序：

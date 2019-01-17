@@ -21,7 +21,7 @@ namespace NStore.Web.StoreAdmin.Controllers
         /// <returns></returns>
         public ContentResult AAndVJsonList(int cateId = -1)
         {
-            return Content(AdminCategories.GetCategoryAAndVListJsonCache(cateId));
+            return Content(AdminCategories.GetAAndVListJsonCache());
         }
     }
 }

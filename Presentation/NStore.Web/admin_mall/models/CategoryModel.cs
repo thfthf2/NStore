@@ -49,8 +49,9 @@ namespace NStore.Web.MallAdmin.Models
         public DataTable AttributeList { get; set; }
         public string SortColumn { get; set; }
         public string SortDirection { get; set; }
-        public int CateId { get; set; }
-        public string CategoryName { get; set; }
+
+        //public int CateId { get; set; }
+        //public string CategoryName { get; set; }
     }
 
     /// <summary>
@@ -79,12 +80,12 @@ namespace NStore.Web.MallAdmin.Models
         [DisplayName("展示类型")]
         public int ShowType { get; set; }
 
-        /// <summary>
-        /// 是否为筛选属性
-        /// </summary>
-        [Range(0, 1, ErrorMessage = "请选择筛选条件")]
-        [DisplayName("筛选条件")]
-        public int IsFilter { get; set; }
+        ///// <summary>
+        ///// 是否为筛选属性
+        ///// </summary>
+        //[Range(0, 1, ErrorMessage = "请选择筛选条件")]
+        //[DisplayName("筛选条件")]
+        //public int IsFilter { get; set; }
 
         /// <summary>
         /// 排序
@@ -92,6 +93,7 @@ namespace NStore.Web.MallAdmin.Models
         [Required(ErrorMessage = "排序不能为空")]
         [DisplayName("排序")]
         public int DisplayOrder { get; set; }
+
     }
 
     /// <summary>
@@ -102,7 +104,7 @@ namespace NStore.Web.MallAdmin.Models
         public List<AttributeValueInfo> AttributeValueList { get; set; }
         public int AttrId { get; set; }
         public string AttributeName { get; set; }
-        public int CateId { get; set; }
+        //public int CateId { get; set; }
     }
 
     /// <summary>

@@ -247,9 +247,9 @@ namespace NStore.Services
         public static void UpdateAttribute(AttributeInfo attributeInfo)
         {
             NStore.Data.Categories.UpdateAttribute(attributeInfo);
-            NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_FILTERAANDVLIST + attributeInfo.CateId);
-            NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_FILTERAANDVLIST + attributeInfo.CateId);
-            NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_AANDVLISTJSONCACHE + attributeInfo.CateId);
+            NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_FILTERAANDVLIST);
+            NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_FILTERAANDVLIST);
+            NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_AANDVLISTJSONCACHE);
         }
 
         /// <summary>
@@ -259,9 +259,11 @@ namespace NStore.Services
         /// <param name="attributeGroupInfo">属性组信息</param>
         public static void CreateAttribute(AttributeInfo attributeInfo, AttributeGroupInfo attributeGroupInfo)
         {
-            NStore.Data.Categories.CreateAttribute(attributeInfo, attributeGroupInfo.AttrGroupId, attributeGroupInfo.Name, attributeGroupInfo.DisplayOrder);
+            //NStore.Data.Categories.CreateAttribute(attributeInfo, attributeGroupInfo.AttrGroupId, attributeGroupInfo.Name, attributeGroupInfo.DisplayOrder);
+            NStore.Data.Categories.CreateAttribute(attributeInfo, 0, "", 0);
+
             //NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_FILTERAANDVLIST + attributeInfo.CateId);
-            NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_AANDVLISTJSONCACHE + attributeInfo.CateId);
+            NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_AANDVLISTJSONCACHE);
         }
 
         /// <summary>
@@ -275,21 +277,20 @@ namespace NStore.Services
                 return 0;
             AttributeInfo attributeInfo = GetAttributeById(attrId);
             NStore.Data.Categories.DeleteAttributeById(attrId);
-            if (attributeInfo.IsFilter == 1)
-                NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_FILTERAANDVLIST + attributeInfo.CateId);
-            NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_AANDVLISTJSONCACHE + attributeInfo.CateId);
+            //if (attributeInfo.IsFilter == 1)
+            //    NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_FILTERAANDVLIST );
+            NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_AANDVLISTJSONCACHE);
             return 1;
         }
 
         /// <summary>
         /// 后台获得属性列表
         /// </summary>
-        /// <param name="cateId">分类id</param>
         /// <param name="sort">排序</param>
         /// <returns></returns>
-        public static DataTable AdminGetAttributeList(int cateId, string sort)
+        public static DataTable AdminGetAttributeList(string sort)
         {
-            return NStore.Data.Categories.AdminGetAttributeList(cateId, sort);
+            return NStore.Data.Categories.AdminGetAttributeList(sort);
         }
 
         /// <summary>
@@ -316,11 +317,11 @@ namespace NStore.Services
         {
             NStore.Data.Categories.CreateAttributeValue(attributeValueInfo);
             AttributeInfo attributeInfo = GetAttributeById(attributeValueInfo.AttrId);
-            if (attributeInfo.IsFilter == 1)
-            {
-                NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_FILTERAANDVLIST + attributeInfo.CateId);
-            }
-            NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_AANDVLISTJSONCACHE + attributeInfo.CateId);
+            //if (attributeInfo.IsFilter == 1)
+            //{
+            //    NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_FILTERAANDVLIST + attributeInfo.CateId);
+            //}
+            NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_AANDVLISTJSONCACHE);
         }
 
         /// <summary>
@@ -333,17 +334,17 @@ namespace NStore.Services
             AttributeValueInfo attributeValueInfo = GetAttributeValueById(attrValueId);
             if (attributeValueInfo == null)
                 return -2;
-            if (attributeValueInfo.IsInput == 1)
-                return -1;
+            //if (attributeValueInfo.IsInput == 1)
+            //    return -1;
             if (AdminProducts.AdminGetAttrValueProductCount(attrValueId) > 0)
                 return 0;
             AttributeInfo attributeInfo = GetAttributeById(attributeValueInfo.AttrId);
             NStore.Data.Categories.DeleteAttributeValueById(attrValueId);
-            if (attributeInfo.IsFilter == 1)
-            {
-                NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_FILTERAANDVLIST + attributeInfo.CateId);
-            }
-            NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_AANDVLISTJSONCACHE + attributeInfo.CateId);
+            //if (attributeInfo.IsFilter == 1)
+            //{
+            //    NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_FILTERAANDVLIST);
+            //}
+            NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_AANDVLISTJSONCACHE);
             return 1;
         }
 
@@ -354,11 +355,11 @@ namespace NStore.Services
         {
             NStore.Data.Categories.UpdateAttributeValue(attributeValueInfo);
             AttributeInfo attributeInfo = GetAttributeById(attributeValueInfo.AttrId);
-            if (attributeInfo.IsFilter == 1)
-            {
-                NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_FILTERAANDVLIST + attributeInfo.CateId);
-            }
-            NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_AANDVLISTJSONCACHE + attributeInfo.CateId);
+            //if (attributeInfo.IsFilter == 1)
+            //{
+            //    NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_FILTERAANDVLIST + attributeInfo.CateId);
+            //}
+            NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_AANDVLISTJSONCACHE);
         }
     }
 }

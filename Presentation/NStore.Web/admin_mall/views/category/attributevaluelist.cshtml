@@ -10,8 +10,8 @@
     <h1 class="rightH1">
         属性值管理 &gt;&gt; 属性值列表
         <div class="right">
-            <a href="@Url.Action("categorylist")" class="menuBT"><img src="/admin_mall/content/images/goback.jpg"/>返回分类</a>
-            <a href="@Url.Action("attributelist", new { cateId = Model.CateId })" class="menuBT"><img src="/admin_mall/content/images/goback.jpg"/>返回属性列表</a>
+            @*<a href="@Url.Action("categorylist")" class="menuBT"><img src="/admin_mall/content/images/goback.jpg"/>返回分类</a>*@
+            <a href="@Url.Action("attributelist")" class="menuBT"><img src="/admin_mall/content/images/goback.jpg"/>返回属性列表</a>
             <a href="@Url.Action("addattributevalue", new { AttrId = @Model.AttrId })" class="menuBT"><img src="/admin_mall/content/images/add.jpg" />添加属性值</a>
             <div class="clear">
             </div>

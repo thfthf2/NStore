@@ -299,24 +299,16 @@ namespace NStore.Web.MallAdmin.Controllers
         /// <summary>
         /// 属性列表
         /// </summary>
-        public ActionResult AttributeList(string sortColumn, string sortDirection, int cateId = -1)
+        public ActionResult AttributeList(string sortColumn, string sortDirection)
         {
-            CategoryInfo categoryInfo = AdminCategories.GetCategoryById(cateId);
-            if (categoryInfo == null)
-                return PromptView("分类不存在");
-
-            string sort = AdminBrands.AdminGetBrandListSort(sortColumn, sortDirection);
-
             AttributeListModel model = new AttributeListModel()
             {
-                AttributeList = AdminCategories.AdminGetAttributeList(cateId, sort),
+                AttributeList = AdminCategories.AdminGetAttributeList("attrid"),
                 SortColumn = sortColumn,
-                SortDirection = sortDirection,
-                CateId = cateId,
-                CategoryName = categoryInfo.Name
+                SortDirection = sortDirection
             };
 
-            MallUtils.SetAdminRefererCookie(string.Format("{0}?cateId={1}&sortColumn={2}&sortDirection={3}", Url.Action("attributelist"), cateId, sortColumn, sortDirection));
+            MallUtils.SetAdminRefererCookie(string.Format("{0}?sortColumn={1}&sortDirection={2}", Url.Action("attributelist"), sortColumn, sortDirection));
             return View(model);
         }
 
@@ -324,16 +316,9 @@ namespace NStore.Web.MallAdmin.Controllers
         /// 添加属性
         /// </summary>
         [HttpGet]
-        public ActionResult AddAttribute(int cateId = -1)
+        public ActionResult AddAttribute()
         {
-            CategoryInfo categoryInfo = AdminCategories.GetCategoryById(cateId);
-            if (categoryInfo == null)
-                return PromptView("分类不存在");
-
             AttributeModel model = new AttributeModel();
-            ViewData["cateId"] = categoryInfo.CateId;
-            ViewData["categoryName"] = categoryInfo.Name;
-            ViewData["attributeGroupList"] = GetAttributeGroupSelectList(cateId);
             ViewData["referer"] = MallUtils.GetMallAdminRefererCookie();
             return View(model);
         }
@@ -342,36 +327,32 @@ namespace NStore.Web.MallAdmin.Controllers
         /// 添加属性
         /// </summary>
         [HttpPost]
-        public ActionResult AddAttribute(AttributeModel model, int cateId = -1)
+        public ActionResult AddAttribute(AttributeModel model)
         {
-            CategoryInfo categoryInfo = AdminCategories.GetCategoryById(cateId);
-            if (categoryInfo == null)
-                return PromptView("分类不存在");
-
-            if (AdminCategories.GetAttrIdByCateIdAndName(cateId, model.AttributName) > 0)
+            if (AdminCategories.GetAttrIdByName(model.AttributName) > 0)
                 ModelState.AddModelError("AttributName", "名称已经存在");
 
-            AttributeGroupInfo attributeGroupInfo = AdminCategories.GetAttributeGroupById(model.AttrGroupId);
-            if (attributeGroupInfo == null || attributeGroupInfo.CateId != cateId)
-                ModelState.AddModelError("AttrGroupId", "属性组不存在");
+            //AttributeGroupInfo attributeGroupInfo = AdminCategories.GetAttributeGroupById(model.AttrGroupId);
+            //if (attributeGroupInfo == null || attributeGroupInfo.CateId != cateId)
+            //    ModelState.AddModelError("AttrGroupId", "属性组不存在");
 
             if (ModelState.IsValid)
             {
                 AttributeInfo attributeInfo = new AttributeInfo();
                 attributeInfo.Name = model.AttributName;
-                attributeInfo.CateId = cateId;
+                //attributeInfo.CateId = cateId;
                 attributeInfo.AttrGroupId = model.AttrGroupId;
                 attributeInfo.ShowType = model.ShowType;
-                attributeInfo.IsFilter = model.IsFilter;
+                //attributeInfo.IsFilter = model.IsFilter;
                 attributeInfo.DisplayOrder = model.DisplayOrder;
 
-                AdminCategories.CreateAttribute(attributeInfo, attributeGroupInfo);
-                AddMallAdminLog("添加分类属性", "添加分类属性,属性为:" + model.AttributName);
-                return PromptView("分类属性添加成功");
+                AdminCategories.CreateAttribute(attributeInfo, null);
+                AddMallAdminLog("添加属性", "添加属性,属性为:" + model.AttributName);
+                return PromptView("属性添加成功");
             }
-            ViewData["cateId"] = categoryInfo.CateId;
-            ViewData["categoryName"] = categoryInfo.Name;
-            ViewData["attributeGroupList"] = GetAttributeGroupSelectList(cateId);
+            //ViewData["cateId"] = categoryInfo.CateId;
+            //ViewData["categoryName"] = categoryInfo.Name;
+            //ViewData["attributeGroupList"] = GetAttributeGroupSelectList(cateId);
             ViewData["referer"] = MallUtils.GetMallAdminRefererCookie();
             return View(model);
         }
@@ -390,13 +371,13 @@ namespace NStore.Web.MallAdmin.Controllers
             model.AttributName = attributeInfo.Name;
             model.AttrGroupId = attributeInfo.AttrGroupId;
             model.ShowType = attributeInfo.ShowType;
-            model.IsFilter = attributeInfo.IsFilter;
+            //model.IsFilter = attributeInfo.IsFilter;
             model.DisplayOrder = attributeInfo.DisplayOrder;
 
-            CategoryInfo categoryInfo = AdminCategories.GetCategoryById(attributeInfo.CateId);
-            ViewData["cateId"] = categoryInfo.CateId;
-            ViewData["categoryName"] = categoryInfo.Name;
-            ViewData["attributeGroupList"] = GetAttributeGroupSelectList(categoryInfo.CateId);
+            //CategoryInfo categoryInfo = AdminCategories.GetCategoryById(attributeInfo.CateId);
+            //ViewData["cateId"] = categoryInfo.CateId;
+            //ViewData["categoryName"] = categoryInfo.Name;
+            //ViewData["attributeGroupList"] = GetAttributeGroupSelectList(categoryInfo.CateId);
             ViewData["referer"] = MallUtils.GetMallAdminRefererCookie();
 
             return View(model);
@@ -412,31 +393,31 @@ namespace NStore.Web.MallAdmin.Controllers
             if (attributeInfo == null)
                 return PromptView("属性不存在");
 
-            int attrId2 = AdminCategories.GetAttrIdByCateIdAndName(attributeInfo.CateId, model.AttributName);
+            int attrId2 = AdminCategories.GetAttrIdByName(model.AttributName);
             if (attrId2 > 0 && attrId2 != attrId)
                 ModelState.AddModelError("AttributName", "名称已经存在");
 
-            AttributeGroupInfo attributeGroupInfo = AdminCategories.GetAttributeGroupById(model.AttrGroupId);
-            if (attributeGroupInfo == null || attributeGroupInfo.CateId != attributeInfo.CateId)
-                ModelState.AddModelError("AttrGroupId", "属性组不存在");
+            //AttributeGroupInfo attributeGroupInfo = AdminCategories.GetAttributeGroupById(model.AttrGroupId);
+            //if (attributeGroupInfo == null || attributeGroupInfo.CateId != attributeInfo.CateId)
+            //    ModelState.AddModelError("AttrGroupId", "属性组不存在");
 
             if (ModelState.IsValid)
             {
                 attributeInfo.Name = model.AttributName;
                 attributeInfo.AttrGroupId = model.AttrGroupId;
-                attributeInfo.IsFilter = model.IsFilter;
+                //attributeInfo.IsFilter = model.IsFilter;
                 attributeInfo.ShowType = model.ShowType;
                 attributeInfo.DisplayOrder = model.DisplayOrder;
 
                 AdminCategories.UpdateAttribute(attributeInfo);
-                AddMallAdminLog("编辑分类属性", "编辑分类属性,分类属性ID为:" + attrId);
-                return PromptView("分类属性修改成功");
+                AddMallAdminLog("编辑属性", "编辑属性,属性ID为:" + attrId);
+                return PromptView("属性修改成功");
             }
 
-            CategoryInfo categoryInfo = AdminCategories.GetCategoryById(attributeInfo.CateId);
-            ViewData["cateId"] = categoryInfo.CateId;
-            ViewData["categoryName"] = categoryInfo.Name;
-            ViewData["attributeGroupList"] = GetAttributeGroupSelectList(categoryInfo.CateId);
+            //CategoryInfo categoryInfo = AdminCategories.GetCategoryById(attributeInfo.CateId);
+            //ViewData["cateId"] = categoryInfo.CateId;
+            //ViewData["categoryName"] = categoryInfo.Name;
+            //ViewData["attributeGroupList"] = GetAttributeGroupSelectList(categoryInfo.CateId);
             ViewData["referer"] = MallUtils.GetMallAdminRefererCookie();
             return View(model);
         }
@@ -454,26 +435,25 @@ namespace NStore.Web.MallAdmin.Controllers
         }
 
         /// <summary>
-        /// 获得分类的属性及其值json列表
+        /// 获得属性及其值json列表
         /// </summary>
-        /// <param name="cateId">分类id</param>
         /// <returns></returns>
-        public ContentResult AAndVJsonList(int cateId = -1)
+        public ContentResult AAndVJsonList()
         {
-            return Content(AdminCategories.GetCategoryAAndVListJsonCache(cateId));
+            return Content(AdminCategories.GetAAndVListJsonCache());
         }
 
-        private List<SelectListItem> GetAttributeGroupSelectList(int cateId)
-        {
-            List<SelectListItem> itemList = new List<SelectListItem>();
-            List<AttributeGroupInfo> attributeGroupList = AdminCategories.GetAttributeGroupListByCateId(cateId);
-            itemList.Add(new SelectListItem() { Text = "请选择分类", Value = "0" });
-            foreach (AttributeGroupInfo attributeGroupInfo in attributeGroupList)
-            {
-                itemList.Add(new SelectListItem() { Text = attributeGroupInfo.Name, Value = attributeGroupInfo.AttrGroupId.ToString() });
-            }
-            return itemList;
-        }
+        //private List<SelectListItem> GetAttributeGroupSelectList(int cateId)
+        //{
+        //    List<SelectListItem> itemList = new List<SelectListItem>();
+        //    List<AttributeGroupInfo> attributeGroupList = AdminCategories.GetAttributeGroupListByCateId(cateId);
+        //    itemList.Add(new SelectListItem() { Text = "请选择分类", Value = "0" });
+        //    foreach (AttributeGroupInfo attributeGroupInfo in attributeGroupList)
+        //    {
+        //        itemList.Add(new SelectListItem() { Text = attributeGroupInfo.Name, Value = attributeGroupInfo.AttrGroupId.ToString() });
+        //    }
+        //    return itemList;
+        //}
 
 
 
@@ -495,7 +475,7 @@ namespace NStore.Web.MallAdmin.Controllers
                 AttributeValueList = AdminCategories.GetAttributeSelectValueListByAttrId(attrId),
                 AttrId = attributeInfo.AttrId,
                 AttributeName = attributeInfo.Name,
-                CateId = attributeInfo.CateId
+                //CateId = attributeInfo.CateId
             };
             MallUtils.SetAdminRefererCookie(string.Format("{0}?attrId={1}", Url.Action("attributevaluelist"), attrId));
             return View(model);
@@ -534,7 +514,7 @@ namespace NStore.Web.MallAdmin.Controllers
 
             if (ModelState.IsValid)
             {
-                AttributeGroupInfo attributeGroupInfo = AdminCategories.GetAttributeGroupById(attributeInfo.AttrGroupId);
+                //AttributeGroupInfo attributeGroupInfo = AdminCategories.GetAttributeGroupById(attributeInfo.AttrGroupId);
                 AttributeValueInfo attributeValueInfo = new AttributeValueInfo();
 
                 attributeValueInfo.AttrId = attributeInfo.AttrId;
@@ -542,12 +522,12 @@ namespace NStore.Web.MallAdmin.Controllers
                 attributeValueInfo.AttrDisplayOrder = attributeInfo.DisplayOrder;
                 attributeValueInfo.AttrShowType = attributeInfo.ShowType;
 
-                attributeValueInfo.AttrGroupId = attributeGroupInfo.AttrGroupId;
-                attributeValueInfo.AttrGroupName = attributeGroupInfo.Name;
-                attributeValueInfo.AttrGroupDisplayOrder = attributeGroupInfo.DisplayOrder;
+                attributeValueInfo.AttrGroupId = 0;// attributeGroupInfo.AttrGroupId;
+                attributeValueInfo.AttrGroupName = "";// attributeGroupInfo.Name;
+                attributeValueInfo.AttrGroupDisplayOrder = 0;// attributeGroupInfo.DisplayOrder;
 
                 attributeValueInfo.AttrValue = model.AttrValue;
-                attributeValueInfo.IsInput = 0;
+                //attributeValueInfo.IsInput = 0;
                 attributeValueInfo.AttrValueDisplayOrder = model.DisplayOrder;
 
                 AdminCategories.CreateAttributeValue(attributeValueInfo);
@@ -593,8 +573,8 @@ namespace NStore.Web.MallAdmin.Controllers
             AttributeValueInfo attributeValueInfo = AdminCategories.GetAttributeValueById(attrValueId);
             if (attributeValueInfo == null)
                 return PromptView("属性值不存在");
-            if (attributeValueInfo.IsInput == 1)
-                return PromptView("输入型属性值不能修改");
+            //if (attributeValueInfo.IsInput == 1)
+            //    return PromptView("输入型属性值不能修改");
 
             int attrValueId2 = AdminCategories.GetAttributeValueIdByAttrIdAndValue(attributeValueInfo.AttrId, model.AttrValue);
             if (attrValueId2 > 0 && attrValueId2 != attrValueId)

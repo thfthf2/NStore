@@ -33,14 +33,17 @@ namespace NStore.Web.MallAdmin.models
         [Required(ErrorMessage = "名称不能为空")]
         [StringLength(10, ErrorMessage = "名称长度不能大于8")]
         public string SpecialName { get; set; }
+
         /// <summary>
         /// 专场排序
         /// </summary>
         [DisplayName("排序")]
         public int DisplayOrder { get; set; }
+        
         /// <summary>
-        /// 专场状态
+        /// 状态
         /// </summary>
+        [Range(0, 1, ErrorMessage = "请选择状态")]
         [DisplayName("状态")]
         public int State { get; set; }
     }

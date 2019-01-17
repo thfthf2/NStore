@@ -279,10 +279,9 @@ namespace NStore.Core
         /// <summary>
         /// 后台获得属性列表
         /// </summary>
-        /// <param name="cateId">分类id</param>
         /// <param name="sort">排序</param>
         /// <returns></returns>
-        DataTable AdminGetAttributeList(int cateId, string sort);
+        DataTable AdminGetAttributeList(string sort);
 
         /// <summary>
         /// 后台获得属性列表排序
@@ -295,9 +294,8 @@ namespace NStore.Core
         /// <summary>
         /// 获得属性列表
         /// </summary>
-        /// <param name="cateId">分类id</param>
         /// <returns></returns>
-        IDataReader GetAttributeListByCateId(int cateId);
+        IDataReader GetAttributeList();
 
         /// <summary>
         /// 获得属性列表
@@ -314,12 +312,11 @@ namespace NStore.Core
         IDataReader GetFilterAttributeListByCateId(int cateId);
 
         /// <summary>
-        /// 通过分类id和属性名称获得属性id
+        /// 通过属性名称获得属性id
         /// </summary>
-        /// <param name="cateId">分类id</param>
         /// <param name="attributeName">属性名称</param>
         /// <returns></returns>
-        int GetAttrIdByCateIdAndName(int cateId, string attributeName);
+        int GetAttrIdByName( string attributeName);
 
         #endregion
 
