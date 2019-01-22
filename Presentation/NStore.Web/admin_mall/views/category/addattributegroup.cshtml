@@ -24,7 +24,7 @@
     <div class="addTable">
 
             <table width="100%">
-                            <tr>
+                            @*<tr>
                     <td width="76px" align="right">
                         所属分类：
                     </td>
@@ -32,9 +32,9 @@
                     <input type="hidden" name="CateId" value="@ViewData["cateId"]" />
                     <input type="text" name="CategoryName" disabled="disabled" size = "35" class = "input" value="@ViewData["categoryName"]" />
                     </td>
-                </tr>
+                </tr>*@
                 <tr>
-                    <td align="right">
+                    <td  width="76px" align="right">
                         分组名称：
                     </td>
                     <td>@Html.TextBoxFor(x => x.AttributeGroupName, new { @class = "input", size = "35" })@Html.ValidationMessageFor(x => x.AttributeGroupName)

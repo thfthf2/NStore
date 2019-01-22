@@ -8,7 +8,7 @@ namespace NStore.Core
     public class AttributeGroupInfo
     {
         private int _attrgroupid;//属性分组id
-        private int _cateid;//分类id
+        //private int _cateid;//分类id
         private string _name = "";//分组名称
         private int _displayorder;//分组排序
 
@@ -21,14 +21,14 @@ namespace NStore.Core
             get { return _attrgroupid; }
         }
 
-        /// <summary>
-        /// 分类id
-        /// </summary>
-        public int CateId
-        {
-            set { _cateid = value; }
-            get { return _cateid; }
-        }
+        ///// <summary>
+        ///// 分类id
+        ///// </summary>
+        //public int CateId
+        //{
+        //    set { _cateid = value; }
+        //    get { return _cateid; }
+        //}
         /// <summary>
         /// 分组名称
         /// </summary>

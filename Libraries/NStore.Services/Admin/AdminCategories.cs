@@ -127,8 +127,8 @@ namespace NStore.Services
                 return -3;
             if (categoryInfo.HasChild == 1)
                 return -2;
-            if (GetAttributeGroupListByCateId(cateId).Count > 0)
-                return -1;
+            //if (GetAttributeGroupListByCateId(cateId).Count > 0)
+            //    return -1;
             if (AdminProducts.AdminGetCategoryProductCount(cateId) > 0)
                 return 0;
 
@@ -316,7 +316,7 @@ namespace NStore.Services
         public static void CreateAttributeValue(AttributeValueInfo attributeValueInfo)
         {
             NStore.Data.Categories.CreateAttributeValue(attributeValueInfo);
-            AttributeInfo attributeInfo = GetAttributeById(attributeValueInfo.AttrId);
+            //AttributeInfo attributeInfo = GetAttributeById(attributeValueInfo.AttrId);
             //if (attributeInfo.IsFilter == 1)
             //{
             //    NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_FILTERAANDVLIST + attributeInfo.CateId);
@@ -354,7 +354,7 @@ namespace NStore.Services
         public static void UpdateAttributeValue(AttributeValueInfo attributeValueInfo)
         {
             NStore.Data.Categories.UpdateAttributeValue(attributeValueInfo);
-            AttributeInfo attributeInfo = GetAttributeById(attributeValueInfo.AttrId);
+            //AttributeInfo attributeInfo = GetAttributeById(attributeValueInfo.AttrId);
             //if (attributeInfo.IsFilter == 1)
             //{
             //    NStore.Core.BMACache.Remove(CacheKeys.MALL_CATEGORY_FILTERAANDVLIST + attributeInfo.CateId);

@@ -40,7 +40,7 @@ namespace NStore.Data
             AttributeGroupInfo attributeGroupInfo = new AttributeGroupInfo();
 
             attributeGroupInfo.AttrGroupId = TypeHelper.ObjectToInt(reader["attrgroupid"]);
-            attributeGroupInfo.CateId = TypeHelper.ObjectToInt(reader["cateid"]);
+            //attributeGroupInfo.CateId = TypeHelper.ObjectToInt(reader["cateid"]);
             attributeGroupInfo.Name = reader["name"].ToString();
             attributeGroupInfo.DisplayOrder = TypeHelper.ObjectToInt(reader["displayorder"]);
 
@@ -155,12 +155,11 @@ namespace NStore.Data
         /// <summary>
         /// 获得分类的属性分组列表
         /// </summary>
-        /// <param name="cateId">分类id.</param>
         /// <returns></returns>
-        public static List<AttributeGroupInfo> GetAttributeGroupListByCateId(int cateId)
+        public static List<AttributeGroupInfo> GetAttributeGroupList()
         {
             List<AttributeGroupInfo> attributeGroupList = new List<AttributeGroupInfo>();
-            IDataReader reader = NStore.Core.BMAData.RDBS.GetAttributeGroupListByCateId(cateId);
+            IDataReader reader = NStore.Core.BMAData.RDBS.GetAttributeGroupList();
             while (reader.Read())
             {
                 AttributeGroupInfo attributeGroupInfo = BuildAttributeGroupFromReader(reader);
@@ -217,12 +216,11 @@ namespace NStore.Data
         /// <summary>
         /// 通过分类id和属性分组名称获得分组id
         /// </summary>
-        /// <param name="cateId">分类id</param>
         /// <param name="name">分组名称</param>
         /// <returns></returns>
-        public static int GetAttrGroupIdByCateIdAndName(int cateId, string name)
+        public static int GetAttributeGroupIdByName( string name)
         {
-            return NStore.Core.BMAData.RDBS.GetAttrGroupIdByCateIdAndName(cateId, name);
+            return NStore.Core.BMAData.RDBS.GetAttributeGroupIdByName(name);
         }
 
 

@@ -376,7 +376,7 @@ namespace NStore.Services
                 json.Append("]");
 
                 jsonCache = json.ToString();
-                NStore.Core.BMACache.Insert(CacheKeys.MALL_CATEGORY_AANDVLISTJSONCACHE , jsonCache);
+                NStore.Core.BMACache.Insert(CacheKeys.MALL_CATEGORY_AANDVLISTJSONCACHE, jsonCache);
             }
 
             return jsonCache;
@@ -391,11 +391,10 @@ namespace NStore.Services
         /// <summary>
         /// 获得分类的属性分组列表
         /// </summary>
-        /// <param name="cateId">分类id</param>
         /// <returns></returns>
-        public static List<AttributeGroupInfo> GetAttributeGroupListByCateId(int cateId)
+        public static List<AttributeGroupInfo> GetAttributeGroupList()
         {
-            return NStore.Data.Categories.GetAttributeGroupListByCateId(cateId);
+            return NStore.Data.Categories.GetAttributeGroupList();
         }
 
         /// <summary>
@@ -410,14 +409,13 @@ namespace NStore.Services
         /// <summary>
         /// 通过分类id和属性分组名称获得分组id
         /// </summary>
-        /// <param name="cateId">分类id</param>
         /// <param name="name">分组名称</param>
         /// <returns></returns>
-        public static int GetAttributeGroupIdByCateIdAndName(int cateId, string name)
+        public static int GetAttributeGroupIdByName(string name)
         {
-            if (cateId < 1 || string.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrWhiteSpace(name))
                 return 0;
-            return NStore.Data.Categories.GetAttrGroupIdByCateIdAndName(cateId, name);
+            return NStore.Data.Categories.GetAttributeGroupIdByName(name);
         }
 
 

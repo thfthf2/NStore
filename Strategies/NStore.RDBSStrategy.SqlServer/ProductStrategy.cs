@@ -504,19 +504,18 @@ namespace NStore.RDBSStrategy.SqlServer
         #region 属性分组
 
         /// <summary>
-        /// 获得分类的属性分组列表
+        /// 获得属性分组列表
         /// </summary>
-        /// <param name="cateId">The cate id.</param>
         /// <returns></returns>
-        public IDataReader GetAttributeGroupListByCateId(int cateId)
+        public IDataReader GetAttributeGroupList()
         {
-            DbParameter[] parms = {
-                                    GenerateInParam("@cateid", SqlDbType.SmallInt, 2, cateId)
-                                  };
-            string commandText = string.Format("SELECT {1} FROM [{0}attributegroups] WHERE [cateid]=@cateid ORDER BY [displayorder] DESC",
+            //DbParameter[] parms = {
+            //                        GenerateInParam("@cateid", SqlDbType.SmallInt, 2, cateId)
+            //                      };
+            string commandText = string.Format("SELECT {1} FROM [{0}attributegroups] ORDER BY [displayorder] DESC", //WHERE [cateid]=@cateid
                                                 RDBSHelper.RDBSTablePre,
                                                 RDBSFields.ATTRIBUTE_GROUPS);
-            return RDBSHelper.ExecuteReader(CommandType.Text, commandText, parms);
+            return RDBSHelper.ExecuteReader(CommandType.Text, commandText, null);
         }
 
         /// <summary>
@@ -540,11 +539,11 @@ namespace NStore.RDBSStrategy.SqlServer
         public void CreateAttributeGroup(AttributeGroupInfo attributeGroupInfo)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@cateid", SqlDbType.SmallInt, 2, attributeGroupInfo.CateId),
+                                        //GenerateInParam("@cateid", SqlDbType.SmallInt, 2, attributeGroupInfo.CateId),
                                         GenerateInParam("@name", SqlDbType.NChar, 20, attributeGroupInfo.Name),
                                         GenerateInParam("@displayorder", SqlDbType.Int,4,attributeGroupInfo.DisplayOrder)
                                     };
-            string commandText = string.Format("INSERT INTO [{0}attributegroups]([cateid],[name],[displayorder]) VALUES(@cateid,@name,@displayorder)",
+            string commandText = string.Format("INSERT INTO [{0}attributegroups]([name],[displayorder]) VALUES(@name,@displayorder)", //[cateid], @cateid,
                                                 RDBSHelper.RDBSTablePre);
             RDBSHelper.ExecuteNonQuery(CommandType.Text, commandText, parms);
         }
@@ -571,13 +570,13 @@ namespace NStore.RDBSStrategy.SqlServer
         public void UpdateAttributeGroup(AttributeGroupInfo attributeGroupInfo)
         {
             DbParameter[] parms = {
-                                        GenerateInParam("@cateid", SqlDbType.SmallInt, 2, attributeGroupInfo.CateId),
+                                        //GenerateInParam("@cateid", SqlDbType.SmallInt, 2, attributeGroupInfo.CateId),
                                         GenerateInParam("@name", SqlDbType.NChar, 20, attributeGroupInfo.Name),
                                         GenerateInParam("@displayorder", SqlDbType.Int,4,attributeGroupInfo.DisplayOrder),
                                         GenerateInParam("@attrgroupid", SqlDbType.SmallInt, 2, attributeGroupInfo.AttrGroupId)
                                     };
 
-            string commandText = string.Format("UPDATE [{0}attributegroups] SET [cateid]=@cateid,[name]=@name,[displayorder]=@displayorder WHERE [attrgroupid]=@attrgroupid",
+            string commandText = string.Format("UPDATE [{0}attributegroups] SET [name]=@name,[displayorder]=@displayorder WHERE [attrgroupid]=@attrgroupid",//[cateid]=@cateid,
                                                 RDBSHelper.RDBSTablePre);
             int effetRowCount = RDBSHelper.ExecuteNonQuery(CommandType.Text, commandText, parms);
             if (effetRowCount > 0)
@@ -594,17 +593,16 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <summary>
         /// 通过分类id和属性分组名称获得分组id
         /// </summary>
-        /// <param name="cateId">分类id</param>
         /// <param name="name">分组名称</param>
         /// <returns></returns>
-        public int GetAttrGroupIdByCateIdAndName(int cateId, string name)
+        public int GetAttributeGroupIdByName(string name)
         {
             DbParameter[] parms = {
                                         GenerateInParam("@name", SqlDbType.NChar, 20, name),
-                                        GenerateInParam("@cateid",SqlDbType.SmallInt,2,cateId)
+                                        //GenerateInParam("@cateid",SqlDbType.SmallInt,2,cateId)
                                     };
 
-            string commandText = string.Format("SELECT [attrgroupid] FROM [{0}attributegroups] WHERE [cateid]=@cateid AND [name]=@name",
+            string commandText = string.Format("SELECT [attrgroupid] FROM [{0}attributegroups] WHERE [name]=@name", //[cateid]=@cateid AND
                                                 RDBSHelper.RDBSTablePre);
             return TypeHelper.ObjectToInt(RDBSHelper.ExecuteScalar(CommandType.Text, commandText, parms), -1);
         }
@@ -786,7 +784,7 @@ namespace NStore.RDBSStrategy.SqlServer
                                         GenerateInParam("@attrid", SqlDbType.SmallInt, 2, attributeInfo.AttrId)
                                     };
 
-            string commandText = string.Format("UPDATE [{0}attributes] SET [name]=@name,[cateid]=@cateid,[attrgroupid]=@attrgroupid,[showtype]=@showtype,[isfilter]=@isfilter,[displayorder]=@displayorder WHERE [attrid]=@attrid",
+            string commandText = string.Format("UPDATE [{0}attributes] SET [name]=@name,[attrgroupid]=@attrgroupid,[showtype]=@showtype,[displayorder]=@displayorder WHERE [attrid]=@attrid",//[cateid]=@cateid,[isfilter]=@isfilter,
                                                 RDBSHelper.RDBSTablePre);
             int effetRowCount = RDBSHelper.ExecuteNonQuery(CommandType.Text, commandText, parms);
             if (effetRowCount > 0)
@@ -794,8 +792,8 @@ namespace NStore.RDBSStrategy.SqlServer
                 commandText = string.Format("UPDATE [{0}attributevalues] SET [attrname]='{1}',[attrdisplayorder]={2},[attrshowtype]={3} WHERE [attrid]={4}",
                                              RDBSHelper.RDBSTablePre,
                                              attributeInfo.Name,
-                                             //attributeInfo.DisplayOrder,
-                                             //attributeInfo.ShowType,
+                                             attributeInfo.DisplayOrder,
+                                             attributeInfo.ShowType,
                                              attributeInfo.AttrId);
                 RDBSHelper.ExecuteNonQuery(CommandType.Text, commandText);
             }

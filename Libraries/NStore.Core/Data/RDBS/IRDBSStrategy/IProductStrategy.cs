@@ -222,19 +222,17 @@ namespace NStore.Core
         void UpdateAttributeGroup(AttributeGroupInfo attributeGroupInfo);
 
         /// <summary>
-        /// 获得分类的属性分组列表
+        /// 获得属性分组列表
         /// </summary>
-        /// <param name="cateId">The cate id.</param>
         /// <returns></returns>
-        IDataReader GetAttributeGroupListByCateId(int cateId);
+        IDataReader GetAttributeGroupList();
 
         /// <summary>
-        /// 通过分类id和属性分组名称获得分组id
+        /// 通过属性分组名称获得分组id
         /// </summary>
-        /// <param name="cateId">分类id</param>
         /// <param name="name">分组名称</param>
         /// <returns></returns>
-        int GetAttrGroupIdByCateIdAndName(int cateId, string name);
+        int GetAttributeGroupIdByName(string name);
 
         #endregion
 

@@ -158,24 +158,24 @@ namespace NStore.Web.MallAdmin.Controllers
 
 
 
-        /// <summary>
-        /// 属性分组列表
-        /// </summary>
-        public ActionResult AttributeGroupList(int cateId = -1)
-        {
-            CategoryInfo categoryInfo = AdminCategories.GetCategoryById(cateId);
-            if (categoryInfo == null)
-                return PromptView("分类不存在");
+        ///// <summary>
+        ///// 属性分组列表
+        ///// </summary>
+        //public ActionResult AttributeGroupList(int cateId = -1)
+        //{
+        //    CategoryInfo categoryInfo = AdminCategories.GetCategoryById(cateId);
+        //    if (categoryInfo == null)
+        //        return PromptView("分类不存在");
 
-            AttributeGroupListModel model = new AttributeGroupListModel()
-            {
-                AttributeGroupList = AdminCategories.GetAttributeGroupListByCateId(cateId),
-                CateId = cateId,
-                CategoryName = categoryInfo.Name
-            };
-            MallUtils.SetAdminRefererCookie(string.Format("{0}?cateId={1}", Url.Action("attributegrouplist"), cateId));
-            return View(model);
-        }
+        //    AttributeGroupListModel model = new AttributeGroupListModel()
+        //    {
+        //        AttributeGroupList = AdminCategories.GetAttributeGroupListByCateId(cateId),
+        //        CateId = cateId,
+        //        CategoryName = categoryInfo.Name
+        //    };
+        //    MallUtils.SetAdminRefererCookie(string.Format("{0}?cateId={1}", Url.Action("attributegrouplist"), cateId));
+        //    return View(model);
+        //}
 
         /// <summary>
         /// 添加属性分组
@@ -183,13 +183,13 @@ namespace NStore.Web.MallAdmin.Controllers
         [HttpGet]
         public ActionResult AddAttributeGroup(int cateId = -1)
         {
-            CategoryInfo categoryInfo = AdminCategories.GetCategoryById(cateId);
-            if (categoryInfo == null)
-                return PromptView("分类不存在");
+            //CategoryInfo categoryInfo = AdminCategories.GetCategoryById(cateId);
+            //if (categoryInfo == null)
+            //    return PromptView("分类不存在");
 
             AttributeGroupModel model = new AttributeGroupModel();
-            ViewData["cateId"] = categoryInfo.CateId;
-            ViewData["categoryName"] = categoryInfo.Name;
+            //ViewData["cateId"] = categoryInfo.CateId;
+            //ViewData["categoryName"] = categoryInfo.Name;
             ViewData["referer"] = MallUtils.GetMallAdminRefererCookie();
             return View(model);
         }
@@ -198,13 +198,13 @@ namespace NStore.Web.MallAdmin.Controllers
         /// 添加属性分组
         /// </summary>
         [HttpPost]
-        public ActionResult AddAttributeGroup(AttributeGroupModel model, int cateId = -1)
+        public ActionResult AddAttributeGroup(AttributeGroupModel model)
         {
-            CategoryInfo categoryInfo = AdminCategories.GetCategoryById(cateId);
-            if (categoryInfo == null)
-                return PromptView("分类不存在");
+            //CategoryInfo categoryInfo = AdminCategories.GetCategoryById(cateId);
+            //if (categoryInfo == null)
+            //    return PromptView("分类不存在");
 
-            if (AdminCategories.GetAttributeGroupIdByCateIdAndName(cateId, model.AttributeGroupName) > 0)
+            if (AdminCategories.GetAttributeGroupIdByName(model.AttributeGroupName) > 0)
                 ModelState.AddModelError("AttributeGroupName", "名称已经存在");
 
             if (ModelState.IsValid)
@@ -212,7 +212,7 @@ namespace NStore.Web.MallAdmin.Controllers
                 AttributeGroupInfo attributeGroupInfo = new AttributeGroupInfo()
                 {
                     Name = model.AttributeGroupName,
-                    CateId = categoryInfo.CateId,
+                    //CateId = categoryInfo.CateId,
                     DisplayOrder = model.DisplayOrder
                 };
 
@@ -220,8 +220,8 @@ namespace NStore.Web.MallAdmin.Controllers
                 AddMallAdminLog("添加属性分组", "添加属性分组,属性分组为:" + model.AttributeGroupName);
                 return PromptView("属性分组添加成功");
             }
-            ViewData["cateId"] = categoryInfo.CateId;
-            ViewData["categoryName"] = categoryInfo.Name;
+            //ViewData["cateId"] = categoryInfo.CateId;
+            //ViewData["categoryName"] = categoryInfo.Name;
             ViewData["referer"] = MallUtils.GetMallAdminRefererCookie();
             return View(model);
         }
@@ -239,9 +239,9 @@ namespace NStore.Web.MallAdmin.Controllers
             AttributeGroupModel model = new AttributeGroupModel();
             model.AttributeGroupName = attributeGroupInfo.Name;
             model.DisplayOrder = attributeGroupInfo.DisplayOrder;
-            CategoryInfo categoryInfo = AdminCategories.GetCategoryById(attributeGroupInfo.CateId);
-            ViewData["cateId"] = categoryInfo.CateId;
-            ViewData["categoryName"] = categoryInfo.Name;
+            //CategoryInfo categoryInfo = AdminCategories.GetCategoryById(attributeGroupInfo.CateId);
+            //ViewData["cateId"] = categoryInfo.CateId;
+            //ViewData["categoryName"] = categoryInfo.Name;
             ViewData["referer"] = MallUtils.GetMallAdminRefererCookie();
 
             return View(model);
@@ -257,7 +257,7 @@ namespace NStore.Web.MallAdmin.Controllers
             if (attributeGroupInfo == null)
                 return PromptView("属性分组不存在");
 
-            int attrGroupId2 = AdminCategories.GetAttributeGroupIdByCateIdAndName(attributeGroupInfo.CateId, model.AttributeGroupName);
+            int attrGroupId2 = AdminCategories.GetAttributeGroupIdByName(model.AttributeGroupName);
             if (attrGroupId2 > 0 && attrGroupId2 != attrGroupId)
                 ModelState.AddModelError("AttributeGroupName", "名称已经存在");
 
@@ -271,9 +271,9 @@ namespace NStore.Web.MallAdmin.Controllers
                 return PromptView("属性分组修改成功");
             }
 
-            CategoryInfo categoryInfo = AdminCategories.GetCategoryById(attributeGroupInfo.CateId);
-            ViewData["cateId"] = categoryInfo.CateId;
-            ViewData["categoryName"] = categoryInfo.Name;
+            //CategoryInfo categoryInfo = AdminCategories.GetCategoryById(attributeGroupInfo.CateId);
+            //ViewData["cateId"] = categoryInfo.CateId;
+            //ViewData["categoryName"] = categoryInfo.Name;
             ViewData["referer"] = MallUtils.GetMallAdminRefererCookie();
             return View(model);
         }
@@ -289,12 +289,6 @@ namespace NStore.Web.MallAdmin.Controllers
             AddMallAdminLog("删除属性分组", "删除属性分组,属性分组ID为:" + attrGroupId);
             return PromptView("属性分组删除成功");
         }
-
-
-
-
-
-
 
         /// <summary>
         /// 属性列表
@@ -319,6 +313,7 @@ namespace NStore.Web.MallAdmin.Controllers
         public ActionResult AddAttribute()
         {
             AttributeModel model = new AttributeModel();
+            ViewData["attributeGroupList"] = GetAttributeGroupSelectList();
             ViewData["referer"] = MallUtils.GetMallAdminRefererCookie();
             return View(model);
         }
@@ -377,7 +372,9 @@ namespace NStore.Web.MallAdmin.Controllers
             //CategoryInfo categoryInfo = AdminCategories.GetCategoryById(attributeInfo.CateId);
             //ViewData["cateId"] = categoryInfo.CateId;
             //ViewData["categoryName"] = categoryInfo.Name;
-            //ViewData["attributeGroupList"] = GetAttributeGroupSelectList(categoryInfo.CateId);
+            //ViewData["attributeGroupList"] = GetAttributeGroupSelectList();
+            AttributeGroupInfo attributeGroupInfo = AdminCategories.GetAttributeGroupById(attributeInfo.AttrGroupId);
+            ViewData["attributeGroupName"] = attributeGroupInfo.Name;
             ViewData["referer"] = MallUtils.GetMallAdminRefererCookie();
 
             return View(model);
@@ -443,17 +440,17 @@ namespace NStore.Web.MallAdmin.Controllers
             return Content(AdminCategories.GetAAndVListJsonCache());
         }
 
-        //private List<SelectListItem> GetAttributeGroupSelectList(int cateId)
-        //{
-        //    List<SelectListItem> itemList = new List<SelectListItem>();
-        //    List<AttributeGroupInfo> attributeGroupList = AdminCategories.GetAttributeGroupListByCateId(cateId);
-        //    itemList.Add(new SelectListItem() { Text = "请选择分类", Value = "0" });
-        //    foreach (AttributeGroupInfo attributeGroupInfo in attributeGroupList)
-        //    {
-        //        itemList.Add(new SelectListItem() { Text = attributeGroupInfo.Name, Value = attributeGroupInfo.AttrGroupId.ToString() });
-        //    }
-        //    return itemList;
-        //}
+        private List<SelectListItem> GetAttributeGroupSelectList()
+        {
+            List<SelectListItem> itemList = new List<SelectListItem>();
+            List<AttributeGroupInfo> attributeGroupList = AdminCategories.GetAttributeGroupList();
+            itemList.Add(new SelectListItem() { Text = "请选择分组", Value = "0" });
+            foreach (AttributeGroupInfo attributeGroupInfo in attributeGroupList)
+            {
+                itemList.Add(new SelectListItem() { Text = attributeGroupInfo.Name, Value = attributeGroupInfo.AttrGroupId.ToString() });
+            }
+            return itemList;
+        }
 
 
 
@@ -514,7 +511,7 @@ namespace NStore.Web.MallAdmin.Controllers
 
             if (ModelState.IsValid)
             {
-                //AttributeGroupInfo attributeGroupInfo = AdminCategories.GetAttributeGroupById(attributeInfo.AttrGroupId);
+                AttributeGroupInfo attributeGroupInfo = AdminCategories.GetAttributeGroupById(attributeInfo.AttrGroupId);
                 AttributeValueInfo attributeValueInfo = new AttributeValueInfo();
 
                 attributeValueInfo.AttrId = attributeInfo.AttrId;
@@ -522,9 +519,9 @@ namespace NStore.Web.MallAdmin.Controllers
                 attributeValueInfo.AttrDisplayOrder = attributeInfo.DisplayOrder;
                 attributeValueInfo.AttrShowType = attributeInfo.ShowType;
 
-                attributeValueInfo.AttrGroupId = 0;// attributeGroupInfo.AttrGroupId;
-                attributeValueInfo.AttrGroupName = "";// attributeGroupInfo.Name;
-                attributeValueInfo.AttrGroupDisplayOrder = 0;// attributeGroupInfo.DisplayOrder;
+                attributeValueInfo.AttrGroupId = attributeGroupInfo.AttrGroupId;
+                attributeValueInfo.AttrGroupName =  attributeGroupInfo.Name;
+                attributeValueInfo.AttrGroupDisplayOrder = attributeGroupInfo.DisplayOrder;
 
                 attributeValueInfo.AttrValue = model.AttrValue;
                 //attributeValueInfo.IsInput = 0;

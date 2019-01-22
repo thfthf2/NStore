@@ -33,13 +33,13 @@
                     </td>
                 </tr>*@
                 <tr>
-                    <td align="right">
+                    <td  width="76px" align="right">
                         属性名称：
                     </td>
                     <td>@Html.TextBoxFor(x => x.AttributName, new { @class = "input", size = "35" })@Html.ValidationMessageFor(x => x.AttributName)
                     </td>
                 </tr>
-                @*<tr id="attrGroupTr">
+                <tr id="attrGroupTr">
                     <td align="right">
                         属性分组：
                     </td>
@@ -47,7 +47,7 @@
                         @Html.DropDownListFor(x => x.AttrGroupId, ViewData["attributeGroupList"] as List<SelectListItem>)
                         @Html.ValidationMessageFor(x => x.AttrGroupId)
                     </td>
-                </tr>*@
+                </tr>
                 <tr>
                     <td align="right">
                         展示类型：
