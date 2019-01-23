@@ -158,24 +158,24 @@ namespace NStore.Web.MallAdmin.Controllers
 
 
 
-        ///// <summary>
-        ///// 属性分组列表
-        ///// </summary>
-        //public ActionResult AttributeGroupList(int cateId = -1)
-        //{
-        //    CategoryInfo categoryInfo = AdminCategories.GetCategoryById(cateId);
-        //    if (categoryInfo == null)
-        //        return PromptView("分类不存在");
+        /// <summary>
+        /// 属性分组列表
+        /// </summary>
+        public ActionResult AttributeGroupList()
+        {
+            //CategoryInfo categoryInfo = AdminCategories.GetCategoryById(cateId);
+            //if (categoryInfo == null)
+            //    return PromptView("分类不存在");
 
-        //    AttributeGroupListModel model = new AttributeGroupListModel()
-        //    {
-        //        AttributeGroupList = AdminCategories.GetAttributeGroupListByCateId(cateId),
-        //        CateId = cateId,
-        //        CategoryName = categoryInfo.Name
-        //    };
-        //    MallUtils.SetAdminRefererCookie(string.Format("{0}?cateId={1}", Url.Action("attributegrouplist"), cateId));
-        //    return View(model);
-        //}
+            AttributeGroupListModel model = new AttributeGroupListModel()
+            {
+                AttributeGroupList = AdminCategories.GetAttributeGroupList(),
+                //CateId = cateId,
+                //CategoryName = categoryInfo.Name
+            };
+            MallUtils.SetAdminRefererCookie(string.Format("{0}", Url.Action("attributegrouplist")));
+            return View(model);
+        }
 
         /// <summary>
         /// 添加属性分组

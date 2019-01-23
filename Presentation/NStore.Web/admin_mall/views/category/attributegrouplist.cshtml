@@ -11,8 +11,7 @@
 <h1 class="rightH1">
 分组管理 &gt;&gt; 分组列表
 <div class="right">
-<a href="@Url.Action("categorylist")" class="menuBT"><img src="/admin_mall/content/images/goback.jpg"/>返回分类</a>
-<a href="@Url.Action("addattributegroup", new { cateId= Model.CateId})" class="menuBT"><img src="/admin_mall/content/images/add.jpg"/>添加分组</a>
+<a href="@Url.Action("addattributegroup")" class="menuBT"><img src="/admin_mall/content/images/add.jpg"/>添加分组</a>
 <div class="clear"></div>
 </div>
 <div class="clear"></div>
@@ -25,7 +24,7 @@
     <th width="10" align="left" ></th>
     <th width="80" align="left" >编号</th>
     <th width="250" align="left" >名称</th>
-    <th align="left" >所属分类</th>
+    @*<th align="left" >所属分类</th>*@
     <th width="80" align="left" >排序</th>  
     <th width="100" align="left">管理操作</th>
     </tr>
@@ -37,7 +36,7 @@
     <td></td>
     <td>@info.AttrGroupId</td>
     <td>@info.Name</td>
-    <td>@Model.CategoryName</td>
+    @*<td>@Model.CategoryName</td>*@
     <td>@info.DisplayOrder</td>
     <td>
         @Html.ActionLink("[编辑]", "editattributegroup", new { attrGroupId = info.AttrGroupId }, new { @class = "editOperate" })| 

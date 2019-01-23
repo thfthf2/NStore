@@ -679,10 +679,10 @@ namespace NStore.RDBSStrategy.SqlServer
         /// <returns></returns>
         public DataTable AdminGetAttributeList(string sort)
         {
-            string commandText = string.Format("SELECT {1} FROM [{0}attributes] ORDER BY {2} DESC",
+            string commandText = string.Format("SELECT {1} FROM [{0}attributes] as a,[{0}attributegroups] as b where a.attrgroupid=b.attrgroupid ORDER BY a.attrgroupid,{2} DESC",
                                                 RDBSHelper.RDBSTablePre,
-                                                RDBSFields.ATTRIBUTES,
-                                                sort);
+                                                RDBSFields.ATTRIBUTES_EXT,
+                                                "a." + sort);
             return RDBSHelper.ExecuteDataset(CommandType.Text, commandText).Tables[0];
         }
 

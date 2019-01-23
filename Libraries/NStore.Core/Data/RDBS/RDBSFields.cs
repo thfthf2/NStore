@@ -20,14 +20,14 @@ namespace NStore.Core
         /// <summary>
         /// 属性分组表
         /// </summary>
-        public const string ATTRIBUTE_GROUPS = "[attrgroupid],[cateid],[name],[displayorder]";
+        public const string ATTRIBUTE_GROUPS = "[attrgroupid],[name],[displayorder]";//[cateid],
 
         /// <summary>
         /// 属性表
         /// </summary>
         public const string ATTRIBUTES = "[attrid],[name],[attrgroupid],[showtype],[displayorder]";  //,[state]
         // public const string ATTRIBUTES = "[attrid],[name],[cateid],[attrgroupid],[showtype],[isfilter],[displayorder]";
-
+        public const string ATTRIBUTES_EXT = "a.[attrid],a.[name],a.[attrgroupid],a.[showtype],a.[displayorder],b.[name] as attrgroupname"; 
         /// <summary>
         /// 属性值表
         /// </summary>

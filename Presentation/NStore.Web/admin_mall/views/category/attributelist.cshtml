@@ -12,8 +12,6 @@
 属性管理 &gt;&gt; 属性列表
 <div class="right">
 @*<a href="@Url.Action("categorylist")" class="menuBT"><img src="/admin_mall/content/images/goback.jpg"/>返回分类</a>*@
-    
-<a href="@Url.Action("addattributegroup")" class="menuBT"><img src="/admin_mall/content/images/add.jpg"/>添加属性分组</a>
 <a href="@Url.Action("addattribute")" class="menuBT"><img src="/admin_mall/content/images/add.jpg"/>添加属性</a>
 <div class="clear"></div>
 </div>
@@ -33,8 +31,8 @@
   <tr>
     <th width="10" align="center"></th>
     <th width="74" align="left" name="sortTitle" column="attrid" direction="DESC">编号</th>
-    <th align="left" name="sortTitle" column="name" direction="DESC">属性名称</th>
-    @*<th width="200" align="left" name="sortTitle" column="attrgroupid" direction="DESC">属性分组</th>*@
+    <th width="200" align="left" name="sortTitle" column="name" direction="DESC">属性名称</th>
+    <th width="200" align="left" name="sortTitle" column="attrgroupid" direction="DESC">属性分组</th>
     <th width="100" align="left" name="sortTitle" column="showtype" direction="DESC">展示类型</th>
     @*<th width="100" align="left" name="sortTitle" column="isfilter" direction="DESC">筛选属性</th>*@
     <th width="100" align="left" name="sortTitle" column="displayorder" direction="ASC">排序</th>  
@@ -47,8 +45,8 @@
   <tr>
     <td align="center"></td>
     <td>@row["attrid"]</td>
-    <td>@row["name"]</td>
-   @* <td>@row["attrgroupname"]</td>*@
+    <td >@row["name"]</td>
+    <td>@row["attrgroupname"]</td>
         <td>
                     @{
       if (row["showtype"].ToString() == "0")

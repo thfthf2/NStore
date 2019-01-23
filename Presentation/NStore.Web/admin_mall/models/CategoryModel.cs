@@ -17,8 +17,8 @@ namespace NStore.Web.MallAdmin.Models
     public class AttributeGroupListModel
     {
         public List<AttributeGroupInfo> AttributeGroupList { get; set; }
-        public int CateId { get; set; }
-        public string CategoryName { get; set; }
+        //public int CateId { get; set; }
+        //public string CategoryName { get; set; }
     }
 
     /// <summary>
@@ -53,7 +53,7 @@ namespace NStore.Web.MallAdmin.Models
         //public int CateId { get; set; }
         //public string CategoryName { get; set; }
     }
-
+    
     /// <summary>
     /// 属性模型类
     /// </summary>
